@@ -9,14 +9,13 @@ import os
 import pathlib
 
 import scitex_io
-import scitex_plt
+from scitex_dev import try_import_optional
 
-# scitex.plt (umbrella) is needed for ax / configure_mpl / _subplots —
-# the standalone scitex-plt does not yet expose these. Optional.
-try:
-    import scitex.plt as _umbrella_plt  # noqa: F401
-except ImportError:  # umbrella not installed
-    _umbrella_plt = None  # type: ignore[assignment]
+# `figrecipe` is the underlying impl that the umbrella exposes as
+# `scitex.plt` — `ax`, `configure_mpl`, `_subplots`, etc. live there.
+# Use the peer standalone directly (PA304-clean); fall back to None
+# when the optional plotting layer isn't installed.
+_umbrella_plt = try_import_optional("figrecipe", extra="plt", pkg="scitex-ai")
 
 
 __FILE__ = __file__

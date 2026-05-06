@@ -3,6 +3,7 @@
 # File: src/scitex_ai/__init__.py
 # ----------------------------------------
 from __future__ import annotations
+
 """SciTeX AI — machine learning, classification, GenAI, training utilities.
 
 This package was factored out of `scitex.ai` (the in-umbrella module of
@@ -37,7 +38,7 @@ from importlib.metadata import version as _version
 try:
     __version__ = _version("scitex-ai")
 except _PackageNotFoundError:
-    __version__ = "0.1.0+local"
+    __version__ = "0.0.0+local"
 
 # ---------------------------------------------------------------------------
 # Eager submodule imports (cheap modules and ones used widely)
@@ -79,6 +80,7 @@ def __getattr__(name):
 
 
 __all__ = [
+    "__version__",
     # Classes
     "ClassificationReporter",
     "Classifier",

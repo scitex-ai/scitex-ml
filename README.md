@@ -60,7 +60,7 @@ this standalone (see
 [re-export skill](https://github.com/ywatanabe1989/scitex-python/blob/main/_skills/general/01_ecosystem_05_re-export.md)),
 so `scitex.ai.X` and `scitex_ai.X` resolve to the same object.
 
-## Install
+## Installation
 
 ```bash
 pip install scitex-ai          # core
@@ -68,6 +68,21 @@ pip install scitex-ai[heavy]   # + torch / catboost / optuna / psutil
 pip install scitex-ai[mcp]     # + fastmcp
 pip install scitex-ai[all]     # everything
 ```
+
+## 1 Interfaces
+
+<details open>
+<summary><strong>Python API</strong> ⭐⭐⭐</summary>
+
+`scitex-ai` ships a single Python API surface — `import scitex_ai` (or
+`scitex.ai` via the umbrella). It has no console-script CLI and no MCP
+server of its own; AI/ML workflows are composed in Python and run via
+the umbrella `scitex` CLI / session decorator.
+
+```python
+from scitex_ai import Classifier, EarlyStopping, ClassificationReporter
+```
+</details>
 
 ## Quick start
 
@@ -141,3 +156,40 @@ ships a thin re-export bridge under `scitex/ai/__init__.py`.
 
 AGPL-3.0-only. See [LICENSE](LICENSE). For commercial / institutional
 licensing, see [CLA.md](CLA.md).
+
+## Part of SciTeX
+
+`scitex-ai` is part of [**SciTeX**](https://scitex.ai). Install via
+the umbrella with `pip install scitex[ai]` to use as
+`scitex.ai` (Python).
+
+```python
+import scitex
+
+@scitex.session
+def main(CONFIG=scitex.INJECTED):
+    from scitex.ai import Classifier
+    clf = Classifier("LogisticRegression")
+    return 0
+```
+
+`scitex.ai` delegates to `scitex_ai` — they share the same API and registry.
+
+The SciTeX system follows the Four Freedoms for Research below, inspired by [the Free Software Definition](https://www.gnu.org/philosophy/free-sw.en.html):
+
+>Four Freedoms for Research
+>
+>0. The freedom to **run** your research anywhere — your machine, your terms.
+>1. The freedom to **study** how every step works — from raw data to final manuscript.
+>2. The freedom to **redistribute** your workflows, not just your papers.
+>3. The freedom to **modify** any module and share improvements with the community.
+>
+>AGPL-3.0 — because we believe research infrastructure deserves the same freedoms as the software it runs on.
+
+---
+
+<p align="center">
+  <a href="https://scitex.ai" target="_blank"><img src="docs/scitex-icon-navy-inverted.png" alt="SciTeX" width="40"/></a>
+</p>
+
+<!-- EOF -->

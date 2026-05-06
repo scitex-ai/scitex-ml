@@ -7,6 +7,17 @@ behaviour lives in the original tests copied from scitex-python's
 
 from __future__ import annotations
 
+import pytest
+
+# Heavy optional deps — declared in `[heavy]` extra. Skip the smoke
+# suite gracefully when they're not installed (e.g. `pip install -e .[dev]`
+# without `[heavy]`). PS210 — see _skills/general/
+# 01_ecosystem_02_dependency-and-version-pinning.md `[dev]` extras completeness.
+pytest.importorskip("torch")
+pytest.importorskip("torchvision")
+pytest.importorskip("optuna")
+pytest.importorskip("pytorch_pretrained_vit")
+
 
 def test_import_scitex_ai():
     import scitex_ai  # noqa: F401

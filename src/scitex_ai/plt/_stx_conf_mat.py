@@ -4,21 +4,21 @@
 # File: /ssh:sp:/home/ywatanabe/proj/scitex_repo/src/scitex/ml/plt/stx_conf_mat.py
 # ----------------------------------------
 from __future__ import annotations
+
 import scitex_context
 import scitex_io
 import scitex_plt
+from scitex_dev import try_import_optional
 
-# scitex.plt (umbrella) is needed for ax / configure_mpl / _subplots —
-# the standalone scitex-plt does not yet expose these. Optional.
-try:
-    import scitex.plt as _umbrella_plt  # noqa: F401
-except ImportError:  # umbrella not installed
-    _umbrella_plt = None  # type: ignore[assignment]
-
-import scitex_str
-
+# `figrecipe` is the underlying impl that the umbrella exposes as
+# `scitex.plt` — `ax`, `configure_mpl`, `_subplots`, etc. live there.
+# Use the peer standalone directly (PA304-clean); fall back to None
+# when the optional plotting layer isn't installed.
+_umbrella_plt = try_import_optional("figrecipe", extra="plt", pkg="scitex-ai")
 
 import os
+
+import scitex_str
 
 __FILE__ = __file__
 __DIR__ = os.path.dirname(__FILE__)
@@ -32,9 +32,7 @@ import pandas as pd
 import seaborn as sns
 from matplotlib import ticker
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-from sklearn.metrics import balanced_accuracy_score
 from sklearn.metrics import confusion_matrix as sklearn_confusion_matrix
-
 
 # Import metric calculation from centralized location (SoC: metrics in scitex_ai.metrics)
 from scitex_ai.metrics import calc_bacc_from_conf_mat
@@ -208,8 +206,6 @@ def stx_conf_mat(
     # The AxisWrapper provides export_as_csv method for automatic data export
     import matplotlib.pyplot as mpl_plt
 
-    import scitex as stx
-
     if ax is None:
         fig, ax = scitex_plt.subplots()
     else:
@@ -348,7 +344,6 @@ def run_main() -> None:
     import sys
 
     import matplotlib.pyplot as plt
-
     import scitex as stx
 
     args = parse_args()
@@ -490,9 +485,7 @@ if __name__ == "__main__":
 
     #     # Main
     #     # Use scitex_plt.subplots for advanced CSV export and SciTeX Viz integration
-    import matplotlib.pyplot as mpl_plt
 
-    import scitex as stx
 
     fig, ax = scitex_plt.subplots()
 #     res = sns.heatmap(
