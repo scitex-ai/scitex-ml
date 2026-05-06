@@ -18,6 +18,7 @@ CROSS_PACKAGE_IMPORTS = [
     'scitex',
     'scitex.plt',
     'scitex_context',
+    'scitex_dev',
     'scitex_io',
     'scitex_logging',
     'scitex_plt',
