@@ -68,20 +68,31 @@ pip install scitex-ml[mcp]     # + fastmcp
 pip install scitex-ml[all]     # everything
 ```
 
-## 1 Interfaces
-
-<details open>
-<summary><strong>Python API</strong> ⭐⭐⭐</summary>
+## Python API ⭐⭐⭐
 
 `scitex-ml` ships a single Python API surface — `import scitex_ml` (or
-`scitex.ai` via the umbrella). It has no console-script CLI and no MCP
-server of its own; AI/ML workflows are composed in Python and run via
-the umbrella `scitex` CLI / session decorator.
+`scitex.ml` via the umbrella). It has no console-script CLI and no MCP
+server of its own; ML workflows are composed in Python and run via the
+umbrella `scitex` CLI / session decorator.
 
 ```python
 from scitex_ml import Classifier, EarlyStopping, ClassificationReporter
 ```
-</details>
+
+## CLI ⭐ — none
+
+This package has no dedicated CLI. Use the umbrella `scitex` CLI
+(`scitex session`, `scitex dev`, …) to drive ML workflows from the
+shell.
+
+## MCP ⭐ — none
+
+No MCP server.
+
+## Skills ⭐⭐
+
+Skill index lives at `src/scitex_ml/_skills/scitex-ml/SKILL.md`. Loaded
+automatically by Claude when working on this package.
 
 ## Quick start
 
