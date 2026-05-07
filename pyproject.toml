@@ -109,6 +109,12 @@ docs = [
     # installing the real heavy deps in CI docs builds.
     "torch",
     "torchvision",
+    # scipy 1.17 ships a new distributions module whose `_combine_docs`
+    # eagerly runs at import time and raises `ValueError: not enough values
+    # to unpack (expected 2, got 1)` under sklearn-triggered import on
+    # CPython 3.11/3.12/3.13. Pin scipy<1.17 for docs builds until the
+    # upstream regression clears.
+    "scipy<1.17",
 ]
 all = [
     "scitex-ml[heavy]",
