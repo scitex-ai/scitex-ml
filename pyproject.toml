@@ -86,6 +86,12 @@ dev = [
     "pytest-timeout",
     "ruff",
     "scitex-dev",
+    # PS210: tests import psutil unguarded, so [dev] must include it.
+    "psutil",
+    # Notebook execution for tests/examples/test_01_*.py (PS505).
+    "nbconvert",
+    "nbformat",
+    "ipykernel",
 ]
 docs = [
     "sphinx>=7.0",

@@ -692,3 +692,4 @@ src/*/_docs/
 
 ### Local: scratch/CI artifacts
 signatures/
+docs/sphinx/_generated/

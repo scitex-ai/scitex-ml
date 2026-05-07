@@ -69,6 +69,55 @@ reporter.save()
 
 For a runnable walk-through see [`examples/01_classification.ipynb`](examples/01_classification.ipynb).
 
+## Demo
+
+A complete classification + reporting walk-through (Iris, train/test
+split, `Classifier("LogisticRegression")`, `ClassificationReporter`
+metric persistence) lives in
+[`examples/01_classification.ipynb`](examples/01_classification.ipynb).
+
+```mermaid
+flowchart LR
+    Data[load_iris<br/>train_test_split] --> Clf[scitex_ml.Classifier&quot;LogisticRegression&quot;]
+    Clf -->|fit / score| Pred[y_pred / y_proba]
+    Pred --> Reporter[scitex_ml.ClassificationReporter]
+    Reporter -->|calc_metrics| Metrics[bacc · ROC-AUC · Conf-Mat]
+    Reporter -->|save| Artefacts[results/<br/>metrics.csv · roc.png · pr.png]
+```
+
+A second `examples/example_classifier.py` runs the same flow as a script
+so it can be wired into `tests/examples/test_example_classifier.py` for
+CI smoke coverage.
+
+## Architecture
+
+`scitex-ml` sits in the middle layer of the SciTeX ecosystem:
+
+```
+scitex-python (umbrella)
+    └── scitex.ml ── thin sys.modules-aliasing shim
+                     └── scitex_ml (this package)
+                           ├── classification/   Classifier, ClassificationReporter,
+                           │                     time-series CV splitters
+                           ├── training/         EarlyStopping, LearningCurveLogger
+                           ├── loss/             MultiTaskLoss + regularisers
+                           ├── optim/            get_optimizer / set_optimizer + Ranger
+                           ├── metrics/          calc_bacc, calc_conf_mat, calc_roc_auc
+                           ├── clustering/       PCA + UMAP wrappers
+                           ├── feature_extraction/  ViT embeddings
+                           ├── feature_selection/   univariate / multivariate
+                           ├── plt/              ROC / PR / learning-curve / conf-mat plots
+                           ├── sampling/         undersampling helpers
+                           ├── sklearn/          scikit-learn integration helpers
+                           └── sk/               sktime compatibility
+```
+
+Cross-package dependencies are minimal: `scitex-logging`, `scitex-io`,
+`scitex-plt`, `scitex-repro`, `scitex-types`. Heavy deps (`torch`,
+`catboost`, `optuna`, `pytorch_pretrained_vit`) live behind the `[heavy]`
+extra and are gated by `_AVAILABLE` flags in the source so a `pip install
+scitex-ml` install without `[heavy]` still imports cleanly.
+
 ## 4 Interfaces
 
 <details open>
