@@ -15,8 +15,8 @@
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../_static/documentation_options.js?v=01f34227"></script>
-      <script src="../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
     <script src="../_static/js/theme.js"></script>
@@ -547,7 +547,7 @@
 <p>Scitex utils module.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="scitex_ml.utils.DefaultDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scitex_ml.utils.</span></span><span class="sig-name descname"><span class="pre">DefaultDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_ml/utils/_default_dataset.html#DefaultDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_ml.utils.DefaultDataset" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scitex_ml.utils.</span></span><span class="sig-name descname"><span class="pre">DefaultDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_ml/utils/_default_dataset.html#DefaultDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_ml.utils.DefaultDataset" title="Link to this definition"></a></dt>
 <dd><p>Apply transform for the first element of arrs_list</p>
 <p class="rubric">Example</p>
 <p>n = 1024
@@ -569,7 +569,7 @@ len(ds) # 1024</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="scitex_ml.utils.LabelEncoder">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scitex_ml.utils.</span></span><span class="sig-name descname"><span class="pre">LabelEncoder</span></span><a class="reference internal" href="../_modules/scitex_ml/utils/_label_encoder.html#LabelEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_ml.utils.LabelEncoder" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">scitex_ml.utils.</span></span><span class="sig-name descname"><span class="pre">LabelEncoder</span></span><a class="reference internal" href="../_modules/scitex_ml/utils/_label_encoder.html#LabelEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_ml.utils.LabelEncoder" title="Link to this definition"></a></dt>
 <dd><p>An extension of the sklearn.preprocessing.LabelEncoder that supports incremental learning.
 This means it can handle new classes without forgetting the old ones.</p>
 <dl class="py attribute">
@@ -606,7 +606,7 @@ print(original_labels)  # This should print [‘apple’, ‘banana’]</p>
 <dd><p>Fit the label encoder with an array of labels, incrementally adding new classes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>, </em><em>np.ndarray</em><em>, </em><em>pd.Series</em><em>, </em><em>pd.DataFrame</em><em>, </em><em>torch.Tensor</em>) – The input labels.</p>
+<dd class="field-odd"><p><strong>y</strong> (<a class="reference internal" href="scitex_ml.html#scitex_ml.Classifier.list" title="scitex_ml.Classifier.list"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>, </em><em>np.ndarray</em><em>, </em><em>pd.Series</em><em>, </em><em>pd.DataFrame</em><em>, </em><em>torch.Tensor</em>) – The input labels.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The instance itself.</p>
@@ -623,7 +623,7 @@ print(original_labels)  # This should print [‘apple’, ‘banana’]</p>
 <dd><p>Transform labels to normalized encoding.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>, </em><em>np.ndarray</em><em>, </em><em>pd.Series</em><em>, </em><em>pd.DataFrame</em><em>, </em><em>torch.Tensor</em>) – The input labels.</p>
+<dd class="field-odd"><p><strong>y</strong> (<a class="reference internal" href="scitex_ml.html#scitex_ml.Classifier.list" title="scitex_ml.Classifier.list"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>, </em><em>np.ndarray</em><em>, </em><em>pd.Series</em><em>, </em><em>pd.DataFrame</em><em>, </em><em>torch.Tensor</em>) – The input labels.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The encoded labels as a NumPy array.</p>

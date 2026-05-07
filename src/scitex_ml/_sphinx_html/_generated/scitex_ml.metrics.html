@@ -15,8 +15,8 @@
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../_static/documentation_options.js?v=01f34227"></script>
-      <script src="../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
     <script src="../_static/js/theme.js"></script>
@@ -901,8 +901,8 @@ been assigned to the wrong cluster, as a different cluster is more similar.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array</em><em> [</em><em>n_samples_a</em><em>, </em><em>n_features</em><em>]</em>) – Feature array.</p></li>
-<li><p><strong>labels</strong> (<em>array</em><em>, </em><em>shape =</em><em> [</em><em>n_samples</em><em>]</em>) – label values for each sample</p></li>
+<li><p><strong>X</strong> (<em>array</em><em> [</em><em>n_samples_a</em><em>, </em><a class="reference internal" href="scitex_ml.classification.html#id6" title="scitex_ml.classification.TimeSeriesMetadata.n_features"><em>n_features</em></a><em>]</em>) – Feature array.</p></li>
+<li><p><strong>labels</strong> (<em>array</em><em>, </em><em>shape =</em><em> [</em><a class="reference internal" href="scitex_ml.classification.html#id5" title="scitex_ml.classification.TimeSeriesMetadata.n_samples"><em>n_samples</em></a><em>]</em>) – label values for each sample</p></li>
 <li><p><strong>metric</strong> (<em>string</em><em>, or </em><em>callable</em>) – The metric to use when calculating distance between instances in a
 feature array. If metric is a string, it must be one of the options
 allowed by metrics.pairwise._pairwise_distances. If X is the distance
@@ -951,8 +951,8 @@ overlapping clusters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array</em><em> [</em><em>n_samples_a</em><em>, </em><em>n_features</em><em>]</em>) – Feature array.</p></li>
-<li><p><strong>labels</strong> (<em>array</em><em>, </em><em>shape =</em><em> [</em><em>n_samples</em><em>]</em>) – label values for each sample</p></li>
+<li><p><strong>X</strong> (<em>array</em><em> [</em><em>n_samples_a</em><em>, </em><a class="reference internal" href="scitex_ml.classification.html#id6" title="scitex_ml.classification.TimeSeriesMetadata.n_features"><em>n_features</em></a><em>]</em>) – Feature array.</p></li>
+<li><p><strong>labels</strong> (<em>array</em><em>, </em><em>shape =</em><em> [</em><a class="reference internal" href="scitex_ml.classification.html#id5" title="scitex_ml.classification.TimeSeriesMetadata.n_samples"><em>n_samples</em></a><em>]</em>) – label values for each sample</p></li>
 <li><p><strong>metric</strong> (<em>string</em><em>, or </em><em>callable</em>) – The metric to use when calculating distance between instances in a
 feature array. If metric is a string, it must be one of the options
 allowed by metrics.pairwise._pairwise_distances. If X is the distance
@@ -966,7 +966,7 @@ metric dependent. See the scipy docs for usage examples.</p></li>
 <dd class="field-even"><p><strong>silhouette</strong> – Silhouette Coefficient for each samples.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>array, shape = [n_samples]</p>
+<dd class="field-odd"><p>array, shape = [<a class="reference internal" href="scitex_ml.classification.html#id5" title="scitex_ml.classification.TimeSeriesMetadata.n_samples">n_samples</a>]</p>
 </dd>
 </dl>
 <p class="rubric">References</p>
@@ -995,8 +995,8 @@ been assigned to the wrong cluster, as a different cluster is more similar.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array</em><em> [</em><em>n_samples_a</em><em>, </em><em>n_features</em><em>]</em>) – Feature array.</p></li>
-<li><p><strong>labels</strong> (<em>array</em><em>, </em><em>shape =</em><em> [</em><em>n_samples</em><em>]</em>) – label values for each sample</p></li>
+<li><p><strong>X</strong> (<em>array</em><em> [</em><em>n_samples_a</em><em>, </em><a class="reference internal" href="scitex_ml.classification.html#id6" title="scitex_ml.classification.TimeSeriesMetadata.n_features"><em>n_features</em></a><em>]</em>) – Feature array.</p></li>
+<li><p><strong>labels</strong> (<em>array</em><em>, </em><em>shape =</em><em> [</em><a class="reference internal" href="scitex_ml.classification.html#id5" title="scitex_ml.classification.TimeSeriesMetadata.n_samples"><em>n_samples</em></a><em>]</em>) – label values for each sample</p></li>
 <li><p><strong>metric</strong> (<em>string</em><em>, or </em><em>callable</em>) – The metric to use when calculating distance between instances in a
 feature array. If metric is a string, it must be one of the options
 allowed by metrics.pairwise._pairwise_distances. If X is the distance
@@ -1045,8 +1045,8 @@ overlapping clusters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array</em><em> [</em><em>n_samples_a</em><em>, </em><em>n_features</em><em>]</em>) – Feature array.</p></li>
-<li><p><strong>labels</strong> (<em>array</em><em>, </em><em>shape =</em><em> [</em><em>n_samples</em><em>]</em>) – label values for each sample</p></li>
+<li><p><strong>X</strong> (<em>array</em><em> [</em><em>n_samples_a</em><em>, </em><a class="reference internal" href="scitex_ml.classification.html#id6" title="scitex_ml.classification.TimeSeriesMetadata.n_features"><em>n_features</em></a><em>]</em>) – Feature array.</p></li>
+<li><p><strong>labels</strong> (<em>array</em><em>, </em><em>shape =</em><em> [</em><a class="reference internal" href="scitex_ml.classification.html#id5" title="scitex_ml.classification.TimeSeriesMetadata.n_samples"><em>n_samples</em></a><em>]</em>) – label values for each sample</p></li>
 <li><p><strong>metric</strong> (<em>string</em><em>, or </em><em>callable</em>) – The metric to use when calculating distance between instances in a
 feature array. If metric is a string, it must be one of the options
 allowed by metrics.pairwise._pairwise_distances. If X is the distance
@@ -1060,7 +1060,7 @@ metric dependent. See the scipy docs for usage examples.</p></li>
 <dd class="field-even"><p><strong>silhouette</strong> – Silhouette Coefficient for each samples.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>array, shape = [n_samples]</p>
+<dd class="field-odd"><p>array, shape = [<a class="reference internal" href="scitex_ml.classification.html#id5" title="scitex_ml.classification.TimeSeriesMetadata.n_samples">n_samples</a>]</p>
 </dd>
 </dl>
 <p class="rubric">References</p>
