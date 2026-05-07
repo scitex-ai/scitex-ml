@@ -177,7 +177,9 @@ def _plot(
             else axes.get_figure()
         )
 
-    fig.supxlabel("UMAP 1"); fig.supylabel("UMAP 2"); fig.suptitle(title)
+    fig.supxlabel("UMAP 1")
+    fig.supylabel("UMAP 2")
+    fig.suptitle(title)
 
     for ii, (data, labels, hues, hues_colors) in enumerate(
         zip(data_all, labels_all, hues_all, hues_colors_all)
@@ -240,12 +242,14 @@ def _plot(
             #     alpha=alpha,
             # )
 
-    if share:
-        figrecipe.ax.sharex(axes)
-        figrecipe.ax.sharey(axes)
+    # Sharing was already requested at subplots() creation
+    # (sharex=share, sharey=share); the legacy `figrecipe.ax.sharex/sharey`
+    # helpers don't exist on the standalone figrecipe surface.
 
     if not use_independent_legend:
-        for ax in axes.flat:
+        # `axes` can be a single Axes (ncols==1) or an array (ncols>1);
+        # np.atleast_1d makes both iterable via .flat.
+        for ax in np.atleast_1d(axes).flat:
             ax.legend(loc="upper left")
         return fig, None
 

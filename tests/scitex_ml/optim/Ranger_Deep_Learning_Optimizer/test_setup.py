@@ -16,12 +16,18 @@ class TestRangerSetup:
 
     @pytest.fixture
     def setup_dir(self):
-        """Get the setup.py directory path."""
+        """Get the setup.py directory path.
+
+        Test was lifted from the umbrella `scitex/ai/optim/...` path; the
+        standalone-scitex-ml split moved it to `scitex_ml/optim/...`. Update
+        the fixture so file-existence assertions point at the real location.
+        """
+        # __file__ → .../tests/scitex_ml/optim/Ranger_Deep_Learning_Optimizer/test_setup.py
+        # 5 .parents to reach repo root, then descend src/scitex_ml/optim/...
         return (
-            Path(__file__).parent.parent.parent.parent.parent.parent
+            Path(__file__).parent.parent.parent.parent.parent
             / "src"
-            / "scitex"
-            / "ai"
+            / "scitex_ml"
             / "optim"
             / "Ranger_Deep_Learning_Optimizer"
         )
@@ -135,9 +141,9 @@ class TestRangerSetup:
 
         version = version_match.group(1)
         # Check for development version format
-        assert (
-            "dev" in version or "." in version
-        ), "Version should be properly formatted"
+        assert "dev" in version or "." in version, (
+            "Version should be properly formatted"
+        )
 
     def test_license_specification(self, setup_file):
         """Test that license is specified."""
