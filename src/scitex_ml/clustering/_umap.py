@@ -177,7 +177,7 @@ def _plot(
             else axes.get_figure()
         )
 
-    fig.supxyt("UMAP 1", "UMAP 2", title)
+    fig.supxlabel("UMAP 1"); fig.supylabel("UMAP 2"); fig.suptitle(title)
 
     for ii, (data, labels, hues, hues_colors) in enumerate(
         zip(data_all, labels_all, hues_all, hues_colors_all)
