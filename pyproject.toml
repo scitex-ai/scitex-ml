@@ -79,6 +79,13 @@ heavy = [
 mcp = [
     "fastmcp>=2.0.0",
 ]
+seizure = [
+    # Pulls in the standalone scitex-seizure-metrics library so that
+    # `from scitex_ml.metrics import seizure` works and resolves to the
+    # full evaluation surface (detection, forecasting, AlarmPolicy,
+    # bridge, calibration, surrogates, plots, papers).
+    "scitex-seizure-metrics>=0.1.0",
+]
 dev = [
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
@@ -119,6 +126,7 @@ docs = [
 all = [
     "scitex-ml[heavy]",
     "scitex-ml[mcp]",
+    "scitex-ml[seizure]",
 ]
 
 [project.urls]
