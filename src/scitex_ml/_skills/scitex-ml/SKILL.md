@@ -1,50 +1,61 @@
 ---
-name: stx.ai
-description: Machine learning and AI utilities — classification, clustering, GenAI, training helpers, metrics, and optimizer management.
+name: scitex-ml
+description: Classical and deep machine-learning utilities — classification reporters, time-series CV, training helpers, loss/metrics/optim, clustering, sampling, sklearn integration. Drop-in for sklearn workflows that need reproducible reporting.
+primary_interface: python
+interfaces: {python: 3, cli: 0, mcp: 0, skills: 2, hook: 0, http: 0}
 ---
 
-# stx.ai
+# scitex-ml
 
-Machine learning and AI utilities for scientific research.
+Classical / deep ML utilities for scientific research. Standalone home of
+what used to live in `scitex.ai` (the umbrella now exposes this package as
+`scitex.ml`). Generative-AI providers were factored out to
+[scitex-genai](https://github.com/ywatanabe1989/scitex-genai).
 
 ## Sub-skills
 
-* [genai.md](genai.md) — GenAI unified LLM interface, providers, cost tracking
-* [classification.md](classification.md) — Classifier, ClassificationReporter, CrossValidationExperiment
+* [classification.md](classification.md) — Classifier, ClassificationReporter, time-series CV
 * [training.md](training.md) — EarlyStopping, LearningCurveLogger
 * [loss.md](loss.md) — MultiTaskLoss, L1/L2/Elastic regularization
 * [optim.md](optim.md) — get_optimizer, set_optimizer, Ranger support
 * [clustering.md](clustering.md) — pca(), umap() dimensionality reduction
 * [metrics.md](metrics.md) — calc_bacc, calc_conf_mat, calc_roc_auc, silhouette scores
 * [sampling.md](sampling.md) — undersample() for imbalanced data
-* [feature-selection.md](feature-selection.md) — extract_feature_importance, select_features_univariate
+* [feature-selection.md](feature-selection.md) — feature importance, univariate selection
 
 ## Quick Reference
 
 ```python
-import scitex as stx
-
-# GenAI (lazy-loaded)
-gen = stx.ai.GenAI(model="gpt-4o")
-response = gen("Summarize this experiment...")
+import scitex_ml
 
 # Classification
-clf_server = stx.ai.Classifier(class_weight={0: 1.0, 1: 2.0})
+clf_server = scitex_ml.Classifier(class_weight={0: 1.0, 1: 2.0})
 clf = clf_server("SVC")
-reporter = stx.ai.ClassificationReporter("./results")
+reporter = scitex_ml.ClassificationReporter("./results")
 reporter.calculate_metrics(y_true, y_pred, y_proba)
 
 # Training
-early_stopping = stx.ai.EarlyStopping(patience=10, direction="minimize")
-logger = stx.ai.LearningCurveLogger()
+early_stopping = scitex_ml.EarlyStopping(patience=10, direction="minimize")
+logger = scitex_ml.LearningCurveLogger()
 
 # Loss
-mtl = stx.ai.MultiTaskLoss(are_regression=[False, False])
+mtl = scitex_ml.MultiTaskLoss(are_regression=[False, False])
 
 # Optimizer
-optimizer = stx.ai.set_optimizer(model, "adam", lr=1e-3)
+optimizer = scitex_ml.set_optimizer(model, "adam", lr=1e-3)
 
 # Metrics
-result = stx.ai.metrics.calc_bacc(y_true, y_pred)
-cm = stx.ai.metrics.calc_conf_mat(y_true, y_pred)
+result = scitex_ml.metrics.calc_bacc(y_true, y_pred)
+cm = scitex_ml.metrics.calc_conf_mat(y_true, y_pred)
+
+# Time-series CV
+from scitex_ml.classification import TimeSeriesStratifiedSplit
+splitter = TimeSeriesStratifiedSplit(n_splits=5)
+```
+
+## Umbrella access
+
+```python
+import scitex
+scitex.ml.Classifier  # same object as scitex_ml.Classifier
 ```
