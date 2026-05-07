@@ -13,7 +13,6 @@ This test module verifies:
 
 import pytest
 
-pytest.importorskip("zarr")
 import itertools
 import random
 from typing import Any, Dict, List

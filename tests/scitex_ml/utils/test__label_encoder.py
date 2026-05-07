@@ -4,7 +4,6 @@
 
 import pytest
 
-pytest.importorskip("zarr")
 import os
 import sys
 

@@ -6,7 +6,6 @@
 
 import pytest
 
-pytest.importorskip("zarr")
 from collections import Counter
 from unittest.mock import patch
 

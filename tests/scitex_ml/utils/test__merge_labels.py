@@ -7,7 +7,6 @@
 
 import pytest
 
-pytest.importorskip("zarr")
 import numpy as np
 
 from scitex_ml.utils import merge_labels
