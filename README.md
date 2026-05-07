@@ -1,4 +1,4 @@
-# scitex-ml
+# SciTeX ML (<code>scitex-ml</code>)
 
 <p align="center">
   <a href="https://scitex.ai">
