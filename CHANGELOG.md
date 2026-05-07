@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `scitex-ai` will be documented in this file.
+All notable changes to `scitex-ml` will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Initial factor-out from `scitex.ai` (umbrella scitex-python package) into a
-  standalone `scitex-ai` package. Mirrors the public API of the in-umbrella
+  standalone `scitex-ml` package. Mirrors the public API of the in-umbrella
   module 1:1; the umbrella's `scitex.ai` becomes a thin re-export bridge.
 - Submodules: `activation`, `classification`, `clustering`,
   `feature_extraction`, `feature_selection`, `_gen_ai` (lazy `GenAI`),

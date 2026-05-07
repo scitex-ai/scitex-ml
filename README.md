@@ -1,10 +1,10 @@
 <!-- ---
 !-- Timestamp: 2026-05-05
 !-- Author: ywatanabe
-!-- File: /home/ywatanabe/proj/scitex-ai/README.md
+!-- File: /home/ywatanabe/proj/scitex-ml/README.md
 !-- --- -->
 
-# SciTeX AI (`scitex-ai`)
+# SciTeX ML (`scitex-ml`)
 
 <p align="center">
   <a href="https://scitex.ai">
@@ -13,15 +13,15 @@
 </p>
 
 <p align="center">
-  <a href="https://scitex-ai.readthedocs.io/">Full Documentation</a> · <code>pip install scitex-ai</code>
+  <a href="https://scitex-ml.readthedocs.io/">Full Documentation</a> · <code>pip install scitex-ml</code>
 </p>
 
 <!-- scitex-badges:start -->
 <p align="center">
-  <a href="https://pypi.org/project/scitex-ai/"><img src="https://img.shields.io/pypi/v/scitex-ai.svg" alt="PyPI"></a>
-  <a href="https://pypi.org/project/scitex-ai/"><img src="https://img.shields.io/pypi/pyversions/scitex-ai.svg" alt="Python"></a>
-  <a href="https://github.com/ywatanabe1989/scitex-ai/actions/workflows/test.yml"><img src="https://github.com/ywatanabe1989/scitex-ai/actions/workflows/test.yml/badge.svg" alt="Tests"></a>
-  <a href="https://codecov.io/gh/ywatanabe1989/scitex-ai"><img src="https://codecov.io/gh/ywatanabe1989/scitex-ai/graph/badge.svg" alt="Coverage"></a>
+  <a href="https://pypi.org/project/scitex-ml/"><img src="https://img.shields.io/pypi/v/scitex-ml.svg" alt="PyPI"></a>
+  <a href="https://pypi.org/project/scitex-ml/"><img src="https://img.shields.io/pypi/pyversions/scitex-ml.svg" alt="Python"></a>
+  <a href="https://github.com/ywatanabe1989/scitex-ml/actions/workflows/test.yml"><img src="https://github.com/ywatanabe1989/scitex-ml/actions/workflows/test.yml/badge.svg" alt="Tests"></a>
+  <a href="https://codecov.io/gh/ywatanabe1989/scitex-ml"><img src="https://codecov.io/gh/ywatanabe1989/scitex-ml/graph/badge.svg" alt="Coverage"></a>
   <a href="https://www.gnu.org/licenses/agpl-3.0"><img src="https://img.shields.io/badge/license-AGPL_v3-blue.svg" alt="License: AGPL v3"></a>
 </p>
 <!-- scitex-badges:end -->
@@ -30,13 +30,12 @@
 
 ## Overview
 
-`scitex-ai` is the standalone home of the AI/ML utilities that previously
-lived inside `scitex.ai` in the [`scitex-python`](https://github.com/ywatanabe1989/scitex-python)
-umbrella. It contains:
+`scitex-ml` is the standalone home of the classical/deep-ML utilities that
+previously lived inside `scitex.ai` in the [`scitex-python`](https://github.com/ywatanabe1989/scitex-python)
+umbrella. The generative-AI side (provider abstraction, agents) now lives
+in [`scitex-genai`](https://github.com/ywatanabe1989/scitex-genai). This
+package contains:
 
-- **GenAI**: unified provider abstraction over OpenAI, Anthropic, Google,
-  Groq, DeepSeek, Perplexity, and local Llama. Same API for every provider,
-  cost tracking, conversation history, multi-modal where supported.
 - **Classification**: `ClassificationReporter` (cross-validation aware
   reporting), time-series cross-validation splitters
   (`TimeSeriesStratifiedSplit`, `TimeSeriesBlockingSplit`,
@@ -58,15 +57,15 @@ umbrella. It contains:
 The umbrella `scitex.ai` namespace continues to work — it now thin-re-exports
 this standalone (see
 [re-export skill](https://github.com/ywatanabe1989/scitex-python/blob/main/_skills/general/01_ecosystem_05_re-export.md)),
-so `scitex.ai.X` and `scitex_ai.X` resolve to the same object.
+so `scitex.ai.X` and `scitex_ml.X` resolve to the same object.
 
 ## Installation
 
 ```bash
-pip install scitex-ai          # core
-pip install scitex-ai[heavy]   # + torch / catboost / optuna / psutil
-pip install scitex-ai[mcp]     # + fastmcp
-pip install scitex-ai[all]     # everything
+pip install scitex-ml          # core
+pip install scitex-ml[heavy]   # + torch / catboost / optuna / psutil
+pip install scitex-ml[mcp]     # + fastmcp
+pip install scitex-ml[all]     # everything
 ```
 
 ## 1 Interfaces
@@ -74,32 +73,22 @@ pip install scitex-ai[all]     # everything
 <details open>
 <summary><strong>Python API</strong> ⭐⭐⭐</summary>
 
-`scitex-ai` ships a single Python API surface — `import scitex_ai` (or
+`scitex-ml` ships a single Python API surface — `import scitex_ml` (or
 `scitex.ai` via the umbrella). It has no console-script CLI and no MCP
 server of its own; AI/ML workflows are composed in Python and run via
 the umbrella `scitex` CLI / session decorator.
 
 ```python
-from scitex_ai import Classifier, EarlyStopping, ClassificationReporter
+from scitex_ml import Classifier, EarlyStopping, ClassificationReporter
 ```
 </details>
 
 ## Quick start
 
-### GenAI
-
-```python
-from scitex_ai import GenAI
-
-ai = GenAI(provider="openai", model="gpt-4o")
-print(ai.complete("Explain neural networks in one sentence."))
-print(ai.get_cost_summary())
-```
-
 ### Training utilities
 
 ```python
-from scitex_ai import EarlyStopping, LearningCurveLogger
+from scitex_ml import EarlyStopping, LearningCurveLogger
 
 stopper = EarlyStopping(patience=10, delta=1e-3)
 logger = LearningCurveLogger(log_dir="./logs")
@@ -108,7 +97,7 @@ logger = LearningCurveLogger(log_dir="./logs")
 ### Classification reporting
 
 ```python
-from scitex_ai import ClassificationReporter
+from scitex_ml import ClassificationReporter
 
 reporter = ClassificationReporter(save_dir="./results")
 reporter.calc_metrics(y_true, y_pred, y_prob, labels=["pos", "neg"])
@@ -119,7 +108,7 @@ reporter.save()
 ### Time-series CV
 
 ```python
-from scitex_ai.classification import (
+from scitex_ml.classification import (
     TimeSeriesStratifiedSplit,
     TimeSeriesSlidingWindowSplit,
 )
@@ -131,7 +120,7 @@ for train_idx, val_idx in splitter.split(X, y, timestamps):
 
 ## Architecture
 
-`scitex-ai` is a downstream/middle SciTeX package. It depends on:
+`scitex-ml` is a downstream/middle SciTeX package. It depends on:
 
 | Standalone | Why |
 |---|---|
@@ -159,7 +148,7 @@ licensing, see [CLA.md](CLA.md).
 
 ## Part of SciTeX
 
-`scitex-ai` is part of [**SciTeX**](https://scitex.ai). Install via
+`scitex-ml` is part of [**SciTeX**](https://scitex.ai). Install via
 the umbrella with `pip install scitex[ai]` to use as
 `scitex.ai` (Python).
 
@@ -173,7 +162,7 @@ def main(CONFIG=scitex.INJECTED):
     return 0
 ```
 
-`scitex.ai` delegates to `scitex_ai` — they share the same API and registry.
+`scitex.ai` delegates to `scitex_ml` — they share the same API and registry.
 
 The SciTeX system follows the Four Freedoms for Research below, inspired by [the Free Software Definition](https://www.gnu.org/philosophy/free-sw.en.html):
 

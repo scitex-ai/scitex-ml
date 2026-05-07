@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Minimal scitex-ai Classifier example.
+"""Minimal scitex-ml Classifier example.
 
 Run:
     python examples/example_classifier.py
@@ -13,7 +13,7 @@ def main() -> int:
     from sklearn.datasets import load_iris
     from sklearn.model_selection import train_test_split
 
-    from scitex_ai import Classifier
+    from scitex_ml import Classifier
 
     X, y = load_iris(return_X_y=True)
     X_tr, X_te, y_tr, y_te = train_test_split(X, y, random_state=0)

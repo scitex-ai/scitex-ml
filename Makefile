@@ -20,7 +20,7 @@ install-dev:
 	pip install -e ".[dev]"
 
 test:
-	pytest tests/ --cov=src/scitex_ai --cov-report=term-missing
+	pytest tests/ --cov=src/scitex_ml --cov-report=term-missing
 
 test-fast:
 	pytest tests/ -x -q

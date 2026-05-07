@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 
-# Heavy optional deps pulled in by `scitex_ai.classification`.
+# Heavy optional deps pulled in by `scitex_ml.classification`.
 pytest.importorskip("torch")
 pytest.importorskip("sklearn")
 

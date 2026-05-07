@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "scitex-ai"
+name = "scitex-ml"
 version = "0.1.0"
-description = "SciTeX AI — machine learning, classification, GenAI provider abstraction, training utilities"
+description = "SciTeX ML — machine learning, classification, training utilities"
 readme = "README.md"
 license = "AGPL-3.0-only"
 requires-python = ">=3.10"
@@ -13,14 +13,10 @@ authors = [
     { name = "Yusuke Watanabe", email = "ywatanabe@scitex.ai" },
 ]
 keywords = [
-    "ai",
     "machine-learning",
     "deep-learning",
     "classification",
-    "genai",
-    "llm",
-    "openai",
-    "anthropic",
+    "scikit-learn",
     "scitex",
     "science",
 ]
@@ -59,12 +55,6 @@ dependencies = [
     "umap-learn",
     "sktime>=0.21.0",
     "markdown2",
-    # GenAI providers (kept in core because _gen_ai/ unconditionally imports
-    # provider clients; the lazy GenAI top-level export defers actual use).
-    "openai",
-    "anthropic",
-    "google-genai",
-    "groq",
     # SciTeX standalone deps (declared per
     # _skills/general/01_ecosystem_02_dependency-and-version-pinning.md).
     "scitex-logging>=0.1.3",
@@ -105,24 +95,24 @@ docs = [
     "sphinx-autodoc-typehints>=1.25",
 ]
 all = [
-    "scitex-ai[heavy]",
-    "scitex-ai[mcp]",
+    "scitex-ml[heavy]",
+    "scitex-ml[mcp]",
 ]
 
 [project.urls]
-Homepage = "https://github.com/ywatanabe1989/scitex-ai"
-Repository = "https://github.com/ywatanabe1989/scitex-ai"
-Documentation = "https://scitex-ai.readthedocs.io"
-Issues = "https://github.com/ywatanabe1989/scitex-ai/issues"
+Homepage = "https://github.com/ywatanabe1989/scitex-ml"
+Repository = "https://github.com/ywatanabe1989/scitex-ml"
+Documentation = "https://scitex-ml.readthedocs.io"
+Issues = "https://github.com/ywatanabe1989/scitex-ml/issues"
 
 [project.entry-points."scitex_dev.docs"]
-scitex-ai = "scitex_ai"
+scitex-ml = "scitex_ml"
 
 [project.entry-points."scitex_dev.skills"]
-scitex-ai = "scitex_ai"
+scitex-ml = "scitex_ml"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/scitex_ai"]
+packages = ["src/scitex_ml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -138,8 +128,8 @@ select = ["E", "F", "W", "I"]
 ignore = ["E501", "E402"]
 
 [tool.ruff.lint.per-file-ignores]
-"src/scitex_ai/__init__.py" = ["E402", "F401"]
-"src/scitex_ai/**/__init__.py" = ["F401"]
+"src/scitex_ml/__init__.py" = ["E402", "F401"]
+"src/scitex_ml/**/__init__.py" = ["F401"]
 
 [tool.scitex-linter]
 library_dirs = ["src", "tests", "examples"]
