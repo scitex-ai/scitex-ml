@@ -45,9 +45,9 @@ try:
         sns = None
 
     # Import scitex plotting functions
-    from scitex_ml.plt.plot_pre_rec_curve import plot_pre_rec_curve as pre_rec_auc
-    from scitex_ml.plt.plot_roc_curve import plot_roc_curve as roc_auc
-    from scitex_ml.plt.stx_conf_mat import stx_conf_mat as conf_mat
+    from scitex_ml.plt._plot_pre_rec_curve import plot_pre_rec_curve as pre_rec_auc
+    from scitex_ml.plt._plot_roc_curve import plot_roc_curve as roc_auc
+    from scitex_ml.plt._stx_conf_mat import stx_conf_mat as conf_mat
 
     PLOTTING_AVAILABLE = True
 except ImportError:

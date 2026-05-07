@@ -90,9 +90,10 @@ dev = [
     # import unguarded must live in [dev] so `pip install -e .[dev]`
     # actually runs the full suite.
     "psutil",
+    "torch",
+    "torchvision",
     "optuna",
     "pytorch_pretrained_vit",
-    "torchvision",
     # Notebook execution for tests/examples/test_01_*.py (PS505).
     "nbconvert",
     "nbformat",
@@ -104,6 +105,10 @@ docs = [
     "myst-parser>=2.0",
     "sphinx-copybutton>=0.5",
     "sphinx-autodoc-typehints>=1.25",
+    # autosummary --recursive imports the source tree; skip mocked stubs by
+    # installing the real heavy deps in CI docs builds.
+    "torch",
+    "torchvision",
 ]
 all = [
     "scitex-ml[heavy]",

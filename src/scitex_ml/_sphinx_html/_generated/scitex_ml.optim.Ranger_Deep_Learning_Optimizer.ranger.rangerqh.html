@@ -1,0 +1,648 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.rangerqh &mdash; SciTeX ML v0.1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scitex_ml.plt" href="scitex_ml.plt.html" />
+    <link rel="prev" title="scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.ranger913A" href="scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.ranger913A.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SciTeX ML
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="scitex_ml.html">scitex_ml</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.html#scitex_ml.ClassificationReporter"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.ClassificationReporter.__init__"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.ClassificationReporter.calculate_metrics"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.calculate_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.ClassificationReporter.save"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.ClassificationReporter.get_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.get_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.ClassificationReporter.save_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.ClassificationReporter.save_feature_importance"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.ClassificationReporter.save_feature_importance_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_feature_importance_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.html#scitex_ml.Classifier"><code class="docutils literal notranslate"><span class="pre">Classifier</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.Classifier.__init__"><code class="docutils literal notranslate"><span class="pre">Classifier.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.Classifier.list"><code class="docutils literal notranslate"><span class="pre">Classifier.list</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.html#scitex_ml.EarlyStopping"><code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.EarlyStopping.__init__"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.EarlyStopping.is_best"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.is_best()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.EarlyStopping.save"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.save()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.html#scitex_ml.LearningCurveLogger"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.LearningCurveLogger.__init__"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.LearningCurveLogger.dfs"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.dfs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.LearningCurveLogger.to_metrics_df"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.to_metrics_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.LearningCurveLogger.plot_learning_curves"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.plot_learning_curves()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.LearningCurveLogger.get_x_of_i_epoch"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.get_x_of_i_epoch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.LearningCurveLogger.print"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.print()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.html#scitex_ml.MultiTaskLoss"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.MultiTaskLoss.__init__"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.html#scitex_ml.MultiTaskLoss.forward"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.html#scitex_ml.get_optimizer"><code class="docutils literal notranslate"><span class="pre">get_optimizer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.html#scitex_ml.set_optimizer"><code class="docutils literal notranslate"><span class="pre">set_optimizer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.activation.html">scitex_ml.activation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.activation.html#scitex_ml.activation.define"><code class="docutils literal notranslate"><span class="pre">define()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.html">scitex_ml.classification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.Classifier"><code class="docutils literal notranslate"><span class="pre">Classifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.CVExperiment"><code class="docutils literal notranslate"><span class="pre">CVExperiment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.quick_experiment"><code class="docutils literal notranslate"><span class="pre">quick_experiment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesSlidingWindowSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesSlidingWindowSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.Classifier.html">scitex_ml.classification.Classifier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.CrossValidationExperiment.html">scitex_ml.classification.CrossValidationExperiment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.reporters.html">scitex_ml.classification.reporters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.timeseries.html">scitex_ml.classification.timeseries</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.clustering.html">scitex_ml.clustering</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.clustering.html#scitex_ml.clustering.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.clustering.html#scitex_ml.clustering.pca"><code class="docutils literal notranslate"><span class="pre">pca()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.clustering.html#scitex_ml.clustering.umap"><code class="docutils literal notranslate"><span class="pre">umap()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.feature_extraction.html">scitex_ml.feature_extraction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.feature_extraction.vit.html">scitex_ml.feature_extraction.vit</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.feature_selection.html">scitex_ml.feature_selection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.feature_selection.html#scitex_ml.feature_selection.extract_feature_importance"><code class="docutils literal notranslate"><span class="pre">extract_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.feature_selection.html#scitex_ml.feature_selection.select_features_univariate"><code class="docutils literal notranslate"><span class="pre">select_features_univariate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.feature_selection.html#scitex_ml.feature_selection.analyze_feature_consistency"><code class="docutils literal notranslate"><span class="pre">analyze_feature_consistency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.feature_selection.html#scitex_ml.feature_selection.aggregate_feature_importances"><code class="docutils literal notranslate"><span class="pre">aggregate_feature_importances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.feature_selection.html#scitex_ml.feature_selection.create_feature_importance_dataframe"><code class="docutils literal notranslate"><span class="pre">create_feature_importance_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.feature_selection.feature_selection.html">scitex_ml.feature_selection.feature_selection</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.loss.html">scitex_ml.loss</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.loss.html#scitex_ml.loss.elastic"><code class="docutils literal notranslate"><span class="pre">elastic()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.loss.html#scitex_ml.loss.l1"><code class="docutils literal notranslate"><span class="pre">l1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.loss.html#scitex_ml.loss.l2"><code class="docutils literal notranslate"><span class="pre">l2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.loss.html#scitex_ml.loss.MultiTaskLoss"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.loss.multi_task_loss.html">scitex_ml.loss.multi_task_loss</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html">scitex_ml.metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_bacc"><code class="docutils literal notranslate"><span class="pre">calc_bacc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_mcc"><code class="docutils literal notranslate"><span class="pre">calc_mcc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_conf_mat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_clf_report"><code class="docutils literal notranslate"><span class="pre">calc_clf_report()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_roc_auc"><code class="docutils literal notranslate"><span class="pre">calc_roc_auc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_pre_rec_auc"><code class="docutils literal notranslate"><span class="pre">calc_pre_rec_auc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_bacc_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bacc_from_conf_mat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_window_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_window_prediction_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_event_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_event_prediction_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_prediction_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_score_slow"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_score_slow()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_samples_slow"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_samples_slow()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_score_block"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_score_block()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_samples_block"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_samples_block()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_feature_importance"><code class="docutils literal notranslate"><span class="pre">calc_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_permutation_importance"><code class="docutils literal notranslate"><span class="pre">calc_permutation_importance()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="scitex_ml.optim.html">scitex_ml.optim</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.optim.html#scitex_ml.optim.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.optim.html#scitex_ml.optim.get_optimizer"><code class="docutils literal notranslate"><span class="pre">get_optimizer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.optim.html#scitex_ml.optim.set"><code class="docutils literal notranslate"><span class="pre">set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.optim.html#scitex_ml.optim.set_optimizer"><code class="docutils literal notranslate"><span class="pre">set_optimizer()</span></code></a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="scitex_ml.optim.Ranger_Deep_Learning_Optimizer.html">scitex_ml.optim.Ranger_Deep_Learning_Optimizer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html">scitex_ml.plt</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.stx_conf_mat"><code class="docutils literal notranslate"><span class="pre">stx_conf_mat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.conf_mat"><code class="docutils literal notranslate"><span class="pre">conf_mat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.plot_learning_curve"><code class="docutils literal notranslate"><span class="pre">plot_learning_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.learning_curve"><code class="docutils literal notranslate"><span class="pre">learning_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.optuna_study"><code class="docutils literal notranslate"><span class="pre">optuna_study()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.plot_optuna_study"><code class="docutils literal notranslate"><span class="pre">plot_optuna_study()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.plot_roc_curve"><code class="docutils literal notranslate"><span class="pre">plot_roc_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.plot_pre_rec_curve"><code class="docutils literal notranslate"><span class="pre">plot_pre_rec_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.plot_feature_importance"><code class="docutils literal notranslate"><span class="pre">plot_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.plot_feature_importance_cv_summary"><code class="docutils literal notranslate"><span class="pre">plot_feature_importance_cv_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.plot_tra"><code class="docutils literal notranslate"><span class="pre">plot_tra()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.process_i_global"><code class="docutils literal notranslate"><span class="pre">process_i_global()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.scatter_tes"><code class="docutils literal notranslate"><span class="pre">scatter_tes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.scatter_val"><code class="docutils literal notranslate"><span class="pre">scatter_val()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.select_ticks"><code class="docutils literal notranslate"><span class="pre">select_ticks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.set_yaxis_for_acc"><code class="docutils literal notranslate"><span class="pre">set_yaxis_for_acc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.vline_at_epochs"><code class="docutils literal notranslate"><span class="pre">vline_at_epochs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.calc_bACC_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bACC_from_conf_mat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.calc_bacc_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bacc_from_conf_mat()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.sk.html">scitex_ml.sk</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.sk.html#scitex_ml.sk.rocket_pipeline"><code class="docutils literal notranslate"><span class="pre">rocket_pipeline()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.sk.html#scitex_ml.sk.to_sktime_df"><code class="docutils literal notranslate"><span class="pre">to_sktime_df()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.sklearn.html">scitex_ml.sklearn</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.sklearn.clf.html">scitex_ml.sklearn.clf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.sklearn.to_sktime.html">scitex_ml.sklearn.to_sktime</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.training.html">scitex_ml.training</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.training.html#scitex_ml.training.EarlyStopping"><code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.training.html#scitex_ml.training.LearningCurveLogger"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.utils.html">scitex_ml.utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.DefaultDataset"><code class="docutils literal notranslate"><span class="pre">DefaultDataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.LabelEncoder"><code class="docutils literal notranslate"><span class="pre">LabelEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.check_params"><code class="docutils literal notranslate"><span class="pre">check_params()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.format_samples_for_sktime"><code class="docutils literal notranslate"><span class="pre">format_samples_for_sktime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.merge_labels"><code class="docutils literal notranslate"><span class="pre">merge_labels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.sliding_window_data_augmentation"><code class="docutils literal notranslate"><span class="pre">sliding_window_data_augmentation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.under_sample"><code class="docutils literal notranslate"><span class="pre">under_sample()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.verify_n_gpus"><code class="docutils literal notranslate"><span class="pre">verify_n_gpus()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.grid_search.html">scitex_ml.utils.grid_search</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scitex_ml.classification.html">scitex_ml.classification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.__init__"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.calculate_metrics"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.calculate_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.get_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.get_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save_feature_importance"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save_feature_importance_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_feature_importance_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter.__init__"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter.set_session_config"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter.set_session_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter.save_summary"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter.save_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.Classifier"><code class="docutils literal notranslate"><span class="pre">Classifier</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.Classifier.__init__"><code class="docutils literal notranslate"><span class="pre">Classifier.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.Classifier.list"><code class="docutils literal notranslate"><span class="pre">Classifier.list</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.__init__"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.set_hyperparameters"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.set_hyperparameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.describe_dataset"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.describe_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.run"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.get_summary"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.get_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.get_validation_report"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.get_validation_report()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.CVExperiment"><code class="docutils literal notranslate"><span class="pre">CVExperiment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.quick_experiment"><code class="docutils literal notranslate"><span class="pre">quick_experiment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.__init__"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.split"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.split_with_val"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.split_with_val()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.get_n_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.get_n_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.plot_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.plot_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.set_split_request"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.set_split_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.__init__"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.split"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.split_with_val"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.split_with_val()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.get_n_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.get_n_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.plot_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.plot_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.set_split_request"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.set_split_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesSlidingWindowSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesSlidingWindowSplit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesSlidingWindowSplit.__init__"><code class="docutils literal notranslate"><span class="pre">TimeSeriesSlidingWindowSplit.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesSlidingWindowSplit.set_split_request"><code class="docutils literal notranslate"><span class="pre">TimeSeriesSlidingWindowSplit.set_split_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.__init__"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.split"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.split_with_val"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.split_with_val()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.get_n_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.get_n_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.plot_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.plot_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.set_split_request"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.set_split_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.STRATIFIED"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.STRATIFIED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.BLOCKING"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.BLOCKING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.SLIDING"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.SLIDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.EXPANDING"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.EXPANDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.FIXED"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.FIXED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id0"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.STRATIFIED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id1"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.BLOCKING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id2"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.SLIDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id3"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.EXPANDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id4"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.FIXED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.from_string"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.from_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.get_description"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.get_description()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.n_samples"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_samples</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.n_features"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_features</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.n_classes"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.has_groups"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.has_groups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.group_sizes"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.group_sizes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.time_range"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.time_range</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.sampling_rate"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.sampling_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.has_gaps"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.has_gaps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.max_gap_size"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.max_gap_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.is_balanced"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.is_balanced</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.class_distribution"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.class_distribution</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id5"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_samples</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id6"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_features</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id7"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id8"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.has_groups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id9"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.group_sizes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id10"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.time_range</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id11"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.sampling_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id12"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.has_gaps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id13"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.max_gap_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id14"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.is_balanced</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#id15"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.class_distribution</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.get_summary"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.get_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.suggest_strategy"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.suggest_strategy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.__init__"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.Classifier.html">scitex_ml.classification.Classifier</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.Classifier.html#scitex_ml.classification.Classifier"><code class="docutils literal notranslate"><span class="pre">Classifier</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.CrossValidationExperiment.html">scitex_ml.classification.CrossValidationExperiment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.CrossValidationExperiment.html#scitex_ml.classification.CrossValidationExperiment"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.reporters.html">scitex_ml.classification.reporters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.reporters.html#scitex_ml.classification.reporters.ClassificationReporter"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.reporters.html#scitex_ml.classification.reporters.SingleTaskClassificationReporter"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.reporters.reporter_utils.html">scitex_ml.classification.reporters.reporter_utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.classification.timeseries.html">scitex_ml.classification.timeseries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesStratifiedSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesBlockingSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesSlidingWindowSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesSlidingWindowSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesCalendarSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesStrategy"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesMetadata"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.normalize_timestamp"><code class="docutils literal notranslate"><span class="pre">normalize_timestamp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scitex_ml.clustering.html">scitex_ml.clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.clustering.html#scitex_ml.clustering.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.clustering.html#scitex_ml.clustering.pca"><code class="docutils literal notranslate"><span class="pre">pca()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.clustering.html#scitex_ml.clustering.umap"><code class="docutils literal notranslate"><span class="pre">umap()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scitex_ml.feature_extraction.html">scitex_ml.feature_extraction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.feature_extraction.vit.html">scitex_ml.feature_extraction.vit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.feature_extraction.vit.html#scitex_ml.feature_extraction.vit.THIS_FILE"><code class="docutils literal notranslate"><span class="pre">THIS_FILE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.feature_extraction.vit.html#scitex_ml.feature_extraction.vit.VitFeatureExtractor"><code class="docutils literal notranslate"><span class="pre">VitFeatureExtractor</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scitex_ml.feature_selection.html">scitex_ml.feature_selection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.feature_selection.html#scitex_ml.feature_selection.extract_feature_importance"><code class="docutils literal notranslate"><span class="pre">extract_feature_importance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.feature_selection.html#scitex_ml.feature_selection.select_features_univariate"><code class="docutils literal notranslate"><span class="pre">select_features_univariate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.feature_selection.html#scitex_ml.feature_selection.analyze_feature_consistency"><code class="docutils literal notranslate"><span class="pre">analyze_feature_consistency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.feature_selection.html#scitex_ml.feature_selection.aggregate_feature_importances"><code class="docutils literal notranslate"><span class="pre">aggregate_feature_importances()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.feature_selection.html#scitex_ml.feature_selection.create_feature_importance_dataframe"><code class="docutils literal notranslate"><span class="pre">create_feature_importance_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.feature_selection.feature_selection.html">scitex_ml.feature_selection.feature_selection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.feature_selection.feature_selection.html#scitex_ml.feature_selection.feature_selection.extract_feature_importance"><code class="docutils literal notranslate"><span class="pre">extract_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.feature_selection.feature_selection.html#scitex_ml.feature_selection.feature_selection.select_features_univariate"><code class="docutils literal notranslate"><span class="pre">select_features_univariate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.feature_selection.feature_selection.html#scitex_ml.feature_selection.feature_selection.analyze_feature_consistency"><code class="docutils literal notranslate"><span class="pre">analyze_feature_consistency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.feature_selection.feature_selection.html#scitex_ml.feature_selection.feature_selection.aggregate_feature_importances"><code class="docutils literal notranslate"><span class="pre">aggregate_feature_importances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.feature_selection.feature_selection.html#scitex_ml.feature_selection.feature_selection.create_feature_importance_dataframe"><code class="docutils literal notranslate"><span class="pre">create_feature_importance_dataframe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scitex_ml.loss.html">scitex_ml.loss</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.loss.html#scitex_ml.loss.elastic"><code class="docutils literal notranslate"><span class="pre">elastic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.loss.html#scitex_ml.loss.l1"><code class="docutils literal notranslate"><span class="pre">l1()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.loss.html#scitex_ml.loss.l2"><code class="docutils literal notranslate"><span class="pre">l2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.loss.html#scitex_ml.loss.MultiTaskLoss"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.loss.html#scitex_ml.loss.MultiTaskLoss.__init__"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.loss.html#scitex_ml.loss.MultiTaskLoss.forward"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.loss.multi_task_loss.html">scitex_ml.loss.multi_task_loss</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.loss.multi_task_loss.html#scitex_ml.loss.multi_task_loss.MultiTaskLoss"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scitex_ml.metrics.html">scitex_ml.metrics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_bacc"><code class="docutils literal notranslate"><span class="pre">calc_bacc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_mcc"><code class="docutils literal notranslate"><span class="pre">calc_mcc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_conf_mat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_clf_report"><code class="docutils literal notranslate"><span class="pre">calc_clf_report()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_roc_auc"><code class="docutils literal notranslate"><span class="pre">calc_roc_auc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_pre_rec_auc"><code class="docutils literal notranslate"><span class="pre">calc_pre_rec_auc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_bacc_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bacc_from_conf_mat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_window_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_window_prediction_metrics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_event_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_event_prediction_metrics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_prediction_metrics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_score_slow"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_score_slow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_samples_slow"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_samples_slow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_score_block"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_score_block()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_samples_block"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_samples_block()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_feature_importance"><code class="docutils literal notranslate"><span class="pre">calc_feature_importance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.metrics.html#scitex_ml.metrics.calc_permutation_importance"><code class="docutils literal notranslate"><span class="pre">calc_permutation_importance()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="scitex_ml.optim.html">scitex_ml.optim</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.optim.html#scitex_ml.optim.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.optim.html#scitex_ml.optim.get_optimizer"><code class="docutils literal notranslate"><span class="pre">get_optimizer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.optim.html#scitex_ml.optim.set"><code class="docutils literal notranslate"><span class="pre">set()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.optim.html#scitex_ml.optim.set_optimizer"><code class="docutils literal notranslate"><span class="pre">set_optimizer()</span></code></a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="scitex_ml.optim.Ranger_Deep_Learning_Optimizer.html">scitex_ml.optim.Ranger_Deep_Learning_Optimizer</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.html">scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scitex_ml.plt.html">scitex_ml.plt</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.stx_conf_mat"><code class="docutils literal notranslate"><span class="pre">stx_conf_mat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.conf_mat"><code class="docutils literal notranslate"><span class="pre">conf_mat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.plot_learning_curve"><code class="docutils literal notranslate"><span class="pre">plot_learning_curve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.learning_curve"><code class="docutils literal notranslate"><span class="pre">learning_curve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.optuna_study"><code class="docutils literal notranslate"><span class="pre">optuna_study()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.plot_optuna_study"><code class="docutils literal notranslate"><span class="pre">plot_optuna_study()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.plot_roc_curve"><code class="docutils literal notranslate"><span class="pre">plot_roc_curve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.plot_pre_rec_curve"><code class="docutils literal notranslate"><span class="pre">plot_pre_rec_curve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.plot_feature_importance"><code class="docutils literal notranslate"><span class="pre">plot_feature_importance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.plot_feature_importance_cv_summary"><code class="docutils literal notranslate"><span class="pre">plot_feature_importance_cv_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.plot_tra"><code class="docutils literal notranslate"><span class="pre">plot_tra()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.process_i_global"><code class="docutils literal notranslate"><span class="pre">process_i_global()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.scatter_tes"><code class="docutils literal notranslate"><span class="pre">scatter_tes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.scatter_val"><code class="docutils literal notranslate"><span class="pre">scatter_val()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.select_ticks"><code class="docutils literal notranslate"><span class="pre">select_ticks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.set_yaxis_for_acc"><code class="docutils literal notranslate"><span class="pre">set_yaxis_for_acc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.vline_at_epochs"><code class="docutils literal notranslate"><span class="pre">vline_at_epochs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.calc_bACC_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bACC_from_conf_mat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.plt.html#scitex_ml.plt.calc_bacc_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bacc_from_conf_mat()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scitex_ml.sampling.html">scitex_ml.sampling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.sampling.undersample.html">scitex_ml.sampling.undersample</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.sampling.undersample.html#scitex_ml.sampling.undersample.undersample"><code class="docutils literal notranslate"><span class="pre">undersample()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scitex_ml.sklearn.html">scitex_ml.sklearn</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.sklearn.clf.html">scitex_ml.sklearn.clf</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.sklearn.clf.html#scitex_ml.sklearn.clf.rocket_pipeline"><code class="docutils literal notranslate"><span class="pre">rocket_pipeline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.sklearn.to_sktime.html">scitex_ml.sklearn.to_sktime</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.sklearn.to_sktime.html#scitex_ml.sklearn.to_sktime.to_sktime_df"><code class="docutils literal notranslate"><span class="pre">to_sktime_df()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scitex_ml.training.html">scitex_ml.training</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.training.html#scitex_ml.training.EarlyStopping"><code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.training.html#scitex_ml.training.EarlyStopping.__init__"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.training.html#scitex_ml.training.EarlyStopping.is_best"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.is_best()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.training.html#scitex_ml.training.EarlyStopping.save"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.save()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.training.html#scitex_ml.training.LearningCurveLogger"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.__init__"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.dfs"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.dfs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.to_metrics_df"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.to_metrics_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.plot_learning_curves"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.plot_learning_curves()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.get_x_of_i_epoch"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.get_x_of_i_epoch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.print"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.print()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scitex_ml.utils.html">scitex_ml.utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.DefaultDataset"><code class="docutils literal notranslate"><span class="pre">DefaultDataset</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.DefaultDataset.__init__"><code class="docutils literal notranslate"><span class="pre">DefaultDataset.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.LabelEncoder"><code class="docutils literal notranslate"><span class="pre">LabelEncoder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.classes_"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.classes_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.__init__"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.fit"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.transform"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.transform()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.inverse_transform"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.inverse_transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.check_params"><code class="docutils literal notranslate"><span class="pre">check_params()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.format_samples_for_sktime"><code class="docutils literal notranslate"><span class="pre">format_samples_for_sktime()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.merge_labels"><code class="docutils literal notranslate"><span class="pre">merge_labels()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.sliding_window_data_augmentation"><code class="docutils literal notranslate"><span class="pre">sliding_window_data_augmentation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.under_sample"><code class="docutils literal notranslate"><span class="pre">under_sample()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.utils.html#scitex_ml.utils.verify_n_gpus"><code class="docutils literal notranslate"><span class="pre">verify_n_gpus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scitex_ml.utils.grid_search.html">scitex_ml.utils.grid_search</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.grid_search.html#scitex_ml.utils.grid_search.yield_grids"><code class="docutils literal notranslate"><span class="pre">yield_grids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scitex_ml.utils.grid_search.html#scitex_ml.utils.grid_search.count_grids"><code class="docutils literal notranslate"><span class="pre">count_grids()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SciTeX ML</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../api.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="scitex_ml.html">scitex_ml</a></li>
+          <li class="breadcrumb-item"><a href="scitex_ml.optim.html">scitex_ml.optim</a></li>
+          <li class="breadcrumb-item"><a href="scitex_ml.optim.Ranger_Deep_Learning_Optimizer.html">scitex_ml.optim.Ranger_Deep_Learning_Optimizer</a></li>
+          <li class="breadcrumb-item"><a href="scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.html">scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger</a></li>
+      <li class="breadcrumb-item active">scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.rangerqh</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ywatanabe1989/scitex-ml/blob/main/docs/sphinx/_generated/scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.rangerqh.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.rangerqh">
+<span id="scitex-ml-optim-ranger-deep-learning-optimizer-ranger-rangerqh"></span><h1>scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.rangerqh<a class="headerlink" href="#module-scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.rangerqh" title="Link to this heading"></a></h1>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.rangerqh.RangerQH" title="scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.rangerqh.RangerQH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RangerQH</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Implements the QHAdam optimization algorithm <a class="reference external" href="https://arxiv.org/abs/1810.06801">(Ma and Yarats, 2019)</a>. Along with Hinton/Zhang Lookahead. :type params:  :param params: iterable of parameters to optimize or dicts defining parameter                groups :type params: iterable :type lr:  :param lr: learning rate (<span class="math notranslate nohighlight">\(\alpha\)</span> from the paper)            (default: 1e-3) :type lr: float, optional :type betas:  :param betas: coefficients used for computing               running averages of the gradient and its square               (default: (0.9, 0.999)) :type betas: Tuple[float, float], optional :type nus:  :param nus: immediate discount factors used to             estimate the gradient and its square             (default: (1.0, 1.0)) :type nus: Tuple[float, float], optional :type eps:  :param eps: term added to the denominator to improve             numerical stability             (default: 1e-8) :type eps: float, optional :type weight_decay:  :param weight_decay: weight decay (default: 0.0) :type weight_decay: float, optional :type decouple_weight_decay:  :param decouple_weight_decay: whether to decouple the weight                               decay from the gradient-based optimization step                               (default: False) :type decouple_weight_decay: bool, optional.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.rangerqh.RangerQH">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.rangerqh.</span></span><span class="sig-name descname"><span class="pre">RangerQH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_ml/optim/Ranger_Deep_Learning_Optimizer/ranger/rangerqh.html#RangerQH"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.rangerqh.RangerQH" title="Link to this definition"></a></dt>
+<dd><p>Implements the QHAdam optimization algorithm <a class="reference external" href="https://arxiv.org/abs/1810.06801">(Ma and Yarats, 2019)</a>.
+Along with Hinton/Zhang Lookahead.
+:type params: 
+:param params: iterable of parameters to optimize or dicts defining parameter</p>
+<blockquote>
+<div><p>groups</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – learning rate (<span class="math notranslate nohighlight">\(\alpha\)</span> from the paper)
+(default: 1e-3)</p></li>
+<li><p><strong>betas</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em><em>, </em><em>optional</em>) – coefficients used for computing
+running averages of the gradient and its square
+(default: (0.9, 0.999))</p></li>
+<li><p><strong>nus</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>]</em><em>, </em><em>optional</em>) – immediate discount factors used to
+estimate the gradient and its square
+(default: (1.0, 1.0))</p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – term added to the denominator to improve
+numerical stability
+(default: 1e-8)</p></li>
+<li><p><strong>weight_decay</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – weight decay (default: 0.0)</p></li>
+<li><p><strong>decouple_weight_decay</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – whether to decouple the weight
+decay from the gradient-based optimization step
+(default: False)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">qhoptim</span><span class="o">.</span><span class="n">pyt</span><span class="o">.</span><span class="n">QHAdam</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span>
+<span class="gp">... </span>    <span class="n">lr</span><span class="o">=</span><span class="mf">3e-4</span><span class="p">,</span> <span class="n">nus</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">betas</span><span class="o">=</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loss_fn</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="nb">input</span><span class="p">),</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.rangerqh.RangerQH.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">betas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.9,</span> <span class="pre">0.999)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nus</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.7,</span> <span class="pre">1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decouple_weight_decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_ml/optim/Ranger_Deep_Learning_Optimizer/ranger/rangerqh.html#RangerQH.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.rangerqh.RangerQH.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.rangerqh.RangerQH.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">closure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_ml/optim/Ranger_Deep_Learning_Optimizer/ranger/rangerqh.html#RangerQH.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.rangerqh.RangerQH.step" title="Link to this definition"></a></dt>
+<dd><p>Performs a single optimization step.
+:type closure: 
+:param closure: A closure that reevaluates the model and returns the loss.
+:type closure: callable, optional</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.ranger913A.html" class="btn btn-neutral float-left" title="scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.ranger913A" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scitex_ml.plt.html" class="btn btn-neutral float-right" title="scitex_ml.plt" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024-2026, Yusuke Watanabe.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

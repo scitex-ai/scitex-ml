@@ -16,9 +16,11 @@ def main() -> int:
     from scitex_ml import Classifier
 
     X, y = load_iris(return_X_y=True)
-    X_tr, X_te, y_tr, y_te = train_test_split(X, y, random_state=0)
+    X_tr, X_te, y_tr, y_te = train_test_split(X, y, random_state=0, stratify=y)
 
-    clf = Classifier("LogisticRegression")
+    # Classifier is a factory: instantiate, then call to get a fresh estimator.
+    factory = Classifier()
+    clf = factory("LogisticRegression")
     clf.fit(X_tr, y_tr)
     score = clf.score(X_te, y_te)
     print(f"test accuracy: {score:.3f}")

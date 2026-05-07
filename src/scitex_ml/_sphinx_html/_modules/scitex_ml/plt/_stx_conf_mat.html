@@ -1,0 +1,1246 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scitex_ml.plt._stx_conf_mat &mdash; SciTeX ML v0.1.0</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            SciTeX ML
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../_generated/scitex_ml.html">scitex_ml</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter.__init__"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter.calculate_metrics"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.calculate_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter.save"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter.get_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.get_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter.save_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter.save_feature_importance"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter.save_feature_importance_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_feature_importance_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.Classifier"><code class="docutils literal notranslate"><span class="pre">Classifier</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.Classifier.__init__"><code class="docutils literal notranslate"><span class="pre">Classifier.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.Classifier.list"><code class="docutils literal notranslate"><span class="pre">Classifier.list</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.EarlyStopping"><code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.EarlyStopping.__init__"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.EarlyStopping.is_best"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.is_best()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.EarlyStopping.save"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.save()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.LearningCurveLogger"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.LearningCurveLogger.__init__"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.LearningCurveLogger.dfs"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.dfs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.LearningCurveLogger.to_metrics_df"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.to_metrics_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.LearningCurveLogger.plot_learning_curves"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.plot_learning_curves()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.LearningCurveLogger.get_x_of_i_epoch"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.get_x_of_i_epoch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.LearningCurveLogger.print"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.print()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.MultiTaskLoss"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.MultiTaskLoss.__init__"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.MultiTaskLoss.forward"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.get_optimizer"><code class="docutils literal notranslate"><span class="pre">get_optimizer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.html#scitex_ml.set_optimizer"><code class="docutils literal notranslate"><span class="pre">set_optimizer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.activation.html">scitex_ml.activation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.activation.html#scitex_ml.activation.define"><code class="docutils literal notranslate"><span class="pre">define()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html">scitex_ml.classification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.Classifier"><code class="docutils literal notranslate"><span class="pre">Classifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CVExperiment"><code class="docutils literal notranslate"><span class="pre">CVExperiment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.quick_experiment"><code class="docutils literal notranslate"><span class="pre">quick_experiment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesSlidingWindowSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesSlidingWindowSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.Classifier.html">scitex_ml.classification.Classifier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.CrossValidationExperiment.html">scitex_ml.classification.CrossValidationExperiment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.reporters.html">scitex_ml.classification.reporters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.timeseries.html">scitex_ml.classification.timeseries</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.clustering.html">scitex_ml.clustering</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.clustering.html#scitex_ml.clustering.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.clustering.html#scitex_ml.clustering.pca"><code class="docutils literal notranslate"><span class="pre">pca()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.clustering.html#scitex_ml.clustering.umap"><code class="docutils literal notranslate"><span class="pre">umap()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.feature_extraction.html">scitex_ml.feature_extraction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.feature_extraction.vit.html">scitex_ml.feature_extraction.vit</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.html">scitex_ml.feature_selection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.extract_feature_importance"><code class="docutils literal notranslate"><span class="pre">extract_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.select_features_univariate"><code class="docutils literal notranslate"><span class="pre">select_features_univariate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.analyze_feature_consistency"><code class="docutils literal notranslate"><span class="pre">analyze_feature_consistency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.aggregate_feature_importances"><code class="docutils literal notranslate"><span class="pre">aggregate_feature_importances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.create_feature_importance_dataframe"><code class="docutils literal notranslate"><span class="pre">create_feature_importance_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.feature_selection.html">scitex_ml.feature_selection.feature_selection</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.loss.html">scitex_ml.loss</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.loss.html#scitex_ml.loss.elastic"><code class="docutils literal notranslate"><span class="pre">elastic()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.loss.html#scitex_ml.loss.l1"><code class="docutils literal notranslate"><span class="pre">l1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.loss.html#scitex_ml.loss.l2"><code class="docutils literal notranslate"><span class="pre">l2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.loss.html#scitex_ml.loss.MultiTaskLoss"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.loss.multi_task_loss.html">scitex_ml.loss.multi_task_loss</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html">scitex_ml.metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_bacc"><code class="docutils literal notranslate"><span class="pre">calc_bacc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_mcc"><code class="docutils literal notranslate"><span class="pre">calc_mcc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_conf_mat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_clf_report"><code class="docutils literal notranslate"><span class="pre">calc_clf_report()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_roc_auc"><code class="docutils literal notranslate"><span class="pre">calc_roc_auc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_pre_rec_auc"><code class="docutils literal notranslate"><span class="pre">calc_pre_rec_auc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_bacc_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bacc_from_conf_mat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_window_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_window_prediction_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_event_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_event_prediction_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_prediction_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_score_slow"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_score_slow()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_samples_slow"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_samples_slow()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_score_block"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_score_block()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_samples_block"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_samples_block()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_feature_importance"><code class="docutils literal notranslate"><span class="pre">calc_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_permutation_importance"><code class="docutils literal notranslate"><span class="pre">calc_permutation_importance()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.optim.html">scitex_ml.optim</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.optim.html#scitex_ml.optim.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.optim.html#scitex_ml.optim.get_optimizer"><code class="docutils literal notranslate"><span class="pre">get_optimizer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.optim.html#scitex_ml.optim.set"><code class="docutils literal notranslate"><span class="pre">set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.optim.html#scitex_ml.optim.set_optimizer"><code class="docutils literal notranslate"><span class="pre">set_optimizer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.optim.Ranger_Deep_Learning_Optimizer.html">scitex_ml.optim.Ranger_Deep_Learning_Optimizer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html">scitex_ml.plt</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.stx_conf_mat"><code class="docutils literal notranslate"><span class="pre">stx_conf_mat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.conf_mat"><code class="docutils literal notranslate"><span class="pre">conf_mat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_learning_curve"><code class="docutils literal notranslate"><span class="pre">plot_learning_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.learning_curve"><code class="docutils literal notranslate"><span class="pre">learning_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.optuna_study"><code class="docutils literal notranslate"><span class="pre">optuna_study()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_optuna_study"><code class="docutils literal notranslate"><span class="pre">plot_optuna_study()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_roc_curve"><code class="docutils literal notranslate"><span class="pre">plot_roc_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_pre_rec_curve"><code class="docutils literal notranslate"><span class="pre">plot_pre_rec_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_feature_importance"><code class="docutils literal notranslate"><span class="pre">plot_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_feature_importance_cv_summary"><code class="docutils literal notranslate"><span class="pre">plot_feature_importance_cv_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_tra"><code class="docutils literal notranslate"><span class="pre">plot_tra()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.process_i_global"><code class="docutils literal notranslate"><span class="pre">process_i_global()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.scatter_tes"><code class="docutils literal notranslate"><span class="pre">scatter_tes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.scatter_val"><code class="docutils literal notranslate"><span class="pre">scatter_val()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.select_ticks"><code class="docutils literal notranslate"><span class="pre">select_ticks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.set_yaxis_for_acc"><code class="docutils literal notranslate"><span class="pre">set_yaxis_for_acc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.vline_at_epochs"><code class="docutils literal notranslate"><span class="pre">vline_at_epochs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.calc_bACC_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bACC_from_conf_mat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.calc_bacc_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bacc_from_conf_mat()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.sk.html">scitex_ml.sk</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.sk.html#scitex_ml.sk.rocket_pipeline"><code class="docutils literal notranslate"><span class="pre">rocket_pipeline()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.sk.html#scitex_ml.sk.to_sktime_df"><code class="docutils literal notranslate"><span class="pre">to_sktime_df()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.sklearn.html">scitex_ml.sklearn</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.sklearn.clf.html">scitex_ml.sklearn.clf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.sklearn.to_sktime.html">scitex_ml.sklearn.to_sktime</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.training.html">scitex_ml.training</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.training.html#scitex_ml.training.EarlyStopping"><code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html">scitex_ml.utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.DefaultDataset"><code class="docutils literal notranslate"><span class="pre">DefaultDataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder"><code class="docutils literal notranslate"><span class="pre">LabelEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.check_params"><code class="docutils literal notranslate"><span class="pre">check_params()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.format_samples_for_sktime"><code class="docutils literal notranslate"><span class="pre">format_samples_for_sktime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.merge_labels"><code class="docutils literal notranslate"><span class="pre">merge_labels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.sliding_window_data_augmentation"><code class="docutils literal notranslate"><span class="pre">sliding_window_data_augmentation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.under_sample"><code class="docutils literal notranslate"><span class="pre">under_sample()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.verify_n_gpus"><code class="docutils literal notranslate"><span class="pre">verify_n_gpus()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.grid_search.html">scitex_ml.utils.grid_search</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html">scitex_ml.classification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.__init__"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.calculate_metrics"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.calculate_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.get_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.get_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save_feature_importance"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save_feature_importance_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_feature_importance_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter.__init__"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter.set_session_config"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter.set_session_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter.save_summary"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter.save_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.Classifier"><code class="docutils literal notranslate"><span class="pre">Classifier</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.Classifier.__init__"><code class="docutils literal notranslate"><span class="pre">Classifier.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.Classifier.list"><code class="docutils literal notranslate"><span class="pre">Classifier.list</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.__init__"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.set_hyperparameters"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.set_hyperparameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.describe_dataset"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.describe_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.run"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.get_summary"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.get_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.get_validation_report"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.get_validation_report()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CVExperiment"><code class="docutils literal notranslate"><span class="pre">CVExperiment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.quick_experiment"><code class="docutils literal notranslate"><span class="pre">quick_experiment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.__init__"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.split"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.split_with_val"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.split_with_val()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.get_n_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.get_n_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.plot_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.plot_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.set_split_request"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.set_split_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.__init__"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.split"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.split_with_val"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.split_with_val()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.get_n_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.get_n_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.plot_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.plot_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.set_split_request"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.set_split_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesSlidingWindowSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesSlidingWindowSplit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesSlidingWindowSplit.__init__"><code class="docutils literal notranslate"><span class="pre">TimeSeriesSlidingWindowSplit.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesSlidingWindowSplit.set_split_request"><code class="docutils literal notranslate"><span class="pre">TimeSeriesSlidingWindowSplit.set_split_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.__init__"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.split"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.split_with_val"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.split_with_val()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.get_n_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.get_n_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.plot_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.plot_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.set_split_request"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.set_split_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.STRATIFIED"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.STRATIFIED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.BLOCKING"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.BLOCKING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.SLIDING"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.SLIDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.EXPANDING"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.EXPANDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.FIXED"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.FIXED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id0"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.STRATIFIED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id1"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.BLOCKING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id2"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.SLIDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id3"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.EXPANDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id4"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.FIXED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.from_string"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.from_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.get_description"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.get_description()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.n_samples"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_samples</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.n_features"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_features</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.n_classes"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.has_groups"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.has_groups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.group_sizes"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.group_sizes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.time_range"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.time_range</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.sampling_rate"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.sampling_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.has_gaps"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.has_gaps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.max_gap_size"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.max_gap_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.is_balanced"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.is_balanced</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.class_distribution"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.class_distribution</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id5"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_samples</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id6"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_features</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id7"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id8"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.has_groups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id9"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.group_sizes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id10"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.time_range</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id11"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.sampling_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id12"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.has_gaps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id13"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.max_gap_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id14"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.is_balanced</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#id15"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.class_distribution</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.get_summary"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.get_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.suggest_strategy"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.suggest_strategy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.__init__"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.Classifier.html">scitex_ml.classification.Classifier</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.Classifier.html#scitex_ml.classification.Classifier"><code class="docutils literal notranslate"><span class="pre">Classifier</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.CrossValidationExperiment.html">scitex_ml.classification.CrossValidationExperiment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.CrossValidationExperiment.html#scitex_ml.classification.CrossValidationExperiment"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.reporters.html">scitex_ml.classification.reporters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.reporters.html#scitex_ml.classification.reporters.ClassificationReporter"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.reporters.html#scitex_ml.classification.reporters.SingleTaskClassificationReporter"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.reporters.reporter_utils.html">scitex_ml.classification.reporters.reporter_utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.classification.timeseries.html">scitex_ml.classification.timeseries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesStratifiedSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesBlockingSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesSlidingWindowSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesSlidingWindowSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesCalendarSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesStrategy"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesMetadata"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.normalize_timestamp"><code class="docutils literal notranslate"><span class="pre">normalize_timestamp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_generated/scitex_ml.clustering.html">scitex_ml.clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.clustering.html#scitex_ml.clustering.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.clustering.html#scitex_ml.clustering.pca"><code class="docutils literal notranslate"><span class="pre">pca()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.clustering.html#scitex_ml.clustering.umap"><code class="docutils literal notranslate"><span class="pre">umap()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_generated/scitex_ml.feature_extraction.html">scitex_ml.feature_extraction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.feature_extraction.vit.html">scitex_ml.feature_extraction.vit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.feature_extraction.vit.html#scitex_ml.feature_extraction.vit.THIS_FILE"><code class="docutils literal notranslate"><span class="pre">THIS_FILE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.feature_extraction.vit.html#scitex_ml.feature_extraction.vit.VitFeatureExtractor"><code class="docutils literal notranslate"><span class="pre">VitFeatureExtractor</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.html">scitex_ml.feature_selection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.extract_feature_importance"><code class="docutils literal notranslate"><span class="pre">extract_feature_importance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.select_features_univariate"><code class="docutils literal notranslate"><span class="pre">select_features_univariate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.analyze_feature_consistency"><code class="docutils literal notranslate"><span class="pre">analyze_feature_consistency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.aggregate_feature_importances"><code class="docutils literal notranslate"><span class="pre">aggregate_feature_importances()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.create_feature_importance_dataframe"><code class="docutils literal notranslate"><span class="pre">create_feature_importance_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.feature_selection.html">scitex_ml.feature_selection.feature_selection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.feature_selection.html#scitex_ml.feature_selection.feature_selection.extract_feature_importance"><code class="docutils literal notranslate"><span class="pre">extract_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.feature_selection.html#scitex_ml.feature_selection.feature_selection.select_features_univariate"><code class="docutils literal notranslate"><span class="pre">select_features_univariate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.feature_selection.html#scitex_ml.feature_selection.feature_selection.analyze_feature_consistency"><code class="docutils literal notranslate"><span class="pre">analyze_feature_consistency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.feature_selection.html#scitex_ml.feature_selection.feature_selection.aggregate_feature_importances"><code class="docutils literal notranslate"><span class="pre">aggregate_feature_importances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.feature_selection.feature_selection.html#scitex_ml.feature_selection.feature_selection.create_feature_importance_dataframe"><code class="docutils literal notranslate"><span class="pre">create_feature_importance_dataframe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_generated/scitex_ml.loss.html">scitex_ml.loss</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.loss.html#scitex_ml.loss.elastic"><code class="docutils literal notranslate"><span class="pre">elastic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.loss.html#scitex_ml.loss.l1"><code class="docutils literal notranslate"><span class="pre">l1()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.loss.html#scitex_ml.loss.l2"><code class="docutils literal notranslate"><span class="pre">l2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.loss.html#scitex_ml.loss.MultiTaskLoss"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.loss.html#scitex_ml.loss.MultiTaskLoss.__init__"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.loss.html#scitex_ml.loss.MultiTaskLoss.forward"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.loss.multi_task_loss.html">scitex_ml.loss.multi_task_loss</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.loss.multi_task_loss.html#scitex_ml.loss.multi_task_loss.MultiTaskLoss"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html">scitex_ml.metrics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_bacc"><code class="docutils literal notranslate"><span class="pre">calc_bacc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_mcc"><code class="docutils literal notranslate"><span class="pre">calc_mcc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_conf_mat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_clf_report"><code class="docutils literal notranslate"><span class="pre">calc_clf_report()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_roc_auc"><code class="docutils literal notranslate"><span class="pre">calc_roc_auc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_pre_rec_auc"><code class="docutils literal notranslate"><span class="pre">calc_pre_rec_auc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_bacc_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bacc_from_conf_mat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_window_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_window_prediction_metrics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_event_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_event_prediction_metrics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_prediction_metrics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_score_slow"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_score_slow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_samples_slow"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_samples_slow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_score_block"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_score_block()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_samples_block"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_samples_block()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_feature_importance"><code class="docutils literal notranslate"><span class="pre">calc_feature_importance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_permutation_importance"><code class="docutils literal notranslate"><span class="pre">calc_permutation_importance()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_generated/scitex_ml.optim.html">scitex_ml.optim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.optim.html#scitex_ml.optim.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.optim.html#scitex_ml.optim.get_optimizer"><code class="docutils literal notranslate"><span class="pre">get_optimizer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.optim.html#scitex_ml.optim.set"><code class="docutils literal notranslate"><span class="pre">set()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.optim.html#scitex_ml.optim.set_optimizer"><code class="docutils literal notranslate"><span class="pre">set_optimizer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.optim.Ranger_Deep_Learning_Optimizer.html">scitex_ml.optim.Ranger_Deep_Learning_Optimizer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.html">scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html">scitex_ml.plt</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.stx_conf_mat"><code class="docutils literal notranslate"><span class="pre">stx_conf_mat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.conf_mat"><code class="docutils literal notranslate"><span class="pre">conf_mat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_learning_curve"><code class="docutils literal notranslate"><span class="pre">plot_learning_curve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.learning_curve"><code class="docutils literal notranslate"><span class="pre">learning_curve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.optuna_study"><code class="docutils literal notranslate"><span class="pre">optuna_study()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_optuna_study"><code class="docutils literal notranslate"><span class="pre">plot_optuna_study()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_roc_curve"><code class="docutils literal notranslate"><span class="pre">plot_roc_curve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_pre_rec_curve"><code class="docutils literal notranslate"><span class="pre">plot_pre_rec_curve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_feature_importance"><code class="docutils literal notranslate"><span class="pre">plot_feature_importance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_feature_importance_cv_summary"><code class="docutils literal notranslate"><span class="pre">plot_feature_importance_cv_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_tra"><code class="docutils literal notranslate"><span class="pre">plot_tra()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.process_i_global"><code class="docutils literal notranslate"><span class="pre">process_i_global()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.scatter_tes"><code class="docutils literal notranslate"><span class="pre">scatter_tes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.scatter_val"><code class="docutils literal notranslate"><span class="pre">scatter_val()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.select_ticks"><code class="docutils literal notranslate"><span class="pre">select_ticks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.set_yaxis_for_acc"><code class="docutils literal notranslate"><span class="pre">set_yaxis_for_acc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.vline_at_epochs"><code class="docutils literal notranslate"><span class="pre">vline_at_epochs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.calc_bACC_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bACC_from_conf_mat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.calc_bacc_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bacc_from_conf_mat()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_generated/scitex_ml.sampling.html">scitex_ml.sampling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.sampling.undersample.html">scitex_ml.sampling.undersample</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.sampling.undersample.html#scitex_ml.sampling.undersample.undersample"><code class="docutils literal notranslate"><span class="pre">undersample()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_generated/scitex_ml.sklearn.html">scitex_ml.sklearn</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.sklearn.clf.html">scitex_ml.sklearn.clf</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.sklearn.clf.html#scitex_ml.sklearn.clf.rocket_pipeline"><code class="docutils literal notranslate"><span class="pre">rocket_pipeline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.sklearn.to_sktime.html">scitex_ml.sklearn.to_sktime</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.sklearn.to_sktime.html#scitex_ml.sklearn.to_sktime.to_sktime_df"><code class="docutils literal notranslate"><span class="pre">to_sktime_df()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_generated/scitex_ml.training.html">scitex_ml.training</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.training.html#scitex_ml.training.EarlyStopping"><code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.training.html#scitex_ml.training.EarlyStopping.__init__"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.training.html#scitex_ml.training.EarlyStopping.is_best"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.is_best()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.training.html#scitex_ml.training.EarlyStopping.save"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.save()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.__init__"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.dfs"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.dfs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.to_metrics_df"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.to_metrics_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.plot_learning_curves"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.plot_learning_curves()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.get_x_of_i_epoch"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.get_x_of_i_epoch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.print"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.print()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html">scitex_ml.utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.DefaultDataset"><code class="docutils literal notranslate"><span class="pre">DefaultDataset</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.DefaultDataset.__init__"><code class="docutils literal notranslate"><span class="pre">DefaultDataset.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder"><code class="docutils literal notranslate"><span class="pre">LabelEncoder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.classes_"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.classes_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.__init__"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.fit"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.transform"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.transform()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.inverse_transform"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.inverse_transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.check_params"><code class="docutils literal notranslate"><span class="pre">check_params()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.format_samples_for_sktime"><code class="docutils literal notranslate"><span class="pre">format_samples_for_sktime()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.merge_labels"><code class="docutils literal notranslate"><span class="pre">merge_labels()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.sliding_window_data_augmentation"><code class="docutils literal notranslate"><span class="pre">sliding_window_data_augmentation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.under_sample"><code class="docutils literal notranslate"><span class="pre">under_sample()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.utils.html#scitex_ml.utils.verify_n_gpus"><code class="docutils literal notranslate"><span class="pre">verify_n_gpus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_generated/scitex_ml.utils.grid_search.html">scitex_ml.utils.grid_search</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.grid_search.html#scitex_ml.utils.grid_search.yield_grids"><code class="docutils literal notranslate"><span class="pre">yield_grids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_generated/scitex_ml.utils.grid_search.html#scitex_ml.utils.grid_search.count_grids"><code class="docutils literal notranslate"><span class="pre">count_grids()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SciTeX ML</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">scitex_ml.plt._stx_conf_mat</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for scitex_ml.plt._stx_conf_mat</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># Timestamp: &quot;2025-10-02 07:15:10 (ywatanabe)&quot;</span>
+<span class="c1"># File: /ssh:sp:/home/ywatanabe/proj/scitex_repo/src/scitex/ml/plt/stx_conf_mat.py</span>
+<span class="c1"># ----------------------------------------</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">scitex_context</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scitex_io</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scitex_plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scitex_dev</span><span class="w"> </span><span class="kn">import</span> <span class="n">try_import_optional</span>
+
+<span class="c1"># `figrecipe` is the underlying impl that the umbrella exposes as</span>
+<span class="c1"># `scitex.plt` — `ax`, `configure_mpl`, `_subplots`, etc. live there.</span>
+<span class="c1"># Use the peer standalone directly (PA304-clean); fall back to None</span>
+<span class="c1"># when the optional plotting layer isn&#39;t installed.</span>
+<span class="n">_umbrella_plt</span> <span class="o">=</span> <span class="n">try_import_optional</span><span class="p">(</span><span class="s2">&quot;figrecipe&quot;</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s2">&quot;plt&quot;</span><span class="p">,</span> <span class="n">pkg</span><span class="o">=</span><span class="s2">&quot;scitex-ml&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">scitex_str</span>
+
+<span class="n">__FILE__</span> <span class="o">=</span> <span class="vm">__file__</span>
+<span class="n">__DIR__</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__FILE__</span><span class="p">)</span>
+<span class="c1"># ----------------------------------------</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">ticker</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.axes_grid1</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_axes_locatable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">confusion_matrix</span> <span class="k">as</span> <span class="n">sklearn_confusion_matrix</span>
+
+<span class="c1"># Import metric calculation from centralized location (SoC: metrics in scitex_ml.metrics)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scitex_ml.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">calc_bacc_from_conf_mat</span>
+
+<span class="c1"># Aliases for backward compatibility</span>
+<span class="n">calc_bACC_from_conf_mat</span> <span class="o">=</span> <span class="n">calc_bacc_from_conf_mat</span>
+
+
+<div class="viewcode-block" id="stx_conf_mat">
+<a class="viewcode-back" href="../../../_generated/scitex_ml.plt.html#scitex_ml.plt.stx_conf_mat">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">stx_conf_mat</span><span class="p">(</span>
+    <span class="n">cm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">y_true</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">y_pred_proba</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">sorted_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">pred_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">sorted_pred_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">true_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">sorted_true_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">label_rotation_xy</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Confusion Matrix&quot;</span><span class="p">,</span>
+    <span class="n">colorbar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">x_extend_ratio</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">y_extend_ratio</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">spath</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot confusion matrix as a heatmap with inverted y-axis.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cm : array-like, optional</span>
+<span class="sd">        Pre-computed confusion matrix</span>
+<span class="sd">    y_true : array-like, optional</span>
+<span class="sd">        True labels</span>
+<span class="sd">    y_pred : array-like, optional</span>
+<span class="sd">        Predicted labels</span>
+<span class="sd">    y_pred_proba : array-like, optional</span>
+<span class="sd">        Predicted probabilities</span>
+<span class="sd">    labels : list, optional</span>
+<span class="sd">        List of labels</span>
+<span class="sd">    sorted_labels : list, optional</span>
+<span class="sd">        Sorted list of labels</span>
+<span class="sd">    pred_labels : list, optional</span>
+<span class="sd">        Predicted label names</span>
+<span class="sd">    sorted_pred_labels : list, optional</span>
+<span class="sd">        Sorted predicted label names</span>
+<span class="sd">    true_labels : list, optional</span>
+<span class="sd">        True label names</span>
+<span class="sd">    sorted_true_labels : list, optional</span>
+<span class="sd">        Sorted true label names</span>
+<span class="sd">    label_rotation_xy : tuple, optional</span>
+<span class="sd">        Rotation angles for x and y labels</span>
+<span class="sd">    title : str, optional</span>
+<span class="sd">        Title of the plot</span>
+<span class="sd">    colorbar : bool, optional</span>
+<span class="sd">        Whether to include a colorbar</span>
+<span class="sd">    x_extend_ratio : float, optional</span>
+<span class="sd">        Ratio to extend x-axis</span>
+<span class="sd">    y_extend_ratio : float, optional</span>
+<span class="sd">        Ratio to extend y-axis</span>
+<span class="sd">    spath : str, optional</span>
+<span class="sd">        Path to save the figure</span>
+<span class="sd">    plt : deprecated</span>
+<span class="sd">        Kept for backward compatibility only</span>
+<span class="sd">    cm : array-like, optional</span>
+<span class="sd">        Pre-computed confusion matrix</span>
+<span class="sd">    y_true : array-like, optional</span>
+<span class="sd">        True labels</span>
+<span class="sd">    y_pred : array-like, optional</span>
+<span class="sd">        Predicted labels</span>
+<span class="sd">    y_pred_proba : array-like, optional</span>
+<span class="sd">        Predicted probabilities</span>
+<span class="sd">    labels : list, optional</span>
+<span class="sd">        List of labels</span>
+<span class="sd">    sorted_labels : list, optional</span>
+<span class="sd">        Sorted list of labels</span>
+<span class="sd">    pred_labels : list, optional</span>
+<span class="sd">        Predicted label names</span>
+<span class="sd">    sorted_pred_labels : list, optional</span>
+<span class="sd">        Sorted predicted label names</span>
+<span class="sd">    true_labels : list, optional</span>
+<span class="sd">        True label names</span>
+<span class="sd">    sorted_true_labels : list, optional</span>
+<span class="sd">        Sorted true label names</span>
+<span class="sd">    label_rotation_xy : tuple, optional</span>
+<span class="sd">        Rotation angles for x and y labels</span>
+<span class="sd">    title : str, optional</span>
+<span class="sd">        Title of the plot</span>
+<span class="sd">    colorbar : bool, optional</span>
+<span class="sd">        Whether to include a colorbar</span>
+<span class="sd">    x_extend_ratio : float, optional</span>
+<span class="sd">        Ratio to extend x-axis</span>
+<span class="sd">    y_extend_ratio : float, optional</span>
+<span class="sd">        Ratio to extend y-axis</span>
+<span class="sd">    spath : str, optional</span>
+<span class="sd">        Path to save the figure</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fig : matplotlib.figure.Figure</span>
+<span class="sd">        The figure object containing the plot</span>
+<span class="sd">    cm : pandas.DataFrame</span>
+<span class="sd">        The confusion matrix as a DataFrame</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    y_true = [0, 1, 2, 0, 1, 2]</span>
+<span class="sd">    y_pred = [0, 2, 1, 0, 0, 1]</span>
+<span class="sd">    labels = [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]</span>
+<span class="sd">    fig, cm = conf_mat(plt, y_true=y_true, y_pred=y_pred, labels=labels)</span>
+<span class="sd">    plt.show()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">y_pred_proba</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y_pred</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">y_pred_proba</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="p">(</span><span class="n">cm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">((</span><span class="n">y_true</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y_pred</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">cm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">scitex_context</span><span class="o">.</span><span class="n">suppress_output</span><span class="p">():</span>
+            <span class="n">cm</span> <span class="o">=</span> <span class="n">sklearn_confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+
+    <span class="n">bacc</span> <span class="o">=</span> <span class="n">calc_bACC_from_conf_mat</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+
+    <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2"> (bACC = </span><span class="si">{</span><span class="n">bacc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+    <span class="c1"># Only reconstruct full confusion matrix if we have y_true and y_pred</span>
+    <span class="c1"># When cm is passed directly, use it as-is</span>
+    <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">y_true</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">y_pred</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">full_cm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)))</span>
+        <span class="n">unique_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+        <span class="n">unique_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idx_true</span><span class="p">,</span> <span class="n">true_label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">idx_pred</span><span class="p">,</span> <span class="n">pred_label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">true_label</span> <span class="ow">in</span> <span class="n">unique_true</span> <span class="ow">and</span> <span class="n">pred_label</span> <span class="ow">in</span> <span class="n">unique_pred</span><span class="p">:</span>
+                    <span class="n">full_cm</span><span class="p">[</span><span class="n">idx_true</span><span class="p">,</span> <span class="n">idx_pred</span><span class="p">]</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">unique_true</span> <span class="o">==</span> <span class="n">true_label</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">unique_pred</span> <span class="o">==</span> <span class="n">pred_label</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="p">]</span>
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">full_cm</span>
+
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">cm</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">labels_to_latex</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">labels</span><span class="p">:</span> <span class="p">(</span>
+        <span class="p">[</span><span class="n">scitex_str</span><span class="o">.</span><span class="n">to_latex_style</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">else</span> <span class="kc">None</span>
+    <span class="p">)</span>
+    <span class="n">pred_labels</span> <span class="o">=</span> <span class="n">labels_to_latex</span><span class="p">(</span><span class="n">pred_labels</span><span class="p">)</span>
+    <span class="n">true_labels</span> <span class="o">=</span> <span class="n">labels_to_latex</span><span class="p">(</span><span class="n">true_labels</span><span class="p">)</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">labels_to_latex</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">sorted_labels</span> <span class="o">=</span> <span class="n">labels_to_latex</span><span class="p">(</span><span class="n">sorted_labels</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">pred_labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cm</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">pred_labels</span>
+    <span class="k">elif</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cm</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">labels</span>
+
+    <span class="k">if</span> <span class="n">true_labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cm</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">true_labels</span>
+    <span class="k">elif</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cm</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">labels</span>
+
+    <span class="k">if</span> <span class="n">sorted_labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">sorted_labels</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">sorted_labels</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">sorted_labels</span><span class="p">)</span>
+
+    <span class="c1"># Use scitex_plt.subplots() for CSV export functionality</span>
+    <span class="c1"># The AxisWrapper provides export_as_csv method for automatic data export</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl_plt</span>
+
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">scitex_plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+        <span class="n">cm</span><span class="p">,</span>
+        <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">annot_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">mpl_plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;font.size&quot;</span><span class="p">]},</span>
+        <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.0f&quot;</span><span class="p">,</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Blues&quot;</span><span class="p">,</span>
+        <span class="n">cbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">texts</span><span class="p">:</span>
+        <span class="n">text</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:,d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">get_text</span><span class="p">())))</span>
+
+    <span class="n">res</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">spine</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">spines</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">spine</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Predicted label&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;True label&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">_umbrella_plt</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x_extend_ratio</span><span class="p">,</span> <span class="n">y_extend_ratio</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_box_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span>
+            <span class="n">rotation</span><span class="o">=</span><span class="n">label_rotation_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;verticalalignment&quot;</span><span class="p">:</span> <span class="s2">&quot;top&quot;</span><span class="p">},</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span>
+            <span class="n">rotation</span><span class="o">=</span><span class="n">label_rotation_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;horizontalalignment&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">},</span>
+        <span class="p">)</span>
+
+    <span class="n">bbox</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span>
+    <span class="n">left_orig</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">x0</span>
+    <span class="n">width_orig</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">x1</span> <span class="o">-</span> <span class="n">bbox</span><span class="o">.</span><span class="n">x0</span>
+    <span class="n">width_tgt</span> <span class="o">=</span> <span class="n">width_orig</span> <span class="o">*</span> <span class="n">x_extend_ratio</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="n">width_orig</span> <span class="o">-</span> <span class="n">width_tgt</span>
+
+    <span class="k">if</span> <span class="n">colorbar</span><span class="p">:</span>
+        <span class="c1"># Extract underlying matplotlib axes if wrapped by SciTeX</span>
+        <span class="n">ax_mpl</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">_axis_mpl</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="s2">&quot;_axis_mpl&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">ax</span>
+
+        <span class="n">divider</span> <span class="o">=</span> <span class="n">make_axes_locatable</span><span class="p">(</span><span class="n">ax_mpl</span><span class="p">)</span>
+        <span class="n">cax</span> <span class="o">=</span> <span class="n">divider</span><span class="o">.</span><span class="n">append_axes</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;5%&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+
+        <span class="c1"># Get the underlying figure</span>
+        <span class="n">fig_mpl</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">_fig_mpl</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s2">&quot;_fig_mpl&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">fig</span>
+
+        <span class="n">vmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+        <span class="n">cbar</span> <span class="o">=</span> <span class="n">fig_mpl</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
+            <span class="n">matplotlib</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Blues&quot;</span><span class="p">),</span>
+            <span class="n">cax</span><span class="o">=</span><span class="n">cax</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">cbar</span><span class="o">.</span><span class="n">locator</span> <span class="o">=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">MaxNLocator</span><span class="p">(</span><span class="n">nbins</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">cbar</span><span class="o">.</span><span class="n">update_ticks</span><span class="p">()</span>
+        <span class="n">cbar</span><span class="o">.</span><span class="n">outline</span><span class="o">.</span><span class="n">set_edgecolor</span><span class="p">(</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">spath</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+        <span class="c1"># Resolve to absolute path to prevent _out directory creation</span>
+        <span class="n">spath_abs</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">spath</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spath</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">))</span> <span class="k">else</span> <span class="n">spath</span>
+        <span class="n">scitex_io</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">spath_abs</span><span class="p">),</span> <span class="n">use_caller_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">cm</span></div>
+
+
+
+<span class="c1"># Backward compatibility alias</span>
+<span class="n">conf_mat</span> <span class="o">=</span> <span class="n">stx_conf_mat</span>
+
+
+<span class="c1"># Metric calculation functions have been moved to scitex_ml.metrics</span>
+<span class="c1"># They are imported above for use in this module</span>
+<span class="c1"># This maintains SoC: plotting in scitex_ml.plt, metrics in scitex_ml.metrics</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Demo confusion matrix plotting with Iris dataset.&quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">sklearn</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">svm</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+
+    <span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+    <span class="n">class_names</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target_names</span>
+
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+    <span class="n">classifier</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">cm_data</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">cm_data</span> <span class="o">**=</span> <span class="mi">3</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">cm_result</span> <span class="o">=</span> <span class="n">conf_mat</span><span class="p">(</span>
+        <span class="n">cm</span><span class="o">=</span><span class="n">cm_data</span><span class="p">,</span>
+        <span class="n">pred_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">],</span>
+        <span class="n">true_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">],</span>
+        <span class="n">label_rotation_xy</span><span class="o">=</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span>
+        <span class="n">x_extend_ratio</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">colorbar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">_umbrella_plt</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">sci_note</span><span class="p">(</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">fformat</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%3.1f</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">scitex_io</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s2">&quot;plot_conf_mat_demo.jpg&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_args</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse command line arguments.&quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Demo confusion matrix plotting&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize scitex framework, run main function, and cleanup.&quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">CONFIG</span><span class="p">,</span> <span class="n">CC</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">plt</span><span class="p">,</span> <span class="n">rng</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">scitex</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stx</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="n">CONFIG</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">plt</span><span class="p">,</span> <span class="n">CC</span><span class="p">,</span> <span class="n">rng</span> <span class="o">=</span> <span class="n">stx</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">start</span><span class="p">(</span>
+        <span class="n">sys</span><span class="p">,</span>
+        <span class="n">plt</span><span class="p">,</span>
+        <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+        <span class="n">file</span><span class="o">=</span><span class="n">__FILE__</span><span class="p">,</span>
+        <span class="n">sdir_suffix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">agg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">exit_status</span> <span class="o">=</span> <span class="n">main</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="n">stx</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">(</span>
+        <span class="n">CONFIG</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">notify</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">exit_status</span><span class="o">=</span><span class="n">exit_status</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">run_main</span><span class="p">()</span>
+
+    <span class="c1"># EOF</span>
+
+    <span class="c1"># #!/usr/bin/env python3</span>
+    <span class="c1"># import matplotlib</span>
+    <span class="c1"># import scitex</span>
+    <span class="c1"># import numpy as np</span>
+    <span class="c1"># import pandas as pd</span>
+    <span class="c1"># import seaborn as sns</span>
+    <span class="c1"># from matplotlib import ticker</span>
+    <span class="c1"># from mpl_toolkits.axes_grid1 import make_axes_locatable</span>
+    <span class="c1"># from sklearn.metrics import balanced_accuracy_score</span>
+    <span class="c1"># from sklearn.metrics import confusion_matrix as sklearn_confusion_matrix</span>
+
+    <span class="c1"># def conf_mat(</span>
+    <span class="c1">#     plt,</span>
+    <span class="c1">#     cm=None,</span>
+    <span class="c1">#     y_true=None,</span>
+    <span class="c1">#     y_pred=None,</span>
+    <span class="c1">#     y_pred_proba=None,</span>
+    <span class="c1">#     labels=None,</span>
+    <span class="c1">#     sorted_labels=None,</span>
+    <span class="c1">#     pred_labels=None,</span>
+    <span class="c1">#     sorted_pred_labels=None,</span>
+    <span class="c1">#     true_labels=None,</span>
+    <span class="c1">#     sorted_true_labels=None,</span>
+    <span class="c1">#     label_rotation_xy=(15, 15),</span>
+    <span class="c1">#     title=&quot;Confuxion Matrix&quot;,</span>
+    <span class="c1">#     colorbar=True,</span>
+    <span class="c1">#     x_extend_ratio=1.0,</span>
+    <span class="c1">#     y_extend_ratio=1.0,</span>
+    <span class="c1">#     spath=None,</span>
+    <span class="c1"># ):</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     Inverse the y-axis and plot the confusion matrix as a heatmap.</span>
+    <span class="c1">#     The predicted labels (in x-axis) is symboled with hat (^).</span>
+    <span class="c1">#     The plt object is passed to adjust the figure size</span>
+
+    <span class="c1">#     cm = sklearn.metrics.confusion_matrix(y_test, y_pred)</span>
+
+    <span class="c1">#     cm = np.random.randint(low=0, high=10, size=[3,4])</span>
+    <span class="c1">#     x: predicted labels</span>
+    <span class="c1">#     y: true_labels</span>
+
+    <span class="c1">#     kwargs:</span>
+
+    <span class="c1">#         &quot;extend_ratio&quot;:</span>
+    <span class="c1">#             Determines how much the axes objects (not the fig object) are extended</span>
+    <span class="c1">#             in the vertical direction.</span>
+
+    <span class="c1">#     &quot;&quot;&quot;</span>
+
+    <span class="c1">#     if (y_pred_proba is not None) and (y_pred is None):</span>
+    <span class="c1">#         y_pred = y_pred_proba.argmax(axis=-1)</span>
+
+    <span class="c1">#     assert (cm is not None) or ((y_true is not None) and (y_pred is not None))</span>
+
+    <span class="c1">#     if cm is None:</span>
+    <span class="c1">#         with scitex_context.suppress_output():</span>
+    <span class="c1">#             cm = sklearn_confusion_matrix(y_true, y_pred, labels=labels)</span>
+    <span class="c1">#             # cm = sklearn_confusion_matrix(y_true, y_pred)</span>
+
+    <span class="c1">#     bacc = calc_bACC_from_conf_mat(cm)</span>
+
+    <span class="c1">#     title = f&quot;{title} (bACC = {bacc})&quot;</span>
+
+    <span class="c1">#     # Ensure all labels are present in the confusion matrix</span>
+    <span class="c1">#     if labels is not None:</span>
+    <span class="c1">#         full_cm = np.zeros((len(labels), len(labels)))</span>
+    <span class="c1">#         unique_true = np.unique(y_true)</span>
+    <span class="c1">#         unique_pred = np.unique(y_pred)</span>
+    <span class="c1">#         for i, true_label in enumerate(labels):</span>
+    <span class="c1">#             for j, pred_label in enumerate(labels):</span>
+    <span class="c1">#                 if true_label in unique_true and pred_label in unique_pred:</span>
+    <span class="c1">#                     full_cm[i, j] = cm[</span>
+    <span class="c1">#                         np.where(unique_true == true_label)[0][0],</span>
+    <span class="c1">#                         np.where(unique_pred == pred_label)[0][0],</span>
+    <span class="c1">#                     ]</span>
+    <span class="c1">#         cm = full_cm</span>
+
+    <span class="c1">#     # Dataframe</span>
+    <span class="c1">#     cm = pd.DataFrame(</span>
+    <span class="c1">#         data=cm,</span>
+    <span class="c1">#     ).copy()</span>
+
+    <span class="c1">#     # To LaTeX styles</span>
+    <span class="c1">#     if pred_labels is not None:</span>
+    <span class="c1">#         pred_labels = [scitex_str.to_latex_style(l) for l in pred_labels]</span>
+    <span class="c1">#     if true_labels is not None:</span>
+    <span class="c1">#         true_labels = [scitex_str.to_latex_style(l) for l in true_labels]</span>
+    <span class="c1">#     if labels is not None:</span>
+    <span class="c1">#         labels = [scitex_str.to_latex_style(l) for l in labels]</span>
+    <span class="c1">#     if sorted_labels is not None:</span>
+    <span class="c1">#         sorted_labels = [scitex_str.to_latex_style(l) for l in sorted_labels]</span>
+
+    <span class="c1">#     # Prediction Labels: columns</span>
+    <span class="c1">#     if pred_labels is not None:</span>
+    <span class="c1">#         cm.columns = pred_labels</span>
+    <span class="c1">#     elif (pred_labels is None) and (labels is not None):</span>
+    <span class="c1">#         cm.columns = labels</span>
+
+    <span class="c1">#     # Ground Truth Labels: index</span>
+    <span class="c1">#     if true_labels is not None:</span>
+    <span class="c1">#         cm.index = true_labels</span>
+    <span class="c1">#     elif (true_labels is None) and (labels is not None):</span>
+    <span class="c1">#         cm.index = labels</span>
+
+    <span class="c1">#     # Sort based on sorted_labels here</span>
+    <span class="c1">#     if sorted_labels is not None:</span>
+    <span class="c1">#         assert set(sorted_labels) == set(labels)</span>
+    <span class="c1">#         cm = cm.reindex(index=sorted_labels, columns=sorted_labels)</span>
+
+    <span class="c1">#     # Main</span>
+    <span class="c1">#     # Use scitex_plt.subplots for advanced CSV export and SciTeX Viz integration</span>
+
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">scitex_plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1">#     res = sns.heatmap(</span>
+<span class="c1">#         cm,</span>
+<span class="c1">#         annot=True,</span>
+<span class="c1">#         annot_kws={&quot;size&quot;: mpl_plt.rcParams[&quot;font.size&quot;]},</span>
+<span class="c1">#         fmt=&quot;.0f&quot;,</span>
+<span class="c1">#         cmap=&quot;Blues&quot;,</span>
+<span class="c1">#         cbar=False,</span>
+<span class="c1">#         vmin=0,</span>
+<span class="c1">#     )  # Here, don&#39;t plot color bar.</span>
+
+<span class="c1">#     # Adds comma separator for the annotated int texts</span>
+<span class="c1">#     for t in ax.texts:</span>
+<span class="c1">#         t.set_text(&quot;{:,d}&quot;.format(int(t.get_text())))</span>
+
+<span class="c1">#     # Inverts the y-axis</span>
+<span class="c1">#     res.invert_yaxis()</span>
+
+<span class="c1">#     # Makes the frame visible</span>
+<span class="c1">#     for _, spine in res.spines.items():</span>
+<span class="c1">#         spine.set_visible(False)</span>
+
+<span class="c1">#     # Labels</span>
+<span class="c1">#     ax.set_xlabel(&quot;Predicted label&quot;)</span>
+<span class="c1">#     ax.set_ylabel(&quot;True label&quot;)</span>
+<span class="c1">#     ax.set_title(title)</span>
+
+<span class="c1">#     # Appearances</span>
+<span class="c1">#     ax = _umbrella_plt.ax.extend(ax, x_extend_ratio, y_extend_ratio)</span>
+<span class="c1">#     if cm.shape[0] == cm.shape[1]:</span>
+<span class="c1">#         ax.set_box_aspect(1)</span>
+<span class="c1">#         ax.set_xticklabels(</span>
+<span class="c1">#             ax.get_xticklabels(),</span>
+<span class="c1">#             rotation=label_rotation_xy[0],</span>
+<span class="c1">#             fontdict={&quot;verticalalignment&quot;: &quot;top&quot;},</span>
+<span class="c1">#         )</span>
+<span class="c1">#         ax.set_yticklabels(</span>
+<span class="c1">#             ax.get_yticklabels(),</span>
+<span class="c1">#             rotation=label_rotation_xy[1],</span>
+<span class="c1">#             fontdict={&quot;horizontalalignment&quot;: &quot;right&quot;},</span>
+<span class="c1">#         )</span>
+<span class="c1">#         # The size</span>
+<span class="c1">#     bbox = ax.get_position()</span>
+<span class="c1">#     left_orig = bbox.x0</span>
+<span class="c1">#     width_orig = bbox.x1 - bbox.x0</span>
+<span class="c1">#     g_x_orig = left_orig + width_orig / 2.0</span>
+<span class="c1">#     width_tgt = width_orig * x_extend_ratio  # x_extend_ratio</span>
+<span class="c1">#     dx = width_orig - width_tgt</span>
+
+<span class="c1">#     # Adjusts the sizes of the confusion matrix and colorbar</span>
+<span class="c1">#     if colorbar:</span>
+<span class="c1">#         divider = make_axes_locatable(ax)  # Gets region from the ax</span>
+<span class="c1">#         cax = divider.append_axes(&quot;right&quot;, size=&quot;5%&quot;, pad=0.1)</span>
+<span class="c1">#         # cax = divider.new_horizontal(size=&quot;5%&quot;, pad=1, pack_start=True)</span>
+<span class="c1">#         cax = _umbrella_plt.ax.shift(cax, dx=-dx * 2.54, dy=0)</span>
+<span class="c1">#         fig.add_axes(cax)</span>
+
+<span class="c1">#         &quot;&quot;&quot;</span>
+<span class="c1">#         axpos = ax.get_position()</span>
+<span class="c1">#         caxpos = cax.get_position()</span>
+
+<span class="c1">#         AddAxesBBoxRect(fig, ax, ec=&quot;r&quot;)</span>
+<span class="c1">#         AddAxesBBoxRect(fig, cax, ec=&quot;b&quot;)</span>
+
+<span class="c1">#         fig.text(</span>
+<span class="c1">#             axpos.x0 + 0.01, axpos.y0 + 0.01, &quot;after colorbar&quot;, weight=&quot;bold&quot;, color=&quot;r&quot;</span>
+<span class="c1">#         )</span>
+
+<span class="c1">#         fig.text(</span>
+<span class="c1">#             caxpos.x1 + 0.01,</span>
+<span class="c1">#             caxpos.y1 - 0.01,</span>
+<span class="c1">#             &quot;cax position&quot;,</span>
+<span class="c1">#             va=&quot;top&quot;,</span>
+<span class="c1">#             weight=&quot;bold&quot;,</span>
+<span class="c1">#             color=&quot;b&quot;,</span>
+<span class="c1">#             rotation=&quot;vertical&quot;,</span>
+<span class="c1">#         )</span>
+<span class="c1">#         &quot;&quot;&quot;</span>
+
+<span class="c1">#         # Plots colorbar and adjusts the size</span>
+<span class="c1">#         vmax = np.array(cm).max().astype(int)</span>
+<span class="c1">#         norm = matplotlib.colors.Normalize(vmin=0, vmax=vmax)</span>
+<span class="c1">#         cbar = fig.colorbar(</span>
+<span class="c1">#             plt.cm.ScalarMappable(norm=norm, cmap=&quot;Blues&quot;),</span>
+<span class="c1">#             cax=cax,</span>
+<span class="c1">#             # shrink=0.68,</span>
+<span class="c1">#         )</span>
+<span class="c1">#         cbar.locator = ticker.MaxNLocator(nbins=4)  # tick_locator</span>
+<span class="c1">#         cbar.update_ticks()</span>
+<span class="c1">#         # cbar.outline.set_edgecolor(&quot;#f9f2d7&quot;)</span>
+<span class="c1">#         cbar.outline.set_edgecolor(&quot;white&quot;)</span>
+
+<span class="c1">#     if spath is not None:</span>
+<span class="c1">#         scitex_io.save(fig, spath)</span>
+
+<span class="c1">#     return fig, cm</span>
+
+
+<span class="c1"># def calc_bACC_from_conf_mat(cm):</span>
+<span class="c1">#     with scitex_context.suppress_output():</span>
+<span class="c1">#         try:</span>
+<span class="c1">#             per_class = np.diag(cm) / np.nansum(cm, axis=1)</span>
+<span class="c1">#             bacc = round(np.nanmean(per_class), 3)</span>
+<span class="c1">#         except:</span>
+<span class="c1">#             bacc = np.nan</span>
+<span class="c1">#         return bacc</span>
+
+
+<span class="c1"># # def AddAxesBBoxRect(fig, ax, ec=&quot;k&quot;):</span>
+<span class="c1"># #     from matplotlib.patches import Rectangle</span>
+
+<span class="c1"># #     axpos = ax.get_position()</span>
+<span class="c1"># #     rect = fig.patches.append(</span>
+<span class="c1"># #         Rectangle(</span>
+<span class="c1"># #             (axpos.x0, axpos.y0),</span>
+<span class="c1"># #             axpos.width,</span>
+<span class="c1"># #             axpos.height,</span>
+<span class="c1"># #             ls=&quot;solid&quot;,</span>
+<span class="c1"># #             lw=2,</span>
+<span class="c1"># #             ec=ec,</span>
+<span class="c1"># #             fill=False,</span>
+<span class="c1"># #             transform=fig.transFigure,</span>
+<span class="c1"># #         )</span>
+<span class="c1"># #     )</span>
+<span class="c1"># #     return rect</span>
+
+
+<span class="c1"># if __name__ == &quot;__main__&quot;:</span>
+
+<span class="c1">#     import sys</span>
+
+<span class="c1">#     import matplotlib.pyplot as plt</span>
+<span class="c1">#     import scitex</span>
+<span class="c1">#     import numpy as np</span>
+<span class="c1">#     import sklearn</span>
+<span class="c1">#     from sklearn import datasets, svm</span>
+<span class="c1">#     # from sklearn.metrics import plot_confusion_matrix</span>
+<span class="c1">#     from sklearn.model_selection import train_test_split</span>
+
+<span class="c1">#     sys.path.append(&quot;.&quot;)</span>
+<span class="c1">#     import scitex</span>
+
+<span class="c1">#     # https://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html#sphx-glr-auto-examples-model-selection-plot-confusion-matrix-py</span>
+<span class="c1">#     # Imports some data to play with</span>
+<span class="c1">#     iris = datasets.load_iris()</span>
+<span class="c1">#     X = iris.data</span>
+<span class="c1">#     y = iris.target</span>
+<span class="c1">#     class_names = iris.target_names</span>
+
+<span class="c1">#     # Splits the data into a training set and a test set</span>
+<span class="c1">#     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)</span>
+
+<span class="c1">#     # Runs classifier, using a model that is too regularized (C too low) to see</span>
+<span class="c1">#     # the impact on the results</span>
+<span class="c1">#     classifier = svm.SVC(kernel=&quot;linear&quot;, C=0.01).fit(X_train, y_train)</span>
+
+<span class="c1">#     ## Checks the confusion_matrix function</span>
+<span class="c1">#     y_pred = classifier.predict(X_test)</span>
+<span class="c1">#     cm = sklearn.metrics.confusion_matrix(y_test, y_pred)</span>
+<span class="c1">#     cm **= 3</span>
+
+<span class="c1">#     fig, cm = conf_mat(</span>
+<span class="c1">#         plt,</span>
+<span class="c1">#         # y_true=y_test,</span>
+<span class="c1">#         # y_pred=y_pred,</span>
+<span class="c1">#         cm,</span>
+<span class="c1">#         pred_labels=[&quot;A&quot;, &quot;B&quot;, &quot;C&quot;],</span>
+<span class="c1">#         true_labels=[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;],</span>
+<span class="c1">#         label_rotation_xy=(60, 60),</span>
+<span class="c1">#         x_extend_ratio=1.0,</span>
+<span class="c1">#         colorbar=True,</span>
+<span class="c1">#     )</span>
+
+<span class="c1">#     fig.axes[-1] = _umbrella_plt.ax.sci_note(</span>
+<span class="c1">#         fig.axes[-1],</span>
+<span class="c1">#         fformat=&quot;%3.1f&quot;,</span>
+<span class="c1">#         y=True,</span>
+<span class="c1">#     )</span>
+
+<span class="c1">#     plt.show()</span>
+
+<span class="c1">#     ## EOF</span>
+
+<span class="c1"># EOF</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024-2026, Yusuke Watanabe.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
