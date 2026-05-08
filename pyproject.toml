@@ -92,7 +92,7 @@ dev = [
     "pytest-xdist>=3.0.0",
     "pytest-timeout",
     "ruff",
-    "scitex-dev",
+    "scitex-dev>=0.11.5",
     # PS210 [dev] extras completeness — every dep that lifted tests
     # import unguarded must live in [dev] so `pip install -e .[dev]`
     # actually runs the full suite.
