@@ -12,7 +12,11 @@ try:
     import umap.umap_ as umap_lib  # noqa: F401
 
     UMAP_AVAILABLE = True
-except ImportError:
+except Exception:
+    # `import umap` transitively pulls tensorflow on some installs, and
+    # tensorflow can raise google.protobuf.runtime_version.VersionError
+    # (not ImportError) when its protobuf gencode disagrees with the
+    # installed runtime. Treat any failure here as "umap not available".
     UMAP_AVAILABLE = False
 
 pytestmark = pytest.mark.skipif(not UMAP_AVAILABLE, reason="UMAP library not available")
