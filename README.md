@@ -9,7 +9,7 @@
 <p align="center"><b>Reproducible classical and deep machine-learning utilities for scientific research.</b></p>
 
 <p align="center">
-  <a href="https://scitex-ml.readthedocs.io/">Full Documentation</a> · <code>pip install scitex-ml</code>
+  <a href="https://scitex-ml.readthedocs.io/">Full Documentation</a> · <code>uv pip install scitex-ml[all]</code>
 </p>
 
 <!-- scitex-badges:start -->
