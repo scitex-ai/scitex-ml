@@ -543,20 +543,20 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
 
-<span class="c1"># Use pytorch-optimizer package for Ranger when available</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">pytorch_optimizer</span><span class="w"> </span><span class="kn">import</span> <span class="n">Ranger21</span> <span class="k">as</span> <span class="n">Ranger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scitex_dev</span><span class="w"> </span><span class="kn">import</span> <span class="n">try_import_optional</span>
 
-    <span class="n">RANGER_AVAILABLE</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="c1"># Fallback to vendored version temporarily</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">.Ranger_Deep_Learning_Optimizer.ranger.ranger2020</span><span class="w"> </span><span class="kn">import</span> <span class="n">Ranger</span>
-
-        <span class="n">RANGER_AVAILABLE</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-        <span class="n">RANGER_AVAILABLE</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">Ranger</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="c1"># Use pytorch-optimizer package for Ranger when available; fall back</span>
+<span class="c1"># to the vendored Ranger_Deep_Learning_Optimizer copy if not installed.</span>
+<span class="c1"># Neither is declared as an extra — pytorch_optimizer is an optional</span>
+<span class="c1"># convenience dep; omit `extra=`/`pkg=` per the playbook rule.</span>
+<span class="n">Ranger</span> <span class="o">=</span> <span class="n">try_import_optional</span><span class="p">(</span><span class="s2">&quot;pytorch_optimizer&quot;</span><span class="p">,</span> <span class="s2">&quot;Ranger21&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">Ranger</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">Ranger</span> <span class="o">=</span> <span class="n">try_import_optional</span><span class="p">(</span>
+        <span class="s2">&quot;.Ranger_Deep_Learning_Optimizer.ranger.ranger2020&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ranger&quot;</span><span class="p">,</span>
+        <span class="n">package</span><span class="o">=</span><span class="n">__package__</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="n">RANGER_AVAILABLE</span> <span class="o">=</span> <span class="n">Ranger</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
 
 <div class="viewcode-block" id="get_optimizer">
