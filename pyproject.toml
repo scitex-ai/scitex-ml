@@ -150,6 +150,17 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 addopts = "-v --tb=short"
 
+[tool.coverage.run]
+# Subprocess coverage wiring (see scitex-dev skill leaf
+# 05_development_06_subprocess-coverage.md). `parallel = true` makes
+# every coverage process write to its own `.coverage.<host>.<pid>`
+# file; `concurrency` covers both subprocess.run and threaded code.
+# Without this, demo / nbconvert / subprocess.run child interpreters
+# silently drop coverage data.
+parallel = true
+source = ["scitex_ml"]
+concurrency = ["multiprocessing", "thread"]
+
 [tool.ruff]
 line-length = 88
 target-version = "py310"

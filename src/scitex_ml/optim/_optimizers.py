@@ -3,20 +3,20 @@
 
 import torch.optim as optim
 
-# Use pytorch-optimizer package for Ranger when available
-try:
-    from pytorch_optimizer import Ranger21 as Ranger
+from scitex_dev import try_import_optional
 
-    RANGER_AVAILABLE = True
-except ImportError:
-    # Fallback to vendored version temporarily
-    try:
-        from .Ranger_Deep_Learning_Optimizer.ranger.ranger2020 import Ranger
-
-        RANGER_AVAILABLE = True
-    except ImportError:
-        RANGER_AVAILABLE = False
-        Ranger = None
+# Use pytorch-optimizer package for Ranger when available; fall back
+# to the vendored Ranger_Deep_Learning_Optimizer copy if not installed.
+# Neither is declared as an extra — pytorch_optimizer is an optional
+# convenience dep; omit `extra=`/`pkg=` per the playbook rule.
+Ranger = try_import_optional("pytorch_optimizer", "Ranger21")
+if Ranger is None:
+    Ranger = try_import_optional(
+        ".Ranger_Deep_Learning_Optimizer.ranger.ranger2020",
+        "Ranger",
+        package=__package__,
+    )
+RANGER_AVAILABLE = Ranger is not None
 
 
 def get_optimizer(name: str):
