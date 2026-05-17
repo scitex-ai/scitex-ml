@@ -37,25 +37,78 @@ try:
 except _PackageNotFoundError:
     __version__ = "0.0.0+local"
 
+from scitex_dev import try_import_optional
+
+# ---------------------------------------------------------------------------
+# Light submodules — these don't pull torch/optuna/catboost at import time.
+# ---------------------------------------------------------------------------
 from . import (
-    activation,
     classification,
     clustering,
     feature_extraction,
-    loss,
     metrics,
-    optim,
     plt,
     sampling,
     sklearn,
-    training,
     utils,
 )
 from .classification import ClassificationReporter, Classifier
-from .loss import MultiTaskLoss
-from .optim import get_optimizer, set_optimizer
-from .training._EarlyStopping import EarlyStopping
-from .training._LearningCurveLogger import LearningCurveLogger
+
+# ---------------------------------------------------------------------------
+# Heavy submodules — gated via `try_import_optional` so that `import
+# scitex_ml` succeeds in a no-`[heavy]` environment. Each entry resolves
+# to `None` when its underlying dep (torch / optuna / catboost / …) is
+# missing; downstream code probes with `is None` and surfaces an
+# installable hint via `scitex_dev.last_install_hint`.
+#
+# Pattern A from
+# `_skills/general/03_interface_01_python-api/04_lazy-imports-and-optional-deps.md`:
+# the public names stay in `__all__` regardless.
+# ---------------------------------------------------------------------------
+activation = try_import_optional(
+    ".activation", extra="heavy", pkg="scitex-ml", package=__name__
+)
+loss = try_import_optional(".loss", extra="heavy", pkg="scitex-ml", package=__name__)
+optim = try_import_optional(".optim", extra="heavy", pkg="scitex-ml", package=__name__)
+training = try_import_optional(
+    ".training", extra="heavy", pkg="scitex-ml", package=__name__
+)
+
+MultiTaskLoss = try_import_optional(
+    ".loss",
+    attr="MultiTaskLoss",
+    extra="heavy",
+    pkg="scitex-ml",
+    package=__name__,
+)
+get_optimizer = try_import_optional(
+    ".optim",
+    attr="get_optimizer",
+    extra="heavy",
+    pkg="scitex-ml",
+    package=__name__,
+)
+set_optimizer = try_import_optional(
+    ".optim",
+    attr="set_optimizer",
+    extra="heavy",
+    pkg="scitex-ml",
+    package=__name__,
+)
+EarlyStopping = try_import_optional(
+    ".training._EarlyStopping",
+    attr="EarlyStopping",
+    extra="heavy",
+    pkg="scitex-ml",
+    package=__name__,
+)
+LearningCurveLogger = try_import_optional(
+    ".training._LearningCurveLogger",
+    attr="LearningCurveLogger",
+    extra="heavy",
+    pkg="scitex-ml",
+    package=__name__,
+)
 
 __all__ = [
     "__version__",
