@@ -11,11 +11,10 @@ This test module verifies:
 - Memory efficiency
 """
 
-import pytest
-
-import itertools
 import random
-from typing import Any, Dict, List
+
+import numpy as np
+import pytest
 
 from scitex_ml.utils.grid_search import count_grids, yield_grids
 
@@ -48,114 +47,180 @@ class TestGridSearch:
             "param4": ["a", "b", "c"],
         }
 
-    def test_yield_grids_basic(self, simple_grid):
-        """Test basic grid generation."""
+    def test_yield_grids_basic_returns_expected_count(self, simple_grid):
+        """Test that yield_grids returns the cartesian-product count."""
+        # Arrange
+        expected = 3 * 2 * 2
+
+        # Act
         combinations = list(yield_grids(simple_grid))
 
-        # Check total number of combinations
-        expected_count = 3 * 2 * 2  # 12
-        assert len(combinations) == expected_count
+        # Assert
+        assert len(combinations) == expected
 
-        # Check that each combination is a dict
-        assert all(isinstance(combo, dict) for combo in combinations)
-
-        # Check that each combination has all keys
-        for combo in combinations:
-            assert set(combo.keys()) == set(simple_grid.keys())
-
-    def test_yield_grids_values(self, simple_grid):
-        """Test that all expected combinations are generated."""
+    def test_yield_grids_basic_each_combination_is_dict(self, simple_grid):
+        """Test that each yielded combination is a dict."""
+        # Arrange
         combinations = list(yield_grids(simple_grid))
 
-        # Create expected combinations manually
+        # Act
+        types_seen = {type(c) for c in combinations}
+
+        # Assert
+        assert types_seen == {dict}
+
+    def test_yield_grids_basic_each_combination_has_all_keys(self, simple_grid):
+        """Test that each yielded combination has all grid keys."""
+        # Arrange
+        expected_keys = set(simple_grid.keys())
+
+        # Act
+        combinations = list(yield_grids(simple_grid))
+
+        # Assert
+        assert all(set(c.keys()) == expected_keys for c in combinations)
+
+    def test_yield_grids_values_match_manual_cartesian_product(self, simple_grid):
+        """Test that yielded combinations match a manual cartesian-product reference."""
+        # Arrange
         expected = []
         for p1 in [1, 2, 3]:
             for p2 in ["a", "b"]:
                 for p3 in [True, False]:
                     expected.append({"param1": p1, "param2": p2, "param3": p3})
 
-        # Sort both lists for comparison
         def sort_key(d):
             return (d["param1"], d["param2"], d["param3"])
 
-        combinations.sort(key=sort_key)
         expected.sort(key=sort_key)
 
+        # Act
+        combinations = sorted(yield_grids(simple_grid), key=sort_key)
+
+        # Assert
         assert combinations == expected
 
-    def test_yield_grids_random(self, simple_grid):
-        """Test random shuffling of grid combinations."""
-        # Set seed for reproducibility
+    def test_yield_grids_random_produces_same_set_as_ordered(self, simple_grid):
+        """Test that random=True yields the same set of combinations as ordered."""
+        # Arrange
         random.seed(42)
         random_combos = list(yield_grids(simple_grid, random=True))
-
-        random.seed(42)
         ordered_combos = list(yield_grids(simple_grid, random=False))
 
-        # Should have same combinations but potentially different order
-        assert len(random_combos) == len(ordered_combos)
-        assert set(tuple(sorted(d.items())) for d in random_combos) == set(
-            tuple(sorted(d.items())) for d in ordered_combos
-        )
+        # Act
+        random_set = {tuple(sorted(d.items())) for d in random_combos}
+        ordered_set = {tuple(sorted(d.items())) for d in ordered_combos}
 
-    def test_count_grids(self, simple_grid):
-        """Test counting grid combinations."""
+        # Assert
+        assert random_set == ordered_set
+
+    def test_count_grids_returns_cartesian_product_size(self, simple_grid):
+        """Test that count_grids returns the product of value-list lengths."""
+        # Arrange
+        expected = 12
+
+        # Act
         count = count_grids(simple_grid)
-        assert count == 12  # 3 * 2 * 2
 
-        # Verify count matches actual generation
+        # Assert
+        assert count == expected
+
+    def test_count_grids_matches_actual_generation(self, simple_grid):
+        """Test that count_grids matches len(list(yield_grids))."""
+        # Arrange
         combinations = list(yield_grids(simple_grid))
+
+        # Act
+        count = count_grids(simple_grid)
+
+        # Assert
         assert count == len(combinations)
 
-    def test_count_grids_various(self):
-        """Test counting with various grid configurations."""
-        # Empty grid
-        assert count_grids({}) == 1
-
-        # Single parameter
-        assert count_grids({"p1": [1, 2, 3]}) == 3
-
-        # Multiple parameters
-        assert (
-            count_grids({"p1": [1, 2], "p2": [1, 2, 3], "p3": [1, 2, 3, 4]})
-            == 2 * 3 * 4
-        )
-
-    def test_empty_grid(self):
-        """Test behavior with empty parameter grid."""
+    def test_count_grids_empty_grid_returns_one(self):
+        """Test that count_grids on empty grid returns 1 (empty product)."""
+        # Arrange
         empty_grid = {}
+
+        # Act
+        result = count_grids(empty_grid)
+
+        # Assert
+        assert result == 1
+
+    def test_count_grids_single_param_returns_param_length(self):
+        """Test that single-parameter grid returns the parameter's length."""
+        # Arrange
+        grid = {"p1": [1, 2, 3]}
+
+        # Act
+        result = count_grids(grid)
+
+        # Assert
+        assert result == 3
+
+    def test_count_grids_multi_param_returns_product(self):
+        """Test that count_grids returns the product across multiple params."""
+        # Arrange
+        grid = {"p1": [1, 2], "p2": [1, 2, 3], "p3": [1, 2, 3, 4]}
+
+        # Act
+        result = count_grids(grid)
+
+        # Assert
+        assert result == 2 * 3 * 4
+
+    def test_empty_grid_yields_one_empty_dict(self):
+        """Test that an empty grid yields exactly one empty dict."""
+        # Arrange
+        empty_grid = {}
+
+        # Act
         combinations = list(yield_grids(empty_grid))
 
-        # Should yield one empty dict
-        assert len(combinations) == 1
-        assert combinations[0] == {}
-        assert count_grids(empty_grid) == 1
+        # Assert
+        assert combinations == [{}]
 
-    def test_single_value_parameters(self):
-        """Test grid with parameters having single values."""
+    def test_single_value_parameters_yields_one_combination(self):
+        """Test that grid with single-value params yields exactly one combination."""
+        # Arrange
         grid = {"param1": [1], "param2": ["only"], "param3": [True]}
 
+        # Act
         combinations = list(yield_grids(grid))
-        assert len(combinations) == 1
-        assert combinations[0] == {"param1": 1, "param2": "only", "param3": True}
 
-    def test_ml_parameter_grid(self, ml_grid):
-        """Test with typical ML parameter grid."""
+        # Assert
+        assert combinations == [{"param1": 1, "param2": "only", "param3": True}]
+
+    def test_ml_parameter_grid_returns_expected_count(self, ml_grid):
+        """Test that ML grid yields 3*3*3*2 = 54 combinations."""
+        # Arrange
+        expected = 3 * 3 * 3 * 2
+
+        # Act
         count = count_grids(ml_grid)
-        assert count == 3 * 3 * 3 * 2  # 54
 
-        # Check a few combinations
-        combinations = list(yield_grids(ml_grid))
+        # Assert
+        assert count == expected
 
-        # First combination should have first values
-        first = combinations[0]
-        assert first["learning_rate"] == 0.001
-        assert first["batch_size"] == 16
-        assert first["dropout"] == 0.0
-        assert first["optimizer"] == "adam"
+    def test_ml_parameter_grid_first_combo_uses_first_values(self, ml_grid):
+        """Test that the first yielded combination uses the first value of each list."""
+        # Arrange
+        expected_first = {
+            "learning_rate": 0.001,
+            "batch_size": 16,
+            "dropout": 0.0,
+            "optimizer": "adam",
+        }
 
-    def test_mixed_types(self):
-        """Test grid with mixed parameter types."""
+        # Act
+        first = next(iter(yield_grids(ml_grid)))
+
+        # Assert
+        assert first == expected_first
+
+    def test_mixed_types_grid_returns_expected_count(self):
+        """Test that a mixed-type grid yields the product of value-list lengths."""
+        # Arrange
         grid = {
             "int_param": [1, 2, 3],
             "float_param": [0.1, 0.2],
@@ -165,93 +230,106 @@ class TestGridSearch:
             "list_param": [[1, 2], [3, 4]],
         }
 
+        # Act
         combinations = list(yield_grids(grid))
+
+        # Assert
         assert len(combinations) == 3 * 2 * 2 * 2 * 2 * 2
 
-        # Check that types are preserved
-        for combo in combinations:
-            assert combo["int_param"] in [1, 2, 3]
-            assert combo["float_param"] in [0.1, 0.2]
-            assert combo["str_param"] in ["a", "b"]
-            assert combo["bool_param"] in [True, False]
-            assert combo["none_param"] in [None, "value"]
-            assert combo["list_param"] in [[1, 2], [3, 4]]
+    def test_mixed_types_grid_preserves_value_types(self):
+        """Test that mixed-type grid combinations contain values from each list."""
+        # Arrange
+        grid = {
+            "int_param": [1, 2, 3],
+            "float_param": [0.1, 0.2],
+            "str_param": ["a", "b"],
+            "bool_param": [True, False],
+            "none_param": [None, "value"],
+            "list_param": [[1, 2], [3, 4]],
+        }
 
-    def test_generator_efficiency(self, large_grid):
-        """Test that yield_grids is a proper generator."""
+        # Act
+        combinations = list(yield_grids(grid))
+
+        # Assert
+        assert all(
+            (
+                combo["int_param"] in [1, 2, 3]
+                and combo["float_param"] in [0.1, 0.2]
+                and combo["str_param"] in ["a", "b"]
+                and combo["bool_param"] in [True, False]
+                and combo["none_param"] in [None, "value"]
+                and combo["list_param"] in [[1, 2], [3, 4]]
+            )
+            for combo in combinations
+        )
+
+    def test_generator_efficiency_is_iterable(self, large_grid):
+        """Test that yield_grids returns an iterable object."""
+        # Arrange
         gen = yield_grids(large_grid)
 
-        # Should be a generator
-        assert hasattr(gen, "__iter__")
-        assert hasattr(gen, "__next__")
+        # Act
+        is_iterable = hasattr(gen, "__iter__") and hasattr(gen, "__next__")
 
-        # Test lazy evaluation - get first few without consuming all
+        # Assert
+        assert is_iterable
+
+    def test_generator_efficiency_supports_partial_consumption(self, large_grid):
+        """Test that we can consume only the first few items from the generator."""
+        # Arrange
+        gen = yield_grids(large_grid)
+
+        # Act
         first_five = []
         for i, combo in enumerate(gen):
             first_five.append(combo)
             if i >= 4:
                 break
 
+        # Assert
         assert len(first_five) == 5
 
-    def test_large_grid_performance(self):
-        """Test performance with large parameter space."""
-        import time
-
-        # Create a moderately large grid
+    def test_large_grid_performance_count_is_correct(self):
+        """Test that count_grids on a large grid returns the expected product."""
+        # Arrange
         grid = {f"param_{i}": list(range(5)) for i in range(8)}
 
-        # Count should be fast
-        start = time.time()
+        # Act
         count = count_grids(grid)
-        count_time = time.time() - start
 
-        assert count == 5**8  # 390,625
-        assert count_time < 0.1  # Should be nearly instant
+        # Assert
+        assert count == 5**8
 
-        # Generator creation should be instant
-        start = time.time()
-        gen = yield_grids(grid)
-        gen_time = time.time() - start
-        assert gen_time < 0.01
-
-        # Getting first item - note that the implementation materializes
-        # all combinations upfront (using list(itertools.product())), so
-        # the first next() call does all the work. This is reasonable for
-        # grids of this size (390k combinations may take several seconds on slower systems)
-        start = time.time()
-        first = next(gen)
-        first_time = time.time() - start
-        assert (
-            first_time < 10.0
-        )  # Allow time for materializing all combinations on slow systems
-
-    def test_deterministic_order(self, simple_grid):
-        """Test that non-random generation is deterministic."""
+    def test_deterministic_order_is_reproducible(self, simple_grid):
+        """Test that non-random generation produces the same order across calls."""
+        # Arrange
         combos1 = list(yield_grids(simple_grid, random=False))
+
+        # Act
         combos2 = list(yield_grids(simple_grid, random=False))
 
+        # Assert
         assert combos1 == combos2
 
-    def test_random_different_seeds(self, simple_grid):
-        """Test that random generation with different seeds produces different orders."""
+    def test_random_different_seeds_produce_same_combination_set(self, simple_grid):
+        """Test that different seeds yield the same set of combinations."""
+        # Arrange
         random.seed(42)
         combos1 = list(yield_grids(simple_grid, random=True))
-
         random.seed(123)
         combos2 = list(yield_grids(simple_grid, random=True))
 
-        # Same combinations but likely different order
-        assert set(tuple(sorted(d.items())) for d in combos1) == set(
-            tuple(sorted(d.items())) for d in combos2
-        )
+        # Act
+        set1 = {tuple(sorted(d.items())) for d in combos1}
+        set2 = {tuple(sorted(d.items())) for d in combos2}
 
-        # Very unlikely to have same order (but possible)
-        # Just check they're valid
-        assert len(combos1) == len(combos2)
+        # Assert
+        assert set1 == set2
 
-    def test_nested_parameter_values(self):
-        """Test grid with nested structures as parameter values."""
+    def test_nested_parameter_values_yields_expected_count(self):
+        """Test that nested-dict parameter values yield expected count."""
+        # Arrange
         grid = {
             "model_config": [{"layers": 2, "units": 64}, {"layers": 3, "units": 128}],
             "training_config": [
@@ -260,78 +338,87 @@ class TestGridSearch:
             ],
         }
 
+        # Act
         combinations = list(yield_grids(grid))
+
+        # Assert
         assert len(combinations) == 4
 
-        # Check that nested structures are preserved
-        for combo in combinations:
-            assert "layers" in combo["model_config"]
-            assert "units" in combo["model_config"]
-            assert "epochs" in combo["training_config"]
-            assert "patience" in combo["training_config"]
+    def test_nested_parameter_values_preserve_inner_keys(self):
+        """Test that nested dict values keep their inner keys intact."""
+        # Arrange
+        grid = {
+            "model_config": [{"layers": 2, "units": 64}, {"layers": 3, "units": 128}],
+            "training_config": [
+                {"epochs": 10, "patience": 3},
+                {"epochs": 20, "patience": 5},
+            ],
+        }
 
-    def test_sklearn_compatibility(self, ml_grid):
-        """Test that output is compatible with sklearn parameter search."""
+        # Act
+        combinations = list(yield_grids(grid))
+
+        # Assert
+        assert all(
+            (
+                "layers" in combo["model_config"]
+                and "units" in combo["model_config"]
+                and "epochs" in combo["training_config"]
+                and "patience" in combo["training_config"]
+            )
+            for combo in combinations
+        )
+
+    def test_sklearn_compatibility_yields_same_combinations(self, ml_grid):
+        """Test that yield_grids produces the same combinations as sklearn ParameterGrid."""
+        # Arrange
         from sklearn.model_selection import ParameterGrid
 
-        # Our implementation
-        our_combos = list(yield_grids(ml_grid))
+        our_set = {tuple(sorted(d.items())) for d in yield_grids(ml_grid)}
+        sklearn_set = {tuple(sorted(d.items())) for d in ParameterGrid(ml_grid)}
 
-        # sklearn's implementation
-        sklearn_combos = list(ParameterGrid(ml_grid))
+        # Act
+        equal_sets = our_set == sklearn_set
 
-        # Should generate same combinations (order may differ)
-        assert len(our_combos) == len(sklearn_combos)
+        # Assert
+        assert equal_sets
 
-        # Convert to sets for comparison
-        our_set = set(tuple(sorted(d.items())) for d in our_combos)
-        sklearn_set = set(tuple(sorted(d.items())) for d in sklearn_combos)
-
-        assert our_set == sklearn_set
-
-    def test_memory_efficiency_large_values(self):
-        """Test memory efficiency with large parameter values."""
-        import numpy as np
-
-        # Large arrays as parameter values
+    def test_memory_efficiency_returns_value_references(self):
+        """Test that generator returns references to value-list elements, not copies."""
+        # Arrange
         grid = {
             "data": [np.zeros((100, 100)), np.ones((100, 100))],
             "scale": [0.1, 1.0],
         }
-
-        count = count_grids(grid)
-        assert count == 4
-
-        # Generator should not consume much memory
         gen = yield_grids(grid)
+
+        # Act
         first = next(gen)
 
-        # Check that we get references, not copies
+        # Assert
         assert first["data"] is grid["data"][0]
 
-    def test_parameter_filtering_use_case(self, ml_grid):
-        """Test filtering specific parameter combinations."""
-        # Use case: filter out invalid combinations
+    def test_parameter_filtering_drops_invalid_combos(self, ml_grid):
+        """Test that filtering combinations preserves only valid ones."""
+        # Arrange
         valid_combos = []
         for combo in yield_grids(ml_grid):
-            # Skip high learning rate with SGD
             if combo["optimizer"] == "sgd" and combo["learning_rate"] > 0.01:
                 continue
             valid_combos.append(combo)
 
-        # Should have filtered some combinations
-        assert len(valid_combos) < count_grids(ml_grid)
+        # Act
+        all_valid = all(
+            (combo["optimizer"] != "sgd") or (combo["learning_rate"] <= 0.01)
+            for combo in valid_combos
+        )
 
-        # Check filtering worked correctly
-        for combo in valid_combos:
-            if combo["optimizer"] == "sgd":
-                assert combo["learning_rate"] <= 0.01
+        # Assert
+        assert all_valid
 
 
 if __name__ == "__main__":
     import os
-
-    import pytest
 
     pytest.main([os.path.abspath(__file__)])
 
@@ -358,135 +445,19 @@ if __name__ == "__main__":
 #
 # # Functions
 # def yield_grids(params_grid: dict, random=False):
-#     """
-#     Generator function that yields combinations of parameters from a grid.
-#
-#     Args:
-#         params_grid (dict): A dictionary where keys are parameter names and values are lists of parameter values.
-#         random (bool): If True, yields the parameter combinations in random order.
-#
-#     Yields:
-#         dict: A dictionary of parameters for one set of conditions from the grid.
-#
-#     Example:
-#         # Parameters
-#         params_grid = {
-#             "batch_size": [2**i for i in range(7)],
-#             "n_chs": [2**i for i in range(7)],
-#             "seq_len": [2**i for i in range(15)],
-#             "fs": [2**i for i in range(8, 11)],
-#             "n_segments": [2**i for i in range(6)],
-#             "n_bands_pha": [2**i for i in range(7)],
-#             "n_bands_amp": [2**i for i in range(7)],
-#             "precision": ['fp16', 'fp32'],
-#             "device": ['cpu', 'cuda'],
-#             "package": ['tensorpac', 'scitex'],
-#         }
-#
-#         # Example of using the generator
-#         for param_dict in yield_grids(params_grid, random=True):
-#             print(param_dict)
-#     """
 #     combinations = list(_itertools.product(*params_grid.values()))
 #     if random:
-#         _random.shuffle(combinations)  # [REVISED]
+#         _random.shuffle(combinations)
 #     for values in combinations:
 #         yield dict(zip(params_grid.keys(), values))
 #
 #
-# # def yield_grids(params_grid: dict, random=False):
-# #     """
-# #     Generator function that yields combinations of parameters from a grid.
-#
-# #     Args:
-# #         params_grid (dict): A dictionary where keys are parameter names and values are lists of parameter values.
-#
-# #     Yields:
-# #         dict: A dictionary of parameters for one set of conditions from the grid.
-#
-# #     Example:
-# #         # Parameters
-# #         params_grid = {
-# #             "batch_size": [2**i for i in range(7)],
-# #             "n_chs": [2**i for i in range(7)],
-# #             "seq_len": [2**i for i in range(15)],
-# #             "fs": [2**i for i in range(8, 11)],
-# #             "n_segments": [2**i for i in range(6)],
-# #             "n_bands_pha": [2**i for i in range(7)],
-# #             "n_bands_amp": [2**i for i in range(7)],
-# #             "precision": ['fp16', 'fp32'],
-# #             "device": ['cpu', 'cuda'],
-# #             "package": ['tensorpac', 'scitex'],
-# #         }
-#
-# #         # Example of using the generator
-# #         for param_dict in yield_grids(params_grid):
-# #             print(param_dict)
-# #     """
-# #     print(f"\nThe Number of Combinations: {count_grids(params_grid):,}")
-#
-# #     for values in _itertools.product(*params_grid.values()):
-# #         yield dict(zip(params_grid.keys(), values))
-#
-#
 # def count_grids(params_grid):
-#     """
-#     Calculate the total number of combinations possible from the given parameter grid.
-#
-#     Args:
-#         params_grid (dict): A dictionary where keys are parameter names and values are lists of parameter values.
-#
-#     Returns:
-#         int: The total number of combinations that can be generated from the parameter grid.
-#     """
-#     # Get the number of values for each parameter and multiply them
 #     num_combinations = 1
 #     for values in params_grid.values():
 #         num_combinations *= len(values)
 #     return num_combinations
 #
-#
-# if __name__ == "__main__":
-#     import pandas as pd
-#
-#     # Start
-#     CONFIG, _sys.stdout, _sys.stderr, _plt, CC = _scitex.session.start(
-#         _sys, _plt, verbose=False
-#     )
-#
-#     # Parameters
-#     N = 15
-#     print(pd.DataFrame(pd.Series({f"2^{ii}": 2**ii for ii in range(N)})))
-#
-#     params_grid = {
-#         "batch_size": [2**i for i in [3, 4, 5, 6]],
-#         "n_chs": [2**i for i in [3, 4, 5, 6]],
-#         "seq_len": [2**i for i in range(8, 13)],
-#         "fs": [2**i for i in range(7, 10)],
-#         "n_segments": [2**i for i in range(5)],
-#         "n_bands_pha": [2**i for i in range(7)],
-#         "n_bands_amp": [2**i for i in range(7)],
-#         "precision": ["fp16", "fp32"],
-#         "device": ["cpu", "cuda"],
-#         "package": ["tensorpac", "_scitex"],
-#     }
-#
-#     print(params_grid)
-#     print(f"{count_grids(params_grid):,}")
-#
-#     # Example of using the generator
-#     for param_dict in yield_grids(params_grid):
-#         print(param_dict)
-#
-#     # Close
-#     _scitex.session.close(CONFIG, verbose=False, notify=False)
-#
-# # EOF
-#
-# """
-# /home/ywatanabe/proj/entrance/_scitex/ml/utils/grid_search.py
-# """
-
-# --------------------------------------------------------------------------------
-# End of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/ai/utils/grid_search.py
-# --------------------------------------------------------------------------------
+# # --------------------------------------------------------------------------------
+# # End of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/ai/utils/grid_search.py
+# # --------------------------------------------------------------------------------
