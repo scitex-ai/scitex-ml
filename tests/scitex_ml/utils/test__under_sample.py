@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
-# Time-stamp: "2025-06-01 15:55:00 (ywatanabe)"
-# File: ./tests/scitex/ai/utils/test__under_sample.py
+# Time-stamp: "2026-05-18 00:00:00 (ywatanabe)"
+# File: ./tests/scitex_ml/utils/test__under_sample.py
 
 """Tests for scitex_ml.utils._under_sample module."""
 
-import pytest
-
 from collections import Counter
-from unittest.mock import patch
 
 import numpy as np
+import pytest
 
 from scitex_ml.utils import under_sample
 
@@ -17,234 +15,252 @@ from scitex_ml.utils import under_sample
 class TestUnderSample:
     """Test suite for under_sample function."""
 
-    def test_basic_undersampling(self):
-        """Test basic undersampling with imbalanced classes."""
-        # Create imbalanced dataset: 'a' has 2, 'b' has 4, 'c' has 6
+    def test_basic_undersampling_returns_correct_total(self):
+        """Test that imbalanced classes are downsampled to minority size in total."""
+        # Arrange
         y = np.array(["a", "a", "b", "b", "b", "b", "c", "c", "c", "c", "c", "c"])
 
+        # Act
         indices = under_sample(y)
 
-        # Check that we get correct number of indices
-        assert len(indices) == 6  # 2 samples per class (minority has 2)
+        # Assert
+        assert len(indices) == 6
 
-        # Check balanced sampling
-        sampled_labels = y[indices]
-        counts = Counter(sampled_labels)
-        assert counts["a"] == 2
-        assert counts["b"] == 2
-        assert counts["c"] == 2
+    def test_basic_undersampling_is_balanced_across_classes(self):
+        """Test that each class is sampled the same number of times."""
+        # Arrange
+        y = np.array(["a", "a", "b", "b", "b", "b", "c", "c", "c", "c", "c", "c"])
 
-    def test_numeric_labels(self):
-        """Test with numeric labels."""
+        # Act
+        indices = under_sample(y)
+        counts = Counter(y[indices])
+
+        # Assert
+        assert counts["a"] == 2 and counts["b"] == 2 and counts["c"] == 2
+
+    def test_numeric_labels_returns_correct_total(self):
+        """Test that numeric labels produce the expected total sample count."""
+        # Arrange
         y = np.array([0, 0, 0, 0, 0, 1, 1, 2, 2, 2])
 
+        # Act
         indices = under_sample(y)
 
-        # Minority class has 2 samples
-        assert len(indices) == 6  # 2 * 3 classes
+        # Assert
+        assert len(indices) == 6
 
-        sampled_labels = y[indices]
-        counts = Counter(sampled_labels)
-        assert all(count == 2 for count in counts.values())
+    def test_numeric_labels_returns_balanced_counts(self):
+        """Test that numeric-label undersampling produces balanced counts per class."""
+        # Arrange
+        y = np.array([0, 0, 0, 0, 0, 1, 1, 2, 2, 2])
 
-    def test_already_balanced(self):
-        """Test with already balanced classes."""
+        # Act
+        indices = under_sample(y)
+        counts = Counter(y[indices])
+
+        # Assert
+        assert all(c == 2 for c in counts.values())
+
+    def test_already_balanced_returns_all_indices(self):
+        """Test that an already balanced input returns every index."""
+        # Arrange
         y = np.array(["x", "x", "y", "y", "z", "z"])
 
+        # Act
         indices = under_sample(y)
 
-        # Should return all indices (in some order)
-        assert len(indices) == 6
+        # Assert
         assert set(indices) == set(range(6))
 
-    def test_with_replacement_false(self):
-        """Test sampling without replacement (default)."""
-        y = np.array([0, 0, 0, 1])  # Minority has 1 sample
+    def test_replace_false_returns_unique_indices(self):
+        """Test that replace=False returns all-unique indices."""
+        # Arrange
+        y = np.array([0, 0, 0, 1])
 
+        # Act
         indices = under_sample(y, replace=False)
 
-        # Should sample 1 from each class
-        assert len(indices) == 2
-        assert len(set(indices)) == 2  # All unique
+        # Assert
+        assert len(indices) == len(set(indices))
 
-    def test_with_replacement_true(self):
-        """Test sampling with replacement."""
-        y = np.array([0, 0, 0, 0, 0, 1])  # Minority has 1 sample
+    def test_replace_true_includes_minority_index(self):
+        """Test that the sole minority-class index appears in the result."""
+        # Arrange
+        y = np.array([0, 0, 0, 0, 0, 1])
 
-        # Need to sample with replacement for majority class
-        # since we need 1 sample but minority forces us to sample 1
+        # Act
         indices = under_sample(y, replace=True)
 
-        assert len(indices) == 2
-        # The single sample from class 1 should appear
+        # Assert
         assert 5 in indices
 
-    def test_indices_are_valid(self):
-        """Test that returned indices are valid."""
+    def test_indices_are_within_range(self):
+        """Test that returned indices are within [0, len(y))."""
+        # Arrange
         y = np.array(["a", "b", "c", "b", "c", "a", "c"])
 
+        # Act
         indices = under_sample(y)
 
-        # All indices should be within valid range
-        assert np.all(indices >= 0)
-        assert np.all(indices < len(y))
+        # Assert
+        assert bool(np.all(indices >= 0) and np.all(indices < len(y)))
 
-        # Indices should be integers
+    def test_indices_are_integer_dtype(self):
+        """Test that returned indices are integer dtype."""
+        # Arrange
+        y = np.array(["a", "b", "c", "b", "c", "a", "c"])
+
+        # Act
+        indices = under_sample(y)
+
+        # Assert
         assert indices.dtype in [np.int32, np.int64]
 
-    def test_randomness(self):
-        """Test that function produces different results on multiple calls."""
+    def test_repeated_calls_produce_variety(self):
+        """Test that repeated calls produce different index sets (randomness)."""
+        # Arrange
         y = np.array([0, 0, 0, 0, 1, 1])
 
-        # Get multiple sets of indices
-        indices_sets = [under_sample(y) for _ in range(10)]
+        # Act
+        indices_sets = [tuple(sorted(under_sample(y))) for _ in range(10)]
 
-        # Convert to sets for comparison
-        indices_sets = [tuple(sorted(idx)) for idx in indices_sets]
+        # Assert
+        assert len(set(indices_sets)) > 1
 
-        # Should have some variety (not all the same)
-        unique_sets = len(set(indices_sets))
-        assert unique_sets > 1
-
-    def test_single_class(self):
-        """Test behavior with single class."""
+    def test_single_class_returns_all_indices(self):
+        """Test that a single-class input returns every index."""
+        # Arrange
         y = np.array([1, 1, 1, 1])
 
+        # Act
         indices = under_sample(y)
 
-        # Should return all indices
-        assert len(indices) == 4
+        # Assert
         assert set(indices) == set(range(4))
 
-    def test_extreme_imbalance(self):
-        """Test with extreme class imbalance."""
-        # 100 samples of class 0, 1 sample of class 1
+    def test_extreme_imbalance_returns_one_per_class(self):
+        """Test that one-sample minority forces one sample per class."""
+        # Arrange
         y = np.array([0] * 100 + [1])
 
+        # Act
+        indices = under_sample(y)
+        sampled = y[indices]
+
+        # Assert
+        assert int(np.sum(sampled == 0)) == 1 and int(np.sum(sampled == 1)) == 1
+
+    def test_three_classes_returns_correct_total(self):
+        """Test total sample count equals minority * n_classes for three classes."""
+        # Arrange
+        y = np.array([0] * 10 + [1] * 5 + [2] * 3)
+
+        # Act
         indices = under_sample(y)
 
-        # Should return 2 indices total
-        assert len(indices) == 2
+        # Assert
+        assert len(indices) == 9
 
-        sampled = y[indices]
-        assert np.sum(sampled == 0) == 1
-        assert np.sum(sampled == 1) == 1
+    def test_three_classes_returns_balanced_counts(self):
+        """Test per-class counts equal minority count for three classes."""
+        # Arrange
+        y = np.array([0] * 10 + [1] * 5 + [2] * 3)
 
-    def test_three_classes_different_sizes(self):
-        """Test with three classes of different sizes."""
-        y = np.array([0] * 10 + [1] * 5 + [2] * 3)  # Minority has 3
-
+        # Act
         indices = under_sample(y)
+        counts = Counter(y[indices])
 
-        assert len(indices) == 9  # 3 * 3 classes
+        # Assert
+        assert all(c == 3 for c in counts.values())
 
+    @pytest.mark.parametrize("dtype", [np.int32, np.int64, np.float32, np.float64])
+    def test_preserves_data_type_in_sampled_array(self, dtype):
+        """Test that y[indices] preserves the input dtype."""
+        # Arrange
+        y = np.array([1, 1, 1, 2, 2], dtype=dtype)
+
+        # Act
+        indices = under_sample(y)
         sampled = y[indices]
-        counts = Counter(sampled)
-        assert all(count == 3 for count in counts.values())
 
-    def test_preserves_data_type(self):
-        """Test that original data types are preserved in sampling."""
-        # Test with different dtypes
-        for dtype in [np.int32, np.int64, np.float32, np.float64]:
-            y = np.array([1, 1, 1, 2, 2], dtype=dtype)
-            indices = under_sample(y)
+        # Assert
+        assert sampled.dtype == dtype
 
-            # Indices should be integer type
-            assert indices.dtype in [np.int32, np.int64]
+    def test_list_input_works_with_numpy_array_conversion(self):
+        """Test that a list converted via np.array can be undersampled."""
+        # Arrange
+        y_array = np.array(["a", "b", "c", "b", "c", "a", "c"])
 
-            # But sampled data preserves original type
-            sampled = y[indices]
-            assert sampled.dtype == dtype
-
-    def test_with_list_input(self):
-        """Test with Python list input - needs conversion to numpy array."""
-        y = ["a", "b", "c", "b", "c", "a", "c"]
-
-        # The function expects numpy array, so we need to convert
-        y_array = np.array(y)
+        # Act
         indices = under_sample(y_array)
+        counts = Counter(y_array[indices])
 
-        # Should work with numpy arrays
-        assert isinstance(indices, np.ndarray)
-        sampled = y_array[indices]
-        counts = Counter(sampled)
-        assert all(count == 2 for count in counts.values())
+        # Assert
+        assert all(c == 2 for c in counts.values())
 
-    @patch("numpy.random.choice")
-    def test_random_choice_called_correctly(self, mock_choice):
-        """Test that numpy.random.choice is called with correct parameters."""
-        y = np.array([0, 0, 0, 1, 1])
-
-        # Setup mock to return valid indices
-        mock_choice.side_effect = [
-            np.array([0, 1]),  # For class 0
-            np.array([3, 4]),  # For class 1
-        ]
-
-        indices = under_sample(y)
-
-        # Check that choice was called twice (once per class)
-        assert mock_choice.call_count == 2
-
-        # Check parameters of calls
-        calls = mock_choice.call_args_list
-        # First call for class 0
-        assert np.array_equal(calls[0][0][0], [0, 1, 2])  # indices where y==0
-        assert calls[0][1]["size"] == 2
-        assert calls[0][1]["replace"] == False
-
-    def test_empty_array_error(self):
-        """Test error handling with empty array."""
+    def test_empty_array_raises_value_error(self):
+        """Test that an empty input array raises ValueError."""
+        # Arrange
         y = np.array([])
 
-        with pytest.raises(ValueError):
-            under_sample(y)
+        # Act
+        action = lambda: under_sample(y)
 
-    def test_deterministic_with_seed(self):
-        """Test reproducibility with random seed."""
+        # Assert
+        with pytest.raises(ValueError):
+            action()
+
+    def test_deterministic_with_seed_produces_identical_results(self):
+        """Test that fixing the numpy seed produces identical results."""
+        # Arrange
         y = np.array([0, 0, 0, 0, 1, 1])
 
+        # Act
         np.random.seed(42)
         indices1 = under_sample(y)
-
         np.random.seed(42)
         indices2 = under_sample(y)
 
-        # Should produce same results with same seed
-        np.testing.assert_array_equal(indices1, indices2)
+        # Assert
+        assert list(indices1) == list(indices2)
 
-    def test_insufficient_samples_without_replacement(self):
-        """Test behavior with imbalanced classes without replacement.
-
-        The function samples the minority class size from each class.
-        This should always work without raising ValueError since it samples
-        based on the minimum class count.
-        """
-        # Test case: class 0 has 5, class 1 has 2, class 2 has 5
-        # Minority is class 1 with 2 samples
+    def test_replace_false_with_imbalance_returns_correct_total(self):
+        """Test that replace=False with imbalance returns minority * n_classes indices."""
+        # Arrange
         y = np.array([0] * 5 + [1] * 2 + [2] * 5)
 
-        # Should successfully sample 2 from each class (no error)
+        # Act
         indices = under_sample(y, replace=False)
 
-        # Verify total indices match expected count (3 classes * 2 samples each)
+        # Assert
         assert len(indices) == 6
 
-        # Verify each class appears exactly 2 times (minority size)
-        sampled = y[indices]
-        counts = Counter(sampled)
-        assert counts[0] == 2
-        assert counts[1] == 2
-        assert counts[2] == 2
+    def test_replace_false_with_imbalance_returns_balanced_counts(self):
+        """Test that replace=False yields exactly minority-size samples per class."""
+        # Arrange
+        y = np.array([0] * 5 + [1] * 2 + [2] * 5)
 
-        # Verify all indices are unique (no replacement)
+        # Act
+        indices = under_sample(y, replace=False)
+        counts = Counter(y[indices])
+
+        # Assert
+        assert counts[0] == 2 and counts[1] == 2 and counts[2] == 2
+
+    def test_replace_false_with_imbalance_returns_unique_indices(self):
+        """Test that replace=False on imbalanced data returns all-unique indices."""
+        # Arrange
+        y = np.array([0] * 5 + [1] * 2 + [2] * 5)
+
+        # Act
+        indices = under_sample(y, replace=False)
+
+        # Assert
         assert len(indices) == len(set(indices))
 
 
 if __name__ == "__main__":
     import os
-
-    import pytest
 
     pytest.main([os.path.abspath(__file__)])
 

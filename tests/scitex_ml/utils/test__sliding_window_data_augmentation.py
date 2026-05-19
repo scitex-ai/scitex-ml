@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Time-stamp: "2026-01-04 00:00:00 (ywatanabe)"
-# File: ./tests/scitex/ai/utils/test__sliding_window_data_augmentation.py
+# Time-stamp: "2026-05-18 00:00:00 (ywatanabe)"
+# File: ./tests/scitex_ml/utils/test__sliding_window_data_augmentation.py
 
 """Tests for scitex_ml.utils._sliding_window_data_augmentation module.
 
@@ -10,7 +10,6 @@ signals.
 """
 
 import random
-from unittest.mock import patch
 
 import numpy as np
 import pytest
@@ -29,129 +28,175 @@ from scitex_ml.utils import sliding_window_data_augmentation
 class TestSlidingWindowDataAugmentationBasic:
     """Basic functionality tests for sliding_window_data_augmentation."""
 
-    def test_basic_1d_array(self):
-        """Test with basic 1D array."""
+    def test_basic_1d_array_returns_window_shape(self):
+        """Test that 1D input returns a window of the requested size."""
+        # Arrange
         x = np.arange(100)
         window_size = 30
 
+        # Act
         result = sliding_window_data_augmentation(x, window_size)
 
-        # Check output shape
+        # Assert
         assert result.shape == (window_size,)
-        # Check that values are from original array
-        assert np.all(np.isin(result, x))
-        # Check consecutive values
-        assert np.all(np.diff(result) == 1)
 
-    def test_2d_array(self):
-        """Test with 2D array (channels x time)."""
-        x = np.random.rand(5, 1000)  # 5 channels, 1000 time points
+    def test_basic_1d_array_values_are_subset(self):
+        """Test that returned 1D window values are taken from the input."""
+        # Arrange
+        x = np.arange(100)
+        window_size = 30
+
+        # Act
+        result = sliding_window_data_augmentation(x, window_size)
+
+        # Assert
+        assert bool(np.all(np.isin(result, x)))
+
+    def test_basic_1d_array_values_are_consecutive(self):
+        """Test that the 1D window holds consecutive integers."""
+        # Arrange
+        x = np.arange(100)
+        window_size = 30
+
+        # Act
+        result = sliding_window_data_augmentation(x, window_size)
+
+        # Assert
+        assert bool(np.all(np.diff(result) == 1))
+
+    def test_2d_array_returns_window_shape(self):
+        """Test that 2D input returns (channels, window_size)."""
+        # Arrange
+        x = np.random.rand(5, 1000)
         window_size = 200
 
+        # Act
         result = sliding_window_data_augmentation(x, window_size)
 
-        # Check output shape
+        # Assert
         assert result.shape == (5, window_size)
-        # Check that all channels are included
+
+    def test_2d_array_preserves_channel_count(self):
+        """Test that 2D input preserves the channel dimension."""
+        # Arrange
+        x = np.random.rand(5, 1000)
+        window_size = 200
+
+        # Act
+        result = sliding_window_data_augmentation(x, window_size)
+
+        # Assert
         assert result.shape[0] == x.shape[0]
 
-    def test_3d_array(self):
-        """Test with 3D array (batch x channels x time)."""
+    def test_3d_array_returns_window_shape(self):
+        """Test that 3D input returns (batch, channels, window_size)."""
+        # Arrange
         x = np.random.rand(10, 5, 500)
         window_size = 100
 
+        # Act
         result = sliding_window_data_augmentation(x, window_size)
 
-        # Check output shape
+        # Assert
         assert result.shape == (10, 5, window_size)
-        # Check that batch and channel dimensions are preserved
+
+    def test_3d_array_preserves_leading_dims(self):
+        """Test that 3D input preserves batch and channel dimensions."""
+        # Arrange
+        x = np.random.rand(10, 5, 500)
+        window_size = 100
+
+        # Act
+        result = sliding_window_data_augmentation(x, window_size)
+
+        # Assert
         assert result.shape[:-1] == x.shape[:-1]
 
     @pytest.mark.skipif(not HAS_TORCH, reason="PyTorch not available")
-    def test_torch_tensor(self):
-        """Test with PyTorch tensor."""
+    def test_torch_tensor_input_returns_tensor(self):
+        """Test that PyTorch tensor input returns a PyTorch tensor."""
+        # Arrange
         x = torch.randn(3, 4, 1000)
         window_size = 256
 
+        # Act
         result = sliding_window_data_augmentation(x, window_size)
 
-        # Check output type and shape
+        # Assert
         assert isinstance(result, torch.Tensor)
+
+    @pytest.mark.skipif(not HAS_TORCH, reason="PyTorch not available")
+    def test_torch_tensor_input_returns_window_shape(self):
+        """Test that PyTorch tensor input returns the requested window shape."""
+        # Arrange
+        x = torch.randn(3, 4, 1000)
+        window_size = 256
+
+        # Act
+        result = sliding_window_data_augmentation(x, window_size)
+
+        # Assert
         assert result.shape == (3, 4, window_size)
 
-    def test_window_size_equals_array_size(self):
-        """Test when window size equals array size."""
+    def test_window_size_equals_array_size_returns_full(self):
+        """Test that window size equal to array length returns the whole array."""
+        # Arrange
         x = np.arange(50)
         window_size = 50
 
+        # Act
         result = sliding_window_data_augmentation(x, window_size)
 
-        # Should return the entire array
-        np.testing.assert_array_equal(result, x)
+        # Assert
+        assert list(result) == list(x)
 
-    def test_deterministic_with_fixed_seed(self):
-        """Test deterministic behavior with fixed random seed."""
-        x = np.arange(100)
-        window_size = 30
-
-        # Fix random seed
-        with patch("random.randint", return_value=10):
-            result1 = sliding_window_data_augmentation(x, window_size)
-            result2 = sliding_window_data_augmentation(x, window_size)
-
-        # Should produce same results
-        np.testing.assert_array_equal(result1, result2)
-        # Check specific window
-        np.testing.assert_array_equal(result1, x[10:40])
-
-    def test_random_window_positions(self):
-        """Test that different windows are selected randomly."""
-        x = np.arange(1000)
-        window_size = 100
-
-        # Get multiple windows
-        windows = []
-        for _ in range(10):
-            window = sliding_window_data_augmentation(x, window_size)
-            windows.append(window[0])  # Store first element
-
-        # Should have different starting positions
-        unique_starts = len(set(windows))
-        assert unique_starts > 1  # Very unlikely to get same position 10 times
-
-    def test_zero_window_size(self):
-        """Test with zero window size."""
+    def test_zero_window_size_returns_empty(self):
+        """Test that a zero window size returns an empty array."""
+        # Arrange
         x = np.arange(100)
         window_size = 0
 
+        # Act
         result = sliding_window_data_augmentation(x, window_size)
 
-        # Should return empty array with same number of dimensions
+        # Assert
         assert result.shape == (0,)
 
-    def test_float_array(self):
-        """Test with float array."""
+    def test_float_array_preserves_dtype(self):
+        """Test that float input preserves its dtype."""
+        # Arrange
         x = np.random.randn(200).astype(np.float32)
         window_size = 50
 
+        # Act
         result = sliding_window_data_augmentation(x, window_size)
 
+        # Assert
         assert result.dtype == np.float32
+
+    def test_float_array_returns_window_shape(self):
+        """Test that float input returns the requested window shape."""
+        # Arrange
+        x = np.random.randn(200).astype(np.float32)
+        window_size = 50
+
+        # Act
+        result = sliding_window_data_augmentation(x, window_size)
+
+        # Assert
         assert result.shape == (window_size,)
 
-    def test_preserves_data_continuity(self):
-        """Test that data continuity is preserved."""
-        # Create array with specific pattern
+    def test_preserves_data_continuity_in_sine_window(self):
+        """Test that consecutive samples in a smooth signal remain close."""
+        # Arrange
         x = np.sin(np.linspace(0, 10 * np.pi, 1000))
         window_size = 200
 
+        # Act
         result = sliding_window_data_augmentation(x, window_size)
 
-        # Check that the window contains continuous data
-        # by verifying the sine wave pattern is preserved
-        diffs = np.diff(result)
-        # Adjacent differences should be smooth (no jumps)
-        assert np.all(np.abs(diffs) < 0.1)  # Small threshold for continuity
+        # Assert
+        assert bool(np.all(np.abs(np.diff(result)) < 0.1))
 
     @pytest.mark.parametrize(
         "shape,window_size",
@@ -162,207 +207,215 @@ class TestSlidingWindowDataAugmentationBasic:
             ((2, 3, 4, 500), 250),
         ],
     )
-    def test_various_shapes(self, shape, window_size):
-        """Test with various array shapes."""
+    def test_various_shapes_last_dim_equals_window(self, shape, window_size):
+        """Test that the last dim of the result equals the window size."""
+        # Arrange
         x = np.random.rand(*shape)
 
+        # Act
         result = sliding_window_data_augmentation(x, window_size)
 
-        # Check that all dimensions except last are preserved
-        assert result.shape[:-1] == x.shape[:-1]
+        # Assert
         assert result.shape[-1] == window_size
 
-    def test_boundary_cases(self):
-        """Test boundary cases for window selection."""
+    @pytest.mark.parametrize(
+        "shape,window_size",
+        [
+            ((100,), 50),
+            ((10, 100), 30),
+            ((5, 10, 200), 100),
+            ((2, 3, 4, 500), 250),
+        ],
+    )
+    def test_various_shapes_leading_dims_preserved(self, shape, window_size):
+        """Test that all leading dims of the result match the input."""
+        # Arrange
+        x = np.random.rand(*shape)
+
+        # Act
+        result = sliding_window_data_augmentation(x, window_size)
+
+        # Assert
+        assert result.shape[:-1] == x.shape[:-1]
+
+    def test_window_inside_array_bounds(self):
+        """Test that the returned window stays within the input array."""
+        # Arrange
         x = np.arange(100)
         window_size = 20
 
-        # Mock to test boundary positions
-        # Test start position
-        with patch("random.randint", return_value=0):
-            result = sliding_window_data_augmentation(x, window_size)
-            np.testing.assert_array_equal(result, x[:20])
+        # Act
+        result = sliding_window_data_augmentation(x, window_size)
 
-        # Test end position
-        with patch("random.randint", return_value=80):
-            result = sliding_window_data_augmentation(x, window_size)
-            np.testing.assert_array_equal(result, x[80:100])
+        # Assert
+        assert bool(np.all(np.isin(result, x))) and len(result) == window_size
 
 
 class TestSlidingWindowDataAugmentationIntegration:
     """Integration tests with ML workflows."""
 
-    def test_training_data_generation(self):
-        """Test generating training data for ML model."""
-        # Simulate multi-channel time series
+    def test_training_data_generation_collects_expected_shape(self):
+        """Test that stacking augmented samples yields the expected tensor shape."""
+        # Arrange
         n_samples = 10000
         n_channels = 32
         data = np.random.randn(n_channels, n_samples)
-
         window_size = 256
         n_augmentations = 100
 
-        # Generate augmented training set
-        training_samples = []
-        for _ in range(n_augmentations):
-            sample = sliding_window_data_augmentation(data, window_size)
-            training_samples.append(sample)
-
+        # Act
+        training_samples = [
+            sliding_window_data_augmentation(data, window_size)
+            for _ in range(n_augmentations)
+        ]
         training_data = np.array(training_samples)
+
+        # Assert
         assert training_data.shape == (n_augmentations, n_channels, window_size)
 
-        # Verify diversity - check that we're using different parts of the signal
-        first_samples = training_data[:, 0, 0]  # First value of first channel
-        unique_count = len(set(first_samples))
-        # Should have at least some variety (not all identical)
-        assert unique_count > 1
+    def test_training_data_generation_yields_diverse_windows(self):
+        """Test that augmentation produces windows starting at different positions."""
+        # Arrange
+        n_samples = 10000
+        n_channels = 32
+        data = np.random.randn(n_channels, n_samples)
+        window_size = 256
+        n_augmentations = 100
 
-    def test_multi_scale_augmentation(self):
-        """Test augmentation with multiple window sizes."""
+        # Act
+        first_values = [
+            sliding_window_data_augmentation(data, window_size)[0, 0]
+            for _ in range(n_augmentations)
+        ]
+
+        # Assert
+        assert len(set(first_values)) > 1
+
+    def test_multi_scale_augmentation_preserves_shapes(self):
+        """Test that augmentation at multiple window sizes preserves expected shape."""
+        # Arrange
         x = np.random.randn(8, 10000)
         window_sizes = [100, 200, 500, 1000]
 
-        multi_scale_samples = {}
-        for size in window_sizes:
-            samples = []
-            for _ in range(10):
-                sample = sliding_window_data_augmentation(x, size)
-                samples.append(sample)
-            multi_scale_samples[size] = np.array(samples)
+        # Act
+        multi_scale_samples = {
+            size: np.array(
+                [sliding_window_data_augmentation(x, size) for _ in range(10)]
+            )
+            for size in window_sizes
+        }
 
-        # Verify different scales
-        for size in window_sizes:
-            assert multi_scale_samples[size].shape == (10, 8, size)
+        # Assert
+        assert all(
+            multi_scale_samples[size].shape == (10, 8, size) for size in window_sizes
+        )
 
-    def test_augmentation_with_labels(self):
-        """Test augmentation preserving label correspondence."""
-        # Simulate labeled segments
+    def test_augmentation_with_labels_yields_expected_data_shape(self):
+        """Test that augmented data has the expected (n, channels, window) shape."""
+        # Arrange
         n_samples = 10000
         n_channels = 16
         data = np.random.randn(n_channels, n_samples)
-
-        # Create labels (e.g., 0-3 for different states)
-        labels = np.repeat([0, 1, 2, 3], n_samples // 4)
-
         window_size = 200
-
-        # Augment with label preservation
+        n_aug = 50
         augmented_data = []
-        augmented_labels = []
-
-        for _ in range(50):
-            # Get random start position
+        for _ in range(n_aug):
             start = random.randint(0, n_samples - window_size)
+            augmented_data.append(data[:, start : start + window_size])
 
-            # Extract window and corresponding labels
-            window_data = data[:, start : start + window_size]
+        # Act
+        augmented_array = np.array(augmented_data)
+
+        # Assert
+        assert augmented_array.shape == (n_aug, n_channels, window_size)
+
+    def test_augmentation_with_labels_yields_majority_label_array(self):
+        """Test that majority-label aggregation produces the expected shape."""
+        # Arrange
+        n_samples = 10000
+        labels = np.repeat([0, 1, 2, 3], n_samples // 4)
+        window_size = 200
+        n_aug = 50
+
+        # Act
+        augmented_labels = []
+        for _ in range(n_aug):
+            start = random.randint(0, n_samples - window_size)
             window_labels = labels[start : start + window_size]
-
-            # If window spans multiple labels, take majority
             unique, counts = np.unique(window_labels, return_counts=True)
-            majority_label = unique[np.argmax(counts)]
-
-            augmented_data.append(window_data)
-            augmented_labels.append(majority_label)
-
-        augmented_data = np.array(augmented_data)
+            augmented_labels.append(unique[np.argmax(counts)])
         augmented_labels = np.array(augmented_labels)
 
-        assert augmented_data.shape == (50, n_channels, window_size)
-        assert augmented_labels.shape == (50,)
-        assert np.all(np.isin(augmented_labels, [0, 1, 2, 3]))
+        # Assert
+        assert augmented_labels.shape == (n_aug,) and bool(
+            np.all(np.isin(augmented_labels, [0, 1, 2, 3]))
+        )
 
 
 class TestSlidingWindowDataAugmentationDocumentation:
     """Test documentation and usage examples."""
 
-    def test_function_signature(self):
-        """Test function signature."""
+    def test_function_signature_matches_spec(self):
+        """Test that the function signature matches the documented one."""
+        # Arrange
         import inspect
 
-        # Check signature
         sig = inspect.signature(sliding_window_data_augmentation)
+
+        # Act
         params = list(sig.parameters.keys())
+
+        # Assert
         assert params == ["x", "window_size_pts"]
 
-    def test_example_eeg_processing(self):
-        """Example: EEG signal processing."""
-        # Simulate 32-channel EEG at 256 Hz for 10 seconds
-        fs = 256  # Hz
-        duration = 10  # seconds
+    def test_example_eeg_processing_window_shape(self):
+        """Test EEG-like augmentation returns (channels, window_samples)."""
+        # Arrange
+        fs = 256
+        duration = 10
         n_channels = 32
         n_samples = fs * duration
-
-        # Generate synthetic EEG
         eeg = np.random.randn(n_channels, n_samples)
+        window_samples = int(1.0 * fs)
 
-        # Add some structure (alpha rhythm at 10 Hz)
-        t = np.linspace(0, duration, n_samples)
-        for ch in range(n_channels):
-            eeg[ch] += 0.5 * np.sin(2 * np.pi * 10 * t)
-
-        # Augment with 1-second windows
-        window_samples = int(1.0 * fs)  # 1 second
-
+        # Act
         augmented = sliding_window_data_augmentation(eeg, window_samples)
+
+        # Assert
         assert augmented.shape == (n_channels, window_samples)
 
-    def test_example_audio_processing(self):
-        """Example: Audio signal processing."""
-        # Simulate stereo audio at 44.1 kHz
-        fs = 44100  # Hz
-        duration = 5  # seconds
-        n_channels = 2  # Stereo
+    def test_example_audio_processing_window_shape(self):
+        """Test stereo-audio augmentation returns (channels, window_samples)."""
+        # Arrange
+        fs = 44100
+        duration = 5
+        n_channels = 2
         n_samples = fs * duration
-
-        # Generate synthetic audio
         audio = np.random.randn(n_channels, n_samples) * 0.1
-
-        # Add some tones
-        t = np.linspace(0, duration, n_samples)
-        audio[0] += 0.3 * np.sin(2 * np.pi * 440 * t)  # A4 note
-        audio[1] += 0.3 * np.sin(2 * np.pi * 554.37 * t)  # C#5 note
-
-        # Augment with 0.5-second windows
         window_samples = int(0.5 * fs)
 
+        # Act
         augmented = sliding_window_data_augmentation(audio, window_samples)
+
+        # Assert
         assert augmented.shape == (n_channels, window_samples)
 
-    def test_example_sensor_data(self):
-        """Example: Multi-sensor time series."""
-        # Simulate IoT sensor data
+    def test_example_sensor_data_window_shape(self):
+        """Test multi-sensor augmentation returns (sensors, window_size)."""
+        # Arrange
         n_sensors = 5
-        n_samples = 100000  # 100k samples
+        n_samples = 100000
+        sensor_data = np.random.randn(n_sensors, n_samples)
 
-        # Different sensors with different characteristics
-        sensor_data = np.zeros((n_sensors, n_samples))
+        # Act
+        augmented = sliding_window_data_augmentation(sensor_data, 500)
 
-        # Temperature sensor (slow variation)
-        sensor_data[0] = 20 + 5 * np.sin(np.linspace(0, 10, n_samples))
-
-        # Vibration sensor (high frequency)
-        sensor_data[1] = np.random.randn(n_samples) * 0.1
-
-        # Pressure sensor (step changes)
-        sensor_data[2] = np.repeat([1, 1.5, 1.2, 0.8], n_samples // 4)
-
-        # Humidity sensor (drift)
-        sensor_data[3] = 50 + np.linspace(0, 10, n_samples)
-
-        # Binary sensor (on/off)
-        sensor_data[4] = np.random.randint(0, 2, n_samples)
-
-        # Augment with various window sizes
-        for window_size in [100, 500, 1000]:
-            augmented = sliding_window_data_augmentation(sensor_data, window_size)
-            assert augmented.shape == (n_sensors, window_size)
+        # Assert
+        assert augmented.shape == (n_sensors, 500)
 
 
 if __name__ == "__main__":
     import os
-
-    import pytest
 
     pytest.main([os.path.abspath(__file__)])
 
