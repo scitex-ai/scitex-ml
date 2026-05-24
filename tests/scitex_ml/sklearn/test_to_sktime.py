@@ -174,7 +174,7 @@ def test_data_values_preserved_after_conversion(sample_numpy_data):
     result = to_sktime_df(sample_numpy_data)
     converted_data = result.iloc[sample_idx, channel_idx].values
     # Assert
-    np.testing.assert_array_almost_equal(original_data, converted_data)
+    assert np.allclose(original_data, converted_data)
 
 
 # ── shape tests ────────────────────────────────────────────────
@@ -360,7 +360,7 @@ def test_numerical_precision_maintained_after_conversion():
     result = to_sktime_df(X)
     channel = result.iloc[0, 0]
     # Assert
-    np.testing.assert_array_almost_equal(channel.values, expected, decimal=9)
+    assert np.allclose(channel.values, expected, rtol=0, atol=1e-9)
 
 
 def test_channel_indexing_columns_are_sequential_integers():
@@ -379,7 +379,7 @@ def test_original_data_not_modified_by_conversion():
     # Act
     to_sktime_df(X_original)
     # Assert
-    np.testing.assert_array_equal(X_original, X_copy)
+    assert np.array_equal(X_original, X_copy)
 
 
 def test_large_data_returns_correct_shape():

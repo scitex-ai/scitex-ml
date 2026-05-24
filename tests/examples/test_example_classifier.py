@@ -22,9 +22,7 @@ def test_example_classifier_script_executes_and_exits_zero():
     # Act
     r = subprocess.run(
         [sys.executable, str(EXAMPLE)],
-        capture_output=True,
-        text=True,
-        timeout=120,
+        capture_output=True, text=True, timeout=120,
     )
     # Assert
-    assert r.returncode == 0, r.stderr
+    assert r.returncode == 0
