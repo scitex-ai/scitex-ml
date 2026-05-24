@@ -13,12 +13,12 @@ pytest.importorskip("torch")
 pytest.importorskip("sklearn")
 
 EXAMPLE = Path(__file__).resolve().parents[2] / "examples" / "example_classifier.py"
+_EXAMPLE_EXISTS = EXAMPLE.is_file()
 
 
+@pytest.mark.skipif(not _EXAMPLE_EXISTS, reason=f"missing example: {EXAMPLE}")
 def test_example_classifier_script_executes_and_exits_zero():
     # Arrange
-    if not EXAMPLE.is_file():
-        pytest.skip(f"missing example: {EXAMPLE}")
     # Act
     r = subprocess.run(
         [sys.executable, str(EXAMPLE)],

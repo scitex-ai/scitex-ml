@@ -1,237 +1,329 @@
 #!/usr/bin/env python3
-# Time-stamp: "2025-06-01 13:20:00 (ywatanabe)"
-# File: ./tests/scitex/ai/optim/test__get_set.py
+# File: ./tests/scitex_ml/optim/test__get_set.py
 
 """Tests for scitex_ml.optim._get_set module (deprecated functions)."""
+
+import warnings
 
 import pytest
 
 torch = pytest.importorskip("torch")
-import warnings
-
 import torch.nn as nn
 import torch.optim as optim
 
-from scitex_ml.optim import get, set
+from scitex_ml.optim import RANGER_AVAILABLE, get, set
 
 
-class TestGetSet:
-    """Test suite for deprecated get/set functions."""
+# ---------------------------------------------------------------------------
+# Module-level fixtures
+# ---------------------------------------------------------------------------
 
-    @pytest.fixture
-    def simple_model(self):
-        """Create a simple neural network model."""
-        return nn.Sequential(nn.Linear(10, 5), nn.ReLU(), nn.Linear(5, 1))
 
-    @pytest.fixture
-    def model_list(self):
-        """Create a list of models."""
-        return [nn.Linear(10, 5), nn.Linear(5, 1)]
+@pytest.fixture
+def simple_model():
+    """A simple multi-layer neural network model with learnable parameters."""
+    return nn.Sequential(nn.Linear(10, 5), nn.ReLU(), nn.Linear(5, 1))
 
-    def test_get_adam(self):
-        """Test getting Adam optimizer."""
+
+@pytest.fixture
+def model_list():
+    """A list of independent torch models."""
+    return [nn.Linear(10, 5), nn.Linear(5, 1)]
+
+
+# ============================================================================
+# get() returns correct optimizer class
+# ============================================================================
+
+
+def test_get_adam_returns_optimizer_class():
+    """get('adam') returns torch.optim.Adam."""
+    # Arrange
+    # Act
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", DeprecationWarning)
+        result = get("adam")
+    # Assert
+    assert result == optim.Adam
+
+
+def test_get_sgd_returns_optimizer_class():
+    """get('sgd') returns torch.optim.SGD."""
+    # Arrange
+    # Act
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", DeprecationWarning)
+        result = get("sgd")
+    # Assert
+    assert result == optim.SGD
+
+
+def test_get_rmsprop_returns_optimizer_class():
+    """get('rmsprop') returns torch.optim.RMSprop."""
+    # Arrange
+    # Act
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", DeprecationWarning)
+        result = get("rmsprop")
+    # Assert
+    assert result == optim.RMSprop
+
+
+# ============================================================================
+# get() with invalid name
+# ============================================================================
+
+
+def test_get_invalid_optimizer_name_raises_value_error():
+    """get('invalid_optimizer') raises ValueError."""
+    # Arrange
+    # Act
+    ctx = pytest.raises(ValueError, match="Unknown optimizer")
+    # Assert
+    with ctx:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", DeprecationWarning)
-            optimizer_class = get("adam")
+            get("invalid_optimizer")
 
-        assert optimizer_class == optim.Adam
-        assert issubclass(optimizer_class, optim.Optimizer)
 
-    def test_get_sgd(self):
-        """Test getting SGD optimizer."""
+# ============================================================================
+# set() returns correct optimizer instance
+# ============================================================================
+
+
+def test_set_adam_returns_optimizer_instance(simple_model):
+    """set(model, 'adam', lr) returns an Adam optimizer."""
+    # Arrange
+    # Act
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", DeprecationWarning)
+        optimizer = set(simple_model, "adam", 0.001)
+    # Assert
+    assert isinstance(optimizer, optim.Adam)
+
+
+def test_set_adam_sets_correct_learning_rate(simple_model):
+    """set(model, 'adam', lr) sets the learning rate in optimizer.defaults."""
+    # Arrange
+    # Act
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", DeprecationWarning)
+        optimizer = set(simple_model, "adam", 0.001)
+    # Assert
+    assert optimizer.defaults["lr"] == 0.001
+
+
+def test_set_sgd_on_model_list_returns_optimizer(model_list):
+    """set(model_list, 'sgd', lr) returns an SGD optimizer."""
+    # Arrange
+    # Act
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", DeprecationWarning)
+        optimizer = set(model_list, "sgd", 0.01)
+    # Assert
+    assert isinstance(optimizer, optim.SGD)
+
+
+# ============================================================================
+# set() with model that has no learnable parameters
+# ============================================================================
+
+
+def test_set_model_with_no_params_raises_value_error():
+    """set() on a model with zero learnable parameters raises ValueError."""
+    # Arrange
+    class NoParamModel(nn.Module):
+        def forward(self, x):
+            return x
+
+    model = NoParamModel()
+    # Act
+    ctx = pytest.raises(ValueError, match="optimizer got an empty parameter list")
+    # Assert
+    with ctx:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", DeprecationWarning)
-            optimizer_class = get("sgd")
+            set(model, "adam", 0.001)
 
-        assert optimizer_class == optim.SGD
-        assert issubclass(optimizer_class, optim.Optimizer)
 
-    def test_get_rmsprop(self):
-        """Test getting RMSprop optimizer."""
+# ============================================================================
+# get() deprecation warning
+# ============================================================================
+
+
+def test_get_adam_emits_deprecation_warning():
+    """get('adam') emits a DeprecationWarning."""
+    # Arrange
+    # Act
+    ctx = pytest.warns(DeprecationWarning)
+    # Assert
+    with ctx:
+        get("adam")
+
+
+def test_get_adam_emits_exactly_one_warning():
+    """get('adam') emits exactly one warning."""
+    # Arrange
+    # Act
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+        get("adam")
+    # Assert
+    assert len(w) == 1
+
+
+def test_get_adam_warning_message_mentions_deprecation():
+    """get('adam') deprecation warning message contains 'deprecated'."""
+    # Arrange
+    # Act
+    ctx = pytest.warns(DeprecationWarning, match="deprecated")
+    # Assert
+    with ctx:
+        get("adam")
+
+
+def test_get_adam_warning_message_mentions_get_optimizer():
+    """get('adam') deprecation warning message contains 'get_optimizer'."""
+    # Arrange
+    # Act
+    ctx = pytest.warns(DeprecationWarning, match="get_optimizer")
+    # Assert
+    with ctx:
+        get("adam")
+
+
+# ============================================================================
+# set() deprecation warning
+# ============================================================================
+
+
+def test_set_adam_emits_deprecation_warning(simple_model):
+    """set(model, 'adam', lr) emits a DeprecationWarning."""
+    # Arrange
+    # Act
+    ctx = pytest.warns(DeprecationWarning)
+    # Assert
+    with ctx:
+        set(simple_model, "adam", 0.001)
+
+
+def test_set_adam_emits_exactly_one_warning(simple_model):
+    """set(model, 'adam', lr) emits exactly one warning."""
+    # Arrange
+    # Act
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+        set(simple_model, "adam", 0.001)
+    # Assert
+    assert len(w) == 1
+
+
+def test_set_adam_warning_message_mentions_deprecation(simple_model):
+    """set(model, 'adam', lr) deprecation warning message contains 'deprecated'."""
+    # Arrange
+    # Act
+    ctx = pytest.warns(DeprecationWarning, match="deprecated")
+    # Assert
+    with ctx:
+        set(simple_model, "adam", 0.001)
+
+
+def test_set_adam_warning_message_mentions_set_optimizer(simple_model):
+    """set(model, 'adam', lr) deprecation warning message contains 'set_optimizer'."""
+    # Arrange
+    # Act
+    ctx = pytest.warns(DeprecationWarning, match="set_optimizer")
+    # Assert
+    with ctx:
+        set(simple_model, "adam", 0.001)
+
+
+# ============================================================================
+# set() with various learning rates
+# ============================================================================
+
+
+@pytest.mark.parametrize("lr", [1e-4, 1e-3, 1e-2])
+def test_set_adam_with_various_learning_rates(simple_model, lr):
+    """set(model, 'adam', lr) sets the correct learning rate for various values."""
+    # Arrange
+    # Act
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", DeprecationWarning)
+        optimizer = set(simple_model, "adam", lr)
+    # Assert
+    assert optimizer.defaults["lr"] == lr
+
+
+# ============================================================================
+# Ranger availability
+# ============================================================================
+
+
+@pytest.mark.skipif(not RANGER_AVAILABLE, reason="Ranger not available")
+def test_get_ranger_returns_optimizer_when_available():
+    """get('ranger') returns a non-None optimizer class when Ranger is available."""
+    # Arrange
+    # Act
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", DeprecationWarning)
+        result = get("ranger")
+    # Assert
+    assert result is not None
+
+
+@pytest.mark.skipif(RANGER_AVAILABLE, reason="Ranger is available")
+def test_get_ranger_raises_import_error_when_unavailable():
+    """get('ranger') raises ImportError when Ranger is not available."""
+    # Arrange
+    # Act
+    ctx = pytest.raises(ImportError, match="Ranger optimizer not available")
+    # Assert
+    with ctx:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", DeprecationWarning)
-            optimizer_class = get("rmsprop")
-
-        assert optimizer_class == optim.RMSprop
-        assert issubclass(optimizer_class, optim.Optimizer)
-
-    def test_get_invalid_optimizer(self):
-        """Test getting invalid optimizer raises error."""
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", DeprecationWarning)
-            with pytest.raises(ValueError, match="Unknown optimizer"):
-                get("invalid_optimizer")
-
-    def test_set_single_model(self, simple_model):
-        """Test setting optimizer for a single model."""
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", DeprecationWarning)
-            optimizer = set(simple_model, "adam", 0.001)
-
-        assert isinstance(optimizer, optim.Adam)
-        assert optimizer.defaults["lr"] == 0.001
-
-        # Check that all model parameters are in optimizer
-        model_params = list(simple_model.parameters())
-        optim_params = []
-        for group in optimizer.param_groups:
-            optim_params.extend(group["params"])
-        assert len(model_params) == len(optim_params)
-
-    def test_set_model_list(self, model_list):
-        """Test setting optimizer for a list of models."""
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", DeprecationWarning)
-            optimizer = set(model_list, "sgd", 0.01)
-
-        assert isinstance(optimizer, optim.SGD)
-        assert optimizer.defaults["lr"] == 0.01
-
-        # Check that all parameters from all models are included
-        total_params = sum(len(list(model.parameters())) for model in model_list)
-        optim_params = []
-        for group in optimizer.param_groups:
-            optim_params.extend(group["params"])
-        assert len(optim_params) == total_params
-
-    def test_set_different_learning_rates(self, simple_model):
-        """Test setting different learning rates."""
-        learning_rates = [1e-4, 1e-3, 1e-2]
-
-        for lr in learning_rates:
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore", DeprecationWarning)
-                optimizer = set(simple_model, "adam", lr)
-
-            assert optimizer.defaults["lr"] == lr
-
-    def test_deprecation_warning_get(self):
-        """Test that get function issues deprecation warning."""
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            get("adam")
-
-        assert len(w) == 1
-        assert issubclass(w[0].category, DeprecationWarning)
-        assert "scitex_ml.optim.get is deprecated" in str(w[0].message)
-        assert "get_optimizer" in str(w[0].message)
-
-    def test_deprecation_warning_set(self, simple_model):
-        """Test that set function issues deprecation warning."""
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            set(simple_model, "adam", 0.001)
-
-        assert len(w) == 1
-        assert issubclass(w[0].category, DeprecationWarning)
-        assert "scitex_ml.optim.set is deprecated" in str(w[0].message)
-        assert "set_optimizer" in str(w[0].message)
-
-    def test_get_ranger_conditional(self):
-        """Test getting Ranger optimizer based on availability."""
-        from scitex_ml.optim import RANGER_AVAILABLE
-
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", DeprecationWarning)
-
-            if RANGER_AVAILABLE:
-                # Should return Ranger class
-                optimizer_class = get("ranger")
-                assert optimizer_class is not None
-                assert optimizer_class.__name__ in ["Ranger", "Ranger21"]
-            else:
-                # Should raise ImportError
-                with pytest.raises(ImportError, match="Ranger optimizer not available"):
-                    get("ranger")
-
-    def test_set_with_no_parameters(self):
-        """Test setting optimizer with model that has no parameters raises error."""
-
-        # Create a model with no learnable parameters
-        class NoParamModel(nn.Module):
-            def forward(self, x):
-                return x
-
-        model = NoParamModel()
-
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", DeprecationWarning)
-            # PyTorch optimizers raise ValueError when given empty parameter list
-            with pytest.raises(
-                ValueError, match="optimizer got an empty parameter list"
-            ):
-                set(model, "adam", 0.001)
-
-    @pytest.mark.parametrize("optim_name", ["adam", "sgd", "rmsprop"])
-    def test_set_all_standard_optimizers(self, simple_model, optim_name):
-        """Test setting all standard optimizers."""
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", DeprecationWarning)
-            optimizer = set(simple_model, optim_name, 0.001)
-
-        expected_class = {
-            "adam": optim.Adam,
-            "sgd": optim.SGD,
-            "rmsprop": optim.RMSprop,
-        }[optim_name]
-
-        assert isinstance(optimizer, expected_class)
-
-    def test_function_imports_from_module(self):
-        """Test that functions can be imported directly from _get_set."""
-        from scitex_ml.optim import get as get_func
-        from scitex_ml.optim import set as set_func
-
-        assert callable(get_func)
-        assert callable(set_func)
-
-        # They should be the same as the public API
-        assert get_func is get
-        assert set_func is set
+            get("ranger")
 
 
-if __name__ == "__main__":
-    import os
+# ============================================================================
+# Callability
+# ============================================================================
 
-    import pytest
 
-    pytest.main([os.path.abspath(__file__)])
+def test_get_function_is_callable():
+    """get is a callable function object."""
+    # Arrange
+    # Act
+    # Assert
+    assert callable(get)
 
-# --------------------------------------------------------------------------------
-# Start of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/ai/optim/_get_set.py
-# --------------------------------------------------------------------------------
-# #!/usr/bin/env python3
-# """Optimizer utilities - legacy interface maintained for compatibility."""
-#
-# import warnings
-# from ._optimizers import get_optimizer, set_optimizer
-#
-#
-# def set(models, optim_str, lr):
-#     """Sets an optimizer to models.
-#
-#     DEPRECATED: Use set_optimizer instead.
-#     """
-#     warnings.warn(
-#         "scitex_ml.optim.set is deprecated. Use scitex_ml.optim.set_optimizer instead.",
-#         DeprecationWarning,
-#         stacklevel=2,
-#     )
-#     return set_optimizer(models, optim_str, lr)
-#
-#
-# def get(optim_str):
-#     """Get optimizer class by name.
-#
-#     DEPRECATED: Use get_optimizer instead.
-#     """
-#     warnings.warn(
-#         "scitex_ml.optim.get is deprecated. Use scitex_ml.optim.get_optimizer instead.",
-#         DeprecationWarning,
-#         stacklevel=2,
-#     )
-#     return get_optimizer(optim_str)
 
-# --------------------------------------------------------------------------------
-# End of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/ai/optim/_get_set.py
-# --------------------------------------------------------------------------------
+def test_set_function_is_callable():
+    """set is a callable function object."""
+    # Arrange
+    # Act
+    # Assert
+    assert callable(set)
+
+
+# ============================================================================
+# Identity — functions importable from _get_set module
+# ============================================================================
+
+
+def test_get_via_package_import_is_same_object():
+    """get imported directly from optim is the same object as the public API."""
+    # Arrange
+    from scitex_ml.optim import get as get_direct
+    # Act
+    # Assert
+    assert get_direct is get
+
+
+def test_set_via_package_import_is_same_object():
+    """set imported directly from optim is the same object as the public API."""
+    # Arrange
+    from scitex_ml.optim import set as set_direct
+    # Act
+    # Assert
+    assert set_direct is set

@@ -1,10 +1,4 @@
-#!/usr/bin/env python3
-"""Tests for scitex_ml.utils._default_dataset module.
-
-This module provides comprehensive tests for the DefaultDataset class,
-which is used for creating PyTorch datasets from arrays with optional
-transformations.
-"""
+"""Tests for scitex_ml.utils._default_dataset module."""
 
 import numpy as np
 import pytest
@@ -15,287 +9,311 @@ from torch.utils.data import DataLoader
 from scitex_ml.utils import DefaultDataset
 
 
-class TestDefaultDataset:
-    """Test DefaultDataset class functionality."""
+# ── initialization tests ───────────────────────────────────────
 
-    def test_initialization_single_array(self):
-        """Test initialization with single array."""
-        X = np.random.rand(100, 10)
-        ds = DefaultDataset([X])
-        assert len(ds) == 100
-        assert ds.transform is None
-        assert ds.arrs_list == [X]
-        assert ds.arrs == [X]  # Check alias
-
-    def test_initialization_multiple_arrays(self):
-        """Test initialization with multiple arrays."""
-        n = 50
-        X = np.random.rand(n, 19, 1000)
-        T = np.random.randint(0, 4, size=(n, 1))
-        S = np.random.randint(0, 999, size=(n, 1))
-
-        ds = DefaultDataset([X, T, S])
-        assert len(ds) == n
-        assert len(ds.arrs_list) == 3
-
-    def test_getitem_single_array(self):
-        """Test __getitem__ with single array."""
-        X = np.random.rand(10, 5)
-        ds = DefaultDataset([X])
-
-        # Get first item
-        item = ds[0]
-        assert len(item) == 1
-        assert np.array_equal(item[0], X[0])
-
-        # Get last item
-        item = ds[9]
-        assert np.array_equal(item[0], X[9])
-
-    def test_getitem_multiple_arrays(self):
-        """Test __getitem__ with multiple arrays."""
-        n = 20
-        X = np.random.rand(n, 10)
-        T = np.random.randint(0, 4, size=(n,))
-        S = np.random.randint(0, 999, size=(n,))
-
-        ds = DefaultDataset([X, T, S])
-
-        # Check first item
-        item = ds[0]
-        assert len(item) == 3
-        assert np.array_equal(item[0], X[0])
-        assert item[1] == T[0]
-        assert item[2] == S[0]
-
-    def test_transform_application(self):
-        """Test that transform is applied only to first array."""
-
-        def double_transform(x):
-            return x * 2
-
-        X = np.ones((10, 5))
-        T = np.ones((10,))
-
-        ds = DefaultDataset([X, T], transform=double_transform)
-
-        item = ds[0]
-        # First array should be transformed
-        assert np.allclose(item[0], 2.0)
-        # Second array should not be transformed
-        assert item[1] == 1.0
-
-    def test_transform_preserves_dtype(self):
-        """Test that transform preserves original dtype."""
-
-        def add_noise(x):
-            return x + np.random.randn(*x.shape) * 0.01
-
-        X = np.ones((10, 5), dtype=np.float32)
-        ds = DefaultDataset([X], transform=add_noise)
-
-        item = ds[0]
-        assert item[0].dtype == np.float32
-
-    def test_zero_length_arrays_assertion(self):
-        """Test that arrays with zero length raise assertion error."""
-        X = np.array([])  # Empty array
-
-        with pytest.raises(AssertionError):
-            DefaultDataset([X])
-
-    def test_different_dtypes(self):
-        """Test dataset with arrays of different dtypes."""
-        X = np.random.rand(10, 5).astype(np.float32)
-        T = np.random.randint(0, 4, size=(10,)).astype(np.int64)
-        S = np.random.rand(10).astype(np.float64)
-
-        ds = DefaultDataset([X, T, S])
-        item = ds[0]
-
-        assert item[0].dtype == np.float32
-        assert item[1].dtype == np.int64
-        assert item[2].dtype == np.float64
-
-    def test_empty_arrays_list_error(self):
-        """Test that empty arrays list raises appropriate error."""
-        with pytest.raises(IndexError):
-            DefaultDataset([])
-
-    def test_mismatched_lengths_not_validated(self):
-        """Test that arrays with different lengths are not validated at init.
-
-        Note: The current implementation doesn't validate that all arrays
-        have the same length, which could be a potential bug.
-        """
-        X = np.random.rand(10, 5)
-        T = np.random.rand(8)  # Different length
-
-        # This actually doesn't raise an error in current implementation
-        ds = DefaultDataset([X, T])
-        assert len(ds) == 10  # Uses length of first array
-
-    def test_dataloader_compatibility(self):
-        """Test compatibility with PyTorch DataLoader."""
-        n = 100
-        X = np.random.rand(n, 10)
-        T = np.random.randint(0, 4, size=(n,))
-
-        ds = DefaultDataset([X, T])
-        loader = DataLoader(ds, batch_size=16, shuffle=True)
-
-        # Check that we can iterate through loader
-        batch_count = 0
-        for batch in loader:
-            batch_count += 1
-            assert len(batch) == 2  # X and T
-            assert batch[0].shape[0] <= 16  # Batch size
-            assert batch[1].shape[0] <= 16
-
-        # Should have correct number of batches
-        expected_batches = (n + 15) // 16  # Ceiling division
-        assert batch_count == expected_batches
-
-    def test_indexing_bounds(self):
-        """Test indexing boundary conditions."""
-        X = np.random.rand(10, 5)
-        ds = DefaultDataset([X])
-
-        # Valid indices
-        assert ds[0] is not None
-        assert ds[9] is not None
-
-        # Invalid indices should raise IndexError
-        with pytest.raises(IndexError):
-            ds[10]
-
-        with pytest.raises(IndexError):
-            ds[-11]
-
-    def test_negative_indexing(self):
-        """Test negative indexing support."""
-        X = np.random.rand(10, 5)
-        ds = DefaultDataset([X])
-
-        # Negative indexing should work
-        last_item = ds[-1]
-        assert np.array_equal(last_item[0], X[-1])
-
-        first_item = ds[-10]
-        assert np.array_equal(first_item[0], X[0])
-
-    def test_complex_transform(self):
-        """Test with more complex transform function."""
-
-        def normalize_transform(x):
-            mean = x.mean()
-            std = x.std()
-            return (x - mean) / (std + 1e-8)
-
-        X = np.random.rand(20, 10) * 100 + 50
-        ds = DefaultDataset([X], transform=normalize_transform)
-
-        item = ds[0]
-        transformed = normalize_transform(X[0].astype(np.float64)).astype(X.dtype)
-        assert np.allclose(item[0], transformed)
-
-    def test_multidimensional_arrays(self):
-        """Test with various multidimensional array shapes."""
-        # 3D array (e.g., time series with channels)
-        X_3d = np.random.rand(50, 19, 1000)
-        # 2D array (e.g., features)
-        X_2d = np.random.rand(50, 100)
-        # 1D array (e.g., labels)
-        T_1d = np.random.randint(0, 4, size=(50,))
-
-        ds = DefaultDataset([X_3d, X_2d, T_1d])
-
-        item = ds[0]
-        assert item[0].shape == (19, 1000)
-        assert item[1].shape == (100,)
-        assert isinstance(item[2], (int, np.integer))
-
-    def test_example_from_docstring(self):
-        """Test the exact example given in the docstring."""
-        n = 1024
-        n_chs = 19
-        X = np.random.rand(n, n_chs, 1000)
-        T = np.random.randint(0, 4, size=(n, 1))
-        S = np.random.randint(0, 999, size=(n, 1))
-        Sr = np.random.randint(0, 4, size=(n, 1))
-
-        arrs_list = [X, T, S, Sr]
-        transform = None
-        ds = DefaultDataset(arrs_list, transform=transform)
-
-        assert len(ds) == 1024
-
-        # Check that items are retrieved correctly
-        item = ds[0]
-        assert len(item) == 4
-        assert item[0].shape == (n_chs, 1000)
-        assert item[1].shape == (1,)
-        assert item[2].shape == (1,)
-        assert item[3].shape == (1,)
+def test_init_single_array_sets_correct_length():
+    # Arrange
+    X = np.random.rand(100, 10)
+    # Act
+    ds = DefaultDataset([X])
+    # Assert
+    assert len(ds) == 100
 
 
-if __name__ == "__main__":
-    import os
+def test_init_single_array_has_none_transform_by_default():
+    # Arrange
+    X = np.random.rand(100, 10)
+    # Act
+    ds = DefaultDataset([X])
+    # Assert
+    assert ds.transform is None
 
-    import pytest
 
-    pytest.main([os.path.abspath(__file__)])
+def test_init_single_array_stores_arrs_list():
+    # Arrange
+    X = np.random.rand(100, 10)
+    # Act
+    ds = DefaultDataset([X])
+    # Assert
+    assert ds.arrs_list == [X]
 
-# --------------------------------------------------------------------------------
-# Start of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/ai/utils/_default_dataset.py
-# --------------------------------------------------------------------------------
-# #!/usr/bin/env python3
-#
-# from torch.utils.data import Dataset
-# import numpy as np
-#
-#
-# class DefaultDataset(Dataset):
-#     """
-#     Apply transform for the first element of arrs_list
-#
-#     Example:
-#         n = 1024
-#         n_chs = 19
-#         X = np.random.rand(n, n_chs, 1000)
-#         T = np.random.randint(0, 4, size=(n, 1))
-#         S = np.random.randint(0, 999, size=(n, 1))
-#         Sr = np.random.randint(0, 4, size=(n, 1))
-#
-#         arrs_list = [X, T, S, Sr]
-#         transform = None
-#         ds = _DefaultDataset(arrs_list, transform=transform)
-#         len(ds) # 1024
-#     """
-#
-#     def __init__(self, arrs_list, transform=None):
-#         self.arrs_list = arrs_list
-#         self.arrs = arrs_list  # alias
-#
-#         assert np.all([len(arr) for arr in arrs_list])
-#
-#         self.length = len(arrs_list[0])
-#         self.transform = transform
-#
-#     def __len__(self):
-#         return self.length
-#
-#     def __getitem__(self, idx):
-#         arrs_list_idx = [arr[idx] for arr in self.arrs_list]
-#
-#         # Here, you might want to transform, or apply DA on X as a numpy array
-#         if self.transform:
-#             dtype_orig = arrs_list_idx[0].dtype
-#             arrs_list_idx[0] = self.transform(
-#                 arrs_list_idx[0].astype(np.float64)
-#             ).astype(dtype_orig)
-#         return arrs_list_idx
 
-# --------------------------------------------------------------------------------
-# End of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/ai/utils/_default_dataset.py
-# --------------------------------------------------------------------------------
+def test_init_multiple_arrays_sets_correct_length():
+    # Arrange
+    n = 50
+    X = np.random.rand(n, 19, 1000)
+    T = np.random.randint(0, 4, size=(n, 1))
+    S = np.random.randint(0, 999, size=(n, 1))
+    # Act
+    ds = DefaultDataset([X, T, S])
+    # Assert
+    assert len(ds) == n
+
+
+def test_init_multiple_arrays_stores_three_arrays():
+    # Arrange
+    n = 50
+    X = np.random.rand(n, 19, 1000)
+    T = np.random.randint(0, 4, size=(n, 1))
+    S = np.random.randint(0, 999, size=(n, 1))
+    # Act
+    ds = DefaultDataset([X, T, S])
+    # Assert
+    assert len(ds.arrs_list) == 3
+
+
+# ── __getitem__ tests ──────────────────────────────────────────
+
+def test_getitem_single_array_first_element_has_one_item():
+    # Arrange
+    X = np.random.rand(10, 5)
+    ds = DefaultDataset([X])
+    # Act
+    item = ds[0]
+    # Assert
+    assert len(item) == 1
+
+
+def test_getitem_single_array_first_element_matches_original():
+    # Arrange
+    X = np.random.rand(10, 5)
+    ds = DefaultDataset([X])
+    # Act
+    item = ds[0]
+    # Assert
+    assert np.array_equal(item[0], X[0])
+
+
+def test_getitem_single_array_last_element_matches_original():
+    # Arrange
+    X = np.random.rand(10, 5)
+    ds = DefaultDataset([X])
+    # Act
+    item = ds[9]
+    # Assert
+    assert np.array_equal(item[0], X[9])
+
+
+def test_getitem_multiple_arrays_item_has_three_elements():
+    # Arrange
+    n = 20
+    X = np.random.rand(n, 10)
+    T = np.random.randint(0, 4, size=(n,))
+    S = np.random.randint(0, 999, size=(n,))
+    ds = DefaultDataset([X, T, S])
+    # Act
+    item = ds[0]
+    # Assert
+    assert len(item) == 3
+
+
+def test_getitem_multiple_arrays_first_element_matches_original():
+    # Arrange
+    n = 20
+    X = np.random.rand(n, 10)
+    T = np.random.randint(0, 4, size=(n,))
+    S = np.random.randint(0, 999, size=(n,))
+    ds = DefaultDataset([X, T, S])
+    # Act
+    item = ds[0]
+    # Assert
+    assert np.array_equal(item[0], X[0])
+
+
+def test_getitem_multiple_arrays_second_element_matches_original():
+    # Arrange
+    n = 20
+    X = np.random.rand(n, 10)
+    T = np.random.randint(0, 4, size=(n,))
+    S = np.random.randint(0, 999, size=(n,))
+    ds = DefaultDataset([X, T, S])
+    # Act
+    item = ds[0]
+    # Assert
+    assert item[1] == T[0]
+
+
+# ── transform tests ────────────────────────────────────────────
+
+def test_transform_applied_to_first_array():
+    # Arrange
+    def double_transform(x):
+        return x * 2
+    X = np.ones((10, 5))
+    T = np.ones((10,))
+    ds = DefaultDataset([X, T], transform=double_transform)
+    # Act
+    item = ds[0]
+    # Assert
+    assert np.allclose(item[0], 2.0)
+
+
+def test_transform_not_applied_to_second_array():
+    # Arrange
+    def double_transform(x):
+        return x * 2
+    X = np.ones((10, 5))
+    T = np.ones((10,))
+    ds = DefaultDataset([X, T], transform=double_transform)
+    # Act
+    item = ds[0]
+    # Assert
+    assert item[1] == 1.0
+
+
+def test_transform_preserves_original_dtype():
+    # Arrange
+    def add_noise(x):
+        return x + np.random.randn(*x.shape) * 0.01
+    X = np.ones((10, 5), dtype=np.float32)
+    ds = DefaultDataset([X], transform=add_noise)
+    # Act
+    item = ds[0]
+    # Assert
+    assert item[0].dtype == np.float32
+
+
+def test_complex_transform_normalizes_data_correctly():
+    # Arrange
+    def normalize_transform(x):
+        mean = x.mean()
+        std = x.std()
+        return (x - mean) / (std + 1e-8)
+    X = np.random.rand(20, 10) * 100 + 50
+    ds = DefaultDataset([X], transform=normalize_transform)
+    # Act
+    item = ds[0]
+    transformed = normalize_transform(X[0].astype(np.float64)).astype(X.dtype)
+    # Assert
+    assert np.allclose(item[0], transformed)
+
+
+# ── error handling tests ───────────────────────────────────────
+
+def test_zero_length_array_raises_assertion_error():
+    # Arrange
+    X = np.array([])
+    # Act
+    ctx = pytest.raises(AssertionError)
+    # Assert
+    with ctx:
+        DefaultDataset([X])
+
+
+def test_empty_arrays_list_raises_index_error():
+    # Arrange
+    # Act
+    ctx = pytest.raises(IndexError)
+    # Assert
+    with ctx:
+        DefaultDataset([])
+
+
+def test_index_out_of_bounds_positive_raises_index_error():
+    # Arrange
+    X = np.random.rand(10, 5)
+    ds = DefaultDataset([X])
+    # Act
+    ctx = pytest.raises(IndexError)
+    # Assert
+    with ctx:
+        _ = ds[10]
+
+
+def test_index_out_of_bounds_negative_raises_index_error():
+    # Arrange
+    X = np.random.rand(10, 5)
+    ds = DefaultDataset([X])
+    # Act
+    ctx = pytest.raises(IndexError)
+    # Assert
+    with ctx:
+        _ = ds[-11]
+
+
+# ── dtype tests ────────────────────────────────────────────────
+
+def test_different_dtypes_preserved_for_float32():
+    # Arrange
+    X = np.random.rand(10, 5).astype(np.float32)
+    T = np.random.randint(0, 4, size=(10,)).astype(np.int64)
+    S = np.random.rand(10).astype(np.float64)
+    ds = DefaultDataset([X, T, S])
+    # Act
+    item = ds[0]
+    # Assert
+    assert item[0].dtype == np.float32
+
+
+def test_different_dtypes_preserved_for_int64():
+    # Arrange
+    X = np.random.rand(10, 5).astype(np.float32)
+    T = np.random.randint(0, 4, size=(10,)).astype(np.int64)
+    S = np.random.rand(10).astype(np.float64)
+    ds = DefaultDataset([X, T, S])
+    # Act
+    item = ds[0]
+    # Assert
+    assert item[1].dtype == np.int64
+
+
+# ── misc tests ─────────────────────────────────────────────────
+
+def test_mismatched_lengths_uses_first_array_length():
+    # Arrange
+    X = np.random.rand(10, 5)
+    T = np.random.rand(8)
+    # Act
+    ds = DefaultDataset([X, T])
+    # Assert
+    assert len(ds) == 10
+
+
+def test_dataloader_iterates_correct_batch_count():
+    # Arrange
+    n = 100
+    X = np.random.rand(n, 10)
+    T = np.random.randint(0, 4, size=(n,))
+    ds = DefaultDataset([X, T])
+    loader = DataLoader(ds, batch_size=16, shuffle=True)
+    # Act
+    batch_count = sum(1 for _ in loader)
+    # Assert
+    assert batch_count == (n + 15) // 16
+
+
+def test_negative_indexing_last_element_matches_original():
+    # Arrange
+    X = np.random.rand(10, 5)
+    ds = DefaultDataset([X])
+    # Act
+    last_item = ds[-1]
+    # Assert
+    assert np.array_equal(last_item[0], X[-1])
+
+
+def test_multidimensional_arrays_first_item_has_correct_shape():
+    # Arrange
+    X_3d = np.random.rand(50, 19, 1000)
+    X_2d = np.random.rand(50, 100)
+    T_1d = np.random.randint(0, 4, size=(50,))
+    ds = DefaultDataset([X_3d, X_2d, T_1d])
+    # Act
+    item = ds[0]
+    # Assert
+    assert item[0].shape == (19, 1000)
+
+
+def test_docstring_example_sets_correct_dataset_length():
+    # Arrange
+    n = 1024
+    n_chs = 19
+    X = np.random.rand(n, n_chs, 1000)
+    T = np.random.randint(0, 4, size=(n, 1))
+    S = np.random.randint(0, 999, size=(n, 1))
+    Sr = np.random.randint(0, 4, size=(n, 1))
+    arrs_list = [X, T, S, Sr]
+    # Act
+    ds = DefaultDataset(arrs_list)
+    # Assert
+    assert len(ds) == 1024

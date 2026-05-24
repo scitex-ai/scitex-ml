@@ -18,12 +18,12 @@ pytest.importorskip("nbformat")
 pytest.importorskip("nbconvert")
 
 NOTEBOOK = Path(__file__).resolve().parents[2] / "examples" / "01_classification.ipynb"
+_NB_EXISTS = NOTEBOOK.is_file()
 
 
+@pytest.mark.skipif(not _NB_EXISTS, reason=f"missing notebook: {NOTEBOOK}")
 def test_classification_notebook_executes_with_nbconvert_and_exits_zero(tmp_path):
     # Arrange
-    if not NOTEBOOK.is_file():
-        pytest.skip(f"missing notebook: {NOTEBOOK}")
     target = tmp_path / NOTEBOOK.name
     shutil.copy(NOTEBOOK, target)
     cmd = [

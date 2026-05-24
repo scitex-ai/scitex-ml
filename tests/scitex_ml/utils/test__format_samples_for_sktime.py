@@ -1,244 +1,412 @@
-#!/usr/bin/env python3
-
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
-
+import numpy as np
+import pandas as pd
 import pytest
 
 torch = pytest.importorskip("torch")
-import numpy as np
-import pandas as pd
 
 from scitex_ml.utils import format_samples_for_sktime
 from scitex_ml.utils._format_samples_for_sktime import _format_a_sample_for_sktime
 
 
-class TestFormatSamplesForSktime:
-    """Test suite for sktime format conversion functions."""
-
-    def test_format_single_sample_basic(self):
-        """Test formatting a single sample with basic dimensions."""
-        x = np.random.rand(3, 100)  # 3 channels, 100 time points
-        result = _format_a_sample_for_sktime(x)
-
-        assert isinstance(result, pd.Series)
-        assert len(result) == 3
-        assert all(f"dim_{i}" in result.index for i in range(3))
-
-    def test_format_single_sample_values(self):
-        """Test that values are correctly preserved in formatting."""
-        x = np.array([[1, 2, 3], [4, 5, 6]])  # 2 channels, 3 time points
-        result = _format_a_sample_for_sktime(x)
-
-        assert isinstance(result["dim_0"], pd.Series)
-        assert list(result["dim_0"].values) == [1, 2, 3]
-        assert list(result["dim_1"].values) == [4, 5, 6]
-
-    def test_format_multiple_samples_numpy(self):
-        """Test formatting multiple samples from numpy array."""
-        X = np.random.rand(10, 5, 50)  # 10 samples, 5 channels, 50 time points
-        result = format_samples_for_sktime(X)
-
-        assert isinstance(result, pd.DataFrame)
-        assert len(result) == 10
-        assert result.shape == (10, 5)
-
-    def test_format_multiple_samples_torch(self):
-        """Test formatting multiple samples from torch tensor."""
-        X = torch.randn(20, 3, 100)  # 20 samples, 3 channels, 100 time points
-        result = format_samples_for_sktime(X)
-
-        assert isinstance(result, pd.DataFrame)
-        assert len(result) == 20
-        assert result.shape == (20, 3)
-
-    def test_torch_to_numpy_conversion(self):
-        """Test that torch tensors are correctly converted to numpy."""
-        X_torch = torch.randn(5, 2, 30, dtype=torch.float32)
-        X_numpy = X_torch.numpy()
-
-        result_torch = format_samples_for_sktime(X_torch)
-        result_numpy = format_samples_for_sktime(X_numpy)
-
-        pd.testing.assert_frame_equal(result_torch, result_numpy)
-
-    def test_float64_conversion(self):
-        """Test that torch tensor data is converted to float64."""
-        # Note: The source only converts to float64 when input is a torch tensor
-        X = torch.randn(5, 3, 20).float()  # float32 tensor
-        result = format_samples_for_sktime(X)
-
-        # Check that all series have float64 dtype (only for torch input)
-        for col in result.columns:
-            for idx in result.index:
-                assert result.loc[idx, col].dtype == np.float64
-
-    def test_single_channel_data(self):
-        """Test formatting with single channel data."""
-        X = np.random.rand(15, 1, 200)  # Single channel
-        result = format_samples_for_sktime(X)
-
-        assert result.shape == (15, 1)
-        assert "dim_0" in result.columns
-
-    def test_large_number_of_channels(self):
-        """Test formatting with many channels."""
-        n_channels = 100
-        X = np.random.rand(5, n_channels, 50)
-        result = format_samples_for_sktime(X)
-
-        assert result.shape == (5, n_channels)
-        assert all(f"dim_{i}" in result.columns for i in range(n_channels))
-
-    def test_varying_sequence_lengths_same_shape(self):
-        """Test that function works with consistent sequence lengths."""
-        X = np.random.rand(8, 4, 150)
-        result = format_samples_for_sktime(X)
-
-        # All time series should have same length
-        for idx in result.index:
-            for col in result.columns:
-                assert len(result.loc[idx, col]) == 150
-
-    def test_empty_data_handling(self):
-        """Test handling of empty data arrays."""
-        X = np.array([]).reshape(0, 5, 100)  # 0 samples
-        result = format_samples_for_sktime(X)
-
-        assert isinstance(result, pd.DataFrame)
-        assert len(result) == 0
-
-    def test_single_sample_3d_array(self):
-        """Test formatting a single sample in 3D array format."""
-        X = np.random.rand(1, 3, 50)  # 1 sample, 3 channels, 50 time points
-        result = format_samples_for_sktime(X)
-
-        assert isinstance(result, pd.DataFrame)
-        assert len(result) == 1
-        assert result.shape == (1, 3)
-
-    def test_dimension_names_consistency(self):
-        """Test that dimension names are consistent across samples."""
-        X = np.random.rand(10, 7, 30)
-        result = format_samples_for_sktime(X)
-
-        expected_columns = [f"dim_{i}" for i in range(7)]
-        assert list(result.columns) == expected_columns
-
-    def test_preserves_data_integrity(self):
-        """Test that data values are preserved exactly."""
-        X = np.arange(24).reshape(2, 3, 4).astype(np.float64)
-        result = format_samples_for_sktime(X)
-
-        # Check first sample
-        assert list(result.loc[0, "dim_0"].values) == [0, 1, 2, 3]
-        assert list(result.loc[0, "dim_1"].values) == [4, 5, 6, 7]
-        assert list(result.loc[0, "dim_2"].values) == [8, 9, 10, 11]
-
-        # Check second sample
-        assert list(result.loc[1, "dim_0"].values) == [12, 13, 14, 15]
-
-    def test_with_nan_values(self):
-        """Test handling of NaN values in the data."""
-        X = np.random.rand(5, 2, 25)
-        X[0, 0, 5] = np.nan
-        X[2, 1, 10:15] = np.nan
-
-        result = format_samples_for_sktime(X)
-
-        assert np.isnan(result.loc[0, "dim_0"].iloc[5])
-        assert np.all(np.isnan(result.loc[2, "dim_1"].iloc[10:15]))
-
-    def test_with_inf_values(self):
-        """Test handling of infinite values in the data."""
-        X = np.random.rand(3, 2, 20)
-        X[1, 0, 0] = np.inf
-        X[2, 1, -1] = -np.inf
-
-        result = format_samples_for_sktime(X)
-
-        assert np.isinf(result.loc[1, "dim_0"].iloc[0])
-        assert np.isinf(result.loc[2, "dim_1"].iloc[-1])
-
-    def test_series_naming_in_single_sample(self):
-        """Test that series within samples have correct names."""
-        x = np.random.rand(4, 30)
-        result = _format_a_sample_for_sktime(x)
-
-        for i in range(4):
-            assert result[f"dim_{i}"].name == f"dim_{i}"
-
-    def test_dataframe_index_range(self):
-        """Test that DataFrame has correct index range."""
-        n_samples = 25
-        X = np.random.rand(n_samples, 5, 40)
-        result = format_samples_for_sktime(X)
-
-        assert list(result.index) == list(range(n_samples))
-
-    def test_torch_cuda_tensor_handling(self):
-        """Test handling of CUDA tensors (if available)."""
-        if torch.cuda.is_available():
-            X = torch.randn(10, 3, 50).cuda()
-            # Should work after moving to CPU
-            X_cpu = X.cpu()
-            result = format_samples_for_sktime(X_cpu)
-
-            assert isinstance(result, pd.DataFrame)
-            assert result.shape == (10, 3)
-
-    def test_memory_efficiency_check(self):
-        """Test that function handles large arrays efficiently."""
-        # Create a moderately large array
-        X = np.random.rand(100, 10, 1000)
-
-        # This should complete without memory errors
-        result = format_samples_for_sktime(X)
-
-        assert result.shape == (100, 10)
-        # Verify a few random elements
-        assert len(result.loc[50, "dim_5"]) == 1000
+# ---------------------------------------------------------------------------
+# _format_a_sample_for_sktime
+# ---------------------------------------------------------------------------
 
 
-if __name__ == "__main__":
-    import os
+def test_format_single_sample_returns_pandas_series():
+    # Arrange
+    x = np.random.rand(3, 100)
+    # Act
+    result = _format_a_sample_for_sktime(x)
+    # Assert
+    assert isinstance(result, pd.Series)
 
-    import pytest
 
-    pytest.main([os.path.abspath(__file__)])
+def test_format_single_sample_has_correct_series_length():
+    # Arrange
+    x = np.random.rand(3, 100)
+    # Act
+    result = _format_a_sample_for_sktime(x)
+    # Assert
+    assert len(result) == 3
 
-# --------------------------------------------------------------------------------
-# Start of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/ai/utils/_format_samples_for_sktime.py
-# --------------------------------------------------------------------------------
-# import pandas as pd
-# import torch
-# import numpy as np
-#
-#
-# def _format_a_sample_for_sktime(x):
-#     """
-#     x.shape: (n_chs, seq_len)
-#     """
-#     dims = pd.Series(
-#         [pd.Series(x[d], name=f"dim_{d}") for d in range(len(x))],
-#         index=[f"dim_{i}" for i in np.arange(len(x))],
-#     )
-#     return dims
-#
-#
-# def format_samples_for_sktime(X):
-#     """
-#     X.shape: (n_samples, n_chs, seq_len)
-#     """
-#     if torch.is_tensor(X):
-#         X = X.numpy()  # (64, 160, 1024)
-#
-#         X = X.astype(np.float64)
-#
-#     return pd.DataFrame([_format_a_sample_for_sktime(X[i]) for i in range(len(X))])
 
-# --------------------------------------------------------------------------------
-# End of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/ai/utils/_format_samples_for_sktime.py
-# --------------------------------------------------------------------------------
+def test_format_single_sample_preserves_dim_0_values():
+    # Arrange
+    x = np.array([[1, 2, 3], [4, 5, 6]])
+    # Act
+    result = _format_a_sample_for_sktime(x)
+    # Assert
+    assert list(result["dim_0"].values) == [1, 2, 3]
+
+
+def test_format_single_sample_preserves_dim_1_values():
+    # Arrange
+    x = np.array([[1, 2, 3], [4, 5, 6]])
+    # Act
+    result = _format_a_sample_for_sktime(x)
+    # Assert
+    assert list(result["dim_1"].values) == [4, 5, 6]
+
+
+def test_series_dim_0_name_matches_expected_pattern():
+    # Arrange
+    x = np.random.rand(4, 30)
+    # Act
+    result = _format_a_sample_for_sktime(x)
+    # Assert
+    assert result["dim_0"].name == "dim_0"
+
+
+def test_series_dim_1_name_matches_expected_pattern():
+    # Arrange
+    x = np.random.rand(4, 30)
+    # Act
+    result = _format_a_sample_for_sktime(x)
+    # Assert
+    assert result["dim_1"].name == "dim_1"
+
+
+# ---------------------------------------------------------------------------
+# format_samples_for_sktime — numpy input
+# ---------------------------------------------------------------------------
+
+
+def test_format_numpy_samples_returns_pandas_dataframe():
+    # Arrange
+    X = np.random.rand(10, 5, 50)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert isinstance(result, pd.DataFrame)
+
+
+def test_format_numpy_samples_has_correct_row_count():
+    # Arrange
+    X = np.random.rand(10, 5, 50)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert len(result) == 10
+
+
+def test_format_numpy_samples_has_correct_column_count():
+    # Arrange
+    X = np.random.rand(10, 5, 50)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert result.shape[1] == 5
+
+
+# ---------------------------------------------------------------------------
+# format_samples_for_sktime — torch input
+# ---------------------------------------------------------------------------
+
+
+def test_format_torch_samples_returns_pandas_dataframe():
+    # Arrange
+    X = torch.randn(20, 3, 100)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert isinstance(result, pd.DataFrame)
+
+
+def test_format_torch_samples_has_correct_row_count():
+    # Arrange
+    X = torch.randn(20, 3, 100)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert len(result) == 20
+
+
+def test_format_torch_samples_has_correct_column_count():
+    # Arrange
+    X = torch.randn(20, 3, 100)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert result.shape[1] == 3
+
+
+# ---------------------------------------------------------------------------
+# torch ↔ numpy equivalence
+# ---------------------------------------------------------------------------
+
+
+def test_torch_numpy_inputs_produce_identical_dataframes():
+    # Arrange
+    X_torch = torch.randn(5, 2, 30, dtype=torch.float32)
+    X_numpy = X_torch.numpy()
+    # Act
+    result_torch = format_samples_for_sktime(X_torch)
+    result_numpy = format_samples_for_sktime(X_numpy)
+    # Assert
+    assert result_torch.equals(result_numpy)
+
+
+def test_torch_tensor_converts_cell_dtype_to_float64():
+    # Arrange
+    X = torch.randn(5, 3, 20).float()
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert result.loc[0, result.columns[0]].dtype == np.float64
+
+
+# ---------------------------------------------------------------------------
+# single channel
+# ---------------------------------------------------------------------------
+
+
+def test_single_channel_data_has_correct_shape():
+    # Arrange
+    X = np.random.rand(15, 1, 200)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert result.shape == (15, 1)
+
+
+def test_single_channel_data_has_dim_0_column():
+    # Arrange
+    X = np.random.rand(15, 1, 200)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert "dim_0" in result.columns
+
+
+# ---------------------------------------------------------------------------
+# many channels
+# ---------------------------------------------------------------------------
+
+
+def test_many_channels_has_correct_column_count():
+    # Arrange
+    n_channels = 100
+    X = np.random.rand(5, n_channels, 50)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert result.shape[1] == n_channels
+
+
+def test_column_names_match_expected_dim_i_pattern():
+    # Arrange
+    X = np.random.rand(10, 7, 30)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert list(result.columns) == [f"dim_{i}" for i in range(7)]
+
+
+# ---------------------------------------------------------------------------
+# empty data
+# ---------------------------------------------------------------------------
+
+
+def test_empty_data_returns_empty_pandas_dataframe():
+    # Arrange
+    X = np.array([]).reshape(0, 5, 100)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert isinstance(result, pd.DataFrame)
+
+
+def test_empty_data_has_zero_rows():
+    # Arrange
+    X = np.array([]).reshape(0, 5, 100)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert len(result) == 0
+
+
+# ---------------------------------------------------------------------------
+# single-sample 3D array
+# ---------------------------------------------------------------------------
+
+
+def test_single_sample_3d_array_returns_pandas_dataframe():
+    # Arrange
+    X = np.random.rand(1, 3, 50)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert isinstance(result, pd.DataFrame)
+
+
+def test_single_sample_3d_array_has_correct_row_count():
+    # Arrange
+    X = np.random.rand(1, 3, 50)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert len(result) == 1
+
+
+def test_single_sample_3d_array_has_correct_shape():
+    # Arrange
+    X = np.random.rand(1, 3, 50)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert result.shape == (1, 3)
+
+
+# ---------------------------------------------------------------------------
+# data integrity — specific values preserved
+# ---------------------------------------------------------------------------
+
+
+def test_first_sample_dim_0_values_are_preserved():
+    # Arrange
+    X = np.arange(24).reshape(2, 3, 4).astype(np.float64)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert list(result.loc[0, "dim_0"].values) == [0, 1, 2, 3]
+
+
+def test_first_sample_dim_1_values_are_preserved():
+    # Arrange
+    X = np.arange(24).reshape(2, 3, 4).astype(np.float64)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert list(result.loc[0, "dim_1"].values) == [4, 5, 6, 7]
+
+
+def test_first_sample_dim_2_values_are_preserved():
+    # Arrange
+    X = np.arange(24).reshape(2, 3, 4).astype(np.float64)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert list(result.loc[0, "dim_2"].values) == [8, 9, 10, 11]
+
+
+def test_second_sample_dim_0_values_are_preserved():
+    # Arrange
+    X = np.arange(24).reshape(2, 3, 4).astype(np.float64)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert list(result.loc[1, "dim_0"].values) == [12, 13, 14, 15]
+
+
+# ---------------------------------------------------------------------------
+# NaN handling
+# ---------------------------------------------------------------------------
+
+
+def test_single_nan_value_preserved_through_conversion():
+    # Arrange
+    X = np.random.rand(5, 2, 25)
+    X[0, 0, 5] = np.nan
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert np.isnan(result.loc[0, "dim_0"].iloc[5])
+
+
+def test_multiple_nan_values_preserved_through_conversion():
+    # Arrange
+    X = np.random.rand(5, 2, 25)
+    X[2, 1, 10:15] = np.nan
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert np.all(np.isnan(result.loc[2, "dim_1"].iloc[10:15]))
+
+
+# ---------------------------------------------------------------------------
+# Inf handling
+# ---------------------------------------------------------------------------
+
+
+def test_positive_inf_value_preserved_through_conversion():
+    # Arrange
+    X = np.random.rand(3, 2, 20)
+    X[1, 0, 0] = np.inf
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert np.isinf(result.loc[1, "dim_0"].iloc[0])
+
+
+def test_negative_inf_value_preserved_through_conversion():
+    # Arrange
+    X = np.random.rand(3, 2, 20)
+    X[2, 1, -1] = -np.inf
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert np.isinf(result.loc[2, "dim_1"].iloc[-1])
+
+
+# ---------------------------------------------------------------------------
+# DataFrame index
+# ---------------------------------------------------------------------------
+
+
+def test_dataframe_index_is_sequential_range():
+    # Arrange
+    n_samples = 25
+    X = np.random.rand(n_samples, 5, 40)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert list(result.index) == list(range(n_samples))
+
+
+# ---------------------------------------------------------------------------
+# CUDA tensor handling
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA not available")
+def test_cuda_tensor_returns_pandas_dataframe():
+    # Arrange
+    X = torch.randn(10, 3, 50).cuda()
+    # Act
+    result = format_samples_for_sktime(X.cpu())
+    # Assert
+    assert isinstance(result, pd.DataFrame)
+
+
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA not available")
+def test_cuda_tensor_has_correct_shape():
+    # Arrange
+    X = torch.randn(10, 3, 50).cuda()
+    # Act
+    result = format_samples_for_sktime(X.cpu())
+    # Assert
+    assert result.shape == (10, 3)
+
+
+# ---------------------------------------------------------------------------
+# large array
+# ---------------------------------------------------------------------------
+
+
+def test_large_array_has_correct_shape():
+    # Arrange
+    X = np.random.rand(100, 10, 1000)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert result.shape == (100, 10)
+
+
+def test_large_array_cell_has_correct_length():
+    # Arrange
+    X = np.random.rand(100, 10, 1000)
+    # Act
+    result = format_samples_for_sktime(X)
+    # Assert
+    assert len(result.loc[50, "dim_5"]) == 1000

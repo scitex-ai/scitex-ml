@@ -21,309 +21,455 @@ except Exception:
 
 pytestmark = pytest.mark.skipif(not UMAP_AVAILABLE, reason="UMAP library not available")
 
-
-class TestUmapBasicFunctionality:
-    """Test basic UMAP functionality."""
-
-    @pytest.fixture
-    def sample_data(self):
-        """Generate sample data for testing."""
-        np.random.seed(42)
-        n_samples = 100
-        n_features = 50
-        data = np.random.randn(n_samples, n_features)
-        labels = np.array(["A"] * 50 + ["B"] * 50)
-        return data, labels
-
-    @pytest.fixture
-    def multi_dataset(self):
-        """Generate multiple datasets for testing."""
-        np.random.seed(42)
-        data1 = np.random.randn(100, 50)
-        data2 = np.random.randn(80, 50)
-        labels1 = np.array(["A"] * 50 + ["B"] * 50)
-        labels2 = np.array(["C"] * 40 + ["D"] * 40)
-        return [data1, data2], [labels1, labels2]
-
-    @pytest.mark.timeout(180)  # UMAP JIT compilation can take >60s on first run
-    def test_umap_basic_functionality(self, sample_data):
-        """Test basic UMAP functionality with minimal parameters."""
-        data, labels = sample_data
-        from scitex_ml.clustering import umap  # type: ignore[attr-defined]
-
-        # UMAP expects lists
-        fig, legend_figs, umap_model = umap(data=[data], labels=[labels])
-
-        # Check return structure
-        assert fig is not None
-        # fig may be a FigWrapper or matplotlib Figure
-        assert legend_figs is None  # Default is no independent legend
-        assert umap_model is not None
-
-        # Close with 'all' to handle wrapped figures
-        plt.close("all")
-
-    @pytest.mark.timeout(180)
-    def test_umap_multiple_datasets(self, multi_dataset):
-        """Test UMAP with multiple datasets."""
-        data_list, labels_list = multi_dataset
-        from scitex_ml.clustering import umap  # type: ignore[attr-defined]
-
-        fig, legend_figs, umap_model = umap(
-            data=data_list, labels=labels_list, axes_titles=["Dataset 1", "Dataset 2"]
-        )
-
-        assert fig is not None
-        assert umap_model is not None
-
-        # Check we have multiple axes (access underlying figure if wrapped)
-        if hasattr(fig, "fig"):
-            axes = fig.fig.get_axes()
-        else:
-            axes = fig.get_axes()
-        assert len(axes) >= len(data_list)
-
-        plt.close("all")
-
-    @pytest.mark.timeout(180)
-    def test_umap_supervised_mode(self, sample_data):
-        """Test supervised UMAP mode."""
-        data, labels = sample_data
-        from scitex_ml.clustering import umap  # type: ignore[attr-defined]
-
-        fig, legend_figs, umap_model = umap(
-            data=[data], labels=[labels], supervised=True
-        )
-
-        assert fig is not None
-        assert umap_model is not None
-
-        plt.close("all")
+from scitex_ml.clustering import umap  # noqa: F401, E402
 
 
-class TestUmapVisualization:
-    """Test UMAP visualization features."""
+# ---------------------------------------------------------------------------
+# Module-level fixtures
+# ---------------------------------------------------------------------------
 
-    @pytest.fixture
-    def sample_data(self):
-        """Generate sample data for testing."""
-        np.random.seed(42)
-        data = np.random.randn(100, 50)
-        labels = np.array(["A"] * 50 + ["B"] * 50)
-        return data, labels
 
-    @pytest.mark.timeout(180)
-    def test_umap_with_hues(self, sample_data):
-        """Test UMAP with hue coloring."""
-        data, labels = sample_data
-        hues = np.array(["group_A"] * 50 + ["group_B"] * 50)
-        from scitex_ml.clustering import umap  # type: ignore[attr-defined]
+@pytest.fixture
+def sample_data():
+    """Generate sample data for testing."""
+    np.random.seed(42)
+    n_samples = 100
+    n_features = 50
+    data = np.random.randn(n_samples, n_features)
+    labels = np.array(["A"] * 50 + ["B"] * 50)
+    return data, labels
 
-        fig, legend_figs, umap_model = umap(data=[data], labels=[labels], hues=[hues])
 
-        assert fig is not None
+@pytest.fixture
+def multi_dataset():
+    """Generate multiple datasets for testing."""
+    np.random.seed(42)
+    data1 = np.random.randn(100, 50)
+    data2 = np.random.randn(80, 50)
+    labels1 = np.array(["A"] * 50 + ["B"] * 50)
+    labels2 = np.array(["C"] * 40 + ["D"] * 40)
+    return [data1, data2], [labels1, labels2]
 
-        plt.close("all")
 
-    @pytest.mark.skip(reason="Custom colors API needs clarification from source code")
-    def test_umap_with_custom_colors(self, sample_data):
-        """Test UMAP with custom color mapping."""
-        data, labels = sample_data
-        from scitex_ml.clustering import umap  # type: ignore[attr-defined]
+# ===========================================================================
+# Tests from TestUmapBasicFunctionality
+# ===========================================================================
 
-        # Custom colors for each point - API unclear from source
-        hues_colors = [["red"] * 50 + ["blue"] * 50]
 
-        fig, legend_figs, umap_model = umap(
-            data=[data], labels=[labels], hues_colors=hues_colors
-        )
+@pytest.mark.timeout(180)  # UMAP JIT compilation can take >60s on first run
+def test_umap_basic_functionality_returns_non_null_figure(sample_data):
+    """Test basic UMAP returns a non-null figure."""
+    # Arrange
+    data, labels = sample_data
 
-        assert fig is not None
+    # Act
+    fig, legend_figs, umap_model = umap(data=[data], labels=[labels])
 
-        plt.close("all")
+    # Assert
+    assert fig is not None
 
-    @pytest.mark.timeout(180)
-    def test_umap_visualization_parameters(self, sample_data):
-        """Test UMAP with custom visualization parameters."""
-        data, labels = sample_data
-        from scitex_ml.clustering import umap  # type: ignore[attr-defined]
+    plt.close("all")
 
-        fig, legend_figs, umap_model = umap(
-            data=[data], labels=[labels], title="Custom UMAP Title", alpha=0.7, s=50
-        )
 
-        assert fig is not None
-        # The fig may be wrapped, skip title check
-        plt.close("all")
+@pytest.mark.timeout(180)
+def test_umap_basic_functionality_legend_figs_is_none_by_default(sample_data):
+    """Test basic UMAP returns None for legend_figs by default."""
+    # Arrange
+    data, labels = sample_data
 
-    @pytest.mark.skip(  # noqa: E501
-        reason="Source code has bug with use_independent_legend (axes not iterable with FigWrapper)"  # noqa: E501
+    # Act
+    fig, legend_figs, umap_model = umap(data=[data], labels=[labels])
+
+    # Assert
+    assert legend_figs is None
+
+    plt.close("all")
+
+
+@pytest.mark.timeout(180)
+def test_umap_basic_functionality_returns_non_null_model(sample_data):
+    """Test basic UMAP returns a non-null model."""
+    # Arrange
+    data, labels = sample_data
+
+    # Act
+    fig, legend_figs, umap_model = umap(data=[data], labels=[labels])
+
+    # Assert
+    assert umap_model is not None
+
+    plt.close("all")
+
+
+@pytest.mark.timeout(180)
+def test_umap_multiple_datasets_returns_non_null_figure(multi_dataset):
+    """Test UMAP with multiple datasets returns a non-null figure."""
+    # Arrange
+    data_list, labels_list = multi_dataset
+
+    # Act
+    fig, legend_figs, umap_model = umap(
+        data=data_list, labels=labels_list, axes_titles=["Dataset 1", "Dataset 2"]
     )
-    def test_umap_with_independent_legend(self, sample_data):
-        """Test UMAP with independent legend figures."""
-        data, labels = sample_data
-        from scitex_ml.clustering import umap  # type: ignore[attr-defined]
 
-        fig, legend_figs, umap_model = umap(
-            data=[data], labels=[labels], use_independent_legend=True
-        )
+    # Assert
+    assert fig is not None
 
-        assert fig is not None
-        # legend_figs can be None or a list depending on implementation
-        if legend_figs is not None:
-            for leg_fig in legend_figs:
-                plt.close(leg_fig)
+    plt.close("all")
 
-        plt.close("all")
 
-    @pytest.mark.skip(
-        reason="Source code has bug with add_super_imposed (hues_colors vstack issue)"
+@pytest.mark.timeout(180)
+def test_umap_multiple_datasets_returns_non_null_model(multi_dataset):
+    """Test UMAP with multiple datasets returns a non-null model."""
+    # Arrange
+    data_list, labels_list = multi_dataset
+
+    # Act
+    fig, legend_figs, umap_model = umap(
+        data=data_list, labels=labels_list, axes_titles=["Dataset 1", "Dataset 2"]
     )
-    def test_umap_with_superimposed(self):
-        """Test UMAP with superimposed plot."""
-        np.random.seed(42)
-        data1 = np.random.randn(100, 50)
-        data2 = np.random.randn(80, 50)
-        labels1 = np.array(["A"] * 50 + ["B"] * 50)
-        labels2 = np.array(["C"] * 40 + ["D"] * 40)
 
-        from scitex_ml.clustering import umap  # type: ignore[attr-defined]
+    # Assert
+    assert umap_model is not None
 
-        fig, legend_figs, umap_model = umap(
-            data=[data1, data2], labels=[labels1, labels2], add_super_imposed=True
-        )
-
-        assert fig is not None
-        # Should have extra axis for superimposed plot
-        if hasattr(fig, "fig"):
-            axes = fig.fig.get_axes()
-        else:
-            axes = fig.get_axes()
-        assert len(axes) == 3  # 2 datasets + 1 superimposed
-
-        plt.close("all")
+    plt.close("all")
 
 
-class TestUmapAlgorithmicOptions:
-    """Test UMAP algorithmic options."""
+@pytest.mark.timeout(180)
+def test_umap_multiple_datasets_has_sufficient_axes_count(multi_dataset):
+    """Test UMAP with multiple datasets creates enough axes."""
+    # Arrange
+    data_list, labels_list = multi_dataset
 
-    @pytest.fixture
-    def sample_data(self):
-        """Generate sample data for testing."""
-        np.random.seed(42)
-        data = np.random.randn(100, 50)
-        labels = np.array(["A"] * 50 + ["B"] * 50)
-        return data, labels
-
-    @pytest.mark.timeout(180)
-    def test_umap_with_pretrained_model(self, sample_data):
-        """Test UMAP with pre-fitted model."""
-        data, labels = sample_data
-
-        from scitex_ml.clustering import umap
-
-        # First fit to get a model
-        fig1, _, model1 = umap(data=[data], labels=[labels])
-        plt.close("all")
-
-        # Reuse model on new data
-        new_data = np.random.randn(80, 50)
-        new_labels = np.array(["X"] * 40 + ["Y"] * 40)
-
-        fig2, legend_figs, model2 = umap(
-            data=[new_data], labels=[new_labels], umap_model=model1
-        )
-
-        assert model2 is model1
-
-        plt.close("all")
-
-
-class TestUmapDataValidation:
-    """Test UMAP data validation and edge cases."""
-
-    @pytest.mark.timeout(180)
-    def test_umap_input_format_validation(self):
-        """Test UMAP validates list input format."""
-        from scitex_ml.clustering import umap
-
-        data = np.random.randn(100, 50)
-        labels = np.array(["A"] * 50 + ["B"] * 50)
-
-        # Should work with list inputs
-        fig, legend_figs, umap_model = umap(data=[data], labels=[labels])
-
-        assert fig is not None
-        plt.close("all")
-
-    def test_umap_mismatched_lengths(self):
-        """Test UMAP with mismatched data and label lengths."""
-        from scitex_ml.clustering import umap
-
-        data = [np.random.randn(100, 50)]
-        labels = [np.array(["A"] * 50)]  # Wrong size
-
-        # Should fail with assertion or index error
-        with pytest.raises((AssertionError, IndexError)):
-            umap(data=data, labels=labels)
-
-    def test_umap_empty_data(self):
-        """Test UMAP with empty data."""
-        from scitex_ml.clustering import umap
-
-        # Empty lists should fail
-        with pytest.raises((ValueError, IndexError, AssertionError)):
-            umap(data=[], labels=[])
-
-    @pytest.mark.timeout(180)
-    def test_umap_natural_label_sorting(self):
-        """Test that labels are naturally sorted."""
-        from scitex_ml.clustering import umap
-
-        data = np.random.randn(100, 50)
-        # Create labels that need natural sorting
-        labels = np.array(["Label_1", "Label_10", "Label_2", "Label_20"] * 25)
-
-        fig, legend_figs, umap_model = umap(data=[data], labels=[labels])
-
-        assert fig is not None
-        plt.close("all")
-
-
-class TestUmapIntegration:
-    """Test UMAP integration with scitex ecosystem."""
-
-    @pytest.mark.timeout(180)
-    @pytest.mark.parametrize(
-        "n_samples,n_features,n_classes",
-        [
-            (50, 10, 2),
-            (100, 50, 2),
-            (150, 30, 3),
-        ],
+    # Act
+    fig, legend_figs, umap_model = umap(
+        data=data_list, labels=labels_list, axes_titles=["Dataset 1", "Dataset 2"]
     )
-    def test_umap_various_data_sizes(self, n_samples, n_features, n_classes):
-        """Test UMAP with various data sizes."""
-        np.random.seed(42)
-        data = np.random.randn(n_samples, n_features)
 
-        # Create balanced labels
-        samples_per_class = n_samples // n_classes
-        labels = []
-        for i in range(n_classes):
-            labels.extend([f"Class_{i}"] * samples_per_class)
-        # Fill remainder
-        labels.extend(["Class_0"] * (n_samples - len(labels)))
-        labels = np.array(labels)
+    # Assert
+    if hasattr(fig, "fig"):
+        axes = fig.fig.get_axes()
+    else:
+        axes = fig.get_axes()
+    assert len(axes) >= len(data_list)
 
-        from scitex_ml.clustering import umap
+    plt.close("all")
 
-        fig, legend_figs, umap_model = umap(data=[data], labels=[labels])
 
-        assert fig is not None
-        assert umap_model is not None
+@pytest.mark.timeout(180)
+def test_umap_supervised_mode_returns_non_null_figure(sample_data):
+    """Test supervised UMAP mode returns a non-null figure."""
+    # Arrange
+    data, labels = sample_data
 
-        plt.close("all")
+    # Act
+    fig, legend_figs, umap_model = umap(
+        data=[data], labels=[labels], supervised=True
+    )
+
+    # Assert
+    assert fig is not None
+
+    plt.close("all")
+
+
+@pytest.mark.timeout(180)
+def test_umap_supervised_mode_returns_non_null_model(sample_data):
+    """Test supervised UMAP mode returns a non-null model."""
+    # Arrange
+    data, labels = sample_data
+
+    # Act
+    fig, legend_figs, umap_model = umap(
+        data=[data], labels=[labels], supervised=True
+    )
+
+    # Assert
+    assert umap_model is not None
+
+    plt.close("all")
+
+
+# ===========================================================================
+# Tests from TestUmapVisualization
+# ===========================================================================
+
+
+@pytest.mark.timeout(180)
+def test_umap_with_hues_returns_non_null_figure(sample_data):
+    """Test UMAP with hue coloring returns a non-null figure."""
+    # Arrange
+    data, labels = sample_data
+    hues = np.array(["group_A"] * 50 + ["group_B"] * 50)
+
+    # Act
+    fig, legend_figs, umap_model = umap(data=[data], labels=[labels], hues=[hues])
+
+    # Assert
+    assert fig is not None
+
+    plt.close("all")
+
+
+@pytest.mark.skipif(True, reason="Custom colors API needs clarification from source code")
+def test_umap_with_custom_colors_returns_non_null_figure(sample_data):
+    """Test UMAP with custom color mapping returns a non-null figure."""
+    # Arrange
+    data, labels = sample_data
+    hues_colors = [["red"] * 50 + ["blue"] * 50]
+
+    # Act
+    fig, legend_figs, umap_model = umap(
+        data=[data], labels=[labels], hues_colors=hues_colors
+    )
+
+    # Assert
+    assert fig is not None
+
+    plt.close("all")
+
+
+@pytest.mark.timeout(180)
+def test_umap_visualization_parameters_returns_non_null_figure(sample_data):
+    """Test UMAP with custom visualization parameters returns a figure."""
+    # Arrange
+    data, labels = sample_data
+
+    # Act
+    fig, legend_figs, umap_model = umap(
+        data=[data], labels=[labels], title="Custom UMAP Title", alpha=0.7, s=50
+    )
+
+    # Assert
+    assert fig is not None
+
+    plt.close("all")
+
+
+@pytest.mark.skipif(True, reason="Source code has bug with use_independent_legend (axes not iterable with FigWrapper)")  # noqa: E501
+def test_umap_with_independent_legend_returns_non_null_figure(sample_data):
+    """Test UMAP with independent legend returns a non-null figure."""
+    # Arrange
+    data, labels = sample_data
+
+    # Act
+    fig, legend_figs, umap_model = umap(
+        data=[data], labels=[labels], use_independent_legend=True
+    )
+
+    # Assert
+    assert fig is not None
+
+    # Cleanup
+    if legend_figs is not None:
+        for leg_fig in legend_figs:
+            plt.close(leg_fig)
+    plt.close("all")
+
+
+@pytest.mark.skipif(True, reason="Source code has bug with add_super_imposed (hues_colors vstack issue)")
+def test_umap_with_superimposed_returns_non_null_figure():
+    """Test UMAP with superimposed plot returns a non-null figure."""
+    # Arrange
+    np.random.seed(42)
+    data1 = np.random.randn(100, 50)
+    data2 = np.random.randn(80, 50)
+    labels1 = np.array(["A"] * 50 + ["B"] * 50)
+    labels2 = np.array(["C"] * 40 + ["D"] * 40)
+
+    # Act
+    fig, legend_figs, umap_model = umap(
+        data=[data1, data2], labels=[labels1, labels2], add_super_imposed=True
+    )
+
+    # Assert
+    assert fig is not None
+
+    plt.close("all")
+
+
+@pytest.mark.skipif(True, reason="Source code has bug with add_super_imposed (hues_colors vstack issue)")
+def test_umap_with_superimposed_has_three_axes():
+    """Test UMAP with superimposed plot adds extra axis for overlay."""
+    # Arrange
+    np.random.seed(42)
+    data1 = np.random.randn(100, 50)
+    data2 = np.random.randn(80, 50)
+    labels1 = np.array(["A"] * 50 + ["B"] * 50)
+    labels2 = np.array(["C"] * 40 + ["D"] * 40)
+
+    # Act
+    fig, legend_figs, umap_model = umap(
+        data=[data1, data2], labels=[labels1, labels2], add_super_imposed=True
+    )
+
+    # Assert
+    if hasattr(fig, "fig"):
+        axes = fig.fig.get_axes()
+    else:
+        axes = fig.get_axes()
+    assert len(axes) == 3  # 2 datasets + 1 superimposed
+
+    plt.close("all")
+
+
+# ===========================================================================
+# Tests from TestUmapAlgorithmicOptions
+# ===========================================================================
+
+
+@pytest.mark.timeout(180)
+def test_umap_with_pretrained_model_reuses_same_model_object(sample_data):
+    """Test UMAP with a pre-fitted model reuses the same model object."""
+    # Arrange
+    data, labels = sample_data
+
+    fig1, _, model1 = umap(data=[data], labels=[labels])
+    plt.close("all")
+
+    new_data = np.random.randn(80, 50)
+    new_labels = np.array(["X"] * 40 + ["Y"] * 40)
+
+    # Act
+    fig2, legend_figs, model2 = umap(
+        data=[new_data], labels=[new_labels], umap_model=model1
+    )
+
+    # Assert
+    assert model2 is model1
+
+    plt.close("all")
+
+
+# ===========================================================================
+# Tests from TestUmapDataValidation
+# ===========================================================================
+
+
+@pytest.mark.timeout(180)
+def test_umap_input_format_validation_returns_non_null_figure():
+    """Test UMAP validates list input format and returns a figure."""
+    # Arrange
+    data = np.random.randn(100, 50)
+    labels = np.array(["A"] * 50 + ["B"] * 50)
+
+    # Act
+    fig, legend_figs, umap_model = umap(data=[data], labels=[labels])
+
+    # Assert
+    assert fig is not None
+
+    plt.close("all")
+
+
+def test_umap_mismatched_lengths_raises_error():
+    """Test UMAP with mismatched data and label lengths raises an error."""
+    # Arrange
+    data = [np.random.randn(100, 50)]
+    labels = [np.array(["A"] * 50)]  # Wrong size
+
+    # Act
+    ctx = pytest.raises((AssertionError, IndexError))
+    # Assert
+    with ctx:
+        umap(data=data, labels=labels)
+
+
+def test_umap_empty_data_raises_error():
+    """Test UMAP with empty data raises an error."""
+    # Arrange
+    # Act
+    ctx = pytest.raises((ValueError, IndexError, AssertionError))
+    # Assert
+    with ctx:
+        umap(data=[], labels=[])
+
+
+@pytest.mark.timeout(180)
+def test_umap_natural_label_sorting_returns_non_null_figure():
+    """Test that naturally sorted labels still produce a valid figure."""
+    # Arrange
+    data = np.random.randn(100, 50)
+    labels = np.array(["Label_1", "Label_10", "Label_2", "Label_20"] * 25)
+
+    # Act
+    fig, legend_figs, umap_model = umap(data=[data], labels=[labels])
+
+    # Assert
+    assert fig is not None
+
+    plt.close("all")
+
+
+# ===========================================================================
+# Tests from TestUmapIntegration
+# ===========================================================================
+
+
+@pytest.mark.timeout(180)
+@pytest.mark.parametrize(
+    "n_samples,n_features,n_classes",
+    [
+        (50, 10, 2),
+        (100, 50, 2),
+        (150, 30, 3),
+    ],
+)
+def test_umap_various_data_sizes_returns_non_null_figure(
+    n_samples, n_features, n_classes
+):
+    """Test UMAP with various data sizes returns a non-null figure."""
+    # Arrange
+    np.random.seed(42)
+    data = np.random.randn(n_samples, n_features)
+
+    samples_per_class = n_samples // n_classes
+    labels = []
+    for i in range(n_classes):
+        labels.extend([f"Class_{i}"] * samples_per_class)
+    labels.extend(["Class_0"] * (n_samples - len(labels)))
+    labels = np.array(labels)
+
+    # Act
+    fig, legend_figs, umap_model = umap(data=[data], labels=[labels])
+
+    # Assert
+    assert fig is not None
+
+    plt.close("all")
+
+
+@pytest.mark.timeout(180)
+@pytest.mark.parametrize(
+    "n_samples,n_features,n_classes",
+    [
+        (50, 10, 2),
+        (100, 50, 2),
+        (150, 30, 3),
+    ],
+)
+def test_umap_various_data_sizes_returns_non_null_model(
+    n_samples, n_features, n_classes
+):
+    """Test UMAP with various data sizes returns a non-null model."""
+    # Arrange
+    np.random.seed(42)
+    data = np.random.randn(n_samples, n_features)
+
+    samples_per_class = n_samples // n_classes
+    labels = []
+    for i in range(n_classes):
+        labels.extend([f"Class_{i}"] * samples_per_class)
+    labels.extend(["Class_0"] * (n_samples - len(labels)))
+    labels = np.array(labels)
+
+    # Act
+    fig, legend_figs, umap_model = umap(data=[data], labels=[labels])
+
+    # Assert
+    assert umap_model is not None
+
+    plt.close("all")
 
 
 if __name__ == "__main__":

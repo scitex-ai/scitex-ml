@@ -15,14 +15,12 @@ import shutil
 
 import pytest
 
+_SKIP_AUDIT = shutil.which("scitex-dev") is None
 
+
+@pytest.mark.skipif(_SKIP_AUDIT, reason="scitex-dev not installed")
 def test_audit_all_clean_passes_without_pa306_or_pa307_violations():
     # Arrange
-    if shutil.which("scitex-dev") is None:
-        pytest.skip(
-            "scitex-dev not installed — add `scitex-dev[cli-audit]` "
-            "to [project.optional-dependencies.dev]"
-        )
     from scitex_dev.testing import audit_all_for_package
 
     # Act
@@ -33,5 +31,5 @@ def test_audit_all_clean_passes_without_pa306_or_pa307_violations():
             "SK-601", "SK-704", "SK-706", "SK-709", "SK-710", "SK-711",
         ),
     )
-    # Assert: audit_all_for_package raises AssertionError on violation
-    assert True  # reaching here means no exception was raised
+    # Assert
+    assert True
