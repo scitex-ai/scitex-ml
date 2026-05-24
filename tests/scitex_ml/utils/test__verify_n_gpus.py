@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: "2026-05-18 00:00:00 (ywatanabe)"
+# Time-stamp: "2026-05-25 00:00:00 (ywatanabe)"
 # File: ./tests/scitex_ml/utils/test__verify_n_gpus.py
 
 """Tests for scitex_ml.utils._verify_n_gpus module.
@@ -27,226 +27,217 @@ def _actual_gpu_count():
     return torch.cuda.device_count()
 
 
-class TestVerifyNGpusAgainstRealCuda:
-    """verify_n_gpus exercised against the live CUDA device count."""
+# ---------------------------------------------------------------------------
+# Tests: verify_n_gpus against real CUDA state
+# ---------------------------------------------------------------------------
 
-    def test_request_zero_gpus_returns_zero(self):
-        """Test that requesting zero GPUs returns zero regardless of availability."""
-        # Arrange
-        requested = 0
 
-        # Act
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", UserWarning)
-            result = verify_n_gpus(requested)
+def test_request_zero_gpus_always_returns_zero():
+    """Test that requesting zero GPUs returns zero regardless of availability."""
+    # Arrange
+    requested = 0
 
-        # Assert
-        assert result == 0
-
-    def test_request_available_count_returns_available_count(self):
-        """Test that requesting exactly available count returns available count."""
-        # Arrange
-        available = _actual_gpu_count()
-        requested = available
-
-        # Act
+    # Act
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", UserWarning)
         result = verify_n_gpus(requested)
 
-        # Assert
-        assert result == available
+    # Assert
+    assert result == 0
 
-    @pytest.mark.skipif(
-        not torch.cuda.is_available() or torch.cuda.device_count() < 1,
-        reason="requires at least 1 CUDA device",
-    )
-    def test_request_below_available_returns_request(self):
-        """Test that requesting fewer than available returns the request."""
-        # Arrange
-        available = _actual_gpu_count()
-        requested = max(0, available - 1)
 
-        # Act
+def test_request_available_count_returns_available_count():
+    """Test that requesting exactly available count returns available count."""
+    # Arrange
+    available = _actual_gpu_count()
+    requested = available
+
+    # Act
+    result = verify_n_gpus(requested)
+
+    # Assert
+    assert result == available
+
+
+@pytest.mark.skipif(
+    not torch.cuda.is_available() or torch.cuda.device_count() < 1,
+    reason="requires at least 1 CUDA device",
+)
+def test_request_below_available_gpus_returns_the_request():
+    """Test that requesting fewer than available returns the request."""
+    # Arrange
+    available = _actual_gpu_count()
+    requested = max(0, available - 1)
+
+    # Act
+    result = verify_n_gpus(requested)
+
+    # Assert
+    assert result == requested
+
+
+def test_request_above_available_clamps_to_available_count():
+    """Test that exceeding available count clamps the result to available."""
+    # Arrange
+    available = _actual_gpu_count()
+    requested = available + 10
+
+    # Act
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", UserWarning)
         result = verify_n_gpus(requested)
 
-        # Assert
-        assert result == requested
+    # Assert
+    assert result == available
 
-    def test_request_above_available_returns_available(self):
-        """Test that exceeding available count clamps the result to available."""
-        # Arrange
-        available = _actual_gpu_count()
-        requested = available + 10
 
-        # Act
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", UserWarning)
-            result = verify_n_gpus(requested)
+def test_request_above_available_emits_user_warning():
+    """Test that exceeding available count emits a UserWarning."""
+    # Arrange
+    available = _actual_gpu_count()
+    requested = available + 10
 
-        # Assert
-        assert result == available
+    # Act
+    ctx = pytest.warns(UserWarning)
 
-    def test_request_above_available_emits_user_warning(self):
-        """Test that exceeding available count emits a UserWarning."""
-        # Arrange
-        available = _actual_gpu_count()
-        requested = available + 10
+    # Assert
+    with ctx:
+        verify_n_gpus(requested)
 
-        # Act
-        action = lambda: verify_n_gpus(requested)
 
-        # Assert
-        with pytest.warns(UserWarning):
-            action()
+def test_request_above_available_warning_mentions_requested_value():
+    """Test that the warning message includes the requested count."""
+    # Arrange
+    available = _actual_gpu_count()
+    requested = available + 7
 
-    def test_request_above_available_warning_mentions_requested_value(self):
-        """Test that the warning message includes the requested count."""
-        # Arrange
-        available = _actual_gpu_count()
-        requested = available + 7
+    # Act
+    with warnings.catch_warnings(record=True) as captured:
+        warnings.simplefilter("always")
+        verify_n_gpus(requested)
+    message = str(captured[0].message)
 
-        # Act
-        with warnings.catch_warnings(record=True) as captured:
-            warnings.simplefilter("always")
-            verify_n_gpus(requested)
-        message = str(captured[0].message)
+    # Assert
+    assert f"N_GPUS ({requested})" in message
 
-        # Assert
-        assert f"N_GPUS ({requested})" in message
 
-    def test_request_above_available_warning_mentions_available_count(self):
-        """Test that the warning message includes the available count."""
-        # Arrange
-        available = _actual_gpu_count()
-        requested = available + 7
+def test_request_above_available_warning_mentions_available_count():
+    """Test that the warning message includes the available count."""
+    # Arrange
+    available = _actual_gpu_count()
+    requested = available + 7
 
-        # Act
-        with warnings.catch_warnings(record=True) as captured:
-            warnings.simplefilter("always")
-            verify_n_gpus(requested)
-        message = str(captured[0].message)
+    # Act
+    with warnings.catch_warnings(record=True) as captured:
+        warnings.simplefilter("always")
+        verify_n_gpus(requested)
+    message = str(captured[0].message)
 
-        # Assert
-        assert f"= {available}" in message
+    # Assert
+    assert f"= {available}" in message
 
-    def test_request_above_available_warning_mentions_cuda_visible_devices(self):
-        """Test that the warning text references CUDA_VISIBLE_DEVICES."""
-        # Arrange
-        available = _actual_gpu_count()
-        requested = available + 7
 
-        # Act
-        with warnings.catch_warnings(record=True) as captured:
-            warnings.simplefilter("always")
-            verify_n_gpus(requested)
-        message = str(captured[0].message)
+def test_request_above_available_warning_mentions_cuda_visible_devices():
+    """Test that the warning text references CUDA_VISIBLE_DEVICES."""
+    # Arrange
+    available = _actual_gpu_count()
+    requested = available + 7
 
-        # Assert
-        assert "$CUDA_VISIBLE_DEVICES" in message
+    # Act
+    with warnings.catch_warnings(record=True) as captured:
+        warnings.simplefilter("always")
+        verify_n_gpus(requested)
+    message = str(captured[0].message)
 
-    def test_request_one_million_returns_available(self):
-        """Test that an extreme request is clamped to the available count."""
-        # Arrange
-        available = _actual_gpu_count()
-        requested = 1_000_000
+    # Assert
+    assert "$CUDA_VISIBLE_DEVICES" in message
 
-        # Act
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", UserWarning)
-            result = verify_n_gpus(requested)
 
-        # Assert
-        assert result == available
+def test_request_one_million_clamps_to_available_count():
+    """Test that an extreme request is clamped to the available count."""
+    # Arrange
+    available = _actual_gpu_count()
+    requested = 1_000_000
 
-    def test_negative_request_returned_unchanged(self):
-        """Test that a negative request value is returned unchanged."""
-        # Arrange
-        requested = -1
-
-        # Act
+    # Act
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", UserWarning)
         result = verify_n_gpus(requested)
 
-        # Assert
-        assert result == -1
+    # Assert
+    assert result == available
 
-    @pytest.mark.skipif(
-        not torch.cuda.is_available() or torch.cuda.device_count() < 1,
-        reason="requires at least 1 CUDA device for float test",
-    )
-    def test_float_request_below_available_returned_unchanged(self):
-        """Test that a float request not exceeding available is returned unchanged."""
-        # Arrange
-        available = _actual_gpu_count()
-        requested = float(available) - 0.5
 
-        # Act
-        result = verify_n_gpus(requested)
+def test_negative_request_is_returned_unchanged():
+    """Test that a negative request value is returned unchanged."""
+    # Arrange
+    requested = -1
 
-        # Assert
-        assert result == requested
+    # Act
+    result = verify_n_gpus(requested)
 
-    def test_string_input_raises_type_error(self):
-        """Test that a string input raises TypeError on comparison."""
-        # Arrange
-        bad_input = "2"
+    # Assert
+    assert result == -1
 
-        # Act
-        action = lambda: verify_n_gpus(bad_input)
 
-        # Assert
-        with pytest.raises(TypeError):
-            action()
+@pytest.mark.skipif(
+    not torch.cuda.is_available() or torch.cuda.device_count() < 1,
+    reason="requires at least 1 CUDA device for float test",
+)
+def test_float_request_below_available_is_returned_unchanged():
+    """Test that a float request not exceeding available is returned unchanged."""
+    # Arrange
+    available = _actual_gpu_count()
+    requested = float(available) - 0.5
 
-    def test_none_input_raises_type_error(self):
-        """Test that a None input raises TypeError on comparison."""
-        # Arrange
-        bad_input = None
+    # Act
+    result = verify_n_gpus(requested)
 
-        # Act
-        action = lambda: verify_n_gpus(bad_input)
+    # Assert
+    assert result == requested
 
-        # Assert
-        with pytest.raises(TypeError):
-            action()
 
-    def test_repeated_calls_return_same_value(self):
-        """Test that repeated calls return the same value for the same input."""
-        # Arrange
-        available = _actual_gpu_count()
-        requested = available
+def test_string_input_raises_type_error_on_comparison():
+    """Test that a string input raises TypeError on comparison."""
+    # Arrange
+    bad_input = "2"
 
-        # Act
-        first = verify_n_gpus(requested)
-        second = verify_n_gpus(requested)
+    # Act
+    ctx = pytest.raises(TypeError)
 
-        # Assert
-        assert first == second
+    # Assert
+    with ctx:
+        verify_n_gpus(bad_input)
+
+
+def test_none_input_raises_type_error_on_comparison():
+    """Test that a None input raises TypeError on comparison."""
+    # Arrange
+    bad_input = None
+
+    # Act
+    ctx = pytest.raises(TypeError)
+
+    # Assert
+    with ctx:
+        verify_n_gpus(bad_input)
+
+
+def test_repeated_calls_return_same_value_for_same_input():
+    """Test that repeated calls return the same value for the same input."""
+    # Arrange
+    available = _actual_gpu_count()
+    requested = available
+
+    # Act
+    first = verify_n_gpus(requested)
+    second = verify_n_gpus(requested)
+
+    # Assert
+    assert first == second
 
 
 if __name__ == "__main__":
     import os
 
     pytest.main([os.path.abspath(__file__)])
-
-# --------------------------------------------------------------------------------
-# Start of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/ai/utils/_verify_n_gpus.py
-# --------------------------------------------------------------------------------
-# import torch
-# import warnings
-#
-#
-# def verify_n_gpus(n_gpus):
-#     if torch.cuda.device_count() < n_gpus:
-#         warnings.warn(
-#             f"N_GPUS ({n_gpus}) is larger "
-#             f"than n_gpus torch can acesses (= {torch.cuda.device_count()})"
-#             f"Please check $CUDA_VISIBLE_DEVICES and your setting in this script.",
-#             UserWarning,
-#         )
-#         return torch.cuda.device_count()
-#
-#     else:
-#         return n_gpus
-
-# --------------------------------------------------------------------------------
-# End of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/ai/utils/_verify_n_gpus.py
-# --------------------------------------------------------------------------------
