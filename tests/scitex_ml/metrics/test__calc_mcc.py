@@ -1,9 +1,8 @@
-"""Auto-generated smoke test for scitex_ml.metrics._calc_mcc.
+"""Smoke test for scitex_ml.metrics._calc_mcc.
 
-Replaces the prior placeholder-only stub (audit-project PS206). The
-test imports the target module — if the import fails, the test
-fails. Renames, broken peer deps, or missing optional deps all
-surface here as red, not as a silent skip.
+The test imports the target module and asserts the returned module
+matches its dotted name. Renames, broken peer deps, or missing
+optional deps all surface here as red, not as a silent skip.
 
 If a module legitimately requires an optional dep, that dep should
 be lazy-imported inside the function bodies — not at module top.
@@ -12,6 +11,11 @@ be lazy-imported inside the function bodies — not at module top.
 import importlib
 
 
-def test_module_imports():
-    """Smoke: target module imports without error."""
-    importlib.import_module('scitex_ml.metrics._calc_mcc')
+def test_module_imports_under_expected_dotted_name():
+    """Imported module's `__name__` matches the dotted target."""
+    # Arrange
+    target = "scitex_ml.metrics._calc_mcc"
+    # Act
+    mod = importlib.import_module(target)
+    # Assert
+    assert mod.__name__ == target
