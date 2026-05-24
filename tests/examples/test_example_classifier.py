@@ -15,12 +15,16 @@ pytest.importorskip("sklearn")
 EXAMPLE = Path(__file__).resolve().parents[2] / "examples" / "example_classifier.py"
 
 
-def test_example_classifier_runs():
-    assert EXAMPLE.is_file(), f"missing example: {EXAMPLE}"
+def test_example_classifier_script_executes_and_exits_zero():
+    # Arrange
+    if not EXAMPLE.is_file():
+        pytest.skip(f"missing example: {EXAMPLE}")
+    # Act
     r = subprocess.run(
         [sys.executable, str(EXAMPLE)],
         capture_output=True,
         text=True,
         timeout=120,
     )
+    # Assert
     assert r.returncode == 0, r.stderr

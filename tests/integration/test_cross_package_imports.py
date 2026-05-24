@@ -36,6 +36,10 @@ CROSS_PACKAGE_IMPORTS = [
 
 
 @pytest.mark.parametrize("module_name", CROSS_PACKAGE_IMPORTS)
-def test_cross_package_import(module_name):
-    """Importing scitex-ml's declared cross-package dependency must succeed."""
+def test_cross_package_import_succeeds_for_declared_dependency(module_name):
+    # Arrange
     pytest.importorskip(module_name)
+    # Act
+    module = __import__(module_name)
+    # Assert
+    assert module is not None

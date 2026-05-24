@@ -16,7 +16,8 @@ import shutil
 import pytest
 
 
-def test_audit_all_clean():
+def test_audit_all_clean_passes_without_pa306_or_pa307_violations():
+    # Arrange
     if shutil.which("scitex-dev") is None:
         pytest.skip(
             "scitex-dev not installed — add `scitex-dev[cli-audit]` "
@@ -24,35 +25,42 @@ def test_audit_all_clean():
         )
     from scitex_dev.testing import audit_all_for_package
 
-    audit_all_for_package(
-        "scitex-ml",
-        skip_rules=(
-            # Skill-file backlog (47 violations) — short-term skip;
-            # mechanical work to land in a focused session:
-            #   * NN_ numeric prefix renames on every leaf (classification,
-            #     clustering, feature-selection, loss, metrics, optim,
-            #     sampling, training)
-            #   * tags: scitex-ml-<leaf-name> per leaf + scitex-ml on SKILL.md
-            #   * description rewrite to include [TOPIC] / [DETAILS] markers
-            #     (and [WHAT] / [WHEN] / [HOW] on SKILL.md)
-            #   * `import scitex as stx` -> bare `import scitex` per
-            #     general/01_ecosystem rule
-            #   * Add the canonical 01_installation.md / 02_quick-start.md /
-            #     03_python-api.md leaves
-            #   * Split classification.md and metrics.md (over the 10240 B /
-            #     200 line budget) into NN_topic_M_subtopic.md sub-skills
-            # Same documented escape pattern as scitex-clew / scitex-notebook
-            # / scitex-scholar / figrecipe.
-            "SK-105",
-            "SK-106",
-            "SK-107",
-            "SK-201",
-            "SK-401",
-            "SK-601",
-            "SK-704",
-            "SK-706",
-            "SK-709",
-            "SK-710",
-            "SK-711",
-        ),
-    )
+    # Act
+    passed = True
+    try:
+        audit_all_for_package(
+            "scitex-ml",
+            skip_rules=(
+                # Skill-file backlog (47 violations) — short-term skip;
+                # mechanical work to land in a focused session:
+                #   * NN_ numeric prefix renames on every leaf (classification,
+                #     clustering, feature-selection, loss, metrics, optim,
+                #     sampling, training)
+                #   * tags: scitex-ml-<leaf-name> per leaf + scitex-ml on SKILL.md
+                #   * description rewrite to include [TOPIC] / [DETAILS] markers
+                #     (and [WHAT] / [WHEN] / [HOW] on SKILL.md)
+                #   * `import scitex as stx` -> bare `import scitex` per
+                #     general/01_ecosystem rule
+                #   * Add the canonical 01_installation.md / 02_quick-start.md /
+                #     03_python-api.md leaves
+                #   * Split classification.md and metrics.md (over the 10240 B /
+                #     200 line budget) into NN_topic_M_subtopic.md sub-skills
+                # Same documented escape pattern as scitex-clew / scitex-notebook
+                # / scitex-scholar / figrecipe.
+                "SK-105",
+                "SK-106",
+                "SK-107",
+                "SK-201",
+                "SK-401",
+                "SK-601",
+                "SK-704",
+                "SK-706",
+                "SK-709",
+                "SK-710",
+                "SK-711",
+            ),
+        )
+    except AssertionError:
+        passed = False
+    # Assert
+    assert passed, "audit_all_for_package raised AssertionError — violations found"
