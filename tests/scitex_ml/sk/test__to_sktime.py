@@ -1,7 +1,3 @@
-#!/usr/bin/env python3
-# Time-stamp: "2025-06-01 12:48:00 (ywatanabe)"
-# File: ./tests/scitex/ai/sk/test__to_sktime.py
-
 """Tests for scitex_ml.sk._to_sktime module."""
 
 import pytest
@@ -13,298 +9,249 @@ import pandas as pd
 from scitex_ml.sk import to_sktime_df
 
 
-class TestToSktimeDf:
-    """Test suite for to_sktime_df function."""
+# ── fixtures ───────────────────────────────────────────────────
 
-    @pytest.fixture
-    def sample_data(self):
-        """Create sample data for testing."""
-        n_samples, n_chs, seq_len = 10, 3, 50
-        return {
-            "numpy": np.random.rand(n_samples, n_chs, seq_len),
-            "torch": torch.rand(n_samples, n_chs, seq_len),
-            "shape": (n_samples, n_chs, seq_len),
-        }
-
-    def test_numpy_input(self, sample_data):
-        """Test conversion with numpy array input."""
-        X_np = sample_data["numpy"]
-        result = to_sktime_df(X_np)
-
-        assert isinstance(result, pd.DataFrame)
-        assert result.shape[0] == sample_data["shape"][0]
-        assert result.shape[1] == sample_data["shape"][1]
-        assert all(
-            isinstance(result.iloc[i, j], pd.Series)
-            for i in range(result.shape[0])
-            for j in range(result.shape[1])
-        )
-
-    def test_torch_input(self, sample_data):
-        """Test conversion with torch tensor input."""
-        X_torch = sample_data["torch"]
-        result = to_sktime_df(X_torch)
-
-        assert isinstance(result, pd.DataFrame)
-        assert result.shape[0] == sample_data["shape"][0]
-        assert result.shape[1] == sample_data["shape"][1]
-        assert all(
-            isinstance(result.iloc[i, j], pd.Series)
-            for i in range(result.shape[0])
-            for j in range(result.shape[1])
-        )
-
-    def test_dataframe_passthrough(self):
-        """Test that DataFrame input is returned as-is."""
-        df = pd.DataFrame({"col1": [1, 2, 3], "col2": [4, 5, 6]})
-        result = to_sktime_df(df)
-
-        assert result is df
-        assert isinstance(result, pd.DataFrame)
-
-    def test_invalid_input_type(self):
-        """Test error handling for invalid input types."""
-        with pytest.raises(ValueError, match="Input X must be"):
-            to_sktime_df([1, 2, 3])  # List input
-
-        with pytest.raises(ValueError, match="Input X must be"):
-            to_sktime_df("invalid")  # String input
-
-    def test_output_structure(self, sample_data):
-        """Test the structure of the output DataFrame."""
-        X = sample_data["numpy"]
-        n_samples, n_chs, seq_len = sample_data["shape"]
-        result = to_sktime_df(X)
-
-        # Check DataFrame shape
-        assert result.shape == (n_samples, n_chs)
-
-        # Check each cell contains a Series (the time series for that dimension)
-        for i in range(n_samples):
-            for j in range(n_chs):
-                cell = result.iloc[i, j]
-                assert isinstance(cell, pd.Series)
-                assert len(cell) == seq_len
-                assert cell.name == f"dim_{j}"
-
-    def test_data_type_conversion(self):
-        """Test that data is converted to float64."""
-        X = np.array([[[1, 2, 3], [4, 5, 6]]], dtype=np.int32)
-        result = to_sktime_df(X)
-
-        # Check that the data has been converted to float64
-        first_series = result.iloc[0, 0]
-        assert first_series.dtype == np.float64
-
-    def test_empty_input(self):
-        """Test handling of empty arrays."""
-        # Empty array with correct dimensions
-        X = np.array([]).reshape(0, 3, 50)
-        result = to_sktime_df(X)
-
-        assert isinstance(result, pd.DataFrame)
-        assert result.shape[0] == 0
-
-    def test_single_sample(self):
-        """Test conversion with a single sample."""
-        X = np.random.rand(1, 5, 100)
-        result = to_sktime_df(X)
-
-        assert isinstance(result, pd.DataFrame)
-        assert result.shape == (1, 5)
-        assert len(result.iloc[0, 0]) == 100
-
-    def test_large_dataset(self):
-        """Test conversion with a larger dataset."""
-        X = np.random.rand(100, 64, 1000)
-        result = to_sktime_df(X)
-
-        assert isinstance(result, pd.DataFrame)
-        assert result.shape == (100, 64)
-
-        # Check first and last samples
-        assert len(result.iloc[0, 0]) == 1000
-        assert len(result.iloc[-1, 0]) == 1000
-        assert len(result.iloc[0, 63]) == 1000
-
-    def test_dimension_names(self, sample_data):
-        """Test that dimension names are correctly assigned."""
-        X = sample_data["numpy"]
-        n_chs = sample_data["shape"][1]
-        result = to_sktime_df(X)
-
-        for i in range(n_chs):
-            dim_series = result.iloc[0, i]
-            assert dim_series.name == f"dim_{i}"
-
-    def test_torch_gradient_preservation(self):
-        """Test that torch tensors with gradients are properly handled."""
-        X = torch.rand(5, 3, 20, requires_grad=True)
-        # Tensors with requires_grad=True need to be detached before calling numpy()
-        # This test verifies the function handles the conversion properly
-        # Note: The current implementation may raise RuntimeError if gradients are present
-        # This is expected behavior as torch.numpy() on grad tensors is not allowed
-        try:
-            result = to_sktime_df(X)
-            # If we get here, verify it's a valid DataFrame
-            assert isinstance(result, pd.DataFrame)
-        except RuntimeError as e:
-            # Expected error when trying to convert tensor with gradients
-            assert (
-                "requires grad" in str(e).lower()
-                or "tensor that requires grad" in str(e).lower()
-            )
-
-    def test_different_shapes(self):
-        """Test conversion with various input shapes."""
-        shapes = [
-            (5, 1, 100),  # Single channel
-            (10, 10, 10),  # Square dimensions
-            (1, 1, 1000),  # Single sample, single channel
-            (50, 2, 5),  # Many samples, few timepoints
-        ]
-
-        for shape in shapes:
-            X = np.random.rand(*shape)
-            result = to_sktime_df(X)
-            assert result.shape == (shape[0], shape[1])
-            assert len(result.iloc[0, 0]) == shape[2]
-
-    @pytest.mark.parametrize("dtype", [np.float32, np.float64, np.int32, np.int64])
-    def test_various_dtypes(self, dtype):
-        """Test conversion with various numpy dtypes."""
-        X = np.random.rand(5, 3, 20).astype(dtype)
-        result = to_sktime_df(X)
-
-        assert isinstance(result, pd.DataFrame)
-        # All values should be float64 after conversion
-        first_series = result.iloc[0, 0]
-        assert first_series.dtype == np.float64
-
-    def test_nan_handling(self):
-        """Test handling of NaN values."""
-        X = np.random.rand(5, 3, 20)
-        X[0, 0, :5] = np.nan
-
-        result = to_sktime_df(X)
-        first_dim_series = result.iloc[0, 0]
-
-        # Check that NaN values are preserved
-        assert np.isnan(first_dim_series.iloc[:5]).all()
-        assert not np.isnan(first_dim_series.iloc[5:]).any()
+@pytest.fixture
+def sample_data():
+    """Create sample data for testing."""
+    n_samples, n_chs, seq_len = 10, 3, 50
+    return {
+        "numpy": np.random.rand(n_samples, n_chs, seq_len),
+        "torch": torch.rand(n_samples, n_chs, seq_len),
+        "shape": (n_samples, n_chs, seq_len),
+    }
 
 
-if __name__ == "__main__":
-    import os
+# ── numpy input tests ──────────────────────────────────────────
 
-    import pytest
+def test_numpy_input_returns_dataframe(sample_data):
+    # Arrange
+    X_np = sample_data["numpy"]
+    # Act
+    result = to_sktime_df(X_np)
+    # Assert
+    assert isinstance(result, pd.DataFrame)
 
-    pytest.main([os.path.abspath(__file__)])
 
-# --------------------------------------------------------------------------------
-# Start of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/ai/sk/_to_sktime.py
-# --------------------------------------------------------------------------------
-# #!/usr/bin/env python3
-# # -*- coding: utf-8 -*-
-# # Time-stamp: "2024-03-05 13:17:04 (ywatanabe)"
-#
-# # import warnings
-#
-# import numpy as np
-# import pandas as pd
-# import torch
-#
-#
-# def to_sktime_df(X):
-#     """
-#     Converts a dataset to a format compatible with sktime, encapsulating each sample as a pandas DataFrame.
-#
-#     Arguments:
-#     - X (numpy.ndarray or torch.Tensor or pandas.DataFrame): The input dataset with shape (n_samples, n_chs, seq_len).
-#       It should be a 3D array-like structure containing the time series data.
-#
-#     Return:
-#     - sktime_df (pandas.DataFrame): A DataFrame where each element is a pandas Series representing a univariate time series.
-#
-#     Data Types and Shapes:
-#     - If X is a numpy.ndarray, it should have the shape (n_samples, n_chs, seq_len).
-#     - If X is a torch.Tensor, it should have the shape (n_samples, n_chs, seq_len) and will be converted to a numpy array.
-#     - If X is a pandas.DataFrame, it is assumed to already be in the correct format and will be returned as is.
-#
-#     References:
-#     - sktime: https://github.com/alan-turing-institute/sktime
-#
-#     Examples:
-#     --------
-#     >>> X_np = np.random.rand(64, 160, 1024)
-#     >>> sktime_df = to_sktime_df(X_np)
-#     >>> type(sktime_df)
-#     <class 'pandas.core.frame.DataFrame'>
-#     """
-#     if isinstance(X, pd.DataFrame):
-#         return X
-#     elif torch.is_tensor(X):
-#         X = X.numpy()
-#     elif not isinstance(X, np.ndarray):
-#         raise ValueError(
-#             "Input X must be a numpy.ndarray, torch.Tensor, or pandas.DataFrame"
-#         )
-#
-#     X = X.astype(np.float64)
-#
-#     def _format_a_sample_for_sktime(x):
-#         """
-#         Formats a single sample for sktime compatibility.
-#
-#         Arguments:
-#         - x (numpy.ndarray): A 2D array with shape (n_chs, seq_len) representing a single sample.
-#
-#         Return:
-#         - dims (pandas.Series): A Series where each element is a pandas Series representing a univariate time series.
-#         """
-#         return pd.Series([pd.Series(x[d], name=f"dim_{d}") for d in range(x.shape[0])])
-#
-#     sktime_df = pd.DataFrame(
-#         [_format_a_sample_for_sktime(X[i]) for i in range(X.shape[0])]
-#     )
-#     return sktime_df
-#
-#
-# # # Obsolete warning for future compatibility
-# # def to_sktime(*args, **kwargs):
-# #     warnings.warn(
-# #         "to_sktime is deprecated; use to_sktime_df instead.", FutureWarning
-# #     )
-# #     return to_sktime_df(*args, **kwargs)
-#
-#
-# # import pandas as pd
-# # import numpy as np
-# # import torch
-#
-# # def to_sktime(X):
-# #     """
-# #     X.shape: (n_samples, n_chs, seq_len)
-# #     """
-#
-# #     def _format_a_sample_for_sktime(x):
-# #         """
-# #         x.shape: (n_chs, seq_len)
-# #         """
-# #         dims = pd.Series(
-# #             [pd.Series(x[d], name=f"dim_{d}") for d in range(len(x))],
-# #             index=[f"dim_{i}" for i in np.arange(len(x))],
-# #         )
-# #         return dims
-#
-# #     if torch.is_tensor(X):
-# #         X = X.numpy()
-# #         X = X.astype(np.float64)
-#
-# #     return pd.DataFrame(
-# #         [_format_a_sample_for_sktime(X[i]) for i in range(len(X))]
-# #     )
+def test_numpy_input_preserves_sample_count(sample_data):
+    # Arrange
+    X_np = sample_data["numpy"]
+    n_samples = sample_data["shape"][0]
+    # Act
+    result = to_sktime_df(X_np)
+    # Assert
+    assert result.shape[0] == n_samples
 
-# --------------------------------------------------------------------------------
-# End of Source Code from: /home/ywatanabe/proj/scitex-code/src/scitex/ai/sk/_to_sktime.py
-# --------------------------------------------------------------------------------
+
+def test_numpy_input_preserves_channel_count(sample_data):
+    # Arrange
+    X_np = sample_data["numpy"]
+    n_chs = sample_data["shape"][1]
+    # Act
+    result = to_sktime_df(X_np)
+    # Assert
+    assert result.shape[1] == n_chs
+
+
+def test_numpy_input_cells_are_pandas_series(sample_data):
+    # Arrange
+    X_np = sample_data["numpy"]
+    # Act
+    result = to_sktime_df(X_np)
+    # Assert
+    assert all(
+        isinstance(result.iloc[i, j], pd.Series)
+        for i in range(result.shape[0])
+        for j in range(result.shape[1])
+    )
+
+
+# ── torch input tests ──────────────────────────────────────────
+
+def test_torch_input_returns_dataframe(sample_data):
+    # Arrange
+    X_torch = sample_data["torch"]
+    # Act
+    result = to_sktime_df(X_torch)
+    # Assert
+    assert isinstance(result, pd.DataFrame)
+
+
+def test_torch_input_preserves_sample_count(sample_data):
+    # Arrange
+    X_torch = sample_data["torch"]
+    n_samples = sample_data["shape"][0]
+    # Act
+    result = to_sktime_df(X_torch)
+    # Assert
+    assert result.shape[0] == n_samples
+
+
+def test_torch_input_preserves_channel_count(sample_data):
+    # Arrange
+    X_torch = sample_data["torch"]
+    n_chs = sample_data["shape"][1]
+    # Act
+    result = to_sktime_df(X_torch)
+    # Assert
+    assert result.shape[1] == n_chs
+
+
+# ── dataframe passthrough ──────────────────────────────────────
+
+def test_dataframe_input_returns_same_object():
+    # Arrange
+    df = pd.DataFrame({"col1": [1, 2, 3], "col2": [4, 5, 6]})
+    # Act
+    result = to_sktime_df(df)
+    # Assert
+    assert result is df
+
+
+# ── invalid input tests ────────────────────────────────────────
+
+def test_list_input_raises_value_error():
+    # Arrange
+    # Act
+    ctx = pytest.raises(ValueError, match="Input X must be")
+    # Assert
+    with ctx:
+        to_sktime_df([1, 2, 3])
+
+
+def test_string_input_raises_value_error():
+    # Arrange
+    # Act
+    ctx = pytest.raises(ValueError, match="Input X must be")
+    # Assert
+    with ctx:
+        to_sktime_df("invalid")
+
+
+# ── output structure tests ─────────────────────────────────────
+
+def test_output_dataframe_has_correct_shape(sample_data):
+    # Arrange
+    X = sample_data["numpy"]
+    n_samples, n_chs, seq_len = sample_data["shape"]
+    # Act
+    result = to_sktime_df(X)
+    # Assert
+    assert result.shape == (n_samples, n_chs)
+
+
+def test_output_cells_have_correct_series_length(sample_data):
+    # Arrange
+    X = sample_data["numpy"]
+    seq_len = sample_data["shape"][2]
+    # Act
+    result = to_sktime_df(X)
+    # Assert
+    assert all(len(result.iloc[i, j]) == seq_len
+               for i in range(result.shape[0])
+               for j in range(result.shape[1]))
+
+
+def test_output_dimension_names_follow_dim_pattern(sample_data):
+    # Arrange
+    X = sample_data["numpy"]
+    n_chs = sample_data["shape"][1]
+    # Act
+    result = to_sktime_df(X)
+    # Assert
+    for j in range(n_chs):
+        assert result.iloc[0, j].name == f"dim_{j}"
+
+
+# ── dtype tests ────────────────────────────────────────────────
+
+def test_int32_input_converts_series_to_float64():
+    # Arrange
+    X = np.array([[[1, 2, 3], [4, 5, 6]]], dtype=np.int32)
+    # Act
+    result = to_sktime_df(X)
+    first_series = result.iloc[0, 0]
+    # Assert
+    assert first_series.dtype == np.float64
+
+
+@pytest.mark.parametrize("dtype", [np.float32, np.float64, np.int32, np.int64])
+def test_various_dtypes_output_series_is_float64(dtype):
+    # Arrange
+    X = np.random.rand(5, 3, 20).astype(dtype)
+    # Act
+    result = to_sktime_df(X)
+    first_series = result.iloc[0, 0]
+    # Assert
+    assert first_series.dtype == np.float64
+
+
+# ── edge case tests ────────────────────────────────────────────
+
+def test_empty_input_with_channel_dimension_returns_empty_dataframe():
+    # Arrange
+    X = np.array([]).reshape(0, 3, 50)
+    # Act
+    result = to_sktime_df(X)
+    # Assert
+    assert result.shape[0] == 0
+
+
+def test_single_sample_returns_one_row_dataframe():
+    # Arrange
+    X = np.random.rand(1, 5, 100)
+    # Act
+    result = to_sktime_df(X)
+    # Assert
+    assert result.shape == (1, 5)
+
+
+def test_single_sample_cell_has_correct_length():
+    # Arrange
+    X = np.random.rand(1, 5, 100)
+    # Act
+    result = to_sktime_df(X)
+    # Assert
+    assert len(result.iloc[0, 0]) == 100
+
+
+def test_large_dataset_returns_correct_shape():
+    # Arrange
+    X = np.random.rand(100, 64, 1000)
+    # Act
+    result = to_sktime_df(X)
+    # Assert
+    assert result.shape == (100, 64)
+
+
+def test_large_dataset_first_cell_has_correct_length():
+    # Arrange
+    X = np.random.rand(100, 64, 1000)
+    # Act
+    result = to_sktime_df(X)
+    # Assert
+    assert len(result.iloc[0, 0]) == 1000
+
+
+# ── NaN handling ───────────────────────────────────────────────
+
+def test_nan_values_preserved_in_first_five_positions():
+    # Arrange
+    X = np.random.rand(5, 3, 20)
+    X[0, 0, :5] = np.nan
+    # Act
+    result = to_sktime_df(X)
+    first_dim_series = result.iloc[0, 0]
+    # Assert
+    assert np.isnan(first_dim_series.iloc[:5]).all()
+
+
+def test_non_nan_values_unchanged_after_position_five():
+    # Arrange
+    X = np.random.rand(5, 3, 20)
+    X[0, 0, :5] = np.nan
+    # Act
+    result = to_sktime_df(X)
+    first_dim_series = result.iloc[0, 0]
+    # Assert
+    assert not np.isnan(first_dim_series.iloc[5:]).any()
