@@ -10,12 +10,17 @@ def test_metrics_mixin_calculate_metrics_returns_dict():
     # Arrange
     from scitex_ml.classification.reporters._mixins._metrics import MetricsMixin
 
+    class _FakeStorage:
+        def save(self, data, path):
+            pass
+
     class _Fake(MetricsMixin):
         def __init__(self):
             self.output_dir = None
             self.fold_metrics = {}
             self.all_predictions = []
             self.session_config = {}
+            self.storage = _FakeStorage()
 
         def _round_numeric(self, value):
             return value
