@@ -63,6 +63,7 @@ dependencies = [
     "scitex-repro>=0.1.3",
     "scitex-types>=0.1.3",
     "scitex-str>=0.1.11",
+    "scitex-context>=0.1.0",
     # try_import_optional helper for gating the `[heavy]` torch / optuna /
     # catboost extras at import time.
     "scitex-dev>=0.11.7",
