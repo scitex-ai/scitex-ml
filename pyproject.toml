@@ -3,24 +3,20 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "scitex-ai"
-version = "0.1.0"
-description = "SciTeX AI — machine learning, classification, GenAI provider abstraction, training utilities"
+name = "scitex-ml"
+version = "0.1.1"
+description = "SciTeX ML — machine learning, classification, training utilities"
 readme = "README.md"
 license = "AGPL-3.0-only"
 requires-python = ">=3.10"
 authors = [
-    { name = "Yusuke Watanabe", email = "ywatanabe@scitex.ai" },
+    { name = "Yusuke Watanabe", email = "noreply@scitex.ai" },
 ]
 keywords = [
-    "ai",
     "machine-learning",
     "deep-learning",
     "classification",
-    "genai",
-    "llm",
-    "openai",
-    "anthropic",
+    "scikit-learn",
     "scitex",
     "science",
 ]
@@ -59,12 +55,6 @@ dependencies = [
     "umap-learn",
     "sktime>=0.21.0",
     "markdown2",
-    # GenAI providers (kept in core because _gen_ai/ unconditionally imports
-    # provider clients; the lazy GenAI top-level export defers actual use).
-    "openai",
-    "anthropic",
-    "google-genai",
-    "groq",
     # SciTeX standalone deps (declared per
     # _skills/general/01_ecosystem_02_dependency-and-version-pinning.md).
     "scitex-logging>=0.1.3",
@@ -72,6 +62,11 @@ dependencies = [
     "scitex-plt>=0.1.0",
     "scitex-repro>=0.1.3",
     "scitex-types>=0.1.3",
+    "scitex-str>=0.1.11",
+    "scitex-context>=0.1.0",
+    # try_import_optional helper for gating the `[heavy]` torch / optuna /
+    # catboost extras at import time.
+    "scitex-dev>=0.11.7",
 ]
 
 [project.optional-dependencies]
@@ -89,13 +84,33 @@ heavy = [
 mcp = [
     "fastmcp>=2.0.0",
 ]
+seizure = [
+    # Pulls in the standalone scitex-seizure-metrics library so that
+    # `from scitex_ml.metrics import seizure` works and resolves to the
+    # full evaluation surface (detection, forecasting, AlarmPolicy,
+    # bridge, calibration, surrogates, plots, papers).
+    "scitex-seizure-metrics>=0.1.0",
+]
 dev = [
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
     "pytest-xdist>=3.0.0",
     "pytest-timeout",
     "ruff",
-    "scitex-dev",
+    "scitex-dev>=0.11.7",
+    # PS210 [dev] extras completeness — every dep that lifted tests
+    # import unguarded must live in [dev] so `pip install -e .[dev]`
+    # actually runs the full suite.
+    "psutil",
+    "torch",
+    "torchvision",
+    "optuna",
+    "pytorch_pretrained_vit",
+    "scitex-seizure-metrics>=0.1.0",
+    # Notebook execution for tests/examples/test_01_*.py (PS505).
+    "nbconvert",
+    "nbformat",
+    "ipykernel",
 ]
 docs = [
     "sphinx>=7.0",
@@ -103,31 +118,53 @@ docs = [
     "myst-parser>=2.0",
     "sphinx-copybutton>=0.5",
     "sphinx-autodoc-typehints>=1.25",
+    # autosummary --recursive imports the source tree; skip mocked stubs by
+    # installing the real heavy deps in CI docs builds.
+    "torch",
+    "torchvision",
+    # scipy 1.17 ships a new distributions module whose `_combine_docs`
+    # eagerly runs at import time and raises `ValueError: not enough values
+    # to unpack (expected 2, got 1)` under sklearn-triggered import on
+    # CPython 3.11/3.12/3.13. Pin scipy<1.17 for docs builds until the
+    # upstream regression clears.
+    "scipy<1.17",
 ]
 all = [
-    "scitex-ai[heavy]",
-    "scitex-ai[mcp]",
+    "scitex-ml[heavy]",
+    "scitex-ml[mcp]",
+    "scitex-ml[seizure]",
 ]
 
 [project.urls]
-Homepage = "https://github.com/ywatanabe1989/scitex-ai"
-Repository = "https://github.com/ywatanabe1989/scitex-ai"
-Documentation = "https://scitex-ai.readthedocs.io"
-Issues = "https://github.com/ywatanabe1989/scitex-ai/issues"
+Homepage = "https://github.com/ywatanabe1989/scitex-ml"
+Repository = "https://github.com/ywatanabe1989/scitex-ml"
+Documentation = "https://scitex-ml.readthedocs.io"
+Issues = "https://github.com/ywatanabe1989/scitex-ml/issues"
 
 [project.entry-points."scitex_dev.docs"]
-scitex-ai = "scitex_ai"
+scitex-ml = "scitex_ml"
 
 [project.entry-points."scitex_dev.skills"]
-scitex-ai = "scitex_ai"
+scitex-ml = "scitex_ml"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/scitex_ai"]
+packages = ["src/scitex_ml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 addopts = "-v --tb=short"
+
+[tool.coverage.run]
+# Subprocess coverage wiring (see scitex-dev skill leaf
+# 05_development_06_subprocess-coverage.md). `parallel = true` makes
+# every coverage process write to its own `.coverage.<host>.<pid>`
+# file; `concurrency` covers both subprocess.run and threaded code.
+# Without this, demo / nbconvert / subprocess.run child interpreters
+# silently drop coverage data.
+parallel = true
+source = ["scitex_ml"]
+concurrency = ["multiprocessing", "thread"]
 
 [tool.ruff]
 line-length = 88
@@ -138,8 +175,8 @@ select = ["E", "F", "W", "I"]
 ignore = ["E501", "E402"]
 
 [tool.ruff.lint.per-file-ignores]
-"src/scitex_ai/__init__.py" = ["E402", "F401"]
-"src/scitex_ai/**/__init__.py" = ["F401"]
+"src/scitex_ml/__init__.py" = ["E402", "F401"]
+"src/scitex_ml/**/__init__.py" = ["F401"]
 
 [tool.scitex-linter]
 library_dirs = ["src", "tests", "examples"]

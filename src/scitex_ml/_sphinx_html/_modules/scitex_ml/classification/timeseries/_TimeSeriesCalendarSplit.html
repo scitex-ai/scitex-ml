@@ -1,0 +1,1325 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scitex_ml.classification.timeseries._TimeSeriesCalendarSplit &mdash; SciTeX ML v0.1.0</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            SciTeX ML
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../_generated/scitex_ml.html">scitex_ml</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter.__init__"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter.calculate_metrics"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.calculate_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter.save"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter.get_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.get_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter.save_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter.save_feature_importance"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.ClassificationReporter.save_feature_importance_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_feature_importance_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.Classifier"><code class="docutils literal notranslate"><span class="pre">Classifier</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.Classifier.__init__"><code class="docutils literal notranslate"><span class="pre">Classifier.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.Classifier.list"><code class="docutils literal notranslate"><span class="pre">Classifier.list</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.EarlyStopping"><code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.EarlyStopping.__init__"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.EarlyStopping.is_best"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.is_best()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.EarlyStopping.save"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.save()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.LearningCurveLogger"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.LearningCurveLogger.__init__"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.LearningCurveLogger.dfs"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.dfs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.LearningCurveLogger.to_metrics_df"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.to_metrics_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.LearningCurveLogger.plot_learning_curves"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.plot_learning_curves()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.LearningCurveLogger.get_x_of_i_epoch"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.get_x_of_i_epoch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.LearningCurveLogger.print"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.print()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.MultiTaskLoss"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.MultiTaskLoss.__init__"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.MultiTaskLoss.forward"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.get_optimizer"><code class="docutils literal notranslate"><span class="pre">get_optimizer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.html#scitex_ml.set_optimizer"><code class="docutils literal notranslate"><span class="pre">set_optimizer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.activation.html">scitex_ml.activation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.activation.html#scitex_ml.activation.define"><code class="docutils literal notranslate"><span class="pre">define()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html">scitex_ml.classification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.Classifier"><code class="docutils literal notranslate"><span class="pre">Classifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CVExperiment"><code class="docutils literal notranslate"><span class="pre">CVExperiment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.quick_experiment"><code class="docutils literal notranslate"><span class="pre">quick_experiment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesSlidingWindowSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesSlidingWindowSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.Classifier.html">scitex_ml.classification.Classifier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.CrossValidationExperiment.html">scitex_ml.classification.CrossValidationExperiment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.reporters.html">scitex_ml.classification.reporters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.timeseries.html">scitex_ml.classification.timeseries</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.clustering.html">scitex_ml.clustering</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.clustering.html#scitex_ml.clustering.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.clustering.html#scitex_ml.clustering.pca"><code class="docutils literal notranslate"><span class="pre">pca()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.clustering.html#scitex_ml.clustering.umap"><code class="docutils literal notranslate"><span class="pre">umap()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_extraction.html">scitex_ml.feature_extraction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_extraction.vit.html">scitex_ml.feature_extraction.vit</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.html">scitex_ml.feature_selection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.extract_feature_importance"><code class="docutils literal notranslate"><span class="pre">extract_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.select_features_univariate"><code class="docutils literal notranslate"><span class="pre">select_features_univariate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.analyze_feature_consistency"><code class="docutils literal notranslate"><span class="pre">analyze_feature_consistency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.aggregate_feature_importances"><code class="docutils literal notranslate"><span class="pre">aggregate_feature_importances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.create_feature_importance_dataframe"><code class="docutils literal notranslate"><span class="pre">create_feature_importance_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.feature_selection.html">scitex_ml.feature_selection.feature_selection</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.loss.html">scitex_ml.loss</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.loss.html#scitex_ml.loss.elastic"><code class="docutils literal notranslate"><span class="pre">elastic()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.loss.html#scitex_ml.loss.l1"><code class="docutils literal notranslate"><span class="pre">l1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.loss.html#scitex_ml.loss.l2"><code class="docutils literal notranslate"><span class="pre">l2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.loss.html#scitex_ml.loss.MultiTaskLoss"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.loss.multi_task_loss.html">scitex_ml.loss.multi_task_loss</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html">scitex_ml.metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_bacc"><code class="docutils literal notranslate"><span class="pre">calc_bacc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_mcc"><code class="docutils literal notranslate"><span class="pre">calc_mcc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_conf_mat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_clf_report"><code class="docutils literal notranslate"><span class="pre">calc_clf_report()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_roc_auc"><code class="docutils literal notranslate"><span class="pre">calc_roc_auc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_pre_rec_auc"><code class="docutils literal notranslate"><span class="pre">calc_pre_rec_auc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_bacc_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bacc_from_conf_mat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_window_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_window_prediction_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_event_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_event_prediction_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_prediction_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_score_slow"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_score_slow()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_samples_slow"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_samples_slow()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_score_block"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_score_block()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_samples_block"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_samples_block()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_feature_importance"><code class="docutils literal notranslate"><span class="pre">calc_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_permutation_importance"><code class="docutils literal notranslate"><span class="pre">calc_permutation_importance()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.optim.html">scitex_ml.optim</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.optim.html#scitex_ml.optim.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.optim.html#scitex_ml.optim.get_optimizer"><code class="docutils literal notranslate"><span class="pre">get_optimizer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.optim.html#scitex_ml.optim.set"><code class="docutils literal notranslate"><span class="pre">set()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.optim.html#scitex_ml.optim.set_optimizer"><code class="docutils literal notranslate"><span class="pre">set_optimizer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.optim.Ranger_Deep_Learning_Optimizer.html">scitex_ml.optim.Ranger_Deep_Learning_Optimizer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html">scitex_ml.plt</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.stx_conf_mat"><code class="docutils literal notranslate"><span class="pre">stx_conf_mat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.conf_mat"><code class="docutils literal notranslate"><span class="pre">conf_mat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_learning_curve"><code class="docutils literal notranslate"><span class="pre">plot_learning_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.learning_curve"><code class="docutils literal notranslate"><span class="pre">learning_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.optuna_study"><code class="docutils literal notranslate"><span class="pre">optuna_study()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_optuna_study"><code class="docutils literal notranslate"><span class="pre">plot_optuna_study()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_roc_curve"><code class="docutils literal notranslate"><span class="pre">plot_roc_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_pre_rec_curve"><code class="docutils literal notranslate"><span class="pre">plot_pre_rec_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_feature_importance"><code class="docutils literal notranslate"><span class="pre">plot_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_feature_importance_cv_summary"><code class="docutils literal notranslate"><span class="pre">plot_feature_importance_cv_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_tra"><code class="docutils literal notranslate"><span class="pre">plot_tra()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.process_i_global"><code class="docutils literal notranslate"><span class="pre">process_i_global()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.scatter_tes"><code class="docutils literal notranslate"><span class="pre">scatter_tes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.scatter_val"><code class="docutils literal notranslate"><span class="pre">scatter_val()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.select_ticks"><code class="docutils literal notranslate"><span class="pre">select_ticks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.set_yaxis_for_acc"><code class="docutils literal notranslate"><span class="pre">set_yaxis_for_acc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.vline_at_epochs"><code class="docutils literal notranslate"><span class="pre">vline_at_epochs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.calc_bACC_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bACC_from_conf_mat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.calc_bacc_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bacc_from_conf_mat()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.sk.html">scitex_ml.sk</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.sk.html#scitex_ml.sk.rocket_pipeline"><code class="docutils literal notranslate"><span class="pre">rocket_pipeline()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.sk.html#scitex_ml.sk.to_sktime_df"><code class="docutils literal notranslate"><span class="pre">to_sktime_df()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.sklearn.html">scitex_ml.sklearn</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.sklearn.clf.html">scitex_ml.sklearn.clf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.sklearn.to_sktime.html">scitex_ml.sklearn.to_sktime</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.training.html">scitex_ml.training</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.training.html#scitex_ml.training.EarlyStopping"><code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html">scitex_ml.utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.DefaultDataset"><code class="docutils literal notranslate"><span class="pre">DefaultDataset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder"><code class="docutils literal notranslate"><span class="pre">LabelEncoder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.check_params"><code class="docutils literal notranslate"><span class="pre">check_params()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.format_samples_for_sktime"><code class="docutils literal notranslate"><span class="pre">format_samples_for_sktime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.merge_labels"><code class="docutils literal notranslate"><span class="pre">merge_labels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.sliding_window_data_augmentation"><code class="docutils literal notranslate"><span class="pre">sliding_window_data_augmentation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.under_sample"><code class="docutils literal notranslate"><span class="pre">under_sample()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.verify_n_gpus"><code class="docutils literal notranslate"><span class="pre">verify_n_gpus()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.grid_search.html">scitex_ml.utils.grid_search</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html">scitex_ml.classification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.__init__"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.calculate_metrics"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.calculate_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.get_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.get_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save_feature_importance"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save_feature_importance_summary"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter.save_feature_importance_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter.__init__"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter.set_session_config"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter.set_session_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter.save_summary"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter.save_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.Classifier"><code class="docutils literal notranslate"><span class="pre">Classifier</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.Classifier.__init__"><code class="docutils literal notranslate"><span class="pre">Classifier.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.Classifier.list"><code class="docutils literal notranslate"><span class="pre">Classifier.list</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.__init__"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.set_hyperparameters"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.set_hyperparameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.describe_dataset"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.describe_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.run"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.get_summary"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.get_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.get_validation_report"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment.get_validation_report()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.CVExperiment"><code class="docutils literal notranslate"><span class="pre">CVExperiment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.quick_experiment"><code class="docutils literal notranslate"><span class="pre">quick_experiment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.__init__"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.split"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.split_with_val"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.split_with_val()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.get_n_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.get_n_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.plot_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.plot_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.set_split_request"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit.set_split_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.__init__"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.split"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.split_with_val"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.split_with_val()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.get_n_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.get_n_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.plot_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.plot_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.set_split_request"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit.set_split_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesSlidingWindowSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesSlidingWindowSplit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesSlidingWindowSplit.__init__"><code class="docutils literal notranslate"><span class="pre">TimeSeriesSlidingWindowSplit.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesSlidingWindowSplit.set_split_request"><code class="docutils literal notranslate"><span class="pre">TimeSeriesSlidingWindowSplit.set_split_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.__init__"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.split"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.split_with_val"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.split_with_val()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.get_n_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.get_n_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.plot_splits"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.plot_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.set_split_request"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit.set_split_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.STRATIFIED"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.STRATIFIED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.BLOCKING"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.BLOCKING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.SLIDING"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.SLIDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.EXPANDING"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.EXPANDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.FIXED"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.FIXED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id0"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.STRATIFIED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id1"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.BLOCKING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id2"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.SLIDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id3"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.EXPANDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id4"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.FIXED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.from_string"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.from_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.get_description"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy.get_description()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.n_samples"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_samples</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.n_features"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_features</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.n_classes"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.has_groups"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.has_groups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.group_sizes"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.group_sizes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.time_range"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.time_range</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.sampling_rate"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.sampling_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.has_gaps"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.has_gaps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.max_gap_size"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.max_gap_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.is_balanced"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.is_balanced</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.class_distribution"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.class_distribution</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id5"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_samples</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id6"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_features</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id7"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.n_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id8"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.has_groups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id9"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.group_sizes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id10"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.time_range</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id11"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.sampling_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id12"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.has_gaps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id13"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.max_gap_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id14"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.is_balanced</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#id15"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.class_distribution</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.get_summary"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.get_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.suggest_strategy"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.suggest_strategy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.__init__"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.Classifier.html">scitex_ml.classification.Classifier</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.Classifier.html#scitex_ml.classification.Classifier"><code class="docutils literal notranslate"><span class="pre">Classifier</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.CrossValidationExperiment.html">scitex_ml.classification.CrossValidationExperiment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.CrossValidationExperiment.html#scitex_ml.classification.CrossValidationExperiment"><code class="docutils literal notranslate"><span class="pre">CrossValidationExperiment</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.reporters.html">scitex_ml.classification.reporters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.reporters.html#scitex_ml.classification.reporters.ClassificationReporter"><code class="docutils literal notranslate"><span class="pre">ClassificationReporter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.reporters.html#scitex_ml.classification.reporters.SingleTaskClassificationReporter"><code class="docutils literal notranslate"><span class="pre">SingleTaskClassificationReporter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.reporters.reporter_utils.html">scitex_ml.classification.reporters.reporter_utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.timeseries.html">scitex_ml.classification.timeseries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesStratifiedSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStratifiedSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesBlockingSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesBlockingSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesSlidingWindowSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesSlidingWindowSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesCalendarSplit"><code class="docutils literal notranslate"><span class="pre">TimeSeriesCalendarSplit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesStrategy"><code class="docutils literal notranslate"><span class="pre">TimeSeriesStrategy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.TimeSeriesMetadata"><code class="docutils literal notranslate"><span class="pre">TimeSeriesMetadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.timeseries.normalize_timestamp"><code class="docutils literal notranslate"><span class="pre">normalize_timestamp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../_generated/scitex_ml.clustering.html">scitex_ml.clustering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.clustering.html#scitex_ml.clustering.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.clustering.html#scitex_ml.clustering.pca"><code class="docutils literal notranslate"><span class="pre">pca()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.clustering.html#scitex_ml.clustering.umap"><code class="docutils literal notranslate"><span class="pre">umap()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_extraction.html">scitex_ml.feature_extraction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_extraction.vit.html">scitex_ml.feature_extraction.vit</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_extraction.vit.html#scitex_ml.feature_extraction.vit.THIS_FILE"><code class="docutils literal notranslate"><span class="pre">THIS_FILE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_extraction.vit.html#scitex_ml.feature_extraction.vit.VitFeatureExtractor"><code class="docutils literal notranslate"><span class="pre">VitFeatureExtractor</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.html">scitex_ml.feature_selection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.extract_feature_importance"><code class="docutils literal notranslate"><span class="pre">extract_feature_importance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.select_features_univariate"><code class="docutils literal notranslate"><span class="pre">select_features_univariate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.analyze_feature_consistency"><code class="docutils literal notranslate"><span class="pre">analyze_feature_consistency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.aggregate_feature_importances"><code class="docutils literal notranslate"><span class="pre">aggregate_feature_importances()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.create_feature_importance_dataframe"><code class="docutils literal notranslate"><span class="pre">create_feature_importance_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.feature_selection.html">scitex_ml.feature_selection.feature_selection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.feature_selection.html#scitex_ml.feature_selection.feature_selection.extract_feature_importance"><code class="docutils literal notranslate"><span class="pre">extract_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.feature_selection.html#scitex_ml.feature_selection.feature_selection.select_features_univariate"><code class="docutils literal notranslate"><span class="pre">select_features_univariate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.feature_selection.html#scitex_ml.feature_selection.feature_selection.analyze_feature_consistency"><code class="docutils literal notranslate"><span class="pre">analyze_feature_consistency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.feature_selection.html#scitex_ml.feature_selection.feature_selection.aggregate_feature_importances"><code class="docutils literal notranslate"><span class="pre">aggregate_feature_importances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.feature_selection.feature_selection.html#scitex_ml.feature_selection.feature_selection.create_feature_importance_dataframe"><code class="docutils literal notranslate"><span class="pre">create_feature_importance_dataframe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../_generated/scitex_ml.loss.html">scitex_ml.loss</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.loss.html#scitex_ml.loss.elastic"><code class="docutils literal notranslate"><span class="pre">elastic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.loss.html#scitex_ml.loss.l1"><code class="docutils literal notranslate"><span class="pre">l1()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.loss.html#scitex_ml.loss.l2"><code class="docutils literal notranslate"><span class="pre">l2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.loss.html#scitex_ml.loss.MultiTaskLoss"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.loss.html#scitex_ml.loss.MultiTaskLoss.__init__"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.loss.html#scitex_ml.loss.MultiTaskLoss.forward"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.loss.multi_task_loss.html">scitex_ml.loss.multi_task_loss</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.loss.multi_task_loss.html#scitex_ml.loss.multi_task_loss.MultiTaskLoss"><code class="docutils literal notranslate"><span class="pre">MultiTaskLoss</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html">scitex_ml.metrics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_bacc"><code class="docutils literal notranslate"><span class="pre">calc_bacc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_mcc"><code class="docutils literal notranslate"><span class="pre">calc_mcc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_conf_mat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_clf_report"><code class="docutils literal notranslate"><span class="pre">calc_clf_report()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_roc_auc"><code class="docutils literal notranslate"><span class="pre">calc_roc_auc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_pre_rec_auc"><code class="docutils literal notranslate"><span class="pre">calc_pre_rec_auc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_bacc_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bacc_from_conf_mat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_window_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_window_prediction_metrics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_event_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_event_prediction_metrics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_prediction_metrics"><code class="docutils literal notranslate"><span class="pre">calc_seizure_prediction_metrics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_score_slow"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_score_slow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_samples_slow"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_samples_slow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_score_block"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_score_block()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_samples_block"><code class="docutils literal notranslate"><span class="pre">calc_silhouette_samples_block()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_feature_importance"><code class="docutils literal notranslate"><span class="pre">calc_feature_importance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_permutation_importance"><code class="docutils literal notranslate"><span class="pre">calc_permutation_importance()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../_generated/scitex_ml.optim.html">scitex_ml.optim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.optim.html#scitex_ml.optim.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.optim.html#scitex_ml.optim.get_optimizer"><code class="docutils literal notranslate"><span class="pre">get_optimizer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.optim.html#scitex_ml.optim.set"><code class="docutils literal notranslate"><span class="pre">set()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.optim.html#scitex_ml.optim.set_optimizer"><code class="docutils literal notranslate"><span class="pre">set_optimizer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.optim.Ranger_Deep_Learning_Optimizer.html">scitex_ml.optim.Ranger_Deep_Learning_Optimizer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger.html">scitex_ml.optim.Ranger_Deep_Learning_Optimizer.ranger</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html">scitex_ml.plt</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.stx_conf_mat"><code class="docutils literal notranslate"><span class="pre">stx_conf_mat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.conf_mat"><code class="docutils literal notranslate"><span class="pre">conf_mat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_learning_curve"><code class="docutils literal notranslate"><span class="pre">plot_learning_curve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.learning_curve"><code class="docutils literal notranslate"><span class="pre">learning_curve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.optuna_study"><code class="docutils literal notranslate"><span class="pre">optuna_study()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_optuna_study"><code class="docutils literal notranslate"><span class="pre">plot_optuna_study()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_roc_curve"><code class="docutils literal notranslate"><span class="pre">plot_roc_curve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_pre_rec_curve"><code class="docutils literal notranslate"><span class="pre">plot_pre_rec_curve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_feature_importance"><code class="docutils literal notranslate"><span class="pre">plot_feature_importance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_feature_importance_cv_summary"><code class="docutils literal notranslate"><span class="pre">plot_feature_importance_cv_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.plot_tra"><code class="docutils literal notranslate"><span class="pre">plot_tra()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.process_i_global"><code class="docutils literal notranslate"><span class="pre">process_i_global()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.scatter_tes"><code class="docutils literal notranslate"><span class="pre">scatter_tes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.scatter_val"><code class="docutils literal notranslate"><span class="pre">scatter_val()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.select_ticks"><code class="docutils literal notranslate"><span class="pre">select_ticks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.set_yaxis_for_acc"><code class="docutils literal notranslate"><span class="pre">set_yaxis_for_acc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.vline_at_epochs"><code class="docutils literal notranslate"><span class="pre">vline_at_epochs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.calc_bACC_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bACC_from_conf_mat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.plt.html#scitex_ml.plt.calc_bacc_from_conf_mat"><code class="docutils literal notranslate"><span class="pre">calc_bacc_from_conf_mat()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../_generated/scitex_ml.sampling.html">scitex_ml.sampling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.sampling.undersample.html">scitex_ml.sampling.undersample</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.sampling.undersample.html#scitex_ml.sampling.undersample.undersample"><code class="docutils literal notranslate"><span class="pre">undersample()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../_generated/scitex_ml.sklearn.html">scitex_ml.sklearn</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.sklearn.clf.html">scitex_ml.sklearn.clf</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.sklearn.clf.html#scitex_ml.sklearn.clf.rocket_pipeline"><code class="docutils literal notranslate"><span class="pre">rocket_pipeline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.sklearn.to_sktime.html">scitex_ml.sklearn.to_sktime</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.sklearn.to_sktime.html#scitex_ml.sklearn.to_sktime.to_sktime_df"><code class="docutils literal notranslate"><span class="pre">to_sktime_df()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../_generated/scitex_ml.training.html">scitex_ml.training</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.training.html#scitex_ml.training.EarlyStopping"><code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.training.html#scitex_ml.training.EarlyStopping.__init__"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.training.html#scitex_ml.training.EarlyStopping.is_best"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.is_best()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.training.html#scitex_ml.training.EarlyStopping.save"><code class="docutils literal notranslate"><span class="pre">EarlyStopping.save()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.__init__"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.dfs"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.dfs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.to_metrics_df"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.to_metrics_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.plot_learning_curves"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.plot_learning_curves()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.get_x_of_i_epoch"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.get_x_of_i_epoch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.print"><code class="docutils literal notranslate"><span class="pre">LearningCurveLogger.print()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html">scitex_ml.utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.DefaultDataset"><code class="docutils literal notranslate"><span class="pre">DefaultDataset</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.DefaultDataset.__init__"><code class="docutils literal notranslate"><span class="pre">DefaultDataset.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder"><code class="docutils literal notranslate"><span class="pre">LabelEncoder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.classes_"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.classes_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.__init__"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.fit"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.transform"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.transform()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.inverse_transform"><code class="docutils literal notranslate"><span class="pre">LabelEncoder.inverse_transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.check_params"><code class="docutils literal notranslate"><span class="pre">check_params()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.format_samples_for_sktime"><code class="docutils literal notranslate"><span class="pre">format_samples_for_sktime()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.merge_labels"><code class="docutils literal notranslate"><span class="pre">merge_labels()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.sliding_window_data_augmentation"><code class="docutils literal notranslate"><span class="pre">sliding_window_data_augmentation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.under_sample"><code class="docutils literal notranslate"><span class="pre">under_sample()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.html#scitex_ml.utils.verify_n_gpus"><code class="docutils literal notranslate"><span class="pre">verify_n_gpus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.grid_search.html">scitex_ml.utils.grid_search</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.grid_search.html#scitex_ml.utils.grid_search.yield_grids"><code class="docutils literal notranslate"><span class="pre">yield_grids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../_generated/scitex_ml.utils.grid_search.html#scitex_ml.utils.grid_search.count_grids"><code class="docutils literal notranslate"><span class="pre">count_grids()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">SciTeX ML</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">scitex_ml.classification.timeseries._TimeSeriesCalendarSplit</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for scitex_ml.classification.timeseries._TimeSeriesCalendarSplit</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># Timestamp: &quot;2025-09-22 17:15:00 (ywatanabe)&quot;</span>
+<span class="c1"># File: _TimeSeriesCalendarSplit.py</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">scitex_io</span>
+
+<span class="n">__FILE__</span> <span class="o">=</span> <span class="s2">&quot;_TimeSeriesCalendarSplit.py&quot;</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Functionalities:</span>
+<span class="sd">  - Implements calendar-based time series cross-validation</span>
+<span class="sd">  - Splits data based on calendar intervals (monthly, weekly, daily)</span>
+<span class="sd">  - Ensures temporal order preservation with no data leakage</span>
+<span class="sd">  - Supports flexible interval definitions (D, W, M, Q, Y)</span>
+<span class="sd">  - Provides visualization with scatter plots showing actual data points</span>
+<span class="sd">  - Useful for financial data, sales forecasting, seasonal patterns</span>
+
+<span class="sd">Dependencies:</span>
+<span class="sd">  - packages:</span>
+<span class="sd">    - numpy</span>
+<span class="sd">    - pandas</span>
+<span class="sd">    - sklearn</span>
+<span class="sd">    - matplotlib</span>
+<span class="sd">    - scitex</span>
+
+<span class="sd">IO:</span>
+<span class="sd">  - input-files:</span>
+<span class="sd">    - None (generates synthetic calendar-based data for demonstration)</span>
+<span class="sd">  - output-files:</span>
+<span class="sd">    - ./calendar_splits_demo.png (visualization with scatter plots)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">&quot;&quot;&quot;Imports&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">patches</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseCrossValidator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.utils.validation</span><span class="w"> </span><span class="kn">import</span> <span class="n">_num_samples</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">scitex_logging</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">logging</span>
+
+<span class="c1"># Import timestamp normalizer (internally uses to_datetime helper)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">._normalize_timestamp</span><span class="w"> </span><span class="kn">import</span> <span class="n">normalize_timestamp</span><span class="p">,</span> <span class="n">to_datetime</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="TimeSeriesCalendarSplit">
+<a class="viewcode-back" href="../../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.TimeSeriesCalendarSplit">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TimeSeriesCalendarSplit</span><span class="p">(</span><span class="n">BaseCrossValidator</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calendar-based time series cross-validation splitter.</span>
+
+<span class="sd">    Splits data based on calendar intervals (e.g., months, weeks, days).</span>
+<span class="sd">    Ensures temporal order is preserved and no data leakage occurs.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    interval : str</span>
+<span class="sd">        Time interval for splitting. Options:</span>
+<span class="sd">        - &#39;D&#39;: Daily</span>
+<span class="sd">        - &#39;W&#39;: Weekly</span>
+<span class="sd">        - &#39;M&#39;: Monthly</span>
+<span class="sd">        - &#39;Q&#39;: Quarterly</span>
+<span class="sd">        - &#39;Y&#39;: Yearly</span>
+<span class="sd">        Or any pandas frequency string</span>
+<span class="sd">    n_train_intervals : int</span>
+<span class="sd">        Number of intervals to use for training</span>
+<span class="sd">    n_test_intervals : int</span>
+<span class="sd">        Number of intervals to use for testing (default: 1)</span>
+<span class="sd">    gap_intervals : int</span>
+<span class="sd">        Number of intervals to skip between train and test (default: 0)</span>
+<span class="sd">    step_intervals : int</span>
+<span class="sd">        Number of intervals to step forward for next fold (default: 1)</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from scitex_ml.classification import TimeSeriesCalendarSplit</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # Create sample data with daily timestamps</span>
+<span class="sd">    &gt;&gt;&gt; dates = pd.date_range(&#39;2023-01-01&#39;, &#39;2023-12-31&#39;, freq=&#39;D&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; X = np.random.randn(len(dates), 10)</span>
+<span class="sd">    &gt;&gt;&gt; y = np.random.randint(0, 2, len(dates))</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # Monthly splits: 6 months train, 1 month test</span>
+<span class="sd">    &gt;&gt;&gt; tscal = TimeSeriesCalendarSplit(interval=&#39;M&#39;, n_train_intervals=6)</span>
+<span class="sd">    &gt;&gt;&gt; for train_idx, test_idx in tscal.split(X, y, timestamps=dates):</span>
+<span class="sd">    ...     print(f&quot;Train: {dates[train_idx[0]]:%Y-%m} to {dates[train_idx[-1]]:%Y-%m}&quot;)</span>
+<span class="sd">    ...     print(f&quot;Test:  {dates[test_idx[0]]:%Y-%m} to {dates[test_idx[-1]]:%Y-%m}&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TimeSeriesCalendarSplit.__init__">
+<a class="viewcode-back" href="../../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.TimeSeriesCalendarSplit.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">interval</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;M&quot;</span><span class="p">,</span>
+        <span class="n">n_train_intervals</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
+        <span class="n">n_test_intervals</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">n_val_intervals</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">gap_intervals</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">step_intervals</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="n">interval</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_train_intervals</span> <span class="o">=</span> <span class="n">n_train_intervals</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_test_intervals</span> <span class="o">=</span> <span class="n">n_test_intervals</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_val_intervals</span> <span class="o">=</span> <span class="n">n_val_intervals</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gap_intervals</span> <span class="o">=</span> <span class="n">gap_intervals</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step_intervals</span> <span class="o">=</span> <span class="n">step_intervals</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TimeSeriesCalendarSplit.split">
+<a class="viewcode-back" href="../../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.TimeSeriesCalendarSplit.split">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">split</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timestamps</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">groups</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate calendar-based train/test splits.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">            Training data</span>
+<span class="sd">        y : array-like, shape (n_samples,), optional</span>
+<span class="sd">            Target variable</span>
+<span class="sd">        timestamps : array-like or pd.DatetimeIndex, shape (n_samples,)</span>
+<span class="sd">            Timestamps for each sample (required)</span>
+<span class="sd">        groups : array-like, shape (n_samples,), optional</span>
+<span class="sd">            Group labels (not used in this splitter)</span>
+
+<span class="sd">        Yields</span>
+<span class="sd">        ------</span>
+<span class="sd">        train : ndarray</span>
+<span class="sd">            Training set indices</span>
+<span class="sd">        test : ndarray</span>
+<span class="sd">            Test set indices</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">timestamps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;timestamps must be provided for calendar-based splitting&quot;</span><span class="p">)</span>
+
+        <span class="n">n_samples</span> <span class="o">=</span> <span class="n">_num_samples</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_samples</span><span class="p">)</span>
+
+        <span class="c1"># Convert timestamps to pandas datetime if needed</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">):</span>
+            <span class="c1"># Use normalizer to handle various formats</span>
+            <span class="c1"># Convert each timestamp to datetime then to pandas DatetimeIndex</span>
+            <span class="n">datetime_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">timestamps</span><span class="p">:</span>
+                <span class="n">dt</span> <span class="o">=</span> <span class="n">to_datetime</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+                <span class="c1"># Remove timezone info for pandas compatibility</span>
+                <span class="k">if</span> <span class="n">dt</span><span class="o">.</span><span class="n">tzinfo</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                <span class="n">datetime_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+            <span class="n">timestamps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">datetime_list</span><span class="p">)</span>
+
+        <span class="c1"># Create DataFrame for easier manipulation</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">indices</span><span class="p">,</span> <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">timestamps</span><span class="p">})</span>
+
+        <span class="c1"># Sort by timestamp</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;timestamp&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Group by the specified interval</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interval</span><span class="p">)</span>
+        <span class="n">unique_intervals</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+        <span class="c1"># Calculate total intervals needed per fold</span>
+        <span class="n">intervals_per_fold</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_train_intervals</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">gap_intervals</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_test_intervals</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Generate splits</span>
+        <span class="n">n_intervals</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_intervals</span><span class="p">)</span>
+        <span class="n">start_idx</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">while</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="n">intervals_per_fold</span> <span class="o">&lt;=</span> <span class="n">n_intervals</span><span class="p">:</span>
+            <span class="c1"># Define train intervals</span>
+            <span class="n">train_end</span> <span class="o">=</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_train_intervals</span>
+            <span class="n">train_intervals</span> <span class="o">=</span> <span class="n">unique_intervals</span><span class="p">[</span><span class="n">start_idx</span><span class="p">:</span><span class="n">train_end</span><span class="p">]</span>
+
+            <span class="c1"># Define test intervals (after gap)</span>
+            <span class="n">test_start</span> <span class="o">=</span> <span class="n">train_end</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">gap_intervals</span>
+            <span class="n">test_end</span> <span class="o">=</span> <span class="n">test_start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_test_intervals</span>
+
+            <span class="k">if</span> <span class="n">test_end</span> <span class="o">&gt;</span> <span class="n">n_intervals</span><span class="p">:</span>
+                <span class="k">break</span>
+
+            <span class="n">test_intervals</span> <span class="o">=</span> <span class="n">unique_intervals</span><span class="p">[</span><span class="n">test_start</span><span class="p">:</span><span class="n">test_end</span><span class="p">]</span>
+
+            <span class="c1"># Get indices for train and test</span>
+            <span class="n">train_mask</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">train_intervals</span><span class="p">)</span>
+            <span class="n">test_mask</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">test_intervals</span><span class="p">)</span>
+
+            <span class="n">train_indices</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_mask</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">test_indices</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_mask</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+            <span class="k">yield</span> <span class="n">train_indices</span><span class="p">,</span> <span class="n">test_indices</span>
+
+            <span class="c1"># Move to next fold</span>
+            <span class="n">start_idx</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_intervals</span></div>
+
+
+<div class="viewcode-block" id="TimeSeriesCalendarSplit.split_with_val">
+<a class="viewcode-back" href="../../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.TimeSeriesCalendarSplit.split_with_val">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">split_with_val</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timestamps</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">groups</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate calendar-based train/validation/test splits.</span>
+
+<span class="sd">        The validation set comes after training but before test, maintaining</span>
+<span class="sd">        temporal order: train &lt; val &lt; test.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">            Training data</span>
+<span class="sd">        y : array-like, shape (n_samples,), optional</span>
+<span class="sd">            Target variable</span>
+<span class="sd">        timestamps : array-like or pd.DatetimeIndex, shape (n_samples,)</span>
+<span class="sd">            Timestamps for each sample (required)</span>
+<span class="sd">        groups : array-like, shape (n_samples,), optional</span>
+<span class="sd">            Group labels (not used in this splitter)</span>
+
+<span class="sd">        Yields</span>
+<span class="sd">        ------</span>
+<span class="sd">        train : ndarray</span>
+<span class="sd">            Training set indices</span>
+<span class="sd">        val : ndarray</span>
+<span class="sd">            Validation set indices</span>
+<span class="sd">        test : ndarray</span>
+<span class="sd">            Test set indices</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">timestamps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;timestamps must be provided for calendar-based splitting&quot;</span><span class="p">)</span>
+
+        <span class="n">n_samples</span> <span class="o">=</span> <span class="n">_num_samples</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_samples</span><span class="p">)</span>
+
+        <span class="c1"># Convert timestamps to pandas datetime if needed</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">):</span>
+            <span class="c1"># Use normalizer to handle various formats</span>
+            <span class="n">datetime_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">timestamps</span><span class="p">:</span>
+                <span class="n">dt</span> <span class="o">=</span> <span class="n">to_datetime</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+                <span class="c1"># Remove timezone info for pandas compatibility</span>
+                <span class="k">if</span> <span class="n">dt</span><span class="o">.</span><span class="n">tzinfo</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                <span class="n">datetime_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+            <span class="n">timestamps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">datetime_list</span><span class="p">)</span>
+
+        <span class="c1"># Create DataFrame for easier manipulation</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">indices</span><span class="p">,</span> <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">timestamps</span><span class="p">})</span>
+
+        <span class="c1"># Sort by timestamp</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;timestamp&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Group by the specified interval</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interval</span><span class="p">)</span>
+        <span class="n">unique_intervals</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+        <span class="c1"># Calculate total intervals needed per fold including validation</span>
+        <span class="n">intervals_per_fold</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_train_intervals</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_val_intervals</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">gap_intervals</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_test_intervals</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Generate splits</span>
+        <span class="n">n_intervals</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_intervals</span><span class="p">)</span>
+        <span class="n">start_idx</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">while</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="n">intervals_per_fold</span> <span class="o">&lt;=</span> <span class="n">n_intervals</span><span class="p">:</span>
+            <span class="c1"># Define train intervals</span>
+            <span class="n">train_end</span> <span class="o">=</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_train_intervals</span>
+            <span class="n">train_intervals</span> <span class="o">=</span> <span class="n">unique_intervals</span><span class="p">[</span><span class="n">start_idx</span><span class="p">:</span><span class="n">train_end</span><span class="p">]</span>
+
+            <span class="c1"># Define validation intervals (after train)</span>
+            <span class="n">val_start</span> <span class="o">=</span> <span class="n">train_end</span>
+            <span class="n">val_end</span> <span class="o">=</span> <span class="n">val_start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_val_intervals</span>
+            <span class="n">val_intervals</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">unique_intervals</span><span class="p">[</span><span class="n">val_start</span><span class="p">:</span><span class="n">val_end</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_val_intervals</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">[]</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Define test intervals (after validation and gap)</span>
+            <span class="n">test_start</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">val_end</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">gap_intervals</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_val_intervals</span> <span class="o">&gt;</span> <span class="mi">0</span>
+                <span class="k">else</span> <span class="n">train_end</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">gap_intervals</span>
+            <span class="p">)</span>
+            <span class="n">test_end</span> <span class="o">=</span> <span class="n">test_start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_test_intervals</span>
+
+            <span class="k">if</span> <span class="n">test_end</span> <span class="o">&gt;</span> <span class="n">n_intervals</span><span class="p">:</span>
+                <span class="k">break</span>
+
+            <span class="n">test_intervals</span> <span class="o">=</span> <span class="n">unique_intervals</span><span class="p">[</span><span class="n">test_start</span><span class="p">:</span><span class="n">test_end</span><span class="p">]</span>
+
+            <span class="c1"># Get indices for train, validation, and test</span>
+            <span class="n">train_mask</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">train_intervals</span><span class="p">)</span>
+            <span class="n">val_mask</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">df</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">val_intervals</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">val_intervals</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+                <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+            <span class="p">)</span>
+            <span class="n">test_mask</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">test_intervals</span><span class="p">)</span>
+
+            <span class="n">train_indices</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_mask</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">val_indices</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">val_mask</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_val_intervals</span> <span class="o">&gt;</span> <span class="mi">0</span>
+                <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+            <span class="p">)</span>
+            <span class="n">test_indices</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_mask</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+            <span class="k">yield</span> <span class="n">train_indices</span><span class="p">,</span> <span class="n">val_indices</span><span class="p">,</span> <span class="n">test_indices</span>
+
+            <span class="c1"># Move to next fold</span>
+            <span class="n">start_idx</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_intervals</span></div>
+
+
+<div class="viewcode-block" id="TimeSeriesCalendarSplit.get_n_splits">
+<a class="viewcode-back" href="../../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.TimeSeriesCalendarSplit.get_n_splits">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_n_splits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timestamps</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate number of splits.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like, optional</span>
+<span class="sd">            Not used directly</span>
+<span class="sd">        y : array-like, optional</span>
+<span class="sd">            Not used</span>
+<span class="sd">        timestamps : array-like or pd.DatetimeIndex, optional</span>
+<span class="sd">            Timestamps to determine number of possible splits</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        n_splits : int</span>
+<span class="sd">            Number of splits. Returns -1 if timestamps is None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">timestamps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># Can&#39;t determine without timestamps</span>
+
+        <span class="c1"># Convert timestamps to pandas datetime if needed</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">):</span>
+            <span class="c1"># Use normalizer to handle various formats</span>
+            <span class="c1"># Convert each timestamp to datetime then to pandas DatetimeIndex</span>
+            <span class="n">datetime_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">timestamps</span><span class="p">:</span>
+                <span class="n">dt</span> <span class="o">=</span> <span class="n">to_datetime</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+                <span class="c1"># Remove timezone info for pandas compatibility</span>
+                <span class="k">if</span> <span class="n">dt</span><span class="o">.</span><span class="n">tzinfo</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                <span class="n">datetime_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+            <span class="n">timestamps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">datetime_list</span><span class="p">)</span>
+
+        <span class="c1"># Count unique intervals</span>
+        <span class="n">intervals</span> <span class="o">=</span> <span class="n">timestamps</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interval</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+        <span class="n">n_intervals</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+
+        <span class="c1"># Calculate how many complete folds we can create</span>
+        <span class="n">intervals_per_fold</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_train_intervals</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">gap_intervals</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_test_intervals</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">n_intervals</span> <span class="o">&lt;</span> <span class="n">intervals_per_fold</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="c1"># Calculate number of possible splits with stepping</span>
+        <span class="n">n_splits</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_intervals</span> <span class="o">-</span> <span class="n">intervals_per_fold</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_intervals</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_splits</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TimeSeriesCalendarSplit.plot_splits">
+<a class="viewcode-back" href="../../../../_generated/scitex_ml.classification.timeseries.html#scitex_ml.classification.TimeSeriesCalendarSplit.plot_splits">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_splits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timestamps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">save_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Visualize the train/test splits as timeline rectangles with scatter plots.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like</span>
+<span class="sd">            Training data (used to determine data size)</span>
+<span class="sd">        y : array-like, optional</span>
+<span class="sd">            Target variable (used for color-coding scatter points)</span>
+<span class="sd">        timestamps : array-like or pd.DatetimeIndex</span>
+<span class="sd">            Timestamps for each sample</span>
+<span class="sd">        figsize : tuple, default (12, 6)</span>
+<span class="sd">            Figure size (width, height)</span>
+<span class="sd">        save_path : str, optional</span>
+<span class="sd">            Path to save the plot</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        fig : matplotlib.figure.Figure</span>
+<span class="sd">            The created figure</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; splitter = TimeSeriesCalendarSplit(interval=&#39;M&#39;, n_train_intervals=6)</span>
+<span class="sd">        &gt;&gt;&gt; fig = splitter.plot_splits(X, timestamps=dates)</span>
+<span class="sd">        &gt;&gt;&gt; fig.savefig(&#39;calendar_splits.png&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># matplotlib is always available in SciTeX</span>
+
+        <span class="k">if</span> <span class="n">timestamps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;timestamps must be provided for calendar split visualization&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Get all splits</span>
+        <span class="n">splits</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">timestamps</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">splits</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;No splits generated. Check data size and splitter parameters.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Convert timestamps for plotting</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">):</span>
+            <span class="n">datetime_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">timestamps</span><span class="p">:</span>
+                <span class="n">dt</span> <span class="o">=</span> <span class="n">to_datetime</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">dt</span><span class="o">.</span><span class="n">tzinfo</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                <span class="n">datetime_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+            <span class="n">timestamps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">datetime_list</span><span class="p">)</span>
+
+        <span class="c1"># Create figure</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+
+        <span class="c1"># Jitter strength for scatter plots</span>
+        <span class="n">jitter_strength</span> <span class="o">=</span> <span class="mf">0.15</span>
+
+        <span class="c1"># Plot each fold</span>
+        <span class="k">for</span> <span class="n">fold</span><span class="p">,</span> <span class="p">(</span><span class="n">train_idx</span><span class="p">,</span> <span class="n">test_idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">splits</span><span class="p">):</span>
+            <span class="n">y_pos</span> <span class="o">=</span> <span class="n">fold</span>
+
+            <span class="c1"># Train period rectangle</span>
+            <span class="n">train_start</span> <span class="o">=</span> <span class="n">timestamps</span><span class="p">[</span><span class="n">train_idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="n">train_end</span> <span class="o">=</span> <span class="n">timestamps</span><span class="p">[</span><span class="n">train_idx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="n">train_width</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">train_end</span> <span class="o">-</span> <span class="n">train_start</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mi">86400</span>  <span class="c1"># Convert to days</span>
+
+            <span class="n">train_rect</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">train_start</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">-</span> <span class="mf">0.3</span><span class="p">),</span>
+                <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">train_width</span><span class="p">),</span>
+                <span class="mf">0.6</span><span class="p">,</span>
+                <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+                <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Train Set (range)&quot;</span> <span class="k">if</span> <span class="n">fold</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">train_rect</span><span class="p">)</span>
+
+            <span class="c1"># Add scatter plot for training data points</span>
+            <span class="n">train_times</span> <span class="o">=</span> <span class="n">timestamps</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span>
+            <span class="n">train_jitter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">jitter_strength</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_idx</span><span class="p">))</span>
+
+            <span class="c1"># Color by class if y is provided</span>
+            <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">train_colors</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="s2">&quot;darkblue&quot;</span> <span class="k">if</span> <span class="n">yi</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;navy&quot;</span> <span class="k">for</span> <span class="n">yi</span> <span class="ow">in</span> <span class="n">y</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span>
+                <span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">train_colors</span> <span class="o">=</span> <span class="s2">&quot;darkblue&quot;</span>
+
+            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+                <span class="n">train_times</span><span class="p">,</span>
+                <span class="n">y_pos</span> <span class="o">+</span> <span class="n">train_jitter</span><span class="p">,</span>
+                <span class="n">c</span><span class="o">=</span><span class="n">train_colors</span><span class="p">,</span>
+                <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+                <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Train data points&quot;</span> <span class="k">if</span> <span class="n">fold</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Test period rectangle</span>
+            <span class="n">test_start</span> <span class="o">=</span> <span class="n">timestamps</span><span class="p">[</span><span class="n">test_idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="n">test_end</span> <span class="o">=</span> <span class="n">timestamps</span><span class="p">[</span><span class="n">test_idx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="n">test_width</span> <span class="o">=</span> <span class="p">(</span><span class="n">test_end</span> <span class="o">-</span> <span class="n">test_start</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mi">86400</span>
+
+            <span class="n">test_rect</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">test_start</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">-</span> <span class="mf">0.3</span><span class="p">),</span>
+                <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">test_width</span><span class="p">),</span>
+                <span class="mf">0.6</span><span class="p">,</span>
+                <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+                <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;lightcoral&quot;</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Test Set (range)&quot;</span> <span class="k">if</span> <span class="n">fold</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">test_rect</span><span class="p">)</span>
+
+            <span class="c1"># Add scatter plot for test data points</span>
+            <span class="n">test_times</span> <span class="o">=</span> <span class="n">timestamps</span><span class="p">[</span><span class="n">test_idx</span><span class="p">]</span>
+            <span class="n">test_jitter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">jitter_strength</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_idx</span><span class="p">))</span>
+
+            <span class="c1"># Color by class if y is provided</span>
+            <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">test_colors</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="s2">&quot;darkred&quot;</span> <span class="k">if</span> <span class="n">yi</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;firebrick&quot;</span> <span class="k">for</span> <span class="n">yi</span> <span class="ow">in</span> <span class="n">y</span><span class="p">[</span><span class="n">test_idx</span><span class="p">]</span>
+                <span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">test_colors</span> <span class="o">=</span> <span class="s2">&quot;darkred&quot;</span>
+
+            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+                <span class="n">test_times</span><span class="p">,</span>
+                <span class="n">y_pos</span> <span class="o">+</span> <span class="n">test_jitter</span><span class="p">,</span>
+                <span class="n">c</span><span class="o">=</span><span class="n">test_colors</span><span class="p">,</span>
+                <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+                <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;^&quot;</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Test data points&quot;</span> <span class="k">if</span> <span class="n">fold</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Format plot</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">splits</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">timestamps</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">timestamps</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Fold&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Time Series Calendar Split Visualization</span><span class="se">\\</span><span class="s2">n&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Interval: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">interval</span><span class="si">}</span><span class="s2">, Train: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_train_intervals</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Test: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_test_intervals</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Set y-ticks</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">splits</span><span class="p">)))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;Fold </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">splits</span><span class="p">))])</span>
+
+        <span class="c1"># Add legend</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Format x-axis</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">save_path</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">fig</span></div>
+</div>
+
+
+
+<span class="sd">&quot;&quot;&quot;Functions &amp; Classes&quot;&quot;&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Demonstrate TimeSeriesCalendarSplit functionality.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        args: Command line arguments</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int: Exit status</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Demonstrating TimeSeriesCalendarSplit functionality&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Generate test data with calendar-based timestamps</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">n_samples</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">n_samples</span>
+
+    <span class="c1"># Create daily timestamps over several months</span>
+    <span class="n">start_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">start_date</span><span class="p">)</span>
+    <span class="n">timestamps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">data_freq</span><span class="p">)</span>
+
+    <span class="c1"># Generate features and target</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generated test data: </span><span class="si">{</span><span class="n">n_samples</span><span class="si">}</span><span class="s2"> samples&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Date range: </span><span class="si">{</span><span class="n">timestamps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">timestamps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data frequency: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">data_freq</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Create calendar splitter</span>
+    <span class="n">splitter</span> <span class="o">=</span> <span class="n">TimeSeriesCalendarSplit</span><span class="p">(</span>
+        <span class="n">interval</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">interval</span><span class="p">,</span>
+        <span class="n">n_train_intervals</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">n_train_intervals</span><span class="p">,</span>
+        <span class="n">n_test_intervals</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">n_test_intervals</span><span class="p">,</span>
+        <span class="n">gap_intervals</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">gap_intervals</span><span class="p">,</span>
+        <span class="n">step_intervals</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">step_intervals</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Calendar split configuration:&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Interval: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">interval</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Train intervals: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">n_train_intervals</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Test intervals: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">n_test_intervals</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Gap intervals: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">gap_intervals</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Step intervals: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">step_intervals</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Test splits</span>
+    <span class="n">splits</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">fold</span><span class="p">,</span> <span class="p">(</span><span class="n">train_idx</span><span class="p">,</span> <span class="n">test_idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+        <span class="n">splitter</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">timestamps</span><span class="o">=</span><span class="n">timestamps</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">fold</span> <span class="o">&gt;=</span> <span class="n">args</span><span class="o">.</span><span class="n">max_folds</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">splits</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">train_idx</span><span class="p">,</span> <span class="n">test_idx</span><span class="p">))</span>
+
+        <span class="n">train_start</span> <span class="o">=</span> <span class="n">timestamps</span><span class="p">[</span><span class="n">train_idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">train_end</span> <span class="o">=</span> <span class="n">timestamps</span><span class="p">[</span><span class="n">train_idx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">test_start</span> <span class="o">=</span> <span class="n">timestamps</span><span class="p">[</span><span class="n">test_idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">test_end</span> <span class="o">=</span> <span class="n">timestamps</span><span class="p">[</span><span class="n">test_idx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fold </span><span class="si">{</span><span class="n">fold</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Train: </span><span class="si">{</span><span class="n">train_start</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">train_end</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">train_idx</span><span class="p">)</span><span class="si">}</span><span class="s2"> samples)&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Test: </span><span class="si">{</span><span class="n">test_start</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">test_end</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_idx</span><span class="p">)</span><span class="si">}</span><span class="s2"> samples)&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Verify temporal order</span>
+        <span class="n">train_times</span> <span class="o">=</span> <span class="n">timestamps</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span>
+        <span class="n">test_times</span> <span class="o">=</span> <span class="n">timestamps</span><span class="p">[</span><span class="n">test_idx</span><span class="p">]</span>
+        <span class="n">temporal_ok</span> <span class="o">=</span> <span class="n">train_times</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">test_times</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;✓&quot;</span> <span class="k">if</span> <span class="n">temporal_ok</span> <span class="k">else</span> <span class="s2">&quot;✗&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Temporal order: </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Generate visualization</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating calendar split visualization&quot;</span><span class="p">)</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">splitter</span><span class="o">.</span><span class="n">plot_splits</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">timestamps</span><span class="p">)</span>
+
+    <span class="c1"># Save using SciTeX framework</span>
+    <span class="n">scitex_io</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s2">&quot;./calendar_splits_demo.png&quot;</span><span class="p">,</span> <span class="n">symlink_from_cwd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;TimeSeriesCalendarSplit demonstration completed successfully&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_args</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse command line arguments.&quot;&quot;&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Demonstrate TimeSeriesCalendarSplit with calendar-based intervals&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--n-samples&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">365</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Number of samples to generate (default: </span><span class="si">%(default)s</span><span class="s2">)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--start-date&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;2023-01-01&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Start date for time series (default: </span><span class="si">%(default)s</span><span class="s2">)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--data-freq&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;D&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Frequency of data points (D=daily, H=hourly) (default: </span><span class="si">%(default)s</span><span class="s2">)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--interval&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;M&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Calendar interval (D=daily, W=weekly, M=monthly) (default: </span><span class="si">%(default)s</span><span class="s2">)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--n-train-intervals&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Number of intervals for training (default: </span><span class="si">%(default)s</span><span class="s2">)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--n-test-intervals&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Number of intervals for testing (default: </span><span class="si">%(default)s</span><span class="s2">)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--gap-intervals&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Gap intervals between train and test (default: </span><span class="si">%(default)s</span><span class="s2">)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--step-intervals&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Step intervals between folds (default: </span><span class="si">%(default)s</span><span class="s2">)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--max-folds&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Maximum number of folds to demonstrate (default: </span><span class="si">%(default)s</span><span class="s2">)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">args</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize scitex framework, run main function, and cleanup.&quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">CONFIG</span><span class="p">,</span> <span class="n">CC</span><span class="p">,</span> <span class="n">sys</span><span class="p">,</span> <span class="n">plt</span><span class="p">,</span> <span class="n">rng</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">scitex</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stx</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="n">CONFIG</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">plt</span><span class="p">,</span> <span class="n">CC</span><span class="p">,</span> <span class="n">rng</span> <span class="o">=</span> <span class="n">stx</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">start</span><span class="p">(</span>
+        <span class="n">sys</span><span class="p">,</span>
+        <span class="n">plt</span><span class="p">,</span>
+        <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+        <span class="n">file</span><span class="o">=</span><span class="n">__FILE__</span><span class="p">,</span>
+        <span class="n">sdir_suffix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">agg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">exit_status</span> <span class="o">=</span> <span class="n">main</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="n">stx</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">(</span>
+        <span class="n">CONFIG</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">notify</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">exit_status</span><span class="o">=</span><span class="n">exit_status</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">run_main</span><span class="p">()</span>
+
+<span class="c1"># EOF</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024-2026, Yusuke Watanabe.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

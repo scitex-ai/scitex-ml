@@ -1,10 +1,4 @@
-<!-- ---
-!-- Timestamp: 2026-05-05
-!-- Author: ywatanabe
-!-- File: /home/ywatanabe/proj/scitex-ai/README.md
-!-- --- -->
-
-# SciTeX AI (`scitex-ai`)
+# SciTeX ML (<code>scitex-ml</code>)
 
 <p align="center">
   <a href="https://scitex.ai">
@@ -12,168 +6,181 @@
   </a>
 </p>
 
+<p align="center"><b>Reproducible classical and deep machine-learning utilities for scientific research.</b></p>
+
 <p align="center">
-  <a href="https://scitex-ai.readthedocs.io/">Full Documentation</a> · <code>pip install scitex-ai</code>
+  <a href="https://scitex-ml.readthedocs.io/">Full Documentation</a> · <code>uv pip install scitex-ml[all]</code>
 </p>
 
 <!-- scitex-badges:start -->
 <p align="center">
-  <a href="https://pypi.org/project/scitex-ai/"><img src="https://img.shields.io/pypi/v/scitex-ai.svg" alt="PyPI"></a>
-  <a href="https://pypi.org/project/scitex-ai/"><img src="https://img.shields.io/pypi/pyversions/scitex-ai.svg" alt="Python"></a>
-  <a href="https://github.com/ywatanabe1989/scitex-ai/actions/workflows/test.yml"><img src="https://github.com/ywatanabe1989/scitex-ai/actions/workflows/test.yml/badge.svg" alt="Tests"></a>
-  <a href="https://codecov.io/gh/ywatanabe1989/scitex-ai"><img src="https://codecov.io/gh/ywatanabe1989/scitex-ai/graph/badge.svg" alt="Coverage"></a>
-  <a href="https://www.gnu.org/licenses/agpl-3.0"><img src="https://img.shields.io/badge/license-AGPL_v3-blue.svg" alt="License: AGPL v3"></a>
+  <a href="https://pypi.org/project/scitex-ml/"><img src="https://img.shields.io/pypi/v/scitex-ml?label=pypi" alt="pypi"></a>
+  <a href="https://pypi.org/project/scitex-ml/"><img src="https://img.shields.io/pypi/pyversions/scitex-ml?label=python" alt="python"></a>
+  <a href="https://scitex-ml.readthedocs.io/en/latest/"><img src="https://img.shields.io/readthedocs/scitex-ml?label=docs" alt="docs"></a>
+</p>
+<p align="center">
+  <a href="https://github.com/ywatanabe1989/scitex-ml/actions/workflows/test.yml"><img src="https://img.shields.io/github/actions/workflow/status/ywatanabe1989/scitex-ml/test.yml?branch=develop&label=tests" alt="tests"></a>
+  <a href="https://github.com/ywatanabe1989/scitex-ml/actions/workflows/import-smoke-on-ubuntu-py3-12.yml"><img src="https://img.shields.io/github/actions/workflow/status/ywatanabe1989/scitex-ml/import-smoke-on-ubuntu-py3-12.yml?branch=develop&label=install-check" alt="install-check"></a>
+  <a href="https://github.com/ywatanabe1989/scitex-ml/actions/workflows/scitex-dev-quality-audit-on-ubuntu-latest.yml"><img src="https://img.shields.io/github/actions/workflow/status/ywatanabe1989/scitex-ml/scitex-dev-quality-audit-on-ubuntu-latest.yml?branch=develop&label=quality" alt="quality"></a>
+  <a href="https://codecov.io/gh/ywatanabe1989/scitex-ml"><img src="https://img.shields.io/codecov/c/github/ywatanabe1989/scitex-ml/develop?label=cov" alt="cov"></a>
 </p>
 <!-- scitex-badges:end -->
 
 ---
 
-## Overview
+## Problem and Solution
 
-`scitex-ai` is the standalone home of the AI/ML utilities that previously
-lived inside `scitex.ai` in the [`scitex-python`](https://github.com/ywatanabe1989/scitex-python)
-umbrella. It contains:
-
-- **GenAI**: unified provider abstraction over OpenAI, Anthropic, Google,
-  Groq, DeepSeek, Perplexity, and local Llama. Same API for every provider,
-  cost tracking, conversation history, multi-modal where supported.
-- **Classification**: `ClassificationReporter` (cross-validation aware
-  reporting), time-series cross-validation splitters
-  (`TimeSeriesStratifiedSplit`, `TimeSeriesBlockingSplit`,
-  `TimeSeriesSlidingWindowSplit`, `TimeSeriesCalendarSplit`), `Classifier`
-  pipeline glue.
-- **Training**: `EarlyStopping`, `LearningCurveLogger`.
-- **Loss / Metrics**: `MultiTaskLoss`, balanced accuracy, ROC/PR-curve
-  helpers, seizure-prediction metrics.
-- **Optim**: thin `get_optimizer` / `set_optimizer` shortcuts plus the
-  vendored Ranger optimizer.
-- **Clustering**: PCA + UMAP wrappers.
-- **Feature extraction & selection**: ViT embeddings, univariate /
-  multivariate feature selection, importance aggregation.
-- **Plotting**: ROC / PR / learning-curve / confusion-matrix /
-  feature-importance plots that integrate with the SciTeX cascade.
-- **Sampling**: undersampling helpers.
-- **Sklearn / sk**: scikit-learn integration helpers.
-
-The umbrella `scitex.ai` namespace continues to work — it now thin-re-exports
-this standalone (see
-[re-export skill](https://github.com/ywatanabe1989/scitex-python/blob/main/_skills/general/01_ecosystem_05_re-export.md)),
-so `scitex.ai.X` and `scitex_ai.X` resolve to the same object.
+| # | Problem | Solution |
+|---|---------|----------|
+| 1 | **Boilerplate around scikit-learn** — every paper re-implements `Classifier` factories, train/eval loops, classification reports, ROC/PR plots. | **`Classifier` + `ClassificationReporter`** — thin factory over scikit-learn estimators that snaps directly into a reporter for cross-validation aware metrics, confusion matrices, and figure export. |
+| 2 | **Time-series CV done by hand** — researchers re-derive blocking / sliding-window / calendar splitters per project, often with off-by-one bugs. | **Time-series CV splitters** — `TimeSeriesStratifiedSplit`, `TimeSeriesBlockingSplit`, `TimeSeriesSlidingWindowSplit`, `TimeSeriesCalendarSplit` ship with consistent APIs and tested edge cases. |
+| 3 | **Training-loop ergonomics** — `EarlyStopping`, learning-curve logging, optimiser shortcuts, multi-task losses are all glue code that drifts between repos. | **First-class training utilities** — `EarlyStopping`, `LearningCurveLogger`, `MultiTaskLoss`, `get_optimizer` / `set_optimizer`, vendored Ranger. |
+| 4 | **Heavy ML deps mixed with LLM SDKs** — installing one pulls all of `scikit-learn`, `torch`, `openai`, `anthropic`. | **Split package** — generative-AI lives in [`scitex-genai`](https://github.com/ywatanabe1989/scitex-genai); `scitex-ml` keeps the classical / deep-ML stack and nothing else. |
 
 ## Installation
 
 ```bash
-pip install scitex-ai          # core
-pip install scitex-ai[heavy]   # + torch / catboost / optuna / psutil
-pip install scitex-ai[mcp]     # + fastmcp
-pip install scitex-ai[all]     # everything
+pip install scitex-ml          # core
+pip install scitex-ml[heavy]   # + torch / catboost / optuna / pytorch_pretrained_vit
+pip install scitex-ml[mcp]     # + fastmcp
+pip install scitex-ml[all]     # everything
 ```
 
-## 1 Interfaces
+Through the umbrella: `pip install scitex[ml]`. Requires Python ≥ 3.10.
 
-<details open>
-<summary><strong>Python API</strong> ⭐⭐⭐</summary>
-
-`scitex-ai` ships a single Python API surface — `import scitex_ai` (or
-`scitex.ai` via the umbrella). It has no console-script CLI and no MCP
-server of its own; AI/ML workflows are composed in Python and run via
-the umbrella `scitex` CLI / session decorator.
+## Quick Start
 
 ```python
-from scitex_ai import Classifier, EarlyStopping, ClassificationReporter
-```
-</details>
+import scitex_ml
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
 
-## Quick start
+X, y = load_iris(return_X_y=True)
+X_tr, X_te, y_tr, y_te = train_test_split(X, y, random_state=0, stratify=y)
 
-### GenAI
+# Classifier — factory over scikit-learn estimators.
+clf = scitex_ml.Classifier("LogisticRegression")
+clf.fit(X_tr, y_tr)
+print(f"test accuracy: {clf.score(X_te, y_te):.3f}")
 
-```python
-from scitex_ai import GenAI
-
-ai = GenAI(provider="openai", model="gpt-4o")
-print(ai.complete("Explain neural networks in one sentence."))
-print(ai.get_cost_summary())
-```
-
-### Training utilities
-
-```python
-from scitex_ai import EarlyStopping, LearningCurveLogger
-
-stopper = EarlyStopping(patience=10, delta=1e-3)
-logger = LearningCurveLogger(log_dir="./logs")
-```
-
-### Classification reporting
-
-```python
-from scitex_ai import ClassificationReporter
-
-reporter = ClassificationReporter(save_dir="./results")
-reporter.calc_metrics(y_true, y_pred, y_prob, labels=["pos", "neg"])
+# ClassificationReporter — metric tracking + figure export.
+reporter = scitex_ml.ClassificationReporter(save_dir="./results")
+reporter.calc_metrics(y_te, clf.predict(X_te), clf.predict_proba(X_te))
 reporter.summarize()
 reporter.save()
 ```
 
-### Time-series CV
+For a runnable walk-through see [`examples/01_classification.ipynb`](examples/01_classification.ipynb).
 
-```python
-from scitex_ai.classification import (
-    TimeSeriesStratifiedSplit,
-    TimeSeriesSlidingWindowSplit,
-)
+## Demo
 
-splitter = TimeSeriesStratifiedSplit(n_splits=5)
-for train_idx, val_idx in splitter.split(X, y, timestamps):
-    ...
+A complete classification + reporting walk-through (Iris, train/test
+split, `Classifier("LogisticRegression")`, `ClassificationReporter`
+metric persistence) lives in
+[`examples/01_classification.ipynb`](examples/01_classification.ipynb).
+
+```mermaid
+flowchart LR
+    Data[load_iris<br/>train_test_split] --> Clf[scitex_ml.Classifier&quot;LogisticRegression&quot;]
+    Clf -->|fit / score| Pred[y_pred / y_proba]
+    Pred --> Reporter[scitex_ml.ClassificationReporter]
+    Reporter -->|calc_metrics| Metrics[bacc · ROC-AUC · Conf-Mat]
+    Reporter -->|save| Artefacts[results/<br/>metrics.csv · roc.png · pr.png]
 ```
+
+A second `examples/example_classifier.py` runs the same flow as a script
+so it can be wired into `tests/examples/test_example_classifier.py` for
+CI smoke coverage.
 
 ## Architecture
 
-`scitex-ai` is a downstream/middle SciTeX package. It depends on:
+`scitex-ml` sits in the middle layer of the SciTeX ecosystem:
 
-| Standalone | Why |
-|---|---|
-| `scitex-logging` | ecosystem-wide `getLogger` |
-| `scitex-io` | unified save/load (used by reporters and `_BaseGenAI` config loader) |
-| `scitex-plt` | `scitex_plt.color` palette helpers |
-| `scitex-repro` | `fix_seeds` for `MultiTaskLoss` |
-| `scitex-types` | `ArrayLike` |
+```
+scitex-python (umbrella)
+    └── scitex.ml ── thin sys.modules-aliasing shim
+                     └── scitex_ml (this package)
+                           ├── classification/   Classifier, ClassificationReporter,
+                           │                     time-series CV splitters
+                           ├── training/         EarlyStopping, LearningCurveLogger
+                           ├── loss/             MultiTaskLoss + regularisers
+                           ├── optim/            get_optimizer / set_optimizer + Ranger
+                           ├── metrics/          calc_bacc, calc_conf_mat, calc_roc_auc
+                           ├── clustering/       PCA + UMAP wrappers
+                           ├── feature_extraction/  ViT embeddings
+                           ├── feature_selection/   univariate / multivariate
+                           ├── plt/              ROC / PR / learning-curve / conf-mat plots
+                           ├── sampling/         undersampling helpers
+                           ├── sklearn/          scikit-learn integration helpers
+                           └── sk/               sktime compatibility
+```
 
-It does **not** import the umbrella `scitex` package at runtime; that would
-form a cycle (the umbrella re-exports this package). See
-[`02_package_02_project-structure-src.md`](https://github.com/ywatanabe1989/scitex-python/blob/main/_skills/general/02_package_02_project-structure-src.md).
+Cross-package dependencies are minimal: `scitex-logging`, `scitex-io`,
+`scitex-plt`, `scitex-repro`, `scitex-types`. Heavy deps (`torch`,
+`catboost`, `optuna`, `pytorch_pretrained_vit`) live behind the `[heavy]`
+extra and are gated by `_AVAILABLE` flags in the source so a `pip install
+scitex-ml` install without `[heavy]` still imports cleanly.
 
-## Origin
+## 4 Interfaces
 
-This package was factored out of `scitex.ai` in the umbrella
-[`scitex-python`](https://github.com/ywatanabe1989/scitex-python) on
-2026-05-05 (branch `feat/factor-out-from-umbrella`). The umbrella now
-ships a thin re-export bridge under `scitex/ai/__init__.py`.
+<details open>
+<summary><strong>Python API ⭐⭐⭐ (primary)</strong></summary>
 
-## License
+```python
+import scitex_ml
 
-AGPL-3.0-only. See [LICENSE](LICENSE). For commercial / institutional
-licensing, see [CLA.md](CLA.md).
+# Time-series cross-validation
+from scitex_ml.classification import TimeSeriesStratifiedSplit
+splitter = TimeSeriesStratifiedSplit(n_splits=5)
+
+# Training utilities
+stopper = scitex_ml.EarlyStopping(patience=10, direction="minimize")
+logger = scitex_ml.LearningCurveLogger()
+
+# Multi-task loss + optimiser
+mtl = scitex_ml.MultiTaskLoss(are_regression=[False, False])
+optimizer = scitex_ml.set_optimizer(model, "adam", lr=1e-3)
+
+# Metrics
+result = scitex_ml.metrics.calc_bacc(y_true, y_pred)
+cm = scitex_ml.metrics.calc_conf_mat(y_true, y_pred)
+```
+
+> **[Full API reference](https://scitex-ml.readthedocs.io/en/latest/api.html)**
+</details>
+
+<details>
+<summary><strong>CLI ⭐ — none</strong></summary>
+
+`scitex-ml` ships no dedicated CLI. ML workflows are composed in Python and run via the umbrella `scitex` CLI / `@scitex.session` decorator.
+</details>
+
+<details>
+<summary><strong>MCP ⭐ — none</strong></summary>
+
+No MCP server in this package. The umbrella `scitex` CLI surfaces ML-adjacent MCP tools (e.g. `scitex stats`, `scitex plt`).
+</details>
+
+<details>
+<summary><strong>Skills ⭐⭐</strong></summary>
+
+Skill index for AI agents lives at [`src/scitex_ml/_skills/scitex-ml/SKILL.md`](src/scitex_ml/_skills/scitex-ml/SKILL.md). Sub-skills cover classification, training, loss, optim, clustering, metrics, sampling, feature-selection.
+
+> **[Full skills directory](https://github.com/ywatanabe1989/scitex-ml/tree/develop/src/scitex_ml/_skills/scitex-ml)**
+</details>
 
 ## Part of SciTeX
 
-`scitex-ai` is part of [**SciTeX**](https://scitex.ai). Install via
-the umbrella with `pip install scitex[ai]` to use as
-`scitex.ai` (Python).
+`scitex-ml` is part of [**SciTeX**](https://scitex.ai). Install via the umbrella with `pip install scitex[ml]` to use as `scitex.ml` (Python).
 
 ```python
 import scitex
 
-@scitex.session
-def main(CONFIG=scitex.INJECTED):
-    from scitex.ai import Classifier
-    clf = Classifier("LogisticRegression")
-    return 0
+scitex.ml.Classifier  # same object as scitex_ml.Classifier
+scitex.ml.classification.TimeSeriesStratifiedSplit  # deep paths resolve via the umbrella shim
 ```
 
-`scitex.ai` delegates to `scitex_ai` — they share the same API and registry.
+`scitex.ml` delegates to `scitex_ml` — they share the same API.
 
 The SciTeX system follows the Four Freedoms for Research below, inspired by [the Free Software Definition](https://www.gnu.org/philosophy/free-sw.en.html):
 
@@ -191,5 +198,3 @@ The SciTeX system follows the Four Freedoms for Research below, inspired by [the
 <p align="center">
   <a href="https://scitex.ai" target="_blank"><img src="docs/scitex-icon-navy-inverted.png" alt="SciTeX" width="40"/></a>
 </p>
-
-<!-- EOF -->

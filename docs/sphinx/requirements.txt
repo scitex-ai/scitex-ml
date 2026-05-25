@@ -1,0 +1,11 @@
+sphinx>=7.0
+sphinx-rtd-theme>=2.0
+myst-parser>=2.0
+sphinx-copybutton>=0.5
+sphinx-autodoc-typehints>=1.25
+numpy
+pandas
+scikit-learn
+# scipy 1.17 _new_distributions._combine_docs raises at import; mirror the
+# pyproject [docs] pin so RTD builds match CI.
+scipy<1.17

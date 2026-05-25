@@ -16,16 +16,16 @@ See [CLA.md](CLA.md) for full details.
 
 ## Reporting Issues
 
-- Search [existing issues](https://github.com/ywatanabe1989/scitex-ai/issues)
+- Search [existing issues](https://github.com/ywatanabe1989/scitex-ml/issues)
   before opening a new one.
 - Include a minimal reproducible example when reporting bugs.
-- Specify your Python version, OS, and `scitex-ai` version.
+- Specify your Python version, OS, and `scitex-ml` version.
 
 ## Development Setup
 
 ```bash
-git clone git@github.com:ywatanabe1989/scitex-ai.git
-cd scitex-ai
+git clone git@github.com:ywatanabe1989/scitex-ml.git
+cd scitex-ml
 pip install -e ".[dev]"
 ```
 
