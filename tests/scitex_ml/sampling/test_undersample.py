@@ -5,16 +5,28 @@
 
 """Tests for scitex_ml.sampling.undersample module."""
 
+import contextlib
+
 import pytest
 
 torch = pytest.importorskip("torch")
 from typing import Tuple
-from unittest.mock import MagicMock, patch
 
 import numpy as np
 import pandas as pd
 
+from scitex_ml.sampling import undersample as undersample_module
 from scitex_ml.sampling.undersample import undersample
+
+
+@contextlib.contextmanager
+def _swap_attr(obj, name, value):
+    saved = getattr(obj, name)
+    setattr(obj, name, value)
+    try:
+        yield
+    finally:
+        setattr(obj, name, saved)
 
 
 class TestUndersample:
@@ -233,25 +245,32 @@ class TestUndersample:
         with pytest.raises(ValueError):
             undersample(X, y)
 
-    @patch("scitex_ml.sampling.undersample.RandomUnderSampler")
-    def test_undersample_calls_imblearn(self, mock_rus_class):
+    def test_undersample_calls_imblearn(self):
         """Test that function correctly calls imblearn's RandomUnderSampler."""
-        # Setup mock
-        mock_rus = MagicMock()
-        mock_rus_class.return_value = mock_rus
-        mock_rus.fit_resample.return_value = (
-            np.array([[1, 2], [3, 4]]),
-            np.array([0, 1]),
-        )
+        calls = {"init": [], "fit_resample": []}
 
-        # Call function
-        X = np.array([[1, 2], [3, 4], [5, 6]])
-        y = np.array([0, 0, 1])
-        X_resampled, y_resampled = undersample(X, y, random_state=123)
+        class _FakeRUS:
+            def __init__(self, *args, **kwargs):
+                calls["init"].append((args, kwargs))
+
+            def fit_resample(self, X_in, y_in):
+                calls["fit_resample"].append((X_in, y_in))
+                return (
+                    np.array([[1, 2], [3, 4]]),
+                    np.array([0, 1]),
+                )
+
+        with _swap_attr(undersample_module, "RandomUnderSampler", _FakeRUS):
+            X = np.array([[1, 2], [3, 4], [5, 6]])
+            y = np.array([0, 0, 1])
+            X_resampled, y_resampled = undersample(X, y, random_state=123)
 
         # Verify calls
-        mock_rus_class.assert_called_once_with(random_state=123)
-        mock_rus.fit_resample.assert_called_once_with(X, y)
+        assert len(calls["init"]) == 1
+        assert calls["init"][0] == ((), {"random_state": 123})
+        assert len(calls["fit_resample"]) == 1
+        np.testing.assert_array_equal(calls["fit_resample"][0][0], X)
+        np.testing.assert_array_equal(calls["fit_resample"][0][1], y)
 
     def test_undersample_preserves_feature_order(self):
         """Test that feature order is preserved after undersampling."""

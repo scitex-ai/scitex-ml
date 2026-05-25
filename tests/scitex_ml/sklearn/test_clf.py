@@ -11,11 +11,21 @@ rocket_pipeline function and GB_pipeline pre-built pipeline for time series
 classification tasks using sktime and scikit-learn.
 """
 
-from unittest.mock import MagicMock, Mock, patch
+import contextlib
 
 import numpy as np
 import pytest
 from sklearn.pipeline import Pipeline
+
+
+@contextlib.contextmanager
+def _swap_attr(obj, name, value):
+    saved = getattr(obj, name)
+    setattr(obj, name, value)
+    try:
+        yield
+    finally:
+        setattr(obj, name, saved)
 
 
 class TestRocketPipeline:
@@ -75,18 +85,27 @@ class TestRocketPipeline:
         # Check that LogisticRegression has the expected configuration
         assert lr_step.max_iter == 1000
 
-    @patch("scitex_ml.sklearn.clf.make_pipeline")
-    def test_rocket_pipeline_make_pipeline_called(self, mock_make_pipeline):
+    def test_rocket_pipeline_make_pipeline_called(self):
         """Test that rocket_pipeline calls make_pipeline correctly."""
+        from scitex_ml.sklearn import clf as clf_module
         from scitex_ml.sklearn.clf import rocket_pipeline
 
-        mock_pipeline = Mock(spec=Pipeline)
-        mock_make_pipeline.return_value = mock_pipeline
+        calls = {"count": 0}
 
-        result = rocket_pipeline()
+        class _FakePipeline:
+            pass
 
-        assert mock_make_pipeline.called
-        assert result == mock_pipeline
+        fake_pipeline = _FakePipeline()
+
+        def _fake_make_pipeline(*args, **kwargs):
+            calls["count"] += 1
+            return fake_pipeline
+
+        with _swap_attr(clf_module, "make_pipeline", _fake_make_pipeline):
+            result = rocket_pipeline()
+
+        assert calls["count"] >= 1
+        assert result is fake_pipeline
 
     def test_rocket_pipeline_multiple_calls_independence(self):
         """Test that multiple calls to rocket_pipeline create independent pipelines."""
