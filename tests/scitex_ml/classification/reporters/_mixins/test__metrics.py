@@ -23,6 +23,9 @@ def test_metrics_mixin_calculate_metrics_returns_dict():
         def _save_fold_metrics(self, metrics, fold, labels):
             pass
 
+        def _create_plots(self, y_true, y_pred, y_proba, labels, fold, metrics):
+            pass
+
     fake = _Fake()
     y_true = numpy.array([0, 1, 0, 1])
     y_pred = numpy.array([0, 1, 1, 1])
