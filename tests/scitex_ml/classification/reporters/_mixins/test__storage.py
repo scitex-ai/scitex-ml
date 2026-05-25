@@ -16,6 +16,7 @@ def test_storage_mixin_save_scalar_metric_creates_file_in_tmp_path(tmp_path):
             self.fold_metrics = {}
             self.all_predictions = []
             self.session_config = {}
+            self.precision = 4
 
     fake = _Fake(tmp_path)
     # Act

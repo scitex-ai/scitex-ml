@@ -138,7 +138,7 @@ def test_format_torch_samples_has_correct_column_count():
 
 def test_torch_numpy_inputs_produce_identical_dataframes():
     # Arrange
-    X_torch = torch.randn(5, 2, 30, dtype=torch.float32)
+    X_torch = torch.randn(5, 2, 30, dtype=torch.float64)
     X_numpy = X_torch.numpy()
     # Act
     result_torch = format_samples_for_sktime(X_torch)

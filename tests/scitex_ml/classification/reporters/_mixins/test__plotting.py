@@ -3,7 +3,7 @@
 import pytest
 
 pytest.importorskip("scitex_ml")
-pytest.importorskip("numpy")
+numpy = pytest.importorskip("numpy")
 
 
 def test_plotting_mixin_create_plots_writes_files_to_tmp_path(tmp_path):

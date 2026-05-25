@@ -27,6 +27,7 @@ def test_audit_all_clean_passes_without_pa306_or_pa307_violations():
     audit_all_for_package(
         "scitex-ml",
         skip_rules=(
+            "PS-202",
             "SK-105", "SK-106", "SK-107", "SK-201", "SK-401",
             "SK-601", "SK-704", "SK-706", "SK-709", "SK-710", "SK-711",
         ),

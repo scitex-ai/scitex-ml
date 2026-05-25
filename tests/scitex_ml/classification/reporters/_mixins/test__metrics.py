@@ -17,6 +17,9 @@ def test_metrics_mixin_calculate_metrics_returns_dict():
             self.all_predictions = []
             self.session_config = {}
 
+        def _round_numeric(self, value):
+            return value
+
     fake = _Fake()
     y_true = numpy.array([0, 1, 0, 1])
     y_pred = numpy.array([0, 1, 1, 1])
