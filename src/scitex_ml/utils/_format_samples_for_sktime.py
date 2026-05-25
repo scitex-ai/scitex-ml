@@ -1,6 +1,10 @@
 import numpy as np
 import pandas as pd
-import torch
+
+try:
+    import torch
+except ModuleNotFoundError:
+    torch = None
 
 
 def _format_a_sample_for_sktime(x):
@@ -18,7 +22,7 @@ def format_samples_for_sktime(X):
     """
     X.shape: (n_samples, n_chs, seq_len)
     """
-    if torch.is_tensor(X):
+    if torch is not None and torch.is_tensor(X):
         X = X.numpy()  # (64, 160, 1024)
 
         X = X.astype(np.float64)

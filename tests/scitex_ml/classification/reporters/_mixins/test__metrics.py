@@ -20,6 +20,9 @@ def test_metrics_mixin_calculate_metrics_returns_dict():
         def _round_numeric(self, value):
             return value
 
+        def _save_fold_metrics(self, metrics, fold, labels):
+            pass
+
     fake = _Fake()
     y_true = numpy.array([0, 1, 0, 1])
     y_pred = numpy.array([0, 1, 1, 1])

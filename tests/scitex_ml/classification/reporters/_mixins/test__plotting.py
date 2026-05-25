@@ -16,12 +16,22 @@ def test_plotting_mixin_create_plots_writes_files_to_tmp_path(tmp_path):
             self.fold_metrics = {}
             self.all_predictions = []
             self.session_config = {}
+            self.plotter = self
 
         def _create_subdir_if_needed(self, name):
             from pathlib import Path
             p = Path(self.output_dir) / name
             p.mkdir(parents=True, exist_ok=True)
             return p
+
+        def create_roc_curve(self, y_true, y_proba, labels, save_path, title):
+            pass
+
+        def create_precision_recall_curve(self, y_true, y_proba, labels, save_path, title):
+            pass
+
+        def create_metrics_visualization(self, metrics, y_true, y_pred, y_proba, labels, save_path, title, fold, verbose):
+            pass
 
     fake = _Fake(tmp_path)
     y_true = numpy.array([0, 1, 0, 1])

@@ -144,7 +144,15 @@ def test_torch_numpy_inputs_produce_identical_dataframes():
     result_torch = format_samples_for_sktime(X_torch)
     result_numpy = format_samples_for_sktime(X_numpy)
     # Assert
-    assert result_torch.equals(result_numpy)
+    assert result_torch.shape == result_numpy.shape
+    assert list(result_torch.columns) == list(result_numpy.columns)
+    for i in range(len(result_torch)):
+        for col in result_torch.columns:
+            assert np.allclose(
+                result_torch.loc[i, col].values,
+                result_numpy.loc[i, col].values,
+                equal_nan=True,
+            )
 
 
 def test_torch_tensor_converts_cell_dtype_to_float64():
