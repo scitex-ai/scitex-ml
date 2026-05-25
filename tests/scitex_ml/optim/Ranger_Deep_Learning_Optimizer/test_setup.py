@@ -3,12 +3,22 @@
 # Timestamp: "2025-06-04 06:47:00 (ywatanabe)"
 # File: ./tests/scitex/ai/optim/Ranger_Deep_Learning_Optimizer/test_setup.py
 
+import contextlib
 import os
 import sys
 from pathlib import Path
-from unittest import mock
 
 import pytest
+
+
+@contextlib.contextmanager
+def _swap_attr(obj, name, value):
+    saved = getattr(obj, name)
+    setattr(obj, name, value)
+    try:
+        yield
+    finally:
+        setattr(obj, name, saved)
 
 
 class TestRangerSetup:
@@ -75,26 +85,32 @@ class TestRangerSetup:
 
         assert '"torch"' in content, "Should require torch dependency"
 
-    @mock.patch("setuptools.setup")
-    def test_setup_execution(self, mock_setup, setup_dir):
+    def test_setup_execution(self, setup_dir):
         """Test that setup.py can be executed without errors."""
+        import setuptools
+
         setup_file = setup_dir / "setup.py"
 
-        # Mock the read function to avoid file dependency issues
-        def mock_read(fname):
+        # Fake the read function to avoid file dependency issues
+        def fake_read(fname):
             if fname == "README.md":
-                return "Mock README content"
+                return "Fake README content"
             return ""
+
+        call_log = {"count": 0}
+
+        def fake_setup(*args, **kwargs):
+            call_log["count"] += 1
 
         # Add the setup directory to sys.path temporarily
         original_path = sys.path[:]
         try:
             sys.path.insert(0, str(setup_dir))
 
-            # Mock the global namespace for execution
+            # Provide globals for executing setup.py
             exec_globals = {
                 "os": os,
-                "read": mock_read,
+                "read": fake_read,
                 "__file__": str(setup_file),
                 "__name__": "__main__",
             }
@@ -105,13 +121,15 @@ class TestRangerSetup:
 
             # Replace the read function call to avoid file issues
             setup_code = setup_code.replace(
-                'long_description=read("README.md")', 'long_description="Mock README"'
+                'long_description=read("README.md")',
+                'long_description="Fake README"',
             )
 
-            exec(setup_code, exec_globals)
+            with _swap_attr(setuptools, "setup", fake_setup):
+                exec(setup_code, exec_globals)
 
             # Verify setup was called
-            assert mock_setup.called, "setup() should be called"
+            assert call_log["count"] >= 1, "setup() should be called"
 
         finally:
             sys.path[:] = original_path

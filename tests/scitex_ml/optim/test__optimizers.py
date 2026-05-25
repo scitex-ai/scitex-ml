@@ -5,14 +5,26 @@ This module provides comprehensive tests for optimizer utilities that handle
 PyTorch optimizers including Adam, RMSprop, SGD, and the Ranger optimizer.
 """
 
+import contextlib
+
 import pytest
 
 torch = pytest.importorskip("torch")
-from unittest.mock import MagicMock, patch
 
 import torch.nn as nn
 
 from scitex_ml.optim import RANGER_AVAILABLE, get_optimizer, set_optimizer
+from scitex_ml.optim import _optimizers as _optimizers_mod
+
+
+@contextlib.contextmanager
+def _swap_attr(obj, name, value):
+    saved = getattr(obj, name)
+    setattr(obj, name, value)
+    try:
+        yield
+    finally:
+        setattr(obj, name, saved)
 
 
 class DummyModel(nn.Module):
@@ -55,11 +67,11 @@ class TestGetOptimizer:
         # Check it's either from pytorch_optimizer or vendored version
         assert hasattr(optimizer_class, "__module__")
 
-    @patch("scitex_ml.optim._optimizers.RANGER_AVAILABLE", False)
     def test_get_ranger_optimizer_not_available(self):
         """Test error when Ranger optimizer is not available."""
-        with pytest.raises(ImportError) as exc_info:
-            get_optimizer("ranger")
+        with _swap_attr(_optimizers_mod, "RANGER_AVAILABLE", False):
+            with pytest.raises(ImportError) as exc_info:
+                get_optimizer("ranger")
 
         assert "Ranger optimizer not available" in str(exc_info.value)
         assert "pip install pytorch-optimizer" in str(exc_info.value)
@@ -314,24 +326,32 @@ class TestOptimizerIntegration:
         for p1, p2 in zip(model1.parameters(), model2.parameters()):
             assert not torch.allclose(p1, p2)
 
-    @patch("scitex_ml.optim._optimizers.Ranger")
-    def test_mock_ranger_integration(self, mock_ranger):
-        """Test integration with mocked Ranger optimizer."""
-        # Setup mock
-        mock_optimizer_instance = MagicMock()
-        mock_ranger.return_value = mock_optimizer_instance
+    def test_mock_ranger_integration(self):
+        """Test integration with a fake Ranger optimizer."""
 
-        with patch("scitex_ml.optim._optimizers.RANGER_AVAILABLE", True):
-            model = DummyModel()
-            optimizer = set_optimizer(model, "ranger", 0.001)
+        class _FakeRangerOptimizer:
+            pass
 
-            # Check Ranger was called with correct parameters
-            mock_ranger.assert_called_once()
-            call_args = mock_ranger.call_args
-            assert call_args[1]["lr"] == 0.001
+        fake_instance = _FakeRangerOptimizer()
+        call_log = {"count": 0, "args": None, "kwargs": None}
 
-            # Check returned optimizer
-            assert optimizer == mock_optimizer_instance
+        def _fake_ranger(*args, **kwargs):
+            call_log["count"] += 1
+            call_log["args"] = args
+            call_log["kwargs"] = kwargs
+            return fake_instance
+
+        with _swap_attr(_optimizers_mod, "Ranger", _fake_ranger):
+            with _swap_attr(_optimizers_mod, "RANGER_AVAILABLE", True):
+                model = DummyModel()
+                optimizer = set_optimizer(model, "ranger", 0.001)
+
+                # Check Ranger was called once with the requested lr
+                assert call_log["count"] == 1
+                assert call_log["kwargs"]["lr"] == 0.001
+
+                # Check returned optimizer is our fake instance
+                assert optimizer is fake_instance
 
 
 if __name__ == "__main__":
