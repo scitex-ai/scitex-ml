@@ -7,12 +7,82 @@
 import pytest
 
 torch = pytest.importorskip("torch")
+try:
+    import torchvision  # noqa: F401
+    import pytorch_pretrained_vit  # noqa: F401
+except (ImportError, RuntimeError) as exc:
+    pytest.skip(
+        f"vit test dependencies unavailable: {exc}", allow_module_level=True
+    )
+import contextlib
 import os
-from unittest.mock import MagicMock, Mock, patch
 
 import numpy as np
 
+from scitex_ml.feature_extraction import vit as vit_module
 from scitex_ml.feature_extraction.vit import VitFeatureExtractor, _setup_device
+
+
+@contextlib.contextmanager
+def _swap_attr(obj, name, value):
+    saved = getattr(obj, name)
+    setattr(obj, name, value)
+    try:
+        yield
+    finally:
+        setattr(obj, name, saved)
+
+
+@contextlib.contextmanager
+def _clear_env():
+    """Temporarily clear os.environ; restore on exit."""
+    saved = dict(os.environ)
+    os.environ.clear()
+    try:
+        yield
+    finally:
+        os.environ.clear()
+        os.environ.update(saved)
+
+
+class _FakeViT:
+    """Hand-rolled fake replacing the ViT model.
+
+    Tracks call counts for eval/to and is callable.
+    """
+
+    def __init__(self, *args, **kwargs):
+        self.image_size = 224
+        self.eval_calls = 0
+        self.to_calls = 0
+        # Default forward output; tests override via `return_value`.
+        self.return_value = torch.randn(1, 1000)
+
+    def eval(self):
+        self.eval_calls += 1
+        return self
+
+    def to(self, device):
+        self.to_calls += 1
+        return self
+
+    def __call__(self, x):
+        return self.return_value
+
+
+class _CpuTrackingTensor:
+    """Wraps a tensor and tracks .cpu() calls."""
+
+    def __init__(self, tensor):
+        self._tensor = tensor
+        self.cpu_calls = 0
+
+    def cpu(self):
+        self.cpu_calls += 1
+        return self._tensor
+
+    def reshape(self, *args, **kwargs):
+        return self._tensor.reshape(*args, **kwargs)
 
 
 class TestSetupDevice:
@@ -20,13 +90,13 @@ class TestSetupDevice:
 
     def test_setup_device_none_cuda_available(self):
         """Test device setup when None is passed and CUDA is available."""
-        with patch("torch.cuda.is_available", return_value=True):
+        with _swap_attr(torch.cuda, "is_available", lambda: True):
             device = _setup_device(None)
             assert device == "cuda"
 
     def test_setup_device_none_cuda_not_available(self):
         """Test device setup when None is passed and CUDA is not available."""
-        with patch("torch.cuda.is_available", return_value=False):
+        with _swap_attr(torch.cuda, "is_available", lambda: False):
             device = _setup_device(None)
             assert device == "cpu"
 
@@ -45,25 +115,25 @@ class TestVitFeatureExtractor:
     """Test suite for VitFeatureExtractor class."""
 
     @pytest.fixture
-    def mock_vit_model(self):
-        """Create a mock ViT model."""
-        mock_model = MagicMock()
-        mock_model.image_size = 224
-        mock_model.eval.return_value = mock_model
-        mock_model.to.return_value = mock_model
-        # Mock forward pass to return 1000-dim features
-        mock_model.return_value = torch.randn(1, 1000)
-        return mock_model
+    def fake_vit_model(self):
+        """Create a fake ViT model instance (single shared instance per test)."""
+        return _FakeViT()
 
     @pytest.fixture
-    def mock_environment(self, tmp_path, mock_vit_model):
-        """Set up mock environment for testing."""
-        # Create temporary model directory
+    def mock_environment(self, tmp_path, fake_vit_model):
+        """Set up fake environment for testing.
+
+        Patches the ViT constructor to return our fake instance and stubs
+        os.path.exists so the model directory check always passes.
+        """
         model_dir = tmp_path / "models"
         model_dir.mkdir()
 
-        with patch("scitex_ml.feature_extraction.vit.ViT", return_value=mock_vit_model):
-            with patch("os.path.exists", return_value=True):
+        def _vit_factory(*args, **kwargs):
+            return fake_vit_model
+
+        with _swap_attr(vit_module, "ViT", _vit_factory):
+            with _swap_attr(vit_module._os.path, "exists", lambda *a, **kw: True):
                 yield model_dir
 
     def test_initialization_default_params(self, mock_environment):
@@ -85,7 +155,7 @@ class TestVitFeatureExtractor:
     def test_initialization_sets_torch_home(self, mock_environment):
         """Test that initialization sets TORCH_HOME environment variable."""
         torch_home = str(mock_environment)
-        with patch.dict(os.environ, {}, clear=True):
+        with _clear_env():
             _ = VitFeatureExtractor(torch_home=torch_home)
             assert os.environ["TORCH_HOME"] == torch_home
 
@@ -113,7 +183,7 @@ class TestVitFeatureExtractor:
 
     def test_nonexistent_model_directory_raises_error(self):
         """Test that non-existent model directory raises FileNotFoundError."""
-        with patch("os.path.exists", return_value=False):
+        with _swap_attr(vit_module._os.path, "exists", lambda *a, **kw: False):
             with pytest.raises(FileNotFoundError, match="Model directory not found"):
                 VitFeatureExtractor(torch_home="/nonexistent/path")
 
@@ -171,22 +241,22 @@ class TestVitFeatureExtractor:
         assert processed.shape == (2 * 3 * 4 * 5, 3, 224, 224)
         assert batch_shape == (2, 3, 4, 5)
 
-    def test_extract_features_simple(self, mock_environment, mock_vit_model):
+    def test_extract_features_simple(self, mock_environment, fake_vit_model):
         """Test feature extraction with simple input."""
         extractor = VitFeatureExtractor()
 
         # Create test input
         arr = torch.randn(32, 32)
 
-        # Mock model to return features
-        mock_vit_model.return_value = torch.randn(1, 1000)
+        # Fake model returns features
+        fake_vit_model.return_value = torch.randn(1, 1000)
 
         features = extractor.extract_features(arr, axis=(-2, -1))
 
         assert features.shape == (1000,)
         assert isinstance(features, torch.Tensor)
 
-    def test_extract_features_batch(self, mock_environment, mock_vit_model):
+    def test_extract_features_batch(self, mock_environment, fake_vit_model):
         """Test feature extraction with batch input."""
         extractor = VitFeatureExtractor()
 
@@ -194,28 +264,28 @@ class TestVitFeatureExtractor:
         batch_size = 4
         arr = torch.randn(batch_size, 32, 32)
 
-        # Mock model to return batch features
-        mock_vit_model.return_value = torch.randn(batch_size, 1000)
+        # Fake model returns batch features
+        fake_vit_model.return_value = torch.randn(batch_size, 1000)
 
         features = extractor.extract_features(arr, axis=(-2, -1))
 
         assert features.shape == (batch_size, 1000)
 
-    def test_extract_features_high_dimensional(self, mock_environment, mock_vit_model):
+    def test_extract_features_high_dimensional(self, mock_environment, fake_vit_model):
         """Test feature extraction preserves non-spatial dimensions."""
         extractor = VitFeatureExtractor()
 
         # Create high-dimensional input
         arr = torch.randn(2, 3, 4, 32, 32)
 
-        # Mock model to return appropriate number of features
-        mock_vit_model.return_value = torch.randn(2 * 3 * 4, 1000)
+        # Fake model returns appropriate number of features
+        fake_vit_model.return_value = torch.randn(2 * 3 * 4, 1000)
 
         features = extractor.extract_features(arr, axis=(-2, -1))
 
         assert features.shape == (2, 3, 4, 1000)
 
-    def test_extract_features_no_grad(self, mock_environment, mock_vit_model):
+    def test_extract_features_no_grad(self, mock_environment, fake_vit_model):
         """Test that feature extraction runs in no_grad mode."""
         extractor = VitFeatureExtractor()
 
@@ -225,27 +295,27 @@ class TestVitFeatureExtractor:
         no_grad_called = False
         original_no_grad = torch.no_grad
 
-        def mock_no_grad():
+        def tracking_no_grad():
             nonlocal no_grad_called
             no_grad_called = True
             return original_no_grad()
 
-        with patch("torch.no_grad", side_effect=mock_no_grad):
+        with _swap_attr(torch, "no_grad", tracking_no_grad):
             _ = extractor.extract_features(arr, axis=(-2, -1))
 
         assert no_grad_called
 
-    def test_extract_features_device_handling(self, mock_environment, mock_vit_model):
+    def test_extract_features_device_handling(self, mock_environment, fake_vit_model):
         """Test proper device handling during feature extraction."""
         extractor = VitFeatureExtractor(device="cpu")
 
         # Just verify the extractor was initialized with correct device
         assert extractor.device == "cpu"
 
-        # The model should be on the expected device
-        mock_vit_model.to.assert_called()
+        # The model should have been moved to a device
+        assert fake_vit_model.to_calls >= 1
 
-    def test_extract_features_cpu_output(self, mock_environment, mock_vit_model):
+    def test_extract_features_cpu_output(self, mock_environment, fake_vit_model):
         """Test that output is always on CPU."""
         extractor = VitFeatureExtractor(
             device="cuda" if torch.cuda.is_available() else "cpu"
@@ -253,22 +323,23 @@ class TestVitFeatureExtractor:
 
         arr = torch.randn(32, 32)
 
-        # Mock model output
-        mock_output = torch.randn(1, 1000)
-        mock_output.cpu = Mock(return_value=mock_output)
-        mock_vit_model.return_value = mock_output
+        # Wrap model output so we can track .cpu() calls.
+        wrapped_output = _CpuTrackingTensor(torch.randn(1, 1000))
+        fake_vit_model.return_value = wrapped_output
 
         features = extractor.extract_features(arr, axis=(-2, -1))
 
-        # Check that .cpu() was called
-        mock_output.cpu.assert_called_once()
+        # Check that .cpu() was called exactly once
+        assert wrapped_output.cpu_calls == 1
+        # Sanity-check the resulting features.
+        assert features.shape == (1000,)
 
-    def test_model_eval_mode(self, mock_environment, mock_vit_model):
+    def test_model_eval_mode(self, mock_environment, fake_vit_model):
         """Test that model is set to eval mode."""
-        extractor = VitFeatureExtractor()
+        _ = VitFeatureExtractor()
 
         # Check that eval was called during initialization
-        mock_vit_model.eval.assert_called_once()
+        assert fake_vit_model.eval_calls == 1
 
     @pytest.mark.parametrize(
         "axis",
@@ -277,7 +348,7 @@ class TestVitFeatureExtractor:
         ],
     )
     def test_different_axis_specifications(
-        self, mock_environment, mock_vit_model, axis
+        self, mock_environment, fake_vit_model, axis
     ):
         """Test feature extraction with different axis specifications."""
         extractor = VitFeatureExtractor()
@@ -285,7 +356,7 @@ class TestVitFeatureExtractor:
         # Create tensor with spatial dims at end
         arr = torch.randn(3, 4, 32, 32)
 
-        mock_vit_model.return_value = torch.randn(12, 1000)  # 3*4 = 12
+        fake_vit_model.return_value = torch.randn(12, 1000)  # 3*4 = 12
 
         features = extractor.extract_features(arr, axis=axis)
 
