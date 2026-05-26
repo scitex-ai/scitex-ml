@@ -1,5 +1,8 @@
 ---
-description: Optimizer utilities — get_optimizer by name, set_optimizer for one or multiple models, with optional Ranger deep learning optimizer.
+description: |
+  [TOPIC] Optimizer utilities — get_optimizer + set_optimizer + Ranger
+  [DETAILS] get_optimizer returns the torch.optim class for a given name string ("adam"/"rmsprop"/"sgd"/"ranger"). set_optimizer pools parameters across one or more nn.Modules and returns a configured optimizer instance. "ranger" prefers pytorch_optimizer.Ranger21, falls back to a vendored implementation.
+tags: [scitex-ml-optim]
 ---
 
 # Optimizer Utilities
@@ -55,28 +58,28 @@ Configured optimizer instance.
 ### Example
 
 ```python
-import scitex as stx
+import scitex
 
 # Single model
-optimizer = stx.ai.set_optimizer(model, "adam", lr=1e-3)
+optimizer = scitex.ml.set_optimizer(model, "adam", lr=1e-3)
 
 # Multiple models (pooled parameters)
-optimizer = stx.ai.set_optimizer(
+optimizer = scitex.ml.set_optimizer(
     [encoder, classifier],
     "adam",
     lr=1e-4,
 )
 
 # Ranger optimizer (requires pytorch-optimizer)
-optimizer = stx.ai.set_optimizer(model, "ranger", lr=1e-3)
+optimizer = scitex.ml.set_optimizer(model, "ranger", lr=1e-3)
 ```
 
 ---
 
 ## get_set.py (advanced)
 
-`scitex.ai.optim._get_set` provides lower-level helpers for getting/setting optimizer state. Import directly if needed:
+`scitex_ml.optim._get_set` provides lower-level helpers for getting/setting optimizer state. Import directly if needed:
 
 ```python
-from scitex.ai.optim._get_set import get_lr, set_lr
+from scitex_ml.optim._get_set import get_lr, set_lr
 ```
