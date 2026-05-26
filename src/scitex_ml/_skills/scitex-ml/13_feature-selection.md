@@ -1,10 +1,13 @@
 ---
-description: Feature selection utilities — extract importance from models, univariate selection, cross-fold consistency analysis, and importance aggregation.
+description: |
+  [TOPIC] Feature-selection utilities
+  [DETAILS] extract_feature_importance() pulls importances from tree or linear models with auto-method dispatch. select_features_univariate() runs k-best ANOVA / chi-square / mutual-info on train-only data. analyze_feature_consistency() summarises which features appear across CV folds. aggregate_feature_importances() + create_feature_importance_dataframe() turn per-fold dicts into a sorted DataFrame with mean/std/min/max/cv.
+tags: [scitex-ml-feature-selection]
 ---
 
 # Feature Selection
 
-Available in `scitex.ai.feature_selection`.
+Available in `scitex_ml.feature_selection`.
 
 ## extract_feature_importance()
 
@@ -33,7 +36,7 @@ Extracts and normalizes feature importance from a trained model.
 
 ```python
 from sklearn.ensemble import RandomForestClassifier
-from scitex.ai.feature_selection import extract_feature_importance
+from scitex_ml.feature_selection import extract_feature_importance
 
 model = RandomForestClassifier().fit(X_train, y_train)
 importances = extract_feature_importance(model, feature_names)
@@ -74,7 +77,7 @@ Apply imputer to test data: `imputer.transform(X_test)`.
 ### Example
 
 ```python
-from scitex.ai.feature_selection import select_features_univariate
+from scitex_ml.feature_selection import select_features_univariate
 
 X_tr_sel, X_val_sel, indices, names, imputer = select_features_univariate(
     X_train, y_train, X_val, feature_names, k=20
@@ -145,7 +148,7 @@ Converts aggregated importance dict (from `aggregate_feature_importances`) to a 
 ### Example — Full CV workflow
 
 ```python
-from scitex.ai.feature_selection import (
+from scitex_ml.feature_selection import (
     extract_feature_importance,
     aggregate_feature_importances,
     create_feature_importance_dataframe,

@@ -1,5 +1,8 @@
 ---
-description: Loss function utilities — MultiTaskLoss for automatic uncertainty-weighted multi-task learning, plus L1/L2/elastic regularization helpers.
+description: |
+  [TOPIC] Loss functions — MultiTaskLoss + L1/L2/elastic regularizers
+  [DETAILS] MultiTaskLoss implements uncertainty-weighted multi-task learning (Kendall 2018) with learnable log-variance parameters per task. L1/L2/elastic helpers operate on a whole nn.Module for parameter-norm penalties added to the primary loss.
+tags: [scitex-ml-loss]
 ---
 
 # Loss Functions
@@ -48,10 +51,10 @@ Returns list of scaled loss tensors (same length as input).
 
 ```python
 import torch
-import scitex as stx
+import scitex
 
 are_regression = [False, False]  # Two classification tasks
-mtl = stx.ai.MultiTaskLoss(are_regression)
+mtl = scitex.ml.MultiTaskLoss(are_regression)
 
 # Include MTL parameters in optimizer
 optimizer = torch.optim.Adam(
@@ -77,7 +80,7 @@ The `log_vars` are `nn.Parameter` instances — include `mtl.parameters()` in yo
 
 ## L1 / L2 / Elastic Regularization
 
-Module-level regularization helpers in `scitex.ai.loss._L1L2Losses`.
+Module-level regularization helpers in `scitex_ml.loss._L1L2Losses`.
 
 ```python
 def l1(model, lambda_l1: float = 0.01) -> Tensor
@@ -102,7 +105,7 @@ elastic = alpha * (l1_ratio * L1 + (1 - l1_ratio) * L2)
 ### Example
 
 ```python
-from scitex.ai.loss._L1L2Losses import l1, l2, elastic
+from scitex_ml.loss._L1L2Losses import l1, l2, elastic
 
 # Add to loss during training
 loss = criterion(outputs, targets)
