@@ -1,5 +1,8 @@
 ---
-description: Training helpers — EarlyStopping with direction control and LearningCurveLogger for multi-phase metric tracking and visualization.
+description: |
+  [TOPIC] Training helpers — EarlyStopping + LearningCurveLogger
+  [DETAILS] EarlyStopping monitors a metric with direction (minimize/maximize), patience, delta tolerance, and persists a checkpoint dict on every improvement. LearningCurveLogger records per-phase metrics (Training / Validation / Test), plots curves for `_plot`-suffixed keys, and exposes per-epoch retrieval and per-phase printing.
+tags: [scitex-ml-training]
 ---
 
 # Training Helpers
@@ -43,7 +46,7 @@ def __call__(
 ```
 
 - `current_score` — Current validation metric value
-- `models_spaths_dict` — `{pytorch_model: "/path/to/checkpoint.pth"}` — saved via `stx.io.save(model.state_dict(), path)` on improvement
+- `models_spaths_dict` — `{pytorch_model: "/path/to/checkpoint.pth"}` — saved via `scitex.io.save(model.state_dict(), path)` on improvement
 - `i_global` — Current global iteration index
 
 Returns `True` when training should stop, `False` otherwise.
@@ -51,9 +54,9 @@ Returns `True` when training should stop, `False` otherwise.
 ### Example
 
 ```python
-import scitex as stx
+import scitex
 
-early_stopping = stx.ai.EarlyStopping(
+early_stopping = scitex.ml.EarlyStopping(
     patience=10,
     verbose=True,
     direction="minimize",
@@ -76,7 +79,7 @@ print(f"Best loss: {early_stopping.best_score:.6f} at step {early_stopping.best_
 
 ## LearningCurveLogger
 
-Records and visualizes training metrics across Training/Validation/Test phases. Metrics ending in `_plot` are plotted; all others are stored but not plotted.
+Records and visualizes training metrics across Training / Validation / Test phases. Metrics ending in `_plot` are plotted; all others are stored but not plotted.
 
 ```python
 class LearningCurveLogger:
@@ -110,7 +113,7 @@ def plot_learning_curves(
 ) -> matplotlib.figure.Figure
 ```
 
-Delegates to `scitex.ai.plt.plot_learning_curve`.
+Delegates to `scitex_ml.plt.plot_learning_curve`.
 
 ### dfs property
 
@@ -142,9 +145,9 @@ Prints epoch-averaged metrics for the given step.
 ### Example
 
 ```python
-import scitex as stx
+import scitex
 
-lc_logger = stx.ai.LearningCurveLogger()
+lc_logger = scitex.ml.LearningCurveLogger()
 i_global = 0
 
 for i_epoch in range(max_epochs):

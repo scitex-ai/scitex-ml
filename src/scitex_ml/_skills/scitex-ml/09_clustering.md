@@ -1,5 +1,8 @@
 ---
-description: Dimensionality reduction and visualization — pca() and umap() with multi-dataset subplot support, optional supervised mode, and independent legend export.
+description: |
+  [TOPIC] Clustering / dimensionality reduction — pca() and umap()
+  [DETAILS] Both helpers accept a list of datasets (first dataset fits the model, rest are transformed), draw multi-dataset scatter subplots with shared palette, support `use_independent_legend` (separate legend figures), `add_super_imposed` (extra superimposed subplot), and optional supervised mode for UMAP. Returns (figure, optional legend figures, fitted model).
+tags: [scitex-ml-clustering]
 ---
 
 # Clustering / Dimensionality Reduction
@@ -41,20 +44,20 @@ def pca(
 ### Example
 
 ```python
-import scitex as stx
+import scitex
 from sklearn.datasets import load_iris
 
 dataset = load_iris()
 X, y = dataset.data, dataset.target
 
-fig, _, pca_model = stx.ai.clustering.pca(
+fig, _, pca_model = scitex.ml.clustering.pca(
     data_all=[X],
     labels_all=[y],
     title="Iris PCA",
     s=10,
     alpha=0.5,
 )
-stx.io.save(fig, "./iris_pca.png")
+scitex.io.save(fig, "./iris_pca.png")
 ```
 
 ### Multi-dataset example
@@ -64,7 +67,7 @@ from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
-fig, legends, pca_model = stx.ai.clustering.pca(
+fig, legends, pca_model = scitex.ml.clustering.pca(
     data_all=[X_train, X_test],
     labels_all=[y_train, y_test],
     axes_titles=["Train", "Test"],
@@ -116,13 +119,13 @@ pip install umap-learn
 ### Example
 
 ```python
-import scitex as stx
+import scitex
 from sklearn.datasets import load_digits
 
 dataset = load_digits()
 X, y = dataset.data, dataset.target
 
-fig, _, umap_model = stx.ai.clustering.umap(
+fig, _, umap_model = scitex.ml.clustering.umap(
     data=[X],
     labels=[y],
     supervised=False,
@@ -130,13 +133,13 @@ fig, _, umap_model = stx.ai.clustering.umap(
     s=5,
     alpha=0.8,
 )
-stx.io.save(fig, "./digits_umap.png")
+scitex.io.save(fig, "./digits_umap.png")
 ```
 
 ### Supervised UMAP
 
 ```python
-fig, _, umap_model = stx.ai.clustering.umap(
+fig, _, umap_model = scitex.ml.clustering.umap(
     data=[X_train, X_test],
     labels=[y_train, y_test],
     supervised=True,

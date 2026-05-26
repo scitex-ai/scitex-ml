@@ -1,5 +1,8 @@
 ---
-description: Classification utilities — Classifier factory, ClassificationReporter for metric tracking and visualization, CrossValidationExperiment for full CV pipelines.
+description: |
+  [TOPIC] Classifier factory + ClassificationReporter
+  [DETAILS] scitex_ml.Classifier wraps ~10 sklearn classifiers behind a name-string interface with optional scaler pipeline. ClassificationReporter tracks per-fold metrics (balanced accuracy, MCC, ROC-AUC, PR-AUC, confusion matrix, classification report), generates figures, and supports single-task and multi-task modes.
+tags: [scitex-ml-classification]
 ---
 
 # Classification
@@ -41,10 +44,10 @@ clf_server.list  # -> List[str] of available classifier names
 
 ### Example
 ```python
-import scitex as stx
+import scitex
 from sklearn.preprocessing import StandardScaler
 
-clf_server = stx.ai.Classifier(class_weight={0: 1.0, 1: 2.0})
+clf_server = scitex.ml.Classifier(class_weight={0: 1.0, 1: 2.0})
 clf = clf_server("SVC", scaler=StandardScaler())
 clf.fit(X_train, y_train)
 ```
@@ -128,11 +131,11 @@ def save_feature_importance(
 ### Example — Single task with cross-validation
 
 ```python
-import scitex as stx
+import scitex
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import StratifiedKFold
 
-reporter = stx.ai.ClassificationReporter("./results/binary")
+reporter = scitex.ml.ClassificationReporter("./results/binary")
 
 cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 model = LogisticRegression()
@@ -155,7 +158,7 @@ reporter.save_summary()
 ### Example — Multi-task
 
 ```python
-reporter = stx.ai.ClassificationReporter(
+reporter = scitex.ml.ClassificationReporter(
     "./results/multitask",
     tasks=["task_a", "task_b"],
 )
@@ -164,92 +167,8 @@ reporter.calculate_metrics(y_true_b, y_pred_b, task="task_b", fold=0)
 reporter.save_summary()
 ```
 
----
+## See also
 
-## CrossValidationExperiment
-
-High-level helper that runs a full CV experiment from a model factory function.
-
-```python
-class CrossValidationExperiment:
-    def __init__(
-        self,
-        name: str,
-        model_fn: Callable,
-        cv: Optional[BaseCrossValidator] = None,
-        output_dir: Optional[Union[str, Path]] = None,
-        metrics: Optional[List[str]] = None,
-        save_models: bool = True,
-        verbose: bool = True,
-    )
-```
-
-### Parameters
-- `name` — Experiment name (used in output paths)
-- `model_fn` — Callable that returns a fresh model instance per fold
-- `cv` — Splitter instance. Default: `StratifiedKFold(n_splits=5, shuffle=True, random_state=42)`
-- `save_models` — Whether to pickle models per fold. Default: `True`
-
-### run()
-
-```python
-def run(
-    self,
-    X: np.ndarray,
-    y: np.ndarray,
-    feature_names: Optional[List[str]] = None,
-    class_names: Optional[List[str]] = None,
-    calculate_curves: bool = True,
-) -> Dict[str, Any]
-```
-
-Returns dict with `"paths"`, `"metadata"`, `"timing"`, `"models"`.
-
-### Example
-
-```python
-import scitex as stx
-from sklearn.svm import SVC
-
-experiment = stx.ai.CrossValidationExperiment(
-    name="svm_binary",
-    model_fn=lambda: SVC(probability=True),
-    output_dir="./cv_results",
-)
-results = experiment.run(X, y, class_names=["Neg", "Pos"])
-```
-
-### quick_experiment()
-
-Convenience function for rapid experimentation:
-
-```python
-from scitex.ai.classification import quick_experiment
-
-results = quick_experiment(
-    X, y, model=SVC(), name="quick_svm", n_folds=5
-)
-```
-
----
-
-## Time Series CV Splitters
-
-Available in `stx.ai.classification.timeseries`:
-
-| Class | Description |
-|---|---|
-| `TimeSeriesStratifiedSplit` | Stratified split preserving class balance in time series |
-| `TimeSeriesBlockingSplit` | Non-overlapping block CV for time series |
-| `TimeSeriesSlidingWindowSplit` | Rolling/expanding window CV |
-| `TimeSeriesCalendarSplit` | Split by calendar period (day/week/month) |
-| `TimeSeriesStrategy` | Strategy pattern for flexible splitter selection |
-| `TimeSeriesMetadata` | Metadata container for time series datasets |
-
-```python
-from scitex.ai.classification.timeseries import TimeSeriesSlidingWindowSplit
-
-splitter = TimeSeriesSlidingWindowSplit(n_splits=5)
-for train_idx, test_idx in splitter.split(X, y):
-    ...
-```
+- [05_classification_1_cv-experiment.md](05_classification_1_cv-experiment.md) — CrossValidationExperiment, time-series CV splitters
+- [10_metrics.md](10_metrics.md) — underlying metric functions
+- [13_feature-selection.md](13_feature-selection.md) — feature importance extraction

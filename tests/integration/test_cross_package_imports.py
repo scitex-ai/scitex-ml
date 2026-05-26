@@ -19,6 +19,17 @@ in its source tree. Two outcomes:
 import pytest
 
 # ===== AUTO-GENERATED: cross-package imports =====
+# NOTE: scitex_ml.* self-imports are deliberately OMITTED. The upstream
+# PS-140 auditor in scitex-dev v0.12.3 disagrees with itself on whether
+# self-imports belong in the cross-package gate:
+#   - In a non-canonical checkout dir (e.g. worktree `scitex-ml-fix-skip/`)
+#     `_own_import_name` derives `scitex_ml_fix_skip` and flags every
+#     `scitex_ml.<sub>` reference as "missing from gate"
+#   - In the canonical CI checkout `scitex-ml/` it derives `scitex_ml` and
+#     flags those same entries as "stale in gate"
+# CI is the source of truth → keep self-imports OUT of the gate.
+# Upstream fix needed: `_own_import_name` should use the distribution name
+# from the ECOSYSTEM registry, not the repo directory basename.
 CROSS_PACKAGE_IMPORTS = [
     "scitex",
     "scitex_context",

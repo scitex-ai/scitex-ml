@@ -1,5 +1,8 @@
 ---
-description: Data sampling utilities — undersample() for class-balanced random undersampling of imbalanced datasets.
+description: |
+  [TOPIC] Data sampling — undersample() for imbalanced data
+  [DETAILS] Wraps imblearn.under_sampling.RandomUnderSampler to balance class counts by randomly undersampling the majority class(es). Returns same array type as inputs; raises ImportError when imbalanced-learn is missing.
+tags: [scitex-ml-sampling]
 ---
 
 # Sampling
@@ -34,14 +37,14 @@ Raises `ImportError` if `imbalanced-learn` is not installed.
 ### Example
 
 ```python
-import scitex as stx
+import scitex
 import numpy as np
 
 # Imbalanced dataset: 900 class 0, 100 class 1
 X = np.random.randn(1000, 10)
 y = np.array([0] * 900 + [1] * 100)
 
-X_balanced, y_balanced = stx.ai.sampling.undersample(X, y)
+X_balanced, y_balanced = scitex.ml.sampling.undersample(X, y)
 # X_balanced.shape[0] == 200 (100 from each class)
 ```
 

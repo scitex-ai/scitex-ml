@@ -3,9 +3,7 @@ API Reference
 
 .. autosummary::
    :toctree: _generated
-   :recursive:
 
-   scitex_ml
    scitex_ml.classification
    scitex_ml.clustering
    scitex_ml.feature_extraction
