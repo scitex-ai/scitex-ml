@@ -19,12 +19,35 @@ in its source tree. Two outcomes:
 import pytest
 
 # ===== AUTO-GENERATED: cross-package imports =====
+# NOTE: entries beginning with `scitex_ml.` are self-imports of this very
+# package (the standalone `scitex-ml` distribution → `scitex_ml` import).
+# They are listed here because the upstream PS-140 auditor in
+# `scitex-dev v0.12.3` determines the "own import name" from the repository
+# directory basename (`<dir>.replace("-", "_")`). When this repo is checked
+# out under a non-canonical directory (e.g. a git worktree such as
+# `scitex-ml-fix-skip/`), the derived own-name becomes
+# `scitex_ml_fix_skip`, and the auditor then flags every legitimate
+# intra-package `scitex_ml.<sub>` import as a missing cross-package entry.
+# Listing them here keeps the gate exhaustive for both the canonical
+# checkout AND any worktree; the test simply does
+# `pytest.importorskip(module_name)` so resolving each name as its own
+# package is harmless.
+# Filed upstream context: scitex-dev PS-140
+# (`_check_umbrella_dep_and_integration._own_import_name`) should use the
+# distribution name from the ECOSYSTEM registry, not the repo basename.
 CROSS_PACKAGE_IMPORTS = [
     "scitex",
     "scitex_context",
     "scitex_dev",
     "scitex_io",
     "scitex_logging",
+    "scitex_ml.classification",
+    "scitex_ml.feature_selection",
+    "scitex_ml.metrics",
+    "scitex_ml.plt",
+    "scitex_ml.plt._plot_pre_rec_curve",
+    "scitex_ml.plt._plot_roc_curve",
+    "scitex_ml.plt._stx_conf_mat",
     "scitex_plt",
     "scitex_plt.colors",
     "scitex_repro",
