@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] — 2026-05-27
+
+### Added
+
+- **Stateless analysis CLI + MCP server.** New `scitex-ml` console script and `scitex_ml._mcp_server` FastMCP server exposing three file-in → JSON/artifact-out verbs with identical CLI↔MCP JSON: `compute-metrics` ↔ `ml_compute_metrics`, `generate-report` ↔ `ml_generate_report`, `reduce-dimensions` ↔ `ml_reduce_dimensions`. Plus `list-python-apis`, the `mcp` and `skills` command groups, and shell completion. Adds Sphinx `cli`/`mcp` pages and the `04_cli-reference` / `05_mcp-tools` skill leaves. MCP parity is scoped via `audit.mcp-tools-allowlist` (scitex-dev ≥ 0.13.0).
+
+### Changed
+
+- `import scitex_ml` is now lazy (PEP 562 `__getattr__`): cold-start drops from ~7.9s to ~76ms so CLI tab-completion stays fast. `[heavy]` deps remain gracefully optional via `try_import_optional`.
+
 ### Added
 
 - Initial factor-out from `scitex.ai` (umbrella scitex-python package) into a
