@@ -19,12 +19,39 @@ Generative-AI utilities (``GenAI``, agents, image / audio / video) live in
 the sibling package `scitex-genai
 <https://github.com/ywatanabe1989/scitex-genai>`_.
 
+.. list-table:: **Four interfaces, one package**
+   :header-rows: 1
+   :widths: 20 40 40
+
+   * - Interface
+     - Access
+     - Use case
+   * - **Python API**
+     - ``import scitex_ml``
+     - Scripts, notebooks, training pipelines
+   * - **CLI**
+     - ``scitex-ml compute-metrics ...``
+     - Terminal, shell scripts (stateless analysis)
+   * - **MCP Server**
+     - ``scitex-ml mcp start``
+     - AI agents computing metrics / reports / projections
+   * - **Skills**
+     - ``scitex-ml skills list``
+     - AI agents discovering capabilities
+
 .. toctree::
    :maxdepth: 2
    :caption: Getting Started
 
    installation
    quickstart
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Interfaces
+
+   cli
+   mcp
 
 .. toctree::
    :maxdepth: 2
