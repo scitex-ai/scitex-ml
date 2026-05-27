@@ -37,78 +37,86 @@ try:
 except _PackageNotFoundError:
     __version__ = "0.0.0+local"
 
-from scitex_dev import try_import_optional
-
 # ---------------------------------------------------------------------------
-# Light submodules — these don't pull torch/optuna/catboost at import time.
-# ---------------------------------------------------------------------------
-from . import (
-    classification,
-    clustering,
-    feature_extraction,
-    metrics,
-    plt,
-    sampling,
-    sklearn,
-    utils,
-)
-from .classification import ClassificationReporter, Classifier
-
-# ---------------------------------------------------------------------------
-# Heavy submodules — gated via `try_import_optional` so that `import
-# scitex_ml` succeeds in a no-`[heavy]` environment. Each entry resolves
-# to `None` when its underlying dep (torch / optuna / catboost / …) is
-# missing; downstream code probes with `is None` and surfaces an
-# installable hint via `scitex_dev.last_install_hint`.
+# Lazy import surface (PEP 562). `import scitex_ml` must stay fast — Click runs
+# the CLI once per Tab press, so eagerly importing sklearn / matplotlib / sktime
+# / umap here (≈6-8 s) would make tab-completion unusable (audit §10). Each
+# public name is resolved on first access via `__getattr__` below and cached.
 #
-# Pattern A from
-# `_skills/general/03_interface_01_python-api/04_lazy-imports-and-optional-deps.md`:
-# the public names stay in `__all__` regardless.
+# Light submodules import directly; heavy ones go through `try_import_optional`
+# so they resolve to `None` (not ImportError) in a no-`[heavy]` environment —
+# downstream code probes with `is None` and surfaces an installable hint via
+# `scitex_dev.last_install_hint` (Pattern A from
+# `_skills/general/03_interface_01_python-api/04_lazy-imports-and-optional-deps.md`).
 # ---------------------------------------------------------------------------
-activation = try_import_optional(
-    ".activation", extra="heavy", pkg="scitex-ml", package=__name__
-)
-loss = try_import_optional(".loss", extra="heavy", pkg="scitex-ml", package=__name__)
-optim = try_import_optional(".optim", extra="heavy", pkg="scitex-ml", package=__name__)
-training = try_import_optional(
-    ".training", extra="heavy", pkg="scitex-ml", package=__name__
-)
+# Dispatch tables keyed by public name (PA-102 recognises dict-literal keys
+# referenced via subscript in __getattr__, so these double as the bound-name
+# registry). Light submodules -> relative module; heavy ones go through
+# try_import_optional so a missing `[heavy]` dep resolves to None, not ImportError.
+_LIGHT_SUBMODULES: dict[str, str] = {
+    "classification": ".classification",
+    "clustering": ".clustering",
+    "feature_extraction": ".feature_extraction",
+    "feature_selection": ".feature_selection",
+    "metrics": ".metrics",
+    "plt": ".plt",
+    "sampling": ".sampling",
+    "sk": ".sk",
+    "sklearn": ".sklearn",
+    "utils": ".utils",
+}
+_HEAVY_SUBMODULES: dict[str, str] = {
+    "activation": ".activation",
+    "loss": ".loss",
+    "optim": ".optim",
+    "training": ".training",
+}
+# Public attribute -> light submodule it lives in.
+_LIGHT_ATTRS: dict[str, str] = {
+    "ClassificationReporter": ".classification",
+    "Classifier": ".classification",
+}
+# Public attribute -> (heavy submodule path, attribute name).
+_HEAVY_ATTRS: dict[str, tuple[str, str]] = {
+    "MultiTaskLoss": (".loss", "MultiTaskLoss"),
+    "get_optimizer": (".optim", "get_optimizer"),
+    "set_optimizer": (".optim", "set_optimizer"),
+    "EarlyStopping": (".training._EarlyStopping", "EarlyStopping"),
+    "LearningCurveLogger": (".training._LearningCurveLogger", "LearningCurveLogger"),
+}
 
-MultiTaskLoss = try_import_optional(
-    ".loss",
-    attr="MultiTaskLoss",
-    extra="heavy",
-    pkg="scitex-ml",
-    package=__name__,
-)
-get_optimizer = try_import_optional(
-    ".optim",
-    attr="get_optimizer",
-    extra="heavy",
-    pkg="scitex-ml",
-    package=__name__,
-)
-set_optimizer = try_import_optional(
-    ".optim",
-    attr="set_optimizer",
-    extra="heavy",
-    pkg="scitex-ml",
-    package=__name__,
-)
-EarlyStopping = try_import_optional(
-    ".training._EarlyStopping",
-    attr="EarlyStopping",
-    extra="heavy",
-    pkg="scitex-ml",
-    package=__name__,
-)
-LearningCurveLogger = try_import_optional(
-    ".training._LearningCurveLogger",
-    attr="LearningCurveLogger",
-    extra="heavy",
-    pkg="scitex-ml",
-    package=__name__,
-)
+
+def __getattr__(name: str):
+    """PEP 562 lazy resolver for the public surface (see note above)."""
+    from importlib import import_module
+
+    if name in _LIGHT_SUBMODULES:
+        value = import_module(_LIGHT_SUBMODULES[name], __name__)
+    elif name in _LIGHT_ATTRS:
+        value = getattr(import_module(_LIGHT_ATTRS[name], __name__), name)
+    elif name in _HEAVY_SUBMODULES:
+        from scitex_dev import try_import_optional
+
+        value = try_import_optional(
+            _HEAVY_SUBMODULES[name], extra="heavy", pkg="scitex-ml", package=__name__
+        )
+    elif name in _HEAVY_ATTRS:
+        from scitex_dev import try_import_optional
+
+        modpath, attr = _HEAVY_ATTRS[name]
+        value = try_import_optional(
+            modpath, attr=attr, extra="heavy", pkg="scitex-ml", package=__name__
+        )
+    else:
+        raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+    globals()[name] = value  # cache so __getattr__ fires only once per name
+    return value
+
+
+def __dir__() -> list[str]:
+    return sorted(set(globals()) | set(__all__))
+
 
 __all__ = [
     "__version__",

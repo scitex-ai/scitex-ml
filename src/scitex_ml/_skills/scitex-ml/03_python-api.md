@@ -24,7 +24,7 @@ reporter.calculate_metrics(y_true, y_pred, y_proba, fold=0)
 reporter.save_summary()
 ```
 
-Deep dive: [04_classification.md](04_classification.md), [05_classification_1_cv-experiment.md](05_classification_1_cv-experiment.md).
+Deep dive: [10_classification.md](10_classification.md), [11_classification_1_cv-experiment.md](11_classification_1_cv-experiment.md).
 
 ## Time-series cross-validation
 
@@ -39,7 +39,7 @@ from scitex_ml.classification import (
 )
 ```
 
-Deep dive: [05_classification_1_cv-experiment.md](05_classification_1_cv-experiment.md).
+Deep dive: [11_classification_1_cv-experiment.md](11_classification_1_cv-experiment.md).
 
 ## Training helpers
 
@@ -47,7 +47,7 @@ Deep dive: [05_classification_1_cv-experiment.md](05_classification_1_cv-experim
 from scitex_ml import EarlyStopping, LearningCurveLogger
 ```
 
-Deep dive: [06_training.md](06_training.md).
+Deep dive: [12_training.md](12_training.md).
 
 ## Loss
 
@@ -56,7 +56,7 @@ from scitex_ml import MultiTaskLoss
 from scitex_ml.loss._L1L2Losses import l1, l2, elastic
 ```
 
-Deep dive: [07_loss.md](07_loss.md).
+Deep dive: [13_loss.md](13_loss.md).
 
 ## Optimizer
 
@@ -64,7 +64,7 @@ Deep dive: [07_loss.md](07_loss.md).
 from scitex_ml import set_optimizer, get_optimizer
 ```
 
-Deep dive: [08_optim.md](08_optim.md).
+Deep dive: [14_optim.md](14_optim.md).
 
 ## Clustering / dimensionality reduction
 
@@ -72,7 +72,7 @@ Deep dive: [08_optim.md](08_optim.md).
 from scitex_ml.clustering import pca, umap
 ```
 
-Deep dive: [09_clustering.md](09_clustering.md).
+Deep dive: [15_clustering.md](15_clustering.md).
 
 ## Metrics
 
@@ -88,7 +88,7 @@ from scitex_ml.metrics import (
 )
 ```
 
-Deep dive: [10_metrics.md](10_metrics.md), [11_metrics_1_curves-and-silhouette.md](11_metrics_1_curves-and-silhouette.md).
+Deep dive: [16_metrics.md](16_metrics.md), [17_metrics_1_curves-and-silhouette.md](17_metrics_1_curves-and-silhouette.md).
 
 ## Sampling
 
@@ -96,7 +96,7 @@ Deep dive: [10_metrics.md](10_metrics.md), [11_metrics_1_curves-and-silhouette.m
 from scitex_ml.sampling import undersample
 ```
 
-Deep dive: [12_sampling.md](12_sampling.md).
+Deep dive: [18_sampling.md](18_sampling.md).
 
 ## Feature selection
 
@@ -110,7 +110,7 @@ from scitex_ml.feature_selection import (
 )
 ```
 
-Deep dive: [13_feature-selection.md](13_feature-selection.md).
+Deep dive: [19_feature-selection.md](19_feature-selection.md).
 
 ## Umbrella access
 

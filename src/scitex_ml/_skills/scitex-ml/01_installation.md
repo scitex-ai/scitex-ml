@@ -68,4 +68,4 @@ print(scitex_ml.Classifier().list)    # → list of supported classifier strings
 
 - [02_quick-start.md](02_quick-start.md) — first classifier + reporter round-trip
 - [03_python-api.md](03_python-api.md) — full Python surface map
-- [04_classification.md](04_classification.md) — Classifier + ClassificationReporter
+- [10_classification.md](10_classification.md) — Classifier + ClassificationReporter
