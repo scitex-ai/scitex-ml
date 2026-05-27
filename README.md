@@ -64,10 +64,9 @@ clf.fit(X_tr, y_tr)
 print(f"test accuracy: {clf.score(X_te, y_te):.3f}")
 
 # ClassificationReporter — metric tracking + figure export.
-reporter = scitex_ml.ClassificationReporter(save_dir="./results")
-reporter.calc_metrics(y_te, clf.predict(X_te), clf.predict_proba(X_te))
-reporter.summarize()
-reporter.save()
+reporter = scitex_ml.ClassificationReporter(output_dir="./results")
+reporter.calculate_metrics(y_te, clf.predict(X_te), clf.predict_proba(X_te))
+reporter.save_summary()
 ```
 
 For a runnable walk-through see [`examples/01_classification.ipynb`](examples/01_classification.ipynb).
@@ -150,15 +149,34 @@ cm = scitex_ml.metrics.calc_conf_mat(y_true, y_pred)
 </details>
 
 <details>
-<summary><strong>CLI ⭐ — none</strong></summary>
+<summary><strong>CLI ⭐⭐</strong></summary>
 
-`scitex-ml` ships no dedicated CLI. ML workflows are composed in Python and run via the umbrella `scitex` CLI / `@scitex.session` decorator.
+```bash
+scitex-ml compute-metrics preds.csv            # bacc, MCC, confusion matrix, AUC
+scitex-ml generate-report preds.csv -o ./report # full report + plots
+scitex-ml reduce-dimensions feats.csv -o pca.png --label-col target
+scitex-ml mcp start                             # MCP server (stdio)
+scitex-ml skills list                           # bundled skill pages
+scitex-ml list-python-apis -vv                  # public API introspection
+```
+
+> **[Full CLI reference](https://scitex-ml.readthedocs.io/en/latest/cli.html)**
 </details>
 
 <details>
-<summary><strong>MCP ⭐ — none</strong></summary>
+<summary><strong>MCP ⭐⭐</strong></summary>
 
-No MCP server in this package. The umbrella `scitex` CLI surfaces ML-adjacent MCP tools (e.g. `scitex stats`, `scitex plt`).
+FastMCP server exposing the stateless analysis surface for AI agents. The scitex umbrella mounts it under namespace `ml`:
+
+| Tool (umbrella) | Purpose |
+|---|---|
+| `ml_compute_metrics` | Metrics from a saved predictions table |
+| `ml_generate_report` | Full ClassificationReporter report |
+| `ml_reduce_dimensions` | PCA / UMAP 2-D projection figure |
+
+Start with `scitex-ml mcp start` (requires `pip install scitex-ml[mcp]`).
+
+> **[Full MCP reference](https://scitex-ml.readthedocs.io/en/latest/mcp.html)**
 </details>
 
 <details>
