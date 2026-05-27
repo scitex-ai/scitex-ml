@@ -97,9 +97,10 @@ scitex-ml mcp start                                # MCP server (stdio)
 | `reduce-dimensions` | `ml_reduce_dimensions` | `scitex_ml.clustering.pca/umap` |
 
 **Parity note:** scitex-ml deliberately exposes only this stateless analysis
-slice via CLI+MCP, so it sets `mcp_parity_exempt = true` (`[tool.scitex_dev]`)
-— the strict §6 Python-API↔MCP 1:1 parity check is a false positive for a
-package whose bulk API is stateful/in-process.
+slice via CLI+MCP, so it declares the curated tool set in
+`.scitex/dev/config.yaml` (`audit.mcp-tools-allowlist`). The §6 audit checks
+the MCP surface against that declared list rather than mirroring the full
+Python API (training/optimizers stay Python-only).
 
 ## Umbrella access
 

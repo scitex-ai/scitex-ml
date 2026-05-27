@@ -119,5 +119,5 @@ reporter.save_summary()
 
 ## See also
 
-- [04_classification.md](10_classification.md) — Classifier + ClassificationReporter
-- [06_training.md](12_training.md) — EarlyStopping, LearningCurveLogger
+- [10_classification.md](10_classification.md) — Classifier + ClassificationReporter
+- [12_training.md](12_training.md) — EarlyStopping, LearningCurveLogger

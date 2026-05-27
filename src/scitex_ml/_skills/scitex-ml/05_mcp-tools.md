@@ -52,10 +52,11 @@ optional via a `y_proba` column (binary) or `y_proba_0`, `y_proba_1`, …
 Each MCP tool maps 1:1 to a `scitex-ml` CLI verb with the same name and JSON
 shape (`compute-metrics` ↔ `ml_compute_metrics`, …). The package exposes only
 this **stateless** analysis slice via MCP — training loops, optimizers,
-EarlyStopping and the deep submodule API are Python-only, so scitex-ml declares
-`mcp_parity_exempt = true` under `[tool.scitex_dev]`.
+EarlyStopping and the deep submodule API are Python-only — so scitex-ml
+declares its curated tool set in `.scitex/dev/config.yaml`
+(`audit.mcp-tools-allowlist`); §6 parity is checked against that list.
 
 ## See also
 
-- [14_cli-reference.md](04_cli-reference.md) — the identical CLI surface
+- [04_cli-reference.md](04_cli-reference.md) — the identical CLI surface
 - `general/03_interface/03_mcp/` — ecosystem MCP conventions

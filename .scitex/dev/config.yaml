@@ -8,3 +8,13 @@ audit:
       # Codecov ALWAYS reads `codecov.yml` from repo root — non-negotiable
       # location per codecov.io docs. Whitelist it from PS-103.
       - codecov.yml
+
+  # §6 MCP parity — the curated tool surface scitex-ml intends to expose.
+  # scitex-ml ships only the stateless *analysis* tools via CLI+MCP
+  # (training/optimizers/EarlyStopping stay Python-only), so §6 is checked
+  # against this declared set rather than the full Python API. skills_list /
+  # skills_get are always permitted and need not be listed.
+  mcp-tools-allowlist:
+    - compute_metrics
+    - generate_report
+    - reduce_dimensions

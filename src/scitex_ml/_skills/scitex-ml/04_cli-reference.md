@@ -26,7 +26,7 @@ scitex-ml --json compute-metrics preds.csv   # propagate JSON intent
 ## Analysis verbs
 
 Each verb is file-in → JSON/artifact-out and mirrors an MCP tool exactly
-(see [15_mcp-tools.md](05_mcp-tools.md)).
+(see [05_mcp-tools.md](05_mcp-tools.md)).
 
 ```bash
 # Metrics from a saved predictions table (y_true,y_pred[,y_proba])
@@ -79,5 +79,5 @@ scitex-ml print-shell-completion --shell bash     # print without writing
 ## See also
 
 - [03_python-api.md](03_python-api.md) — same surface in Python
-- [15_mcp-tools.md](05_mcp-tools.md) — the agent-callable MCP tools
+- [05_mcp-tools.md](05_mcp-tools.md) — the agent-callable MCP tools
 - Full RTD: <https://scitex-ml.readthedocs.io/en/latest/cli.html>

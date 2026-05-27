@@ -154,15 +154,10 @@ scitex-ml = "scitex_ml"
 [tool.hatch.build.targets.wheel]
 packages = ["src/scitex_ml"]
 
-[tool.scitex_dev]
-# §6 MCP/Python-API parity exemption. scitex-ml deliberately exposes only the
-# stateless *analysis* surface via CLI+MCP — compute-metrics / generate-report
-# / reduce-dimensions (file-in → JSON/artifact-out). Training loops, optimizers,
-# EarlyStopping, LearningCurveLogger, MultiTaskLoss and the deep submodule API
-# are in-process / stateful and are intentionally Python-only, so the strict
-# 1:1 §6 parity check is a false positive for this package. See the "Interfaces
-# / parity" note in src/scitex_ml/_skills/scitex-ml/SKILL.md.
-mcp_parity_exempt = true
+# §6 MCP-parity is scoped via `audit.mcp-tools-allowlist` in
+# .scitex/dev/config.yaml — scitex-ml exposes only the curated stateless
+# analysis tools, checked against that declared set rather than the full
+# Python API (training/optimizers stay Python-only).
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

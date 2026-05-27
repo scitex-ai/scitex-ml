@@ -169,6 +169,6 @@ reporter.save_summary()
 
 ## See also
 
-- [05_classification_1_cv-experiment.md](11_classification_1_cv-experiment.md) — CrossValidationExperiment, time-series CV splitters
-- [10_metrics.md](16_metrics.md) — underlying metric functions
-- [13_feature-selection.md](19_feature-selection.md) — feature importance extraction
+- [11_classification_1_cv-experiment.md](11_classification_1_cv-experiment.md) — CrossValidationExperiment, time-series CV splitters
+- [16_metrics.md](16_metrics.md) — underlying metric functions
+- [19_feature-selection.md](19_feature-selection.md) — feature importance extraction
