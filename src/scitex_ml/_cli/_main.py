@@ -113,7 +113,7 @@ def main(ctx, help_recursive, as_json):
 
     \b
     Config precedence (when a command reads config):
-      --config → $SCITEX_ML_CONFIG → ./config.yaml → ~/.scitex/ml/config.yaml
+      --config → ./config.yaml → ~/.scitex/ml/config.yaml
     """
     ctx.ensure_object(dict)
     ctx.obj["as_json"] = as_json
