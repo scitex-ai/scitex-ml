@@ -3,9 +3,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; SciTeX ML v0.2.0</title>
+  <title>CLI Reference &mdash; SciTeX ML v0.2.0</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -19,8 +20,10 @@
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="#" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="MCP Server" href="mcp.html" />
+    <link rel="prev" title="Quickstart" href="quickstart.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,12 +51,12 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Interfaces</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#commands">Commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#analysis-verbs">Analysis verbs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#introspection">Introspection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#shell-completion">Shell completion</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CLI Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#analysis-verbs">Analysis verbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#introspection">Introspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#shell-completion">Shell completion</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mcp.html">MCP Server</a><ul>
@@ -312,9 +315,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Index</li>
+      <li class="breadcrumb-item active">CLI Reference</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/ywatanabe1989/scitex-ml/blob/main/docs/sphinx/genindex" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/ywatanabe1989/scitex-ml/blob/main/docs/sphinx/cli.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -322,625 +325,102 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- <a href="#_"><strong>_</strong></a>
- | <a href="#A"><strong>A</strong></a>
- | <a href="#B"><strong>B</strong></a>
- | <a href="#C"><strong>C</strong></a>
- | <a href="#D"><strong>D</strong></a>
- | <a href="#E"><strong>E</strong></a>
- | <a href="#F"><strong>F</strong></a>
- | <a href="#G"><strong>G</strong></a>
- | <a href="#H"><strong>H</strong></a>
- | <a href="#I"><strong>I</strong></a>
- | <a href="#L"><strong>L</strong></a>
- | <a href="#M"><strong>M</strong></a>
- | <a href="#N"><strong>N</strong></a>
- | <a href="#O"><strong>O</strong></a>
- | <a href="#P"><strong>P</strong></a>
- | <a href="#Q"><strong>Q</strong></a>
- | <a href="#R"><strong>R</strong></a>
- | <a href="#S"><strong>S</strong></a>
- | <a href="#T"><strong>T</strong></a>
- | <a href="#U"><strong>U</strong></a>
- | <a href="#V"><strong>V</strong></a>
- 
+  <section id="cli-reference">
+<h1>CLI Reference<a class="headerlink" href="#cli-reference" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">scitex-ml</span></code> exposes the stateless analysis surface from the terminal. Run
+<code class="docutils literal notranslate"><span class="pre">scitex-ml</span> <span class="pre">--help</span></code> for the live command list, or <code class="docutils literal notranslate"><span class="pre">scitex-ml</span>
+<span class="pre">--help-recursive</span></code> to dump help for every subcommand at once.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scitex-ml<span class="w"> </span>--version<span class="w">            </span><span class="c1"># scitex-ml/X.Y.Z</span>
+scitex-ml<span class="w"> </span>--help-recursive<span class="w">     </span><span class="c1"># all commands + subcommands</span>
+</pre></div>
 </div>
-<h2 id="_">_</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.__init__">__init__() (scitex_ml.classification.ClassificationReporter method)</a>
+<section id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18.0%" />
+<col style="width: 32.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Category</p></th>
+<th class="head"><p>Command</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Analysis</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scitex-ml</span> <span class="pre">compute-metrics</span></code></p></td>
+<td><p>Balanced accuracy, MCC, confusion matrix, ROC/PR-AUC from a predictions table</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Analysis</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scitex-ml</span> <span class="pre">generate-report</span></code></p></td>
+<td><p>Full ClassificationReporter report (summary + plots) into a directory</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Analysis</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scitex-ml</span> <span class="pre">reduce-dimensions</span></code></p></td>
+<td><p>PCA / UMAP 2-D projection figure from a feature matrix</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Introspection</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scitex-ml</span> <span class="pre">list-python-apis</span></code></p></td>
+<td><p>List the public Python API (<code class="docutils literal notranslate"><span class="pre">-v</span></code> signatures, <code class="docutils literal notranslate"><span class="pre">-vv</span></code> docstrings, <code class="docutils literal notranslate"><span class="pre">--json</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Integration</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scitex-ml</span> <span class="pre">mcp</span></code></p></td>
+<td><p>MCP server management (<code class="docutils literal notranslate"><span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">doctor</span></code>, <code class="docutils literal notranslate"><span class="pre">list-tools</span></code>, <code class="docutils literal notranslate"><span class="pre">install</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Integration</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scitex-ml</span> <span class="pre">skills</span></code></p></td>
+<td><p>List / get / install the bundled agent-facing skill pages</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Utility</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scitex-ml</span> <span class="pre">install-shell-completion</span></code></p></td>
+<td><p>Wire up <code class="docutils literal notranslate"><span class="pre">&lt;TAB&gt;</span></code> completion in the user’s shell rc</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="analysis-verbs">
+<h2>Analysis verbs<a class="headerlink" href="#analysis-verbs" title="Link to this heading"></a></h2>
+<p>Each verb is file-in → JSON/artifact-out and mirrors an MCP tool exactly (same
+name, same JSON — see <a class="reference internal" href="mcp.html"><span class="doc">MCP Server</span></a>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Metrics from a saved predictions table (columns: y_true, y_pred[, y_proba])</span>
+scitex-ml<span class="w"> </span>compute-metrics<span class="w"> </span>preds.csv
+scitex-ml<span class="w"> </span>compute-metrics<span class="w"> </span>preds.csv<span class="w"> </span>--label<span class="w"> </span>neg<span class="w"> </span>--label<span class="w"> </span>pos<span class="w"> </span>--json
 
-      <ul>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.Classifier.__init__">(scitex_ml.classification.Classifier method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.__init__">(scitex_ml.classification.CrossValidationExperiment method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter.__init__">(scitex_ml.classification.SingleTaskClassificationReporter method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.__init__">(scitex_ml.classification.TimeSeriesBlockingSplit method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.__init__">(scitex_ml.classification.TimeSeriesCalendarSplit method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.__init__">(scitex_ml.classification.TimeSeriesMetadata method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesSlidingWindowSplit.__init__">(scitex_ml.classification.TimeSeriesSlidingWindowSplit method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.__init__">(scitex_ml.classification.TimeSeriesStratifiedSplit method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.loss.html#scitex_ml.loss.MultiTaskLoss.__init__">(scitex_ml.loss.MultiTaskLoss method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.training.html#scitex_ml.training.EarlyStopping.__init__">(scitex_ml.training.EarlyStopping method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.__init__">(scitex_ml.training.LearningCurveLogger method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.utils.html#scitex_ml.utils.DefaultDataset.__init__">(scitex_ml.utils.DefaultDataset method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.__init__">(scitex_ml.utils.LabelEncoder method)</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
+<span class="c1"># Full report (summary.json + plots) under ./report</span>
+scitex-ml<span class="w"> </span>generate-report<span class="w"> </span>preds.csv<span class="w"> </span>-o<span class="w"> </span>./report
 
-<h2 id="A">A</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.aggregate_feature_importances">aggregate_feature_importances() (in module scitex_ml.feature_selection)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.analyze_feature_consistency">analyze_feature_consistency() (in module scitex_ml.feature_selection)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="B">B</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.classification.html#id1">BLOCKING (scitex_ml.classification.TimeSeriesStrategy attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.BLOCKING">[1]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="C">C</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_bacc">calc_bacc() (in module scitex_ml.metrics)</a>
-</li>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_bacc_from_conf_mat">calc_bacc_from_conf_mat() (in module scitex_ml.metrics)</a>
-</li>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.calc_bACC_from_conf_mat">calc_bACC_from_conf_mat() (in module scitex_ml.plt)</a>
-</li>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.calc_bacc_from_conf_mat">calc_bacc_from_conf_mat() (in module scitex_ml.plt)</a>
-</li>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_clf_report">calc_clf_report() (in module scitex_ml.metrics)</a>
-</li>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_conf_mat">calc_conf_mat() (in module scitex_ml.metrics)</a>
-</li>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_feature_importance">calc_feature_importance() (in module scitex_ml.metrics)</a>
-</li>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_mcc">calc_mcc() (in module scitex_ml.metrics)</a>
-</li>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_permutation_importance">calc_permutation_importance() (in module scitex_ml.metrics)</a>
-</li>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_pre_rec_auc">calc_pre_rec_auc() (in module scitex_ml.metrics)</a>
-</li>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_roc_auc">calc_roc_auc() (in module scitex_ml.metrics)</a>
-</li>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_event_prediction_metrics">calc_seizure_event_prediction_metrics() (in module scitex_ml.metrics)</a>
-</li>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_prediction_metrics">calc_seizure_prediction_metrics() (in module scitex_ml.metrics)</a>
-</li>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_seizure_window_prediction_metrics">calc_seizure_window_prediction_metrics() (in module scitex_ml.metrics)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_samples_block">calc_silhouette_samples_block() (in module scitex_ml.metrics)</a>
-</li>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_samples_slow">calc_silhouette_samples_slow() (in module scitex_ml.metrics)</a>
-</li>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_score_block">calc_silhouette_score_block() (in module scitex_ml.metrics)</a>
-</li>
-      <li><a href="_generated/scitex_ml.metrics.html#scitex_ml.metrics.calc_silhouette_score_slow">calc_silhouette_score_slow() (in module scitex_ml.metrics)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.calculate_metrics">calculate_metrics() (scitex_ml.classification.ClassificationReporter method)</a>
-</li>
-      <li><a href="_generated/scitex_ml.utils.html#scitex_ml.utils.check_params">check_params() (in module scitex_ml.utils)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#id15">class_distribution (scitex_ml.classification.TimeSeriesMetadata attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.class_distribution">[1]</a>
-</li>
-      <li><a href="_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.classes_">classes_ (scitex_ml.utils.LabelEncoder attribute)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter">ClassificationReporter (class in scitex_ml.classification)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.Classifier">Classifier (class in scitex_ml.classification)</a>
-</li>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.conf_mat">conf_mat() (in module scitex_ml.plt)</a>
-</li>
-      <li><a href="_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.create_feature_importance_dataframe">create_feature_importance_dataframe() (in module scitex_ml.feature_selection)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment">CrossValidationExperiment (class in scitex_ml.classification)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.CVExperiment">CVExperiment (in module scitex_ml.classification)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="D">D</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.utils.html#scitex_ml.utils.DefaultDataset">DefaultDataset (class in scitex_ml.utils)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.describe_dataset">describe_dataset() (scitex_ml.classification.CrossValidationExperiment method)</a>
-</li>
-      <li><a href="_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.dfs">dfs (scitex_ml.training.LearningCurveLogger property)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="E">E</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.training.html#scitex_ml.training.EarlyStopping">EarlyStopping (class in scitex_ml.training)</a>
-</li>
-      <li><a href="_generated/scitex_ml.loss.html#scitex_ml.loss.elastic">elastic() (in module scitex_ml.loss)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.classification.html#id3">EXPANDING (scitex_ml.classification.TimeSeriesStrategy attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.EXPANDING">[1]</a>
-</li>
-      <li><a href="_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.extract_feature_importance">extract_feature_importance() (in module scitex_ml.feature_selection)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="F">F</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.fit">fit() (scitex_ml.utils.LabelEncoder method)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#id4">FIXED (scitex_ml.classification.TimeSeriesStrategy attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.FIXED">[1]</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.utils.html#scitex_ml.utils.format_samples_for_sktime">format_samples_for_sktime() (in module scitex_ml.utils)</a>
-</li>
-      <li><a href="_generated/scitex_ml.loss.html#scitex_ml.loss.MultiTaskLoss.forward">forward() (scitex_ml.loss.MultiTaskLoss method)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.from_string">from_string() (scitex_ml.classification.TimeSeriesStrategy class method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="G">G</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.optim.html#scitex_ml.optim.get">get() (in module scitex_ml.optim)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.get_description">get_description() (scitex_ml.classification.TimeSeriesStrategy method)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.get_n_splits">get_n_splits() (scitex_ml.classification.TimeSeriesBlockingSplit method)</a>
-
-      <ul>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.get_n_splits">(scitex_ml.classification.TimeSeriesCalendarSplit method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.get_n_splits">(scitex_ml.classification.TimeSeriesStratifiedSplit method)</a>
-</li>
-      </ul></li>
-      <li><a href="_generated/scitex_ml.optim.html#scitex_ml.optim.get_optimizer">get_optimizer() (in module scitex_ml.optim)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.get_summary">get_summary() (scitex_ml.classification.ClassificationReporter method)</a>
-
-      <ul>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.get_summary">(scitex_ml.classification.CrossValidationExperiment method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.get_summary">(scitex_ml.classification.TimeSeriesMetadata method)</a>
-</li>
-      </ul></li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.get_validation_report">get_validation_report() (scitex_ml.classification.CrossValidationExperiment method)</a>
-</li>
-      <li><a href="_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.get_x_of_i_epoch">get_x_of_i_epoch() (scitex_ml.training.LearningCurveLogger method)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#id9">group_sizes (scitex_ml.classification.TimeSeriesMetadata attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.group_sizes">[1]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="H">H</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.classification.html#id12">has_gaps (scitex_ml.classification.TimeSeriesMetadata attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.has_gaps">[1]</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.classification.html#id8">has_groups (scitex_ml.classification.TimeSeriesMetadata attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.has_groups">[1]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="I">I</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.inverse_transform">inverse_transform() (scitex_ml.utils.LabelEncoder method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.classification.html#id14">is_balanced (scitex_ml.classification.TimeSeriesMetadata attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.is_balanced">[1]</a>
-</li>
-      <li><a href="_generated/scitex_ml.training.html#scitex_ml.training.EarlyStopping.is_best">is_best() (scitex_ml.training.EarlyStopping method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="L">L</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.loss.html#scitex_ml.loss.l1">l1() (in module scitex_ml.loss)</a>
-</li>
-      <li><a href="_generated/scitex_ml.loss.html#scitex_ml.loss.l2">l2() (in module scitex_ml.loss)</a>
-</li>
-      <li><a href="_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder">LabelEncoder (class in scitex_ml.utils)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.learning_curve">learning_curve() (in module scitex_ml.plt)</a>
-</li>
-      <li><a href="_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger">LearningCurveLogger (class in scitex_ml.training)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.Classifier.list">list (scitex_ml.classification.Classifier property)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="M">M</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.clustering.html#scitex_ml.clustering.main">main() (in module scitex_ml.clustering)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#id13">max_gap_size (scitex_ml.classification.TimeSeriesMetadata attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.max_gap_size">[1]</a>
-</li>
-      <li><a href="_generated/scitex_ml.utils.html#scitex_ml.utils.merge_labels">merge_labels() (in module scitex_ml.utils)</a>
-</li>
-      <li>
-    module
-
-      <ul>
-        <li><a href="_generated/scitex_ml.classification.html#module-scitex_ml.classification">scitex_ml.classification</a>
-</li>
-        <li><a href="_generated/scitex_ml.clustering.html#module-scitex_ml.clustering">scitex_ml.clustering</a>
-</li>
-        <li><a href="_generated/scitex_ml.feature_extraction.html#module-scitex_ml.feature_extraction">scitex_ml.feature_extraction</a>
-</li>
-        <li><a href="_generated/scitex_ml.feature_selection.html#module-scitex_ml.feature_selection">scitex_ml.feature_selection</a>
-</li>
-        <li><a href="_generated/scitex_ml.loss.html#module-scitex_ml.loss">scitex_ml.loss</a>
-</li>
-        <li><a href="_generated/scitex_ml.metrics.html#module-scitex_ml.metrics">scitex_ml.metrics</a>
-</li>
-        <li><a href="_generated/scitex_ml.optim.html#module-scitex_ml.optim">scitex_ml.optim</a>
-</li>
-        <li><a href="_generated/scitex_ml.plt.html#module-scitex_ml.plt">scitex_ml.plt</a>
-</li>
-        <li><a href="_generated/scitex_ml.sampling.html#module-scitex_ml.sampling">scitex_ml.sampling</a>
-</li>
-        <li><a href="_generated/scitex_ml.sklearn.html#module-scitex_ml.sklearn">scitex_ml.sklearn</a>
-</li>
-        <li><a href="_generated/scitex_ml.training.html#module-scitex_ml.training">scitex_ml.training</a>
-</li>
-        <li><a href="_generated/scitex_ml.utils.html#module-scitex_ml.utils">scitex_ml.utils</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.loss.html#scitex_ml.loss.MultiTaskLoss">MultiTaskLoss (class in scitex_ml.loss)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="N">N</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.classification.html#id7">n_classes (scitex_ml.classification.TimeSeriesMetadata attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.n_classes">[1]</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.classification.html#id6">n_features (scitex_ml.classification.TimeSeriesMetadata attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.n_features">[1]</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#id5">n_samples (scitex_ml.classification.TimeSeriesMetadata attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.n_samples">[1]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="O">O</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.optuna_study">optuna_study() (in module scitex_ml.plt)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="P">P</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.clustering.html#scitex_ml.clustering.pca">pca() (in module scitex_ml.clustering)</a>
-</li>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.plot_feature_importance">plot_feature_importance() (in module scitex_ml.plt)</a>
-</li>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.plot_feature_importance_cv_summary">plot_feature_importance_cv_summary() (in module scitex_ml.plt)</a>
-</li>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.plot_learning_curve">plot_learning_curve() (in module scitex_ml.plt)</a>
-</li>
-      <li><a href="_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.plot_learning_curves">plot_learning_curves() (scitex_ml.training.LearningCurveLogger method)</a>
-</li>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.plot_optuna_study">plot_optuna_study() (in module scitex_ml.plt)</a>
-</li>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.plot_pre_rec_curve">plot_pre_rec_curve() (in module scitex_ml.plt)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.plot_roc_curve">plot_roc_curve() (in module scitex_ml.plt)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.plot_splits">plot_splits() (scitex_ml.classification.TimeSeriesBlockingSplit method)</a>
-
-      <ul>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.plot_splits">(scitex_ml.classification.TimeSeriesCalendarSplit method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.plot_splits">(scitex_ml.classification.TimeSeriesStratifiedSplit method)</a>
-</li>
-      </ul></li>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.plot_tra">plot_tra() (in module scitex_ml.plt)</a>
-</li>
-      <li><a href="_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.print">print() (scitex_ml.training.LearningCurveLogger method)</a>
-</li>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.process_i_global">process_i_global() (in module scitex_ml.plt)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="Q">Q</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.quick_experiment">quick_experiment() (in module scitex_ml.classification)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="R">R</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.run">run() (scitex_ml.classification.CrossValidationExperiment method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="S">S</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.classification.html#id11">sampling_rate (scitex_ml.classification.TimeSeriesMetadata attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.sampling_rate">[1]</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save">save() (scitex_ml.classification.ClassificationReporter method)</a>
-
-      <ul>
-        <li><a href="_generated/scitex_ml.training.html#scitex_ml.training.EarlyStopping.save">(scitex_ml.training.EarlyStopping method)</a>
-</li>
-      </ul></li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save_feature_importance">save_feature_importance() (scitex_ml.classification.ClassificationReporter method)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save_feature_importance_summary">save_feature_importance_summary() (scitex_ml.classification.ClassificationReporter method)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.ClassificationReporter.save_summary">save_summary() (scitex_ml.classification.ClassificationReporter method)</a>
-
-      <ul>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter.save_summary">(scitex_ml.classification.SingleTaskClassificationReporter method)</a>
-</li>
-      </ul></li>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.scatter_tes">scatter_tes() (in module scitex_ml.plt)</a>
-</li>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.scatter_val">scatter_val() (in module scitex_ml.plt)</a>
-</li>
-      <li>
-    scitex_ml.classification
-
-      <ul>
-        <li><a href="_generated/scitex_ml.classification.html#module-scitex_ml.classification">module</a>
-</li>
-      </ul></li>
-      <li>
-    scitex_ml.clustering
-
-      <ul>
-        <li><a href="_generated/scitex_ml.clustering.html#module-scitex_ml.clustering">module</a>
-</li>
-      </ul></li>
-      <li>
-    scitex_ml.feature_extraction
-
-      <ul>
-        <li><a href="_generated/scitex_ml.feature_extraction.html#module-scitex_ml.feature_extraction">module</a>
-</li>
-      </ul></li>
-      <li>
-    scitex_ml.feature_selection
-
-      <ul>
-        <li><a href="_generated/scitex_ml.feature_selection.html#module-scitex_ml.feature_selection">module</a>
-</li>
-      </ul></li>
-      <li>
-    scitex_ml.loss
-
-      <ul>
-        <li><a href="_generated/scitex_ml.loss.html#module-scitex_ml.loss">module</a>
-</li>
-      </ul></li>
-      <li>
-    scitex_ml.metrics
-
-      <ul>
-        <li><a href="_generated/scitex_ml.metrics.html#module-scitex_ml.metrics">module</a>
-</li>
-      </ul></li>
-      <li>
-    scitex_ml.optim
-
-      <ul>
-        <li><a href="_generated/scitex_ml.optim.html#module-scitex_ml.optim">module</a>
-</li>
-      </ul></li>
-      <li>
-    scitex_ml.plt
-
-      <ul>
-        <li><a href="_generated/scitex_ml.plt.html#module-scitex_ml.plt">module</a>
-</li>
-      </ul></li>
-      <li>
-    scitex_ml.sampling
-
-      <ul>
-        <li><a href="_generated/scitex_ml.sampling.html#module-scitex_ml.sampling">module</a>
-</li>
-      </ul></li>
-      <li>
-    scitex_ml.sklearn
-
-      <ul>
-        <li><a href="_generated/scitex_ml.sklearn.html#module-scitex_ml.sklearn">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    scitex_ml.training
-
-      <ul>
-        <li><a href="_generated/scitex_ml.training.html#module-scitex_ml.training">module</a>
-</li>
-      </ul></li>
-      <li>
-    scitex_ml.utils
-
-      <ul>
-        <li><a href="_generated/scitex_ml.utils.html#module-scitex_ml.utils">module</a>
-</li>
-      </ul></li>
-      <li><a href="_generated/scitex_ml.feature_selection.html#scitex_ml.feature_selection.select_features_univariate">select_features_univariate() (in module scitex_ml.feature_selection)</a>
-</li>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.select_ticks">select_ticks() (in module scitex_ml.plt)</a>
-</li>
-      <li><a href="_generated/scitex_ml.optim.html#scitex_ml.optim.set">set() (in module scitex_ml.optim)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.CrossValidationExperiment.set_hyperparameters">set_hyperparameters() (scitex_ml.classification.CrossValidationExperiment method)</a>
-</li>
-      <li><a href="_generated/scitex_ml.optim.html#scitex_ml.optim.set_optimizer">set_optimizer() (in module scitex_ml.optim)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter.set_session_config">set_session_config() (scitex_ml.classification.SingleTaskClassificationReporter method)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.set_split_request">set_split_request() (scitex_ml.classification.TimeSeriesBlockingSplit method)</a>
-
-      <ul>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.set_split_request">(scitex_ml.classification.TimeSeriesCalendarSplit method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesSlidingWindowSplit.set_split_request">(scitex_ml.classification.TimeSeriesSlidingWindowSplit method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.set_split_request">(scitex_ml.classification.TimeSeriesStratifiedSplit method)</a>
-</li>
-      </ul></li>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.set_yaxis_for_acc">set_yaxis_for_acc() (in module scitex_ml.plt)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.SingleTaskClassificationReporter">SingleTaskClassificationReporter (class in scitex_ml.classification)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#id2">SLIDING (scitex_ml.classification.TimeSeriesStrategy attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.SLIDING">[1]</a>
-</li>
-      <li><a href="_generated/scitex_ml.utils.html#scitex_ml.utils.sliding_window_data_augmentation">sliding_window_data_augmentation() (in module scitex_ml.utils)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.split">split() (scitex_ml.classification.TimeSeriesBlockingSplit method)</a>
-
-      <ul>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.split">(scitex_ml.classification.TimeSeriesCalendarSplit method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.split">(scitex_ml.classification.TimeSeriesStratifiedSplit method)</a>
-</li>
-      </ul></li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit.split_with_val">split_with_val() (scitex_ml.classification.TimeSeriesBlockingSplit method)</a>
-
-      <ul>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit.split_with_val">(scitex_ml.classification.TimeSeriesCalendarSplit method)</a>
-</li>
-        <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit.split_with_val">(scitex_ml.classification.TimeSeriesStratifiedSplit method)</a>
-</li>
-      </ul></li>
-      <li><a href="_generated/scitex_ml.classification.html#id0">STRATIFIED (scitex_ml.classification.TimeSeriesStrategy attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy.STRATIFIED">[1]</a>
-</li>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.stx_conf_mat">stx_conf_mat() (in module scitex_ml.plt)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.suggest_strategy">suggest_strategy() (scitex_ml.classification.TimeSeriesMetadata method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="T">T</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.classification.html#id10">time_range (scitex_ml.classification.TimeSeriesMetadata attribute)</a>, <a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata.time_range">[1]</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesBlockingSplit">TimeSeriesBlockingSplit (class in scitex_ml.classification)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesCalendarSplit">TimeSeriesCalendarSplit (class in scitex_ml.classification)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesMetadata">TimeSeriesMetadata (class in scitex_ml.classification)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesSlidingWindowSplit">TimeSeriesSlidingWindowSplit (class in scitex_ml.classification)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStrategy">TimeSeriesStrategy (class in scitex_ml.classification)</a>
-</li>
-      <li><a href="_generated/scitex_ml.classification.html#scitex_ml.classification.TimeSeriesStratifiedSplit">TimeSeriesStratifiedSplit (class in scitex_ml.classification)</a>
-</li>
-      <li><a href="_generated/scitex_ml.training.html#scitex_ml.training.LearningCurveLogger.to_metrics_df">to_metrics_df() (scitex_ml.training.LearningCurveLogger method)</a>
-</li>
-      <li><a href="_generated/scitex_ml.utils.html#scitex_ml.utils.LabelEncoder.transform">transform() (scitex_ml.utils.LabelEncoder method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="U">U</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.clustering.html#scitex_ml.clustering.umap">umap() (in module scitex_ml.clustering)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.utils.html#scitex_ml.utils.under_sample">under_sample() (in module scitex_ml.utils)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="V">V</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.utils.html#scitex_ml.utils.verify_n_gpus">verify_n_gpus() (in module scitex_ml.utils)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="_generated/scitex_ml.plt.html#scitex_ml.plt.vline_at_epochs">vline_at_epochs() (in module scitex_ml.plt)</a>
-</li>
-  </ul></td>
-</tr></table>
-
+<span class="c1"># PCA / UMAP figure coloured by a label column</span>
+scitex-ml<span class="w"> </span>reduce-dimensions<span class="w"> </span>features.csv<span class="w"> </span>-o<span class="w"> </span>pca.png<span class="w"> </span>--label-col<span class="w"> </span>target
+scitex-ml<span class="w"> </span>reduce-dimensions<span class="w"> </span>features.csv<span class="w"> </span>-o<span class="w"> </span>umap.png<span class="w"> </span>--method<span class="w"> </span>umap<span class="w"> </span>--supervised
+</pre></div>
+</div>
+</section>
+<section id="introspection">
+<h2>Introspection<a class="headerlink" href="#introspection" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scitex-ml<span class="w"> </span>list-python-apis<span class="w">          </span><span class="c1"># names</span>
+scitex-ml<span class="w"> </span>list-python-apis<span class="w"> </span>-vv<span class="w">      </span><span class="c1"># + signatures + docstrings</span>
+scitex-ml<span class="w"> </span>list-python-apis<span class="w"> </span>--json
+</pre></div>
+</div>
+</section>
+<section id="shell-completion">
+<h2>Shell completion<a class="headerlink" href="#shell-completion" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scitex-ml<span class="w"> </span>install-shell-completion<span class="w"> </span>--shell<span class="w"> </span>bash
+<span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>scitex-ml<span class="w"> </span>print-shell-completion<span class="w"> </span>--shell<span class="w"> </span>bash<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mcp.html" class="btn btn-neutral float-right" title="MCP Server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
