@@ -27,9 +27,9 @@ tags: [scitex-ml]
 primary_interface: python
 interfaces:
   python: 3
-  cli: 0
-  mcp: 0
-  skills: 2
+  cli: 2
+  mcp: 2
+  skills: 3
   hook: 0
   http: 0
 ---
@@ -43,52 +43,63 @@ what used to live in `scitex.ai` (the umbrella now exposes this package as
 
 ## Sub-skills
 
-### Onboarding (canonical 01-03)
+### Onboarding + interfaces (01-05)
 * [01_installation.md](01_installation.md) — pip install + extras + verify
 * [02_quick-start.md](02_quick-start.md) — first classifier + reporter round-trip
 * [03_python-api.md](03_python-api.md) — full Python surface map
+* [04_cli-reference.md](04_cli-reference.md) — `scitex-ml` CLI: analysis verbs, mcp/skills groups
+* [05_mcp-tools.md](05_mcp-tools.md) — MCP tools (`ml_compute_metrics`, `ml_generate_report`, `ml_reduce_dimensions`)
 
-### Core surfaces
-* [04_classification.md](04_classification.md) — Classifier factory + ClassificationReporter
-* [05_classification_1_cv-experiment.md](05_classification_1_cv-experiment.md) — CrossValidationExperiment + time-series CV
-* [06_training.md](06_training.md) — EarlyStopping, LearningCurveLogger
-* [07_loss.md](07_loss.md) — MultiTaskLoss, L1/L2/elastic regularizers
-* [08_optim.md](08_optim.md) — get_optimizer, set_optimizer, Ranger
-* [09_clustering.md](09_clustering.md) — pca(), umap() dimensionality reduction
-* [10_metrics.md](10_metrics.md) — calc_bacc, calc_mcc, calc_conf_mat, calc_clf_report
-* [11_metrics_1_curves-and-silhouette.md](11_metrics_1_curves-and-silhouette.md) — ROC-AUC, PR-AUC, silhouette, feature importance, seizure metrics
-* [12_sampling.md](12_sampling.md) — undersample() for imbalanced data
-* [13_feature-selection.md](13_feature-selection.md) — feature importance, univariate selection, CV consistency
+### Core surfaces (10-19)
+* [10_classification.md](10_classification.md) — Classifier factory + ClassificationReporter
+* [11_classification_1_cv-experiment.md](11_classification_1_cv-experiment.md) — CrossValidationExperiment + time-series CV
+* [12_training.md](12_training.md) — EarlyStopping, LearningCurveLogger
+* [13_loss.md](13_loss.md) — MultiTaskLoss, L1/L2/elastic regularizers
+* [14_optim.md](14_optim.md) — get_optimizer, set_optimizer, Ranger
+* [15_clustering.md](15_clustering.md) — pca(), umap() dimensionality reduction
+* [16_metrics.md](16_metrics.md) — calc_bacc, calc_mcc, calc_conf_mat, calc_clf_report
+* [17_metrics_1_curves-and-silhouette.md](17_metrics_1_curves-and-silhouette.md) — ROC-AUC, PR-AUC, silhouette, feature importance
+* [18_sampling.md](18_sampling.md) — undersample() for imbalanced data
+* [19_feature-selection.md](19_feature-selection.md) — feature importance, univariate selection, CV consistency
 
 ## Quick Reference
 
 ```python
 import scitex_ml
 
-# Classification
-clf_server = scitex_ml.Classifier(class_weight={0: 1.0, 1: 2.0})
-clf = clf_server("SVC")
+clf = scitex_ml.Classifier(class_weight={0: 1.0, 1: 2.0})("SVC")
 reporter = scitex_ml.ClassificationReporter("./results")
 reporter.calculate_metrics(y_true, y_pred, y_proba)
-
-# Training
-early_stopping = scitex_ml.EarlyStopping(patience=10, direction="minimize")
-logger = scitex_ml.LearningCurveLogger()
-
-# Loss
-mtl = scitex_ml.MultiTaskLoss(are_regression=[False, False])
-
-# Optimizer
-optimizer = scitex_ml.set_optimizer(model, "adam", lr=1e-3)
-
-# Metrics
 result = scitex_ml.metrics.calc_bacc(y_true, y_pred)
-cm = scitex_ml.metrics.calc_conf_mat(y_true, y_pred)
-
-# Time-series CV
-from scitex_ml.classification import TimeSeriesStratifiedSplit
-splitter = TimeSeriesStratifiedSplit(n_splits=5)
+optimizer = scitex_ml.set_optimizer(model, "adam", lr=1e-3)
 ```
+
+See the leaves above for training, loss, time-series CV, clustering and
+feature-selection details.
+
+## CLI + MCP (stateless analysis surface)
+
+The CLI and MCP server expose the same three file-in → artifact-out verbs
+(identical JSON — CLI ↔ MCP parity). Training, optimizers, EarlyStopping and
+the deep submodule API stay Python-only by design.
+
+```bash
+scitex-ml compute-metrics preds.csv --json        # bacc / mcc / confusion / AUC
+scitex-ml generate-report preds.csv -o ./report   # full report + plots
+scitex-ml reduce-dimensions feats.csv -o pca.png --label-col target
+scitex-ml mcp start                                # MCP server (stdio)
+```
+
+| CLI verb | MCP tool (umbrella-mounted) | Python API wrapped |
+|---|---|---|
+| `compute-metrics` | `ml_compute_metrics` | `scitex_ml.metrics.*` |
+| `generate-report` | `ml_generate_report` | `scitex_ml.ClassificationReporter` |
+| `reduce-dimensions` | `ml_reduce_dimensions` | `scitex_ml.clustering.pca/umap` |
+
+**Parity note:** scitex-ml deliberately exposes only this stateless analysis
+slice via CLI+MCP, so it sets `mcp_parity_exempt = true` (`[tool.scitex_dev]`)
+— the strict §6 Python-API↔MCP 1:1 parity check is a false positive for a
+package whose bulk API is stateful/in-process.
 
 ## Umbrella access
 

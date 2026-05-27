@@ -9,7 +9,7 @@ tags: [scitex-ml-metrics]
 
 All functions in `scitex_ml.metrics` return dictionaries containing `"metric"`, `"value"`, `"fold"`, and optionally `"labels"` or `"error"`.
 
-See [11_metrics_1_curves-and-silhouette.md](11_metrics_1_curves-and-silhouette.md) for ROC/PR curves, silhouette, feature importance, and seizure-domain metrics.
+See [11_metrics_1_curves-and-silhouette.md](17_metrics_1_curves-and-silhouette.md) for ROC/PR curves, silhouette, feature importance, and seizure-domain metrics.
 
 ## calc_bacc()
 

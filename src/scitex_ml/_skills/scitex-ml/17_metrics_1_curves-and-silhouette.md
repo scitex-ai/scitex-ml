@@ -7,7 +7,7 @@ tags: [scitex-ml-metrics_1_curves-and-silhouette]
 
 # Metrics — Curves, Silhouette, Importance, Seizure
 
-Continuation of [10_metrics.md](10_metrics.md). All functions live in `scitex_ml.metrics` and return the same dict shape (`{"metric", "value", "fold", ...}`) when applicable.
+Continuation of [10_metrics.md](16_metrics.md). All functions live in `scitex_ml.metrics` and return the same dict shape (`{"metric", "value", "fold", ...}`) when applicable.
 
 ## calc_roc_auc()
 
@@ -83,7 +83,7 @@ calc_permutation_importance(
 ) -> Dict[str, float]
 ```
 
-See [13_feature-selection.md](13_feature-selection.md) for the higher-level `extract_feature_importance()` helper.
+See [13_feature-selection.md](19_feature-selection.md) for the higher-level `extract_feature_importance()` helper.
 
 ---
 

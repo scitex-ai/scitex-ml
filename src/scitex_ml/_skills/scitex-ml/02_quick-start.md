@@ -86,7 +86,7 @@ scitex.ml.Classifier  # same object as scitex_ml.Classifier
 ## Next steps
 
 - [03_python-api.md](03_python-api.md) — full Python API surface map
-- [04_classification.md](04_classification.md) — Classifier + ClassificationReporter deep dive
-- [05_classification_1_cv-experiment.md](05_classification_1_cv-experiment.md) — CrossValidationExperiment, time-series CV
-- [06_training.md](06_training.md) — EarlyStopping + LearningCurveLogger
-- [10_metrics.md](10_metrics.md) — full metrics surface
+- [04_classification.md](10_classification.md) — Classifier + ClassificationReporter deep dive
+- [05_classification_1_cv-experiment.md](11_classification_1_cv-experiment.md) — CrossValidationExperiment, time-series CV
+- [06_training.md](12_training.md) — EarlyStopping + LearningCurveLogger
+- [10_metrics.md](16_metrics.md) — full metrics surface
