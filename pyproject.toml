@@ -38,7 +38,14 @@ dependencies = [
     # Core scientific
     "numpy",
     "pandas",
-    "scipy",
+    # `scipy` dropped from core in 2026-06-13 hard-dep-overreach sweep.
+    # `rg "^(import|from)\s+scipy\b" src/` finds zero imports across
+    # the 106 scitex_ml source files. If a future ml module needs it,
+    # declare it as an extra (matches the scipy<1.17 already pinned in
+    # the [project.optional-dependencies].docs block at line 133). See
+    # scitex-dev a2a directive da6bcfb8 + lead's CI-as-gate guardrail
+    # (a2a 582a39fb): if a lazy / re-export path needs scipy, CI
+    # catches the regression before auto-merge.
     "matplotlib",
     "seaborn",
     "joblib",
