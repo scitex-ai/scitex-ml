@@ -132,10 +132,18 @@ docs = [
     # upstream regression clears.
     "scipy<1.17",
 ]
+# PS-221 `[all]`-closure: every PUBLIC extra must be a SUBSET of `all`, so
+# `pip install scitex-ml[all]` pulls EVERYTHING public and never silently
+# under-installs. The self-referencing form below cannot drift when one of
+# the referenced extras changes. `dev` / `docs` stay PUBLIC (not `_`-renamed:
+# PEP 508/685 forbids leading-underscore extra names) because CI and
+# CONTRIBUTING install them by name.
 all = [
     "scitex-ml[heavy]",
     "scitex-ml[mcp]",
     "scitex-ml[seizure]",
+    "scitex-ml[dev]",
+    "scitex-ml[docs]",
 ]
 
 [project.urls]
