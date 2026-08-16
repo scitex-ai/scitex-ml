@@ -92,6 +92,17 @@ heavy = [
 mcp = [
     "fastmcp>=2.0.0",
 ]
+# SciTeX Voice V1 speaker-embedding path (ECAPA-TDNN via speechbrain).
+# torch is pinned <=2.7 because 2.8+ dropped prebuilt Pascal (sm_60/61)
+# wheels and compute-03/04 are GTX 1070 (Pascal); on those boxes use a
+# cu12x wheel (CUDA 13 dropped offline Pascal support). See
+# scitex_ml.inference._device and card
+# scitex-voice-speaker-verified-dictation-v1-20260816.
+voice = [
+    "torch<=2.7",
+    "torchaudio<=2.7",
+    "speechbrain>=1.0",
+]
 seizure = [
     # Pulls in the standalone scitex-seizure-metrics library so that
     # `from scitex_ml.metrics import seizure` works and resolves to the
