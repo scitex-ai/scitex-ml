@@ -126,6 +126,9 @@ dev = [
     "optuna",
     "pytorch_pretrained_vit",
     "scitex-seizure-metrics>=0.1.0",
+    # Voice V1: speechbrain backs the ECAPA embedder that tests/scitex_ml/
+    # embedding exercises, so [dev] must carry it for a full local run.
+    "speechbrain>=1.0",
     # tests/scitex_ml/test__mcp_server.py imports the fastmcp-backed server.
     "fastmcp>=2.0.0",
     # Notebook execution for tests/examples/test_01_*.py (PS505).
@@ -154,6 +157,7 @@ all = [
     "scitex-ml[heavy]",
     "scitex-ml[mcp]",
     "scitex-ml[seizure]",
+    "scitex-ml[voice]",
 ]
 
 [project.urls]

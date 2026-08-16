@@ -5,42 +5,56 @@
 """Tests for scitex_ml.embedding._ecapa (SciTeX Voice V1).
 
 These exercise the import-safety contract: the module and constructor must
-work with no torch/speechbrain, and only surface a helpful install hint at
-load() time.
+work with no torch/speechbrain installed, and the 16 kHz guard fires before
+any heavy load. Loading the real model is covered by the M0 microbench on
+compute-03, not here.
 """
 
 from __future__ import annotations
-
-import importlib.util
 
 import pytest
 
 from scitex_ml.embedding import EMBEDDING_DIM, ECAPAEmbedder
 
-_HAS_SPEECHBRAIN = importlib.util.find_spec("speechbrain") is not None
+
+def test_embedding_dim_is_192():
+    # Arrange
+    expected = 192
+
+    # Act
+    value = EMBEDDING_DIM
+
+    # Assert
+    assert value == expected
 
 
-def test_embedding_dim_constant():
-    assert EMBEDDING_DIM == 192
+def test_construct_sets_requested_device():
+    # Arrange
+    device = "cpu"
+
+    # Act
+    embedder = ECAPAEmbedder(device=device)
+
+    # Assert
+    assert embedder.device == "cpu"
 
 
-def test_construct_is_cheap_without_deps():
-    # Constructing must not import torch/speechbrain or hit the network.
-    emb = ECAPAEmbedder(device="cpu")
-    assert emb.device == "cpu"
-    assert emb._model is None
+def test_construct_defers_model_load():
+    # Arrange
+    embedder = ECAPAEmbedder(device="cpu")
+
+    # Act
+    loaded = embedder._model
+
+    # Assert
+    assert loaded is None
 
 
-def test_non_16k_rejected_before_load():
-    emb = ECAPAEmbedder(device="cpu")
+def test_non_16k_sample_rate_is_rejected():
+    # Arrange
+    embedder = ECAPAEmbedder(device="cpu")
+
+    # Act
+    # Assert
     with pytest.raises(ValueError, match="16 kHz"):
-        emb.embed([0.0, 0.1, 0.2], sample_rate=8000)
-
-
-@pytest.mark.skipif(
-    _HAS_SPEECHBRAIN, reason="speechbrain installed; hint path not exercised"
-)
-def test_load_without_speechbrain_raises_install_hint():
-    emb = ECAPAEmbedder(device="cpu")
-    with pytest.raises(RuntimeError, match=r"scitex-ml\[voice\]"):
-        emb.load()
+        embedder.embed([0.0, 0.1, 0.2], sample_rate=8000)
