@@ -525,7 +525,7 @@ plt.show()</p>
 <span class="sig-prename descclassname"><span class="pre">scitex_ml.plt.</span></span><span class="sig-name descname"><span class="pre">optuna_study</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scitex_ml.plt.optuna_study" title="Link to this definition"></a></dt>
 <dd><p>Loads an Optuna study and generates various visualizations for each target metric.</p>
 <p>Parameters:
-- lpath (str): Path to the Optuna study database.
+- lpath (str): Optuna storage URL, e.g. “postgresql://scitex-primary:55432/scitex”. Any SQLAlchemy URL that Optuna accepts will do.
 - value_str (str): The name of the column to be used as the optimization target.</p>
 <p>Returns:
 - None</p>
@@ -536,7 +536,7 @@ plt.show()</p>
 <span class="sig-prename descclassname"><span class="pre">scitex_ml.plt.</span></span><span class="sig-name descname"><span class="pre">plot_optuna_study</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scitex_ml/plt/_plot_optuna_study.html#plot_optuna_study"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scitex_ml.plt.plot_optuna_study" title="Link to this definition"></a></dt>
 <dd><p>Loads an Optuna study and generates various visualizations for each target metric.</p>
 <p>Parameters:
-- lpath (str): Path to the Optuna study database.
+- lpath (str): Optuna storage URL, e.g. “postgresql://scitex-primary:55432/scitex”. Any SQLAlchemy URL that Optuna accepts will do.
 - value_str (str): The name of the column to be used as the optimization target.</p>
 <p>Returns:
 - None</p>
