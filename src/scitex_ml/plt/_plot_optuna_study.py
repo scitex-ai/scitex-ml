@@ -36,7 +36,7 @@ Dependencies:
 
 IO:
   - input-files:
-    - Optuna study database (.db file)
+    - Optuna study storage URL
   - output-files:
     - study_history.csv
     - optimization_history.png/html
@@ -59,7 +59,9 @@ def plot_optuna_study(lpath, value_str, sort=False):
     Loads an Optuna study and generates various visualizations for each target metric.
 
     Parameters:
-    - lpath (str): Path to the Optuna study database.
+    - lpath (str): Optuna storage URL, e.g.
+      "postgresql://scitex-primary:55432/scitex". Any SQLAlchemy URL that
+      Optuna accepts will do.
     - value_str (str): The name of the column to be used as the optimization target.
 
     Returns:
@@ -74,11 +76,11 @@ def plot_optuna_study(lpath, value_str, sort=False):
 
     plt, CC = _umbrella_plt.configure_mpl(plt, fig_scale=3)
 
-    lpath = lpath.replace("./", "/")
-
     study = optuna.load_study(study_name=None, storage=lpath)
 
-    sdir = lpath.replace("sqlite:///", "./").replace(".db", "/")
+    # Output directory is derived from the study name, not from the storage
+    # URL: a server-backed storage has no file path to strip.
+    sdir = f"./{study.study_name}/"
 
     # To get the best trial:
     best_trial = study.best_trial
@@ -170,10 +172,10 @@ def main(args):
     """
     Demonstrate Optuna study visualization.
     """
-    # Example: Would require actual Optuna study database
-    logger.info("This script requires an existing Optuna study database.")
+    # Example: Would require an actual Optuna study storage
+    logger.info("This script requires an existing Optuna study storage.")
     logger.info("Usage example:")
-    logger.info('  lpath = "sqlite:///path/to/optuna_study.db"')
+    logger.info('  lpath = "postgresql://scitex-primary:55432/scitex"')
     logger.info('  plot_optuna_study(lpath, "Validation bACC", sort=True)')
 
     return 0
@@ -186,7 +188,7 @@ def parse_args() -> argparse.Namespace:
         "--lpath",
         type=str,
         default=None,
-        help="Path to Optuna study database (e.g., sqlite:///study.db)",
+        help="Optuna storage URL (e.g., postgresql://scitex-primary:55432/scitex)",
     )
     parser.add_argument(
         "--value_str",
