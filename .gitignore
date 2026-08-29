@@ -690,3 +690,6 @@ src/*/_docs/
 signatures/
 docs/sphinx/_generated/
 .worktrees/
+
+### Sphinx build cache (intermediate doctrees, never served)
+.doctrees/
