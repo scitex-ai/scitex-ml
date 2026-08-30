@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import os
 import pathlib
+import re
 
 import scitex_io
 from scitex_dev import try_import_optional
@@ -54,6 +55,25 @@ import scitex_logging as logging
 logger = logging.getLogger(__name__)
 
 
+#: A storage URL's scheme (``<scheme>://``) names the engine Optuna talks to
+#: and says nothing about where OUR figures go, so it is stripped rather than
+#: matched: any engine Optuna supports lands in the same output layout.
+_STORAGE_SCHEME = re.compile(r"^[A-Za-z][A-Za-z0-9+.\-]*:/*")
+
+
+def _sdir_for_storage(storage: str) -> str:
+    """Derive the output directory from an Optuna storage URL or path.
+
+    ``…/optuna_study.db`` becomes ``./optuna_study/`` — the study's own name
+    as a directory next to it. A storage URL with no file suffix (a server
+    engine) keeps its trailing component instead, and the trailing separator
+    is always added: callers build paths by concatenation, so a missing one
+    silently renames every output file rather than placing it.
+    """
+    sdir = _STORAGE_SCHEME.sub("./", storage).replace(".db", "/")
+    return sdir if sdir.endswith("/") else sdir + "/"
+
+
 def plot_optuna_study(lpath, value_str, sort=False):
     """
     Loads an Optuna study and generates various visualizations for each target metric.
@@ -78,7 +98,7 @@ def plot_optuna_study(lpath, value_str, sort=False):
 
     study = optuna.load_study(study_name=None, storage=lpath)
 
-    sdir = lpath.replace("sqlite:///", "./").replace(".db", "/")
+    sdir = _sdir_for_storage(lpath)
 
     # To get the best trial:
     best_trial = study.best_trial
@@ -173,7 +193,7 @@ def main(args):
     # Example: Would require actual Optuna study database
     logger.info("This script requires an existing Optuna study database.")
     logger.info("Usage example:")
-    logger.info('  lpath = "sqlite:///path/to/optuna_study.db"')
+    logger.info('  lpath = "postgresql://localhost/optuna_study"')
     logger.info('  plot_optuna_study(lpath, "Validation bACC", sort=True)')
 
     return 0
@@ -186,7 +206,7 @@ def parse_args() -> argparse.Namespace:
         "--lpath",
         type=str,
         default=None,
-        help="Path to Optuna study database (e.g., sqlite:///study.db)",
+        help="Optuna storage URL (e.g., postgresql://localhost/study)",
     )
     parser.add_argument(
         "--value_str",
