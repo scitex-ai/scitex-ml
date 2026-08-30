@@ -18,3 +18,54 @@ audit:
     - compute_metrics
     - generate_report
     - reduce_dimensions
+
+  # ONE rule, ONE site, ONE stated reason each (constitution §2).
+  exemptions:
+    PS-231:
+      # This is PS-231's own "BLOCKER 2 — A LEAF THAT ALSO PUBLISHES",
+      # and it is measured here rather than assumed:
+      #
+      #   * This workflow does not only BUILD, it PUBLISHES: on a develop
+      #     push it refreshes `src/scitex_ml/_sphinx_html/` (134 files
+      #     tracked in git today) and commits it back into the package
+      #     tree. `[tool.hatch.build.targets.wheel] packages =
+      #     ["src/scitex_ml"]` packages that directory wholesale, so the
+      #     bundle SHIPS INSIDE THE WHEEL and reaches users.
+      #   * The org reusable `rtd-sphinx-build` is BUILD-ONLY. Measured
+      #     against the live file at scitex-ai/.github@main: it contains
+      #     `sphinx-build` 7 times and `_sphinx_html` ZERO times, and its
+      #     last step is `.venv/bin/sphinx-build -b html ...` with no
+      #     commit step at all.
+      #   * It also has no strict gate. This leaf runs `sphinx-build -W`
+      #     on pull_request (warnings fail PRs) and the plain form on
+      #     push; the org body never passes `-W`, so a conversion would
+      #     drop the PR documentation gate as well.
+      #
+      # Replacing this body with a bare `uses:` would therefore keep
+      # building and stop publishing — green CI, frozen documentation
+      # shipping to users, and nothing anywhere saying so — while also
+      # losing the -W PR gate. That is the precise failure the rule's own
+      # BLOCKER 2 warns about, so this leaf's version is genuinely unique
+      # to the leaf (operator ruling 2026-08-15: "unless leaf package's
+      # version is really unique to the leaf").
+      #
+      # BLOCKER 1 checked and NOT the reason: `gh api
+      # repos/scitex-ai/scitex-ml/branches/{develop,main}/protection`
+      # returns only the three `pytest-matrix-on-ubuntu-py3.{11,12,13}`
+      # contexts on both branches, so this workflow's `sphinx` context is
+      # not required and the caller rename would not have deadlocked PRs.
+      # The publish/-W loss is what blocks the conversion, alone.
+      #
+      # REVISIT when the org reusable grows a publish step (an input that
+      # commits the built HTML back into `src/<pkg>/_sphinx_html/`) and a
+      # strict-warnings input; at that point convert and delete this
+      # entry.
+      - path: .github/workflows/rtd-sphinx-build-on-ubuntu-latest.yml
+        line: 0
+        reason: >-
+          Leaf-unique because it PUBLISHES, not just builds: it commits the
+          built HTML into src/scitex_ml/_sphinx_html/, which hatch packages
+          into the wheel, and it runs `sphinx-build -W` as a PR gate. The org
+          rtd-sphinx-build reusable is build-only (zero `_sphinx_html`
+          references, no commit step, never passes -W), so calling it would
+          silently stop shipping documentation and drop the PR warning gate.
