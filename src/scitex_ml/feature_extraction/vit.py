@@ -20,10 +20,21 @@ import os as _os
 from typing import Tuple, Union
 
 import numpy as np
-import torch
-import torch as _torch
-from pytorch_pretrained_vit import ViT
-from torchvision import transforms as _transforms
+import scitex_logging as slogging
+
+log = slogging.getLogger(__name__)
+
+
+try:
+    import torch
+    import torch as _torch
+    from pytorch_pretrained_vit import ViT
+    from torchvision import transforms as _transforms
+except ImportError as exc:
+    raise ImportError(
+        "scitex_ml.feature_extraction requires torch: "
+        "pip install scitex-ml[heavy]"
+    ) from exc
 
 # from scitex.decorators import batch_torch_fn
 
@@ -138,11 +149,11 @@ if __name__ == "__main__":
     )
     tensor = torch.randn(3, 2, 4, 5, 32, 32)
     processed = extractor.extract_features(tensor, (-2, -1), None)
-    print(processed.shape)
+    log.info(processed.shape)
 
     arr = np.random.rand(3, 2, 4, 5, 32, 32)
     processed = extractor.extract_features(arr, (-2, -1), None)
-    print(processed.shape)
+    log.info(processed.shape)
     # torch.Size([3, 2, 4, 5, 32, 32])
 
 # EOF

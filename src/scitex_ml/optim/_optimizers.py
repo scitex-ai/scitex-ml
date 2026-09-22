@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """Optimizer utilities using external packages."""
 
-import torch.optim as optim
+try:
+    import torch.optim as optim
+except ImportError as exc:
+    raise ImportError(
+        "scitex_ml.optim requires torch: pip install scitex-ml[heavy]"
+    ) from exc
 
 from scitex_dev import try_import_optional
 

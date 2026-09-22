@@ -9,14 +9,16 @@ Plot feature importance from trained models.
 This module provides visualization functions for feature importance,
 supporting both single-fold and cross-validation summary plots.
 """
-import scitex_io
-
-
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 
 import matplotlib.pyplot as plt
 import numpy as np
+import scitex_io
+import scitex_logging as slogging
+
+log = slogging.getLogger(__name__)
+
 
 
 
@@ -272,9 +274,9 @@ def main(args):
         spath="plot_feature_importance_demo_cv.jpg",
     )
 
-    print("Generated feature importance plots:")
-    print("  - plot_feature_importance_demo_single.jpg")
-    print("  - plot_feature_importance_demo_cv.jpg")
+    log.info("Generated feature importance plots:")
+    log.info("  - plot_feature_importance_demo_single.jpg")
+    log.info("  - plot_feature_importance_demo_cv.jpg")
 
     return 0
 
@@ -294,7 +296,6 @@ def run_main():
     import sys
 
     import matplotlib.pyplot as plt
-
     import scitex as stx
 
     args = parse_args()

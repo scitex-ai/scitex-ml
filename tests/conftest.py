@@ -19,6 +19,17 @@ import os
 import sysconfig
 from pathlib import Path
 
+# PS-220 log-level gate: scitex-logging defaults to WARN, which would
+# silence the log.info status output under test. Promote to INFO here
+# so capsys/capfd assertions on .err observe the expected records.
+os.environ.setdefault("SCITEX_LOGGING_LEVEL", "INFO")
+try:
+    import scitex_logging as _slogging
+
+    _slogging.set_level("INFO")
+except Exception:
+    pass
+
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 # Pin coverage's data file at the repo root and point process_startup

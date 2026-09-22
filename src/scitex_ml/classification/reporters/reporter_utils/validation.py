@@ -11,6 +11,10 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 import pandas as pd
+import scitex_logging as slogging
+
+log = slogging.getLogger(__name__)
+
 
 
 class MetricValidator:
@@ -235,36 +239,36 @@ class MetricValidator:
         Print validation summary to console.
         """
         if not self.validation_results:
-            print("No validation results available. Run validate_all_folds first.")
+            log.info("No validation results available. Run validate_all_folds first.")
             return
 
         report = self.validation_results
 
-        print("\n" + "=" * 60)
-        print("VALIDATION REPORT")
-        print("=" * 60)
+        log.info("\n" + "=" * 60)
+        log.info("VALIDATION REPORT")
+        log.info("=" * 60)
 
         status = "✓ COMPLETE" if report["complete"] else "✗ INCOMPLETE"
-        print(f"Status: {status}")
-        print(f"Folds: {report['n_folds']}")
-        print(f"Required Metrics: {', '.join(report['required_metrics'])}")
+        log.info(f"Status: {status}")
+        log.info(f"Folds: {report['n_folds']}")
+        log.info(f"Required Metrics: {', '.join(report['required_metrics'])}")
 
         if report["summary"]["missing_by_metric"]:
-            print("\nMissing Metrics:")
+            log.info("\nMissing Metrics:")
             for metric, folds in report["summary"]["missing_by_metric"].items():
-                print(f"  - {metric}: missing in folds {folds}")
+                log.info(f"  - {metric}: missing in folds {folds}")
 
         if report["summary"]["invalid_count"] > 0:
-            print(
+            log.info(
                 f"\nInvalid Metrics: {report['summary']['invalid_count']} issues found"
             )
 
         if not report["summary"]["consistency"]["consistent"]:
-            print("\nConsistency Issues:")
+            log.info("\nConsistency Issues:")
             for issue in report["summary"]["consistency"]["issues"]:
-                print(f"  - {issue}")
+                log.info(f"  - {issue}")
 
-        print("=" * 60 + "\n")
+        log.info("=" * 60 + "\n")
 
 
 # Standalone validation functions

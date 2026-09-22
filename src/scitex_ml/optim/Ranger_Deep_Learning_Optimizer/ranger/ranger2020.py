@@ -25,8 +25,18 @@
 
 import math
 
-import torch
-from torch.optim.optimizer import Optimizer, required
+import scitex_logging as slogging
+
+log = slogging.getLogger(__name__)
+
+
+try:
+    import torch
+    from torch.optim.optimizer import Optimizer, required
+except ImportError as exc:
+    raise ImportError(
+        "scitex_ml.optim requires torch: pip install scitex-ml[heavy]"
+    ) from exc
 
 
 def centralized_gradient(x, use_gc=True, gc_conv_only=False):
@@ -103,16 +113,16 @@ class Ranger(Optimizer):
         # level of gradient centralization
         # self.gc_gradient_threshold = 3 if gc_conv_only else 1
 
-        print(
+        log.info(
             f"Ranger optimizer loaded. \nGradient Centralization usage = {self.use_gc}"
         )
         if self.use_gc and self.gc_conv_only == False:
-            print(f"GC applied to both conv and fc layers")
+            log.info(f"GC applied to both conv and fc layers")
         elif self.use_gc and self.gc_conv_only == True:
-            print(f"GC applied to conv layers only")
+            log.info(f"GC applied to conv layers only")
 
     def __setstate__(self, state):
-        print("set state called")
+        log.info("set state called")
         super(Ranger, self).__setstate__(state)
 
     def step(self, closure=None):

@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 
 import numpy as np
-from torch.utils.data import Dataset
+
+try:
+    from torch.utils.data import Dataset
+except ImportError as exc:
+    raise ImportError(
+        "scitex_ml.utils requires torch: pip install scitex-ml[heavy]"
+    ) from exc
 
 
 class DefaultDataset(Dataset):

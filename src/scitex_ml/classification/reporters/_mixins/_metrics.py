@@ -3,6 +3,7 @@
 # File: /home/ywatanabe/proj/scitex-python/src/scitex/ai/classification/reporters/_mixins/_metrics.py
 
 from __future__ import annotations
+
 """
 Metrics calculation mixin for classification reporter.
 """
@@ -13,10 +14,13 @@ from typing import Any, Dict, List, Optional
 
 import numpy as np
 import pandas as pd
-
+import scitex_logging as slogging
 from scitex_logging import getLogger
 
 from ._constants import FILENAME_PATTERNS, FOLD_DIR_PREFIX_PATTERN
+
+log = slogging.getLogger(__name__)
+
 
 logger = getLogger(__name__)
 
@@ -43,7 +47,7 @@ class MetricsMixin:
 
         if verbose:
             if fold:
-                print()
+                log.info("")
                 logger.info(f"Calculating metrics for fold #{fold:02d}...")
             else:
                 logger.info("Calculating metrics...")

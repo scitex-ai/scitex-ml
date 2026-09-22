@@ -4,6 +4,10 @@
 from collections import Counter
 
 import numpy as np
+import scitex_logging as slogging
+
+log = slogging.getLogger(__name__)
+
 
 
 def under_sample(y, replace=False):
@@ -48,4 +52,4 @@ def under_sample(y, replace=False):
 
 if __name__ == "__main__":
     t = np.array(["a", "b", "c", "b", "c", "a", "c"])
-    print(under_sample(t))
+    log.info(under_sample(t))

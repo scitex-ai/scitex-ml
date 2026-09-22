@@ -11,9 +11,13 @@ from typing import Any, Dict, List, Optional
 
 import numpy as np
 import pandas as pd
+import scitex_logging as slogging
 from sklearn.metrics import confusion_matrix as sklearn_confusion_matrix
 
 from ._normalize_labels import normalize_labels
+
+log = slogging.getLogger(__name__)
+
 
 
 def calc_conf_mat(
@@ -80,9 +84,7 @@ def calc_conf_mat(
             "normalize": normalize,
         }
     except Exception as e:
-        import sys
-
-        print(f"ERROR in calc_conf_mat: {e}", file=sys.stderr)
+        log.error(f"ERROR in calc_conf_mat: {e}")
         import traceback
 
         traceback.print_exc()

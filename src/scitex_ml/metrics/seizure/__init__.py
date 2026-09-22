@@ -20,29 +20,26 @@ import sys
 
 try:
     import scitex_seizure_metrics as _impl
+    from scitex_seizure_metrics import (  # noqa: E402,F401
+        AlarmPolicy,
+        MetricsReport,
+        adapters,
+        bridge,
+        calibration,
+        detection,
+        forecasting,
+        papers,
+        plots,
+        report,
+        surrogates,
+    )
 except ImportError as e:
     raise ImportError(
         "scitex_ml.metrics.seizure requires the scitex-seizure-metrics "
         "standalone package. Install with: pip install scitex-ml[seizure]"
     ) from e
 
-# Mirror the public surface of scitex_seizure_metrics — submodules,
-# data classes, and the version string. Anything added there shows up
-# here automatically because we alias module objects via sys.modules.
-from scitex_seizure_metrics import (  # noqa: E402,F401
-    AlarmPolicy,
-    MetricsReport,
-    __version__,
-    adapters,
-    bridge,
-    calibration,
-    detection,
-    forecasting,
-    papers,
-    plots,
-    report,
-    surrogates,
-)
+__version__ = _impl.__version__
 
 # Make `scitex_ml.metrics.seizure.detection` resolve to the *same*
 # module object as `scitex_seizure_metrics.detection`. Same for the

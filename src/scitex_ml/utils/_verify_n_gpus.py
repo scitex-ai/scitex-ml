@@ -1,6 +1,11 @@
 import warnings
 
-import torch
+try:
+    import torch
+except ImportError as exc:
+    raise ImportError(
+        "scitex_ml.utils requires torch: pip install scitex-ml[heavy]"
+    ) from exc
 
 
 def verify_n_gpus(n_gpus):

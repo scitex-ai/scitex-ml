@@ -6,8 +6,18 @@ from warnings import warn
 
 import numpy as np
 import pandas as pd
-import torch
+
+try:
+    import torch
+except ImportError as exc:
+    raise ImportError(
+        "scitex_ml.utils requires torch: pip install scitex-ml[heavy]"
+    ) from exc
+import scitex_logging as slogging
 from sklearn.preprocessing import LabelEncoder as SklearnLabelEncoder
+
+log = slogging.getLogger(__name__)
+
 
 
 class LabelEncoder(SklearnLabelEncoder):
@@ -121,14 +131,14 @@ if __name__ == "__main__":
     # Example usage of IncrementalLabelEncoder
     le = LabelEncoder()
     le.fit(["A", "B"])
-    print(le.classes_)
+    log.info(le.classes_)
 
     le.fit(["C"])
-    print(le.classes_)
+    log.info(le.classes_)
 
     le.inverse_transform([0, 1, 2])
 
     le.fit(["X"])
-    print(le.classes_)
+    log.info(le.classes_)
 
     le.inverse_transform([3])

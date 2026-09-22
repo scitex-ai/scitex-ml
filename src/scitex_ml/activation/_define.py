@@ -1,4 +1,9 @@
-import torch.nn as nn
+try:
+    import torch.nn as nn
+except ImportError as exc:
+    raise ImportError(
+        "scitex_ml.activation requires torch: pip install scitex-ml[heavy]"
+    ) from exc
 
 
 def define(act_str):

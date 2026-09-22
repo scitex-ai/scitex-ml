@@ -3,7 +3,12 @@
 # Time-stamp: "2024-11-07 18:53:03 (ywatanabe)"
 # File: ./scitex_repo/src/scitex/ai/loss/_L1L2Losses.py
 
-import torch
+try:
+    import torch
+except ImportError as exc:
+    raise ImportError(
+        "scitex_ml.loss requires torch: pip install scitex-ml[heavy]"
+    ) from exc
 
 
 def l1(model, lambda_l1=0.01):

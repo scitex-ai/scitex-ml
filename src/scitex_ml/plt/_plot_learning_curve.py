@@ -3,12 +3,12 @@
 # File: /ssh:sp:/home/ywatanabe/proj/scitex_repo/src/scitex/ml/plt/plot_learning_curve.py
 # ----------------------------------------
 from __future__ import annotations
+
+import os
+
 import scitex_io
 import scitex_plt
 import scitex_str
-
-
-import os
 
 __FILE__ = __file__
 __DIR__ = os.path.dirname(__FILE__)
@@ -20,8 +20,11 @@ import re
 
 import numpy as np
 import pandas as pd
-
+import scitex_logging as slogging
 from scitex_plt.colors import to_hex
+
+log = slogging.getLogger(__name__)
+
 
 
 def _prepare_metrics_df(metrics_df):
@@ -30,12 +33,12 @@ def _prepare_metrics_df(metrics_df):
         try:
             metrics_df = metrics_df.set_index("i_global")
         except KeyError:
-            print(
+            log.info(
                 "Error: The DataFrame does not contain a column named 'i_global'. "
                 "Please check the column names."
             )
         except Exception as e:
-            print(f"An unexpected error occurred: {e}")
+            log.info(f"An unexpected error occurred: {e}")
     metrics_df["i_global"] = metrics_df.index  # alias
     return metrics_df
 
@@ -301,7 +304,6 @@ def run_main() -> None:
     import sys
 
     import matplotlib.pyplot as plt
-
     import scitex as stx
 
     args = parse_args()

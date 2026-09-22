@@ -4,6 +4,10 @@
 
 import numpy as np
 import scitex_io
+import scitex_logging as slogging
+
+log = slogging.getLogger(__name__)
+
 
 
 class EarlyStopping:
@@ -54,7 +58,7 @@ class EarlyStopping:
         else:
             self.counter += 1
             if self.verbose:
-                print(
+                log.info(
                     f"\nEarlyStopping counter: {self.counter} out of {self.patience}\n"
                 )
             if self.counter >= self.patience:
@@ -63,14 +67,14 @@ class EarlyStopping:
                     # an umbrella dependency. Keeps the visual cue.
                     msg = "Early-stopped."
                     bar = "=" * (len(msg) + 4)
-                    print(f"\n{bar}\n  {msg}\n{bar}")
+                    log.info(f"\n{bar}\n  {msg}\n{bar}")
                 return True
 
     def save(self, current_score, models_spaths_dict, i_global):
         """Saves model when validation score decrease."""
 
         if self.verbose:
-            print(
+            log.info(
                 f"\nUpdate the best score: ({self.best_score:.6f} --> {current_score:.6f})"
             )
 

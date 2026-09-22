@@ -4,10 +4,10 @@
 # File: /ssh:sp:/home/ywatanabe/proj/scitex_repo/src/scitex/ml/classification/reporters/_ClassificationReporter.py
 # ----------------------------------------
 from __future__ import annotations
-import scitex_io
-
 
 import os
+
+import scitex_io
 
 __FILE__ = __file__
 __DIR__ = os.path.dirname(__FILE__)
@@ -24,11 +24,15 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
 import numpy as np
+import scitex_logging as slogging
 
 # Import base class and single reporter for internal use
 from ._BaseClassificationReporter import BaseClassificationReporter, ReporterConfig
 from ._SingleClassificationReporter import SingleTaskClassificationReporter
 from .reporter_utils.storage import MetricStorage
+
+log = slogging.getLogger(__name__)
+
 
 
 class ClassificationReporter(BaseClassificationReporter):
@@ -162,12 +166,12 @@ class ClassificationReporter(BaseClassificationReporter):
 
         # Print initialization info if verbose
         if self.verbose and self.tasks:
-            print(f"\n{'=' * 70}")
-            print(f"Classification Reporter Initialized")
-            print(f"{'=' * 70}")
-            print(f"Output Directory: {self.output_dir.absolute()}")
-            print(f"Tasks: {self.tasks}")
-            print(f"{'=' * 70}\n")
+            log.info(f"\n{'=' * 70}")
+            log.info(f"Classification Reporter Initialized")
+            log.info(f"{'=' * 70}")
+            log.info(f"Output Directory: {self.output_dir.absolute()}")
+            log.info(f"Tasks: {self.tasks}")
+            log.info(f"{'=' * 70}\n")
 
     def _create_single_reporter(self, task: str) -> None:
         """Create a single task reporter."""
@@ -559,17 +563,17 @@ def main(args):
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    print("=" * 60)
-    print("ClassificationReporter Test")
-    print("=" * 60)
-    print(f"Task type: {args.task_type}")
-    print(f"Output dir: {output_dir}")
-    print(f"Samples: {args.n_samples}, Folds: {args.n_folds}")
-    print()
+    log.info("=" * 60)
+    log.info("ClassificationReporter Test")
+    log.info("=" * 60)
+    log.info(f"Task type: {args.task_type}")
+    log.info(f"Output dir: {output_dir}")
+    log.info(f"Samples: {args.n_samples}, Folds: {args.n_folds}")
+    log.info("")
 
     if args.task_type == "binary":
         # Binary classification
-        print("Testing Binary Classification...")
+        log.info("Testing Binary Classification...")
         X, y = make_classification(
             n_samples=args.n_samples,
             n_features=20,
@@ -600,11 +604,11 @@ def main(args):
 
         # Generate reports
         reporter.save_summary()
-        print(f"✓ Binary classification results saved to: {output_dir / 'binary'}")
+        log.info(f"✓ Binary classification results saved to: {output_dir / 'binary'}")
 
     elif args.task_type == "multiclass":
         # Multiclass classification
-        print("Testing Multiclass Classification...")
+        log.info("Testing Multiclass Classification...")
         X, y = make_classification(
             n_samples=args.n_samples,
             n_features=20,
@@ -634,13 +638,13 @@ def main(args):
             )
 
         reporter.save_summary()
-        print(
+        log.info(
             f"✓ Multiclass classification results saved to: {output_dir / 'multiclass'}"
         )
 
     elif args.task_type == "multitask":
         # Multi-task classification
-        print("Testing Multi-task Classification...")
+        log.info("Testing Multi-task Classification...")
 
         # Task 1: Binary
         X1, y1 = make_classification(
@@ -699,15 +703,15 @@ def main(args):
             )
 
         reporter.save_summary()
-        print(
+        log.info(
             f"✓ Multi-task classification results saved to: {output_dir / 'multitask'}"
         )
 
-    print()
-    print("=" * 60)
-    print("Test Complete!")
-    print("=" * 60)
-    print(f"\nCreated files in: {output_dir}")
+    log.info("")
+    log.info("=" * 60)
+    log.info("Test Complete!")
+    log.info("=" * 60)
+    log.info(f"\nCreated files in: {output_dir}")
 
     # List all created files
     import subprocess
@@ -717,8 +721,8 @@ def main(args):
     )
     if result.stdout:
         files = sorted(result.stdout.strip().split("\n"))
-        print(f"\nTotal files created: {len(files)}")
-        print("\nFile tree:")
+        log.info(f"\nTotal files created: {len(files)}")
+        log.info("\nFile tree:")
         subprocess.run(["tree", str(output_dir)])
 
     return 0
@@ -731,7 +735,6 @@ def run_main():
     import sys
 
     import matplotlib.pyplot as plt
-
     import scitex as stx
 
     args = parse_args()

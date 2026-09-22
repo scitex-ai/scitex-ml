@@ -4,10 +4,10 @@
 # File: /ssh:sp:/home/ywatanabe/proj/scitex_repo/src/scitex/ml/classification/reporters/_MultiClassificationReporter.py
 # ----------------------------------------
 from __future__ import annotations
-import scitex_io
-
 
 import os
+
+import scitex_io
 
 __FILE__ = __file__
 __DIR__ = os.path.dirname(__FILE__)
@@ -28,11 +28,15 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
 import numpy as np
+import scitex_logging as slogging
 
 # Import base class and improved single reporter
 from ._BaseClassificationReporter import BaseClassificationReporter, ReporterConfig
 from ._SingleClassificationReporter import SingleTaskClassificationReporter
 from .reporter_utils.storage import MetricStorage
+
+log = slogging.getLogger(__name__)
+
 
 
 class MultipleTasksClassificationReporter(BaseClassificationReporter):
@@ -93,12 +97,12 @@ class MultipleTasksClassificationReporter(BaseClassificationReporter):
 
         # Print initialization info if verbose
         if self.verbose:
-            print(f"\n{'=' * 70}")
-            print(f"Multi-Task Classification Reporter Initialized")
-            print(f"{'=' * 70}")
-            print(f"Output Directory: {self.output_dir.absolute()}")
-            print(f"Tasks: {self.tasks}")
-            print(f"{'=' * 70}\n")
+            log.info(f"\n{'=' * 70}")
+            log.info(f"Multi-Task Classification Reporter Initialized")
+            log.info(f"{'=' * 70}")
+            log.info(f"Output Directory: {self.output_dir.absolute()}")
+            log.info(f"Tasks: {self.tasks}")
+            log.info(f"{'=' * 70}\n")
 
     def _create_single_reporter(self, task: str) -> None:
         """Create a single task reporter."""
@@ -213,7 +217,7 @@ class MultipleTasksClassificationReporter(BaseClassificationReporter):
 
         for target_name, data in targets_data.items():
             if target_name not in self.reporters:
-                print(f"Warning: Unknown target '{target_name}', skipping")
+                log.info(f"Warning: Unknown target '{target_name}', skipping")
                 continue
 
             # Extract data with defaults

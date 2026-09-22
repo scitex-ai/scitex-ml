@@ -26,7 +26,12 @@ Run with::
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from fastmcp import FastMCP
+try:
+    from fastmcp import FastMCP
+except ImportError as exc:
+    raise ImportError(
+        "scitex_ml MCP server requires fastmcp: pip install scitex-ml[mcp]"
+    ) from exc
 
 from scitex_ml import _analysis
 

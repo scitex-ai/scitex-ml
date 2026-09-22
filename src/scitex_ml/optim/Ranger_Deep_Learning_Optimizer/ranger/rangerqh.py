@@ -10,8 +10,13 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
-import torch
-from torch.optim.optimizer import Optimizer
+try:
+    import torch
+    from torch.optim.optimizer import Optimizer
+except ImportError as exc:
+    raise ImportError(
+        "scitex_ml.optim requires torch: pip install scitex-ml[heavy]"
+    ) from exc
 
 # from ..common import param_conv
 

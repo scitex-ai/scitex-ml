@@ -3,6 +3,7 @@
 # File: /home/ywatanabe/proj/scitex-python/src/scitex/ai/classification/reporters/_SingleClassificationReporter.py
 
 from __future__ import annotations
+
 """
 Improved Single Classification Reporter with unified API.
 
@@ -27,6 +28,7 @@ from pathlib import Path
 from pprint import pprint
 from typing import Any, Dict, List, Optional, Union
 
+import scitex_logging as slogging
 from scitex_logging import getLogger
 
 from ._BaseClassificationReporter import BaseClassificationReporter, ReporterConfig
@@ -40,6 +42,9 @@ from ._mixins import (
 )
 from .reporter_utils._Plotter import Plotter
 from .reporter_utils.storage import MetricStorage
+
+log = slogging.getLogger(__name__)
+
 
 logger = getLogger(__name__)
 
@@ -202,7 +207,7 @@ class SingleTaskClassificationReporter(
         cv_summary_dir.mkdir(parents=True, exist_ok=True)
 
         if verbose:
-            print()
+            log.info("")
             logger.info("Summary:")
             pprint(summary)
 

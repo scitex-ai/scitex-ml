@@ -249,10 +249,10 @@ class LearningCurveLogger:
         df_pivot_i_epoch_step.columns = self._rename_if_key_to_plot(
             df_pivot_i_epoch_step.columns
         )
-        print("\n----------------------------------------\n")
-        print(f"\n{step}: (mean of batches)\n")
+        log.info("\n----------------------------------------\n")
+        log.info(f"\n{step}: (mean of batches)\n")
         pprint(df_pivot_i_epoch_step)
-        print("\n----------------------------------------\n")
+        log.info("\n----------------------------------------\n")
 
     @staticmethod
     def _rename_if_key_to_plot(x: Union[str, pd.Index]) -> Union[str, pd.Index]:
@@ -316,14 +316,19 @@ class LearningCurveLogger:
 
 def main(args):
     """Demo learning curve logger with MNIST training."""
-    import torch
-    import torch.nn as nn
-    from sklearn.metrics import balanced_accuracy_score
-    from torch.utils.data import DataLoader, TensorDataset
-    from torch.utils.data.dataset import Subset
-    from torchvision import datasets
-
+    try:
+        import torch
+        import torch.nn as nn
+        from torch.utils.data import DataLoader, TensorDataset
+        from torch.utils.data.dataset import Subset
+        from torchvision import datasets
+    except ImportError as exc:
+        raise ImportError(
+            "scitex_ml.training demo requires torch: "
+            "pip install scitex-ml[heavy]"
+        ) from exc
     import scitex
+    from sklearn.metrics import balanced_accuracy_score
 
     ################################################################################
     ## NN
@@ -510,6 +515,11 @@ def main(args):
 
 import argparse
 
+import scitex_logging as slogging
+
+log = slogging.getLogger(__name__)
+
+
 
 def parse_args() -> argparse.Namespace:
     """Parse command line arguments."""
@@ -524,7 +534,6 @@ def run_main() -> None:
     import sys
 
     import matplotlib.pyplot as plt
-
     import scitex as stx
 
     args = parse_args()

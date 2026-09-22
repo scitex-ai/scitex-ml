@@ -6,7 +6,13 @@
 
 import numpy as np
 import pandas as pd
-import torch
+
+try:
+    import torch
+except ImportError as exc:
+    raise ImportError(
+        "scitex_ml.sk requires torch: pip install scitex-ml[heavy]"
+    ) from exc
 
 
 def to_sktime_df(X):

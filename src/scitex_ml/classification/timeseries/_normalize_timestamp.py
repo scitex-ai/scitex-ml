@@ -4,11 +4,11 @@
 # File: /ssh:sp:/home/ywatanabe/proj/scitex_repo/src/scitex/ml/classification/timeseries/_normalize_timestamp.py
 # ----------------------------------------
 from __future__ import annotations
-import scitex_io
-import scitex_str
-
 
 import os
+
+import scitex_io
+import scitex_str
 
 __FILE__ = __file__
 __DIR__ = os.path.dirname(__FILE__)
@@ -41,6 +41,11 @@ Prerequisites:
 import argparse
 from datetime import datetime, timezone
 from typing import Union
+
+import scitex_logging as slogging
+
+log = slogging.getLogger(__name__)
+
 
 
 """Parameters"""
@@ -321,10 +326,10 @@ def get_time_delta_seconds(
 def main(args):
     """Test timestamp standardization with various inputs."""
 
-    print("Testing timestamp standardization:")
-    print("=" * 60)
-    print(f"Standard format: {STANDARD_FORMAT}")
-    print()
+    log.info("Testing timestamp standardization:")
+    log.info("=" * 60)
+    log.info(f"Standard format: {STANDARD_FORMAT}")
+    log.info("")
 
     # Test data
     dt = datetime(2010, 6, 18, 10, 15, 3, 123456)
@@ -346,26 +351,26 @@ def main(args):
             standardized = normalize_timestamp(
                 input_val, return_as="str", normalize_utc=False
             )
-            print(f"✓ {description:30} -> {standardized}")
+            log.info(f"✓ {description:30} -> {standardized}")
         except Exception as e:
-            print(f"✗ {description:30} -> ERROR: {e}")
+            log.info(f"✗ {description:30} -> ERROR: {e}")
 
-    print("\nDifferent return formats test:")
-    print("-" * 40)
+    log.info("\nDifferent return formats test:")
+    log.info("-" * 40)
     test_dt = datetime(2010, 6, 18, 10, 15, 3, 123456)
-    print(f"Input: {test_dt}")
-    print(
+    log.info(f"Input: {test_dt}")
+    log.info(
         f"  as str:      {normalize_timestamp(test_dt, return_as='str', normalize_utc=False)}"
     )
-    print(
+    log.info(
         f"  as datetime: {normalize_timestamp(test_dt, return_as='datetime', normalize_utc=False)}"
     )
-    print(
+    log.info(
         f"  as timestamp: {normalize_timestamp(test_dt, return_as='timestamp', normalize_utc=False)}"
     )
 
-    print("\nFormat validation tests:")
-    print("-" * 40)
+    log.info("\nFormat validation tests:")
+    log.info("-" * 40)
 
     valid_tests = [
         ("2010-06-18 10:15:03.123456", True),
@@ -377,19 +382,19 @@ def main(args):
     for test_str, expected in valid_tests:
         is_valid = validate_timestamp_format(test_str)
         status = "✓" if is_valid == expected else "✗"
-        print(
+        log.info(
             f"{status} '{test_str[:30]:30}' -> Valid: {is_valid} (expected: {expected})"
         )
 
-    print("\nFilename formatting test:")
-    print("-" * 40)
+    log.info("\nFilename formatting test:")
+    log.info("-" * 40)
     filename_ts = format_for_filename(dt)
-    print(f"Filename format: {filename_ts}")
+    log.info(f"Filename format: {filename_ts}")
 
-    print("\nDisplay formatting test:")
-    print("-" * 40)
+    log.info("\nDisplay formatting test:")
+    log.info("-" * 40)
     display_ts = format_for_display(dt)
-    print(f"Display format: {display_ts}")
+    log.info(f"Display format: {display_ts}")
 
 
 def parse_args() -> argparse.Namespace:
@@ -411,7 +416,6 @@ def run_main() -> None:
     import sys
 
     import matplotlib.pyplot as plt
-
     import scitex as stx
 
     args = parse_args()

@@ -4,8 +4,14 @@
 # File: ./scitex_repo/src/scitex/ai/loss/MultiTaskLoss.py
 
 import numpy as np
-import torch
-import torch.nn as nn
+
+try:
+    import torch
+    import torch.nn as nn
+except ImportError as exc:
+    raise ImportError(
+        "scitex_ml.loss requires torch: pip install scitex-ml[heavy]"
+    ) from exc
 
 from scitex_repro import fix_seeds
 

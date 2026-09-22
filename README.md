@@ -37,17 +37,6 @@
 | 3 | **Training-loop ergonomics** — `EarlyStopping`, learning-curve logging, optimiser shortcuts, multi-task losses are all glue code that drifts between repos. | **First-class training utilities** — `EarlyStopping`, `LearningCurveLogger`, `MultiTaskLoss`, `get_optimizer` / `set_optimizer`, vendored Ranger. |
 | 4 | **Heavy ML deps mixed with LLM SDKs** — installing one pulls all of `scikit-learn`, `torch`, `openai`, `anthropic`. | **Split package** — generative-AI lives in [`scitex-genai`](https://github.com/ywatanabe1989/scitex-genai); `scitex-ml` keeps the classical / deep-ML stack and nothing else. |
 
-## Installation
-
-```bash
-pip install scitex-ml          # core
-pip install scitex-ml[heavy]   # + torch / catboost / optuna / pytorch_pretrained_vit
-pip install scitex-ml[mcp]     # + fastmcp
-pip install scitex-ml[all]     # everything
-```
-
-Through the umbrella: `pip install scitex[ml]`. Requires Python ≥ 3.10.
-
 ## Quick Start
 
 ```python
@@ -87,32 +76,50 @@ flowchart LR
     Reporter -->|save| Artefacts[results/<br/>metrics.csv · roc.png · pr.png]
 ```
 
+<sub><b>Figure 1.</b> Iris walk-through flow: dataset → Classifier → ClassificationReporter → metrics and figure artefacts.</sub>
+
 A second `examples/example_classifier.py` runs the same flow as a script
 so it can be wired into `tests/examples/test_example_classifier.py` for
 CI smoke coverage.
 
+## Installation
+
+```bash
+uv pip install "scitex-ml[all]"
+```
+
+Requires Python ≥ 3.10. Through the umbrella: `pip install scitex[ml]`.
+
+<details>
+<summary>Per-module extras</summary>
+
+```bash
+pip install scitex-ml           # core
+pip install scitex-ml[heavy]    # + torch / catboost / optuna / pytorch_pretrained_vit
+pip install scitex-ml[mcp]      # + fastmcp
+pip install scitex-ml[seizure]  # + scitex-seizure-metrics
+pip install scitex-ml[all]      # everything
+```
+
+</details>
+
 ## Architecture
 
-`scitex-ml` sits in the middle layer of the SciTeX ecosystem:
+`scitex-ml` sits in the middle layer of the SciTeX ecosystem. Data flows
+from feature pipelines through classification into reporters that emit
+metrics and figures; training utilities feed back through optimisers:
 
+```mermaid
+flowchart LR
+    FE[feature_extraction<br/>feature_selection] --> CLF[classification<br/>Classifier + CV splitters]
+    CLF --> REP[ClassificationReporter]
+    REP --> MET[metrics<br/>bacc · MCC · AUC]
+    REP --> PLT[plt<br/>ROC · PR · curves]
+    TRN[training<br/>EarlyStopping · LearningCurveLogger] --> OPT[optim + loss<br/>Ranger · MultiTaskLoss]
+    OPT --> CLF
 ```
-scitex-python (umbrella)
-    └── scitex.ml ── thin sys.modules-aliasing shim
-                     └── scitex_ml (this package)
-                           ├── classification/   Classifier, ClassificationReporter,
-                           │                     time-series CV splitters
-                           ├── training/         EarlyStopping, LearningCurveLogger
-                           ├── loss/             MultiTaskLoss + regularisers
-                           ├── optim/            get_optimizer / set_optimizer + Ranger
-                           ├── metrics/          calc_bacc, calc_conf_mat, calc_roc_auc
-                           ├── clustering/       PCA + UMAP wrappers
-                           ├── feature_extraction/  ViT embeddings
-                           ├── feature_selection/   univariate / multivariate
-                           ├── plt/              ROC / PR / learning-curve / conf-mat plots
-                           ├── sampling/         undersampling helpers
-                           ├── sklearn/          scikit-learn integration helpers
-                           └── sk/               sktime compatibility
-```
+
+<sub><b>Figure 2.</b> Module dependency flow: features → classification → reporting (metrics + plots), with training utilities feeding back via optimisers.</sub>
 
 Cross-package dependencies are minimal: `scitex-logging`, `scitex-io`,
 `scitex-plt`, `scitex-repro`, `scitex-types`. Heavy deps (`torch`,

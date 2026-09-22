@@ -165,6 +165,10 @@ packages = ["src/scitex_ml"]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 addopts = "-v --tb=short"
+markers = [
+  "smoke: fast CLI happy-path tests (<60s, runs on every PR)",
+  "e2e: end-to-end workflows (slow, gated by RUN_E2E=1)",
+]
 
 [tool.coverage.run]
 # Subprocess coverage wiring (see scitex-dev skill leaf

@@ -32,6 +32,10 @@ from pathlib import Path
 from typing import Any, List, Optional, Union
 
 import numpy as np
+import scitex_logging as slogging
+
+log = slogging.getLogger(__name__)
+
 
 # Import centralized plotting functions from stx.ml.plt
 try:
@@ -189,9 +193,7 @@ class Plotter:
             )
             return fig
         except Exception as e:
-            import sys
-
-            print(f"ERROR in create_roc_curve: {e}", file=sys.stderr)
+            log.error(f"ERROR in create_roc_curve: {e}")
             import traceback
 
             traceback.print_exc()
@@ -244,9 +246,7 @@ class Plotter:
             )
             return fig
         except Exception as e:
-            import sys
-
-            print(f"ERROR in create_precision_recall_curve: {e}", file=sys.stderr)
+            log.error(f"ERROR in create_precision_recall_curve: {e}")
             import traceback
 
             traceback.print_exc()
@@ -351,7 +351,7 @@ class Plotter:
                         fig, str(save_path_abs), verbose=True, use_caller_path=False
                     )
                 except Exception as save_error:
-                    print(f"ERROR: Failed to save ROC curve: {save_error}")
+                    log.info(f"ERROR: Failed to save ROC curve: {save_error}")
                     import traceback
 
                     traceback.print_exc()
@@ -360,7 +360,7 @@ class Plotter:
             return fig
 
         except Exception as e:
-            print(f"ERROR in create_overall_roc_curve: {e}")
+            log.info(f"ERROR in create_overall_roc_curve: {e}")
             import traceback
 
             traceback.print_exc()

@@ -280,17 +280,17 @@ def test_check_params_with_nonexistent_target_name_returns_empty_dict(
 
 
 # ---------------------------------------------------------------------------
-# Tests: show=True prints to stdout
+# Tests: show=True logs to stderr via scitex-logging
 # ---------------------------------------------------------------------------
 
 def test_check_params_with_show_true_produces_output(simple_model, capsys):
-    """check_params(simple_model, show=True) prints something to stdout."""
+    """check_params(simple_model, show=True) logs something to stderr."""
     # Arrange
     # Act
     _ = check_params(simple_model, show=True)
     captured = capsys.readouterr()
     # Assert
-    assert len(captured.out) > 0
+    assert len(captured.err) > 0
 
 
 def test_check_params_with_show_true_includes_conv1_weight_in_output(
@@ -302,7 +302,7 @@ def test_check_params_with_show_true_includes_conv1_weight_in_output(
     _ = check_params(simple_model, show=True)
     captured = capsys.readouterr()
     # Assert
-    assert "conv1.weight" in captured.out
+    assert "conv1.weight" in captured.err
 
 
 def test_check_params_with_show_true_includes_fc1_weight_in_output(
@@ -314,7 +314,7 @@ def test_check_params_with_show_true_includes_fc1_weight_in_output(
     _ = check_params(simple_model, show=True)
     captured = capsys.readouterr()
     # Assert
-    assert "fc1.weight" in captured.out
+    assert "fc1.weight" in captured.err
 
 
 # ---------------------------------------------------------------------------
@@ -324,13 +324,13 @@ def test_check_params_with_show_true_includes_fc1_weight_in_output(
 def test_check_params_with_show_and_target_prints_correct_param(
     simple_model, capsys
 ):
-    """check_params(simple_model, tgt_name='fc2.bias', show=True) prints fc2.bias."""
+    """check_params(simple_model, tgt_name='fc2.bias', show=True) logs fc2.bias."""
     # Arrange
     # Act
     _ = check_params(simple_model, tgt_name="fc2.bias", show=True)
     captured = capsys.readouterr()
     # Assert
-    assert "fc2.bias" in captured.out
+    assert "fc2.bias" in captured.err
 
 
 def test_check_params_with_show_and_target_excludes_other_params(
@@ -342,7 +342,7 @@ def test_check_params_with_show_and_target_excludes_other_params(
     _ = check_params(simple_model, tgt_name="fc2.bias", show=True)
     captured = capsys.readouterr()
     # Assert
-    assert "fc1.weight" not in captured.out
+    assert "fc1.weight" not in captured.err
 
 
 # ---------------------------------------------------------------------------
@@ -609,13 +609,13 @@ def test_check_params_excludes_registered_buffer_from_result(buffer_model):
 # ---------------------------------------------------------------------------
 
 def test_check_params_show_defaults_to_false_no_output(simple_model, capsys):
-    """check_params with no show argument prints nothing to stdout."""
+    """check_params with no show argument logs nothing."""
     # Arrange
     # Act
     _ = check_params(simple_model)
     captured = capsys.readouterr()
     # Assert
-    assert captured.out == ""
+    assert captured.err == ""
 
 
 # ---------------------------------------------------------------------------

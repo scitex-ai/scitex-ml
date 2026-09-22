@@ -3,11 +3,11 @@
 # File: /ssh:sp:/home/ywatanabe/proj/scitex_repo/src/scitex/ml/plt/plot_roc_curve.py
 # ----------------------------------------
 from __future__ import annotations
-import scitex_io
-import scitex_plt
-
 
 import os
+
+import scitex_io
+import scitex_plt
 
 __FILE__ = __file__
 __DIR__ = os.path.dirname(__FILE__)
@@ -16,9 +16,12 @@ __DIR__ = os.path.dirname(__FILE__)
 import argparse
 
 import numpy as np
+import scitex_logging as slogging
+from scitex_plt.colors import get_colors_from_cmap
 from sklearn.metrics import roc_auc_score, roc_curve
 
-from scitex_plt.colors import get_colors_from_cmap
+log = slogging.getLogger(__name__)
+
 
 
 def _to_onehot(class_indices, n_classes):
@@ -83,7 +86,7 @@ def plot_roc_curve(true_class, pred_proba, labels, ax=None, spath=None):
             fpr[i], tpr[i], threshold[i] = roc_curve(true_class_i_onehot, pred_proba_i)
             roc_auc[i] = roc_auc_score(true_class_i_onehot, pred_proba_i)
         except Exception as e:
-            print(e)
+            log.info(e)
             fpr[i], tpr[i], threshold[i], roc_auc[i] = (
                 [np.nan],
                 [np.nan],
@@ -109,7 +112,7 @@ def plot_roc_curve(true_class, pred_proba, labels, ax=None, spath=None):
                 )
             )
         except Exception:
-            print(
+            log.info(
                 f'\nROC-AUC for "{labels[i]}" was not defined and NaN-filled '
                 "for a calculation purpose (for the macro avg.)\n"
             )
@@ -220,7 +223,6 @@ def run_main() -> None:
     import sys
 
     import matplotlib.pyplot as plt
-
     import scitex as stx
 
     args = parse_args()
