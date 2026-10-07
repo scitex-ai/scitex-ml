@@ -34,7 +34,7 @@ COMMAND_CATEGORIES = [
     ("Analysis", ["compute-metrics", "generate-report", "reduce-dimensions"]),
     ("Introspection", ["list-python-apis"]),
     ("Integration", ["mcp", "skills"]),
-    ("Utility", ["install-shell-completion", "print-shell-completion"]),
+    ("Utility", ["completion", "install-shell-completion", "print-shell-completion"]),
 ]
 
 
@@ -134,13 +134,14 @@ main.add_command(list_python_apis)
 main.add_command(mcp)
 main.add_command(skills_group)
 
-# Shell completion (adds install-shell-completion / print-shell-completion).
-try:
-    from scitex_dev._cli._completion import attach_shell_completion
+# Fleet standard completion drop-in v1 (`completion install` / `status`,
+# plus `install-shell-completion` / `print-shell-completion` shims) — see
+# `_completion.py`. Owns the `completion` name; scitex-dev's rc-appending
+# variant must NOT be attached (it would reintroduce the rc-edit path
+# this contract deletes).
+from ._completion import register_completion_commands
 
-    attach_shell_completion(main, prog_name="scitex-ml")
-except Exception:  # pragma: no cover - optional dep
-    pass
+register_completion_commands(main)
 
 
 # EOF
