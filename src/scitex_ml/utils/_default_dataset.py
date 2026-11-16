@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 
 import numpy as np
-from torch.utils.data import Dataset
+
+from scitex_ml._optional import missing_optional_dependency
+
+try:
+    from torch.utils.data import Dataset
+except ImportError as _exc:
+    raise missing_optional_dependency("scitex_ml.utils.DefaultDataset", _exc) from _exc
 
 
 class DefaultDataset(Dataset):

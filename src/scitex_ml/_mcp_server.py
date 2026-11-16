@@ -26,9 +26,13 @@ Run with::
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from fastmcp import FastMCP
-
 from scitex_ml import _analysis
+from scitex_ml._optional import missing_optional_dependency
+
+try:
+    from fastmcp import FastMCP
+except ImportError as _exc:
+    raise missing_optional_dependency("scitex_ml MCP server", _exc) from _exc
 
 mcp = FastMCP(
     name="scitex-ml",

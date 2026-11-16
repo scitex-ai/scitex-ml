@@ -1,6 +1,11 @@
 import warnings
 
-import torch
+from scitex_ml._optional import missing_optional_dependency
+
+try:
+    import torch
+except ImportError as _exc:
+    raise missing_optional_dependency("scitex_ml.utils.verify_n_gpus", _exc) from _exc
 
 
 def verify_n_gpus(n_gpus):

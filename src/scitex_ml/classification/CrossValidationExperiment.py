@@ -25,9 +25,12 @@ from typing import Any, Callable, Dict, List, Optional, Union
 
 import numpy as np
 import pandas as pd
+import scitex_logging as slogging
 from sklearn.model_selection import BaseCrossValidator, StratifiedKFold
 
 from .reporters import ClassificationReporter
+
+logger = slogging.getLogger(__name__)
 
 
 class CrossValidationExperiment:
@@ -181,22 +184,22 @@ class CrossValidationExperiment:
         self.describe_dataset(X, y, feature_names, class_names)
 
         if self.verbose:
-            print("\n" + "=" * 70)
-            print(f"CROSS-VALIDATION EXPERIMENT: {self.name}")
-            print("=" * 70)
-            print(
+            logger.info("\n" + "=" * 70)
+            logger.info(f"CROSS-VALIDATION EXPERIMENT: {self.name}")
+            logger.info("=" * 70)
+            logger.info(
                 f"Dataset: {X.shape[0]} samples, {X.shape[1]} features, {len(np.unique(y))} classes"
             )
-            print(f"CV Strategy: {self.cv}")
-            print(f"Model: {self.model_fn().__class__.__name__}")
-            print("=" * 70 + "\n")
+            logger.info(f"CV Strategy: {self.cv}")
+            logger.info(f"Model: {self.model_fn().__class__.__name__}")
+            logger.info("=" * 70 + "\n")
 
         # Run cross-validation
         for fold, (train_idx, test_idx) in enumerate(self.cv.split(X, y)):
             fold_start = time.time()
 
             if self.verbose:
-                print(f"\n--- Fold {fold + 1}/{self.cv.get_n_splits()} ---")
+                logger.info(f"\n--- Fold {fold + 1}/{self.cv.get_n_splits()} ---")
 
             # Split data
             X_train, X_test = X[train_idx], X[test_idx]
@@ -206,7 +209,7 @@ class CrossValidationExperiment:
             model = self.model_fn()
 
             if self.verbose:
-                print(f"Training {model.__class__.__name__}...")
+                logger.info(f"Training {model.__class__.__name__}...")
 
             model.fit(X_train, y_train)
 
@@ -249,13 +252,13 @@ class CrossValidationExperiment:
             self.fold_times.append(fold_time)
 
             if self.verbose:
-                print(f"  Fold {fold} completed in {fold_time:.2f}s")
-                print(
+                logger.info(f"  Fold {fold} completed in {fold_time:.2f}s")
+                logger.info(
                     f"  BA: {metrics.get('balanced_accuracy', 0):.3f}, "
                     f"MCC: {metrics.get('mcc', 0):.3f}"
                 )
                 if "roc_auc" in metrics:
-                    print(
+                    logger.info(
                         f"  ROC: {metrics['roc_auc']:.3f}, "
                         f"PR: {metrics.get('pr_auc', 0):.3f}"
                     )
@@ -273,10 +276,10 @@ class CrossValidationExperiment:
         self.reporter.add(timing_info, "experiment/timing.json")
 
         if self.verbose:
-            print(f"\n{'=' * 70}")
-            print(f"Experiment completed in {total_time:.2f}s")
-            print(f"Mean fold time: {np.mean(self.fold_times):.2f}s")
-            print(f"{'=' * 70}\n")
+            logger.info(f"\n{'=' * 70}")
+            logger.info(f"Experiment completed in {total_time:.2f}s")
+            logger.info(f"Mean fold time: {np.mean(self.fold_times):.2f}s")
+            logger.info(f"{'=' * 70}\n")
 
         # Generate final reports
         result_paths = self.reporter.save()
@@ -340,7 +343,7 @@ def quick_experiment(
     --------
     >>> from sklearn.svm import SVC
     >>> results = quick_experiment(X, y, SVC(), name="svm_test")
-    >>> print(f"Report saved to: {results['paths']['final_report']}")
+    >>> logger.info(f"Report saved to: {results['paths']['final_report']}")
     """
     # Create model function if needed
     if callable(model) and not hasattr(model, "fit"):

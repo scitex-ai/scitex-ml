@@ -20,8 +20,16 @@
 import itertools as it
 import math
 
-import torch
-from torch.optim.optimizer import Optimizer, required
+from scitex_ml._optional import missing_optional_dependency
+
+try:
+    import torch
+    from torch.optim.optimizer import Optimizer, required
+except ImportError as _exc:
+    raise missing_optional_dependency("scitex_ml.optim Ranger", _exc) from _exc
+import scitex_logging as slogging
+
+logger = slogging.getLogger(__name__)
 
 
 class RangerVA(Optimizer):
@@ -96,7 +104,7 @@ class RangerVA(Optimizer):
         #    w.requires_grad = False
 
     def __setstate__(self, state):
-        print("set state called")
+        logger.debug("set state called")
         super(RangerVA, self).__setstate__(state)
 
     def step(self, closure=None):

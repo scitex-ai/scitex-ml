@@ -32,6 +32,9 @@ from pathlib import Path
 from typing import Any, List, Optional, Union
 
 import numpy as np
+import scitex_logging as slogging
+
+logger = slogging.getLogger(__name__)
 
 # Import centralized plotting functions from stx.ml.plt
 try:
@@ -189,12 +192,7 @@ class Plotter:
             )
             return fig
         except Exception as e:
-            import sys
-
-            print(f"ERROR in create_roc_curve: {e}", file=sys.stderr)
-            import traceback
-
-            traceback.print_exc()
+            logger.exception(f"create_roc_curve failed: {e}")
             if self.verbose:
                 warnings.warn(f"Failed to create ROC curve: {e}", UserWarning)
             return None
@@ -244,12 +242,7 @@ class Plotter:
             )
             return fig
         except Exception as e:
-            import sys
-
-            print(f"ERROR in create_precision_recall_curve: {e}", file=sys.stderr)
-            import traceback
-
-            traceback.print_exc()
+            logger.exception(f"create_precision_recall_curve failed: {e}")
             if self.verbose:
                 warnings.warn(f"Failed to create PR curve: {e}", UserWarning)
             return None
@@ -351,19 +344,13 @@ class Plotter:
                         fig, str(save_path_abs), verbose=True, use_caller_path=False
                     )
                 except Exception as save_error:
-                    print(f"ERROR: Failed to save ROC curve: {save_error}")
-                    import traceback
-
-                    traceback.print_exc()
+                    logger.exception(f"Failed to save ROC curve: {save_error}")
 
             plt.close(fig)  # Clean up
             return fig
 
         except Exception as e:
-            print(f"ERROR in create_overall_roc_curve: {e}")
-            import traceback
-
-            traceback.print_exc()
+            logger.exception(f"create_overall_roc_curve failed: {e}")
             warnings.warn(f"Failed to create overall ROC curve: {e}", UserWarning)
             return None
 

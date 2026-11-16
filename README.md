@@ -40,10 +40,8 @@
 ## Installation
 
 ```bash
-pip install scitex-ml          # core
-pip install scitex-ml[heavy]   # + torch / catboost / optuna / pytorch_pretrained_vit
-pip install scitex-ml[mcp]     # + fastmcp
-pip install scitex-ml[all]     # everything
+pip install scitex-ml            # core
+pip install "scitex-ml[all]"    # + torch / optuna / catboost / ViT / MCP server / seizure metrics
 ```
 
 Through the umbrella: `pip install scitex[ml]`. Requires Python ≥ 3.10.
@@ -116,9 +114,10 @@ scitex-python (umbrella)
 
 Cross-package dependencies are minimal: `scitex-logging`, `scitex-io`,
 `scitex-plt`, `scitex-repro`, `scitex-types`. Heavy deps (`torch`,
-`catboost`, `optuna`, `pytorch_pretrained_vit`) live behind the `[heavy]`
-extra and are gated by `_AVAILABLE` flags in the source so a `pip install
-scitex-ml` install without `[heavy]` still imports cleanly.
+`catboost`, `optuna`, `pytorch_pretrained_vit`) live behind the `[all]`
+extra and every module that needs one guards its import, so a `pip install
+scitex-ml` install without `[all]` still imports cleanly and a missing
+dependency raises an ImportError that names `pip install "scitex-ml[all]"`.
 
 ## 4 Interfaces
 
@@ -174,7 +173,7 @@ FastMCP server exposing the stateless analysis surface for AI agents. The scitex
 | `ml_generate_report` | Full ClassificationReporter report |
 | `ml_reduce_dimensions` | PCA / UMAP 2-D projection figure |
 
-Start with `scitex-ml mcp start` (requires `pip install scitex-ml[mcp]`).
+Start with `scitex-ml mcp start` (requires `pip install "scitex-ml[all]"`).
 
 > **[Full MCP reference](https://scitex-ml.readthedocs.io/en/latest/mcp.html)**
 </details>

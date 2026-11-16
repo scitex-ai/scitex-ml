@@ -14,7 +14,7 @@ scitex-ml ships a single FastMCP server at `scitex_ml._mcp_server:mcp`. Tools
 are defined with **bare** names; the scitex umbrella auto-mounts the server
 under `namespace="ml"`, so agents call them as `ml_*`.
 
-Start it with `scitex-ml mcp start` (needs `pip install scitex-ml[mcp]`), or
+Start it with `scitex-ml mcp start` (needs `pip install "scitex-ml[all]"`), or
 let the umbrella mount it automatically.
 
 | Tool (umbrella) | Purpose | Wraps |

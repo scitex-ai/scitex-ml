@@ -41,6 +41,9 @@ Prerequisites:
 import argparse
 from datetime import datetime, timezone
 from typing import Union
+import scitex_logging as slogging
+
+_console = slogging.getConsole(__name__, level=slogging.INFO)
 
 
 """Parameters"""
@@ -321,10 +324,9 @@ def get_time_delta_seconds(
 def main(args):
     """Test timestamp standardization with various inputs."""
 
-    print("Testing timestamp standardization:")
-    print("=" * 60)
-    print(f"Standard format: {STANDARD_FORMAT}")
-    print()
+    _console.info("Testing timestamp standardization:")
+    _console.info("=" * 60)
+    _console.info(f"Standard format: {STANDARD_FORMAT}")
 
     # Test data
     dt = datetime(2010, 6, 18, 10, 15, 3, 123456)
@@ -346,26 +348,26 @@ def main(args):
             standardized = normalize_timestamp(
                 input_val, return_as="str", normalize_utc=False
             )
-            print(f"✓ {description:30} -> {standardized}")
+            _console.info(f"✓ {description:30} -> {standardized}")
         except Exception as e:
-            print(f"✗ {description:30} -> ERROR: {e}")
+            _console.info(f"✗ {description:30} -> ERROR: {e}")
 
-    print("\nDifferent return formats test:")
-    print("-" * 40)
+    _console.info("\nDifferent return formats test:")
+    _console.info("-" * 40)
     test_dt = datetime(2010, 6, 18, 10, 15, 3, 123456)
-    print(f"Input: {test_dt}")
-    print(
+    _console.info(f"Input: {test_dt}")
+    _console.info(
         f"  as str:      {normalize_timestamp(test_dt, return_as='str', normalize_utc=False)}"
     )
-    print(
+    _console.info(
         f"  as datetime: {normalize_timestamp(test_dt, return_as='datetime', normalize_utc=False)}"
     )
-    print(
+    _console.info(
         f"  as timestamp: {normalize_timestamp(test_dt, return_as='timestamp', normalize_utc=False)}"
     )
 
-    print("\nFormat validation tests:")
-    print("-" * 40)
+    _console.info("\nFormat validation tests:")
+    _console.info("-" * 40)
 
     valid_tests = [
         ("2010-06-18 10:15:03.123456", True),
@@ -377,19 +379,19 @@ def main(args):
     for test_str, expected in valid_tests:
         is_valid = validate_timestamp_format(test_str)
         status = "✓" if is_valid == expected else "✗"
-        print(
+        _console.info(
             f"{status} '{test_str[:30]:30}' -> Valid: {is_valid} (expected: {expected})"
         )
 
-    print("\nFilename formatting test:")
-    print("-" * 40)
+    _console.info("\nFilename formatting test:")
+    _console.info("-" * 40)
     filename_ts = format_for_filename(dt)
-    print(f"Filename format: {filename_ts}")
+    _console.info(f"Filename format: {filename_ts}")
 
-    print("\nDisplay formatting test:")
-    print("-" * 40)
+    _console.info("\nDisplay formatting test:")
+    _console.info("-" * 40)
     display_ts = format_for_display(dt)
-    print(f"Display format: {display_ts}")
+    _console.info(f"Display format: {display_ts}")
 
 
 def parse_args() -> argparse.Namespace:

@@ -19,6 +19,9 @@ import numpy as np
 from sklearn.metrics import roc_auc_score, roc_curve
 
 from scitex_plt.colors import get_colors_from_cmap
+import scitex_logging as slogging
+
+logger = slogging.getLogger(__name__)
 
 
 def _to_onehot(class_indices, n_classes):
@@ -83,7 +86,7 @@ def plot_roc_curve(true_class, pred_proba, labels, ax=None, spath=None):
             fpr[i], tpr[i], threshold[i] = roc_curve(true_class_i_onehot, pred_proba_i)
             roc_auc[i] = roc_auc_score(true_class_i_onehot, pred_proba_i)
         except Exception as e:
-            print(e)
+            logger.warning(e)
             fpr[i], tpr[i], threshold[i], roc_auc[i] = (
                 [np.nan],
                 [np.nan],
@@ -109,7 +112,7 @@ def plot_roc_curve(true_class, pred_proba, labels, ax=None, spath=None):
                 )
             )
         except Exception:
-            print(
+            logger.warning(
                 f'\nROC-AUC for "{labels[i]}" was not defined and NaN-filled '
                 "for a calculation purpose (for the macro avg.)\n"
             )

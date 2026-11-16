@@ -44,7 +44,7 @@ except _PackageNotFoundError:
 # public name is resolved on first access via `__getattr__` below and cached.
 #
 # Light submodules import directly; heavy ones go through `try_import_optional`
-# so they resolve to `None` (not ImportError) in a no-`[heavy]` environment —
+# so they resolve to `None` (not ImportError) in a no-`[all]` environment —
 # downstream code probes with `is None` and surfaces an installable hint via
 # `scitex_dev.last_install_hint` (Pattern A from
 # `_skills/general/03_interface_01_python-api/04_lazy-imports-and-optional-deps.md`).
@@ -52,7 +52,7 @@ except _PackageNotFoundError:
 # Dispatch tables keyed by public name (PA-102 recognises dict-literal keys
 # referenced via subscript in __getattr__, so these double as the bound-name
 # registry). Light submodules -> relative module; heavy ones go through
-# try_import_optional so a missing `[heavy]` dep resolves to None, not ImportError.
+# try_import_optional so a missing `[all]` dep resolves to None, not ImportError.
 _LIGHT_SUBMODULES: dict[str, str] = {
     "classification": ".classification",
     "clustering": ".clustering",
@@ -98,14 +98,14 @@ def __getattr__(name: str):
         from scitex_dev import try_import_optional
 
         value = try_import_optional(
-            _HEAVY_SUBMODULES[name], extra="heavy", pkg="scitex-ml", package=__name__
+            _HEAVY_SUBMODULES[name], extra="all", pkg="scitex-ml", package=__name__
         )
     elif name in _HEAVY_ATTRS:
         from scitex_dev import try_import_optional
 
         modpath, attr = _HEAVY_ATTRS[name]
         value = try_import_optional(
-            modpath, attr=attr, extra="heavy", pkg="scitex-ml", package=__name__
+            modpath, attr=attr, extra="all", pkg="scitex-ml", package=__name__
         )
     else:
         raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

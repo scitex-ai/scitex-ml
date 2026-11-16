@@ -25,7 +25,7 @@ def _load_server():
         return server
     except ImportError as e:  # pragma: no cover - exercised via doctor
         raise click.ClickException(
-            f"MCP not available. Install: pip install {_PKG}[mcp]\n{e}"
+            f"MCP not available. Install: pip install '{_PKG}[all]'\n{e}"
         ) from e
 
 
@@ -82,7 +82,7 @@ def doctor(as_json):
 
         checks.append(("fastmcp", True, getattr(fastmcp, "__version__", "?")))
     except ImportError:
-        checks.append(("fastmcp", False, f"missing — pip install {_PKG}[mcp]"))
+        checks.append(("fastmcp", False, f"missing — pip install '{_PKG}[all]'"))
 
     n_tools = None
     try:
@@ -186,7 +186,7 @@ def install(as_json, dry_run, yes):
         click.echo(
             _json.dumps(
                 {
-                    "install_command": f"pip install {_PKG}[mcp]",
+                    "install_command": f"pip install '{_PKG}[all]'",
                     "config": config,
                     "server_path": _SERVER_PATH,
                     "verify": ["scitex-ml mcp doctor"],
@@ -196,7 +196,7 @@ def install(as_json, dry_run, yes):
         )
         return
     click.secho("scitex-ml MCP installation", fg="cyan", bold=True)
-    click.echo(f"\n  pip install {_PKG}[mcp]\n")
+    click.echo(f"\n  pip install '{_PKG}[all]'\n")
     click.echo("Add to your MCP host config (e.g. Claude Code):\n")
     for line in _json.dumps(config, indent=2).splitlines():
         click.echo(f"  {line}")

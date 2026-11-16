@@ -20,10 +20,18 @@ import os as _os
 from typing import Tuple, Union
 
 import numpy as np
-import torch
-import torch as _torch
-from pytorch_pretrained_vit import ViT
-from torchvision import transforms as _transforms
+import scitex_logging as slogging
+
+from scitex_ml._optional import missing_optional_dependency as _missing_optional
+
+try:
+    import torch as _torch
+    from pytorch_pretrained_vit import ViT
+    from torchvision import transforms as _transforms
+except ImportError as _exc:
+    raise _missing_optional(
+        "scitex_ml.feature_extraction.vit", _exc
+    ) from _exc
 
 # from scitex.decorators import batch_torch_fn
 
@@ -131,18 +139,14 @@ class VitFeatureExtractor:
 
 
 if __name__ == "__main__":
-    import scitex
-
-    extractor = scitex_ml.feature_extraction.VitFeatureExtractor(
-        model_name="B_16_imagenet1k"
-    )
-    tensor = torch.randn(3, 2, 4, 5, 32, 32)
+    _console = slogging.getConsole(__name__)
+    extractor = VitFeatureExtractor(model_name="B_16_imagenet1k")
+    tensor = _torch.randn(3, 2, 4, 5, 32, 32)
     processed = extractor.extract_features(tensor, (-2, -1), None)
-    print(processed.shape)
+    _console.info(f"features shape (tensor input): {tuple(processed.shape)}")
 
     arr = np.random.rand(3, 2, 4, 5, 32, 32)
     processed = extractor.extract_features(arr, (-2, -1), None)
-    print(processed.shape)
-    # torch.Size([3, 2, 4, 5, 32, 32])
+    _console.info(f"features shape (ndarray input): {tuple(processed.shape)}")
 
 # EOF

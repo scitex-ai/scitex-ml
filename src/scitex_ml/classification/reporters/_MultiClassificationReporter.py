@@ -33,6 +33,9 @@ import numpy as np
 from ._BaseClassificationReporter import BaseClassificationReporter, ReporterConfig
 from ._SingleClassificationReporter import SingleTaskClassificationReporter
 from .reporter_utils.storage import MetricStorage
+import scitex_logging as slogging
+
+logger = slogging.getLogger(__name__)
 
 
 class MultipleTasksClassificationReporter(BaseClassificationReporter):
@@ -93,12 +96,12 @@ class MultipleTasksClassificationReporter(BaseClassificationReporter):
 
         # Print initialization info if verbose
         if self.verbose:
-            print(f"\n{'=' * 70}")
-            print(f"Multi-Task Classification Reporter Initialized")
-            print(f"{'=' * 70}")
-            print(f"Output Directory: {self.output_dir.absolute()}")
-            print(f"Tasks: {self.tasks}")
-            print(f"{'=' * 70}\n")
+            logger.info(f"\n{'=' * 70}")
+            logger.info(f"Multi-Task Classification Reporter Initialized")
+            logger.info(f"{'=' * 70}")
+            logger.info(f"Output Directory: {self.output_dir.absolute()}")
+            logger.info(f"Tasks: {self.tasks}")
+            logger.info(f"{'=' * 70}\n")
 
     def _create_single_reporter(self, task: str) -> None:
         """Create a single task reporter."""
@@ -213,7 +216,7 @@ class MultipleTasksClassificationReporter(BaseClassificationReporter):
 
         for target_name, data in targets_data.items():
             if target_name not in self.reporters:
-                print(f"Warning: Unknown target '{target_name}', skipping")
+                logger.warning(f"Unknown target '{target_name}', skipping")
                 continue
 
             # Extract data with defaults

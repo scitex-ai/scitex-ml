@@ -14,6 +14,9 @@ import pandas as pd
 from sklearn.metrics import confusion_matrix as sklearn_confusion_matrix
 
 from ._normalize_labels import normalize_labels
+import scitex_logging as slogging
+
+logger = slogging.getLogger(__name__)
 
 
 def calc_conf_mat(
@@ -80,12 +83,7 @@ def calc_conf_mat(
             "normalize": normalize,
         }
     except Exception as e:
-        import sys
-
-        print(f"ERROR in calc_conf_mat: {e}", file=sys.stderr)
-        import traceback
-
-        traceback.print_exc()
+        logger.exception(f"calc_conf_mat failed: {e}")
         return {
             "metric": "confusion_matrix",
             "value": None,

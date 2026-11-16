@@ -10,8 +10,13 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
-import torch
-from torch.optim.optimizer import Optimizer
+from scitex_ml._optional import missing_optional_dependency
+
+try:
+    import torch
+    from torch.optim.optimizer import Optimizer
+except ImportError as _exc:
+    raise missing_optional_dependency("scitex_ml.optim Ranger", _exc) from _exc
 
 # from ..common import param_conv
 

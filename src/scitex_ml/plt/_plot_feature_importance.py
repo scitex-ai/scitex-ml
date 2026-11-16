@@ -17,6 +17,9 @@ from typing import Dict, List, Optional, Union
 
 import matplotlib.pyplot as plt
 import numpy as np
+import scitex_logging as slogging
+
+_console = slogging.getConsole(__name__, level=slogging.INFO)
 
 
 
@@ -272,9 +275,9 @@ def main(args):
         spath="plot_feature_importance_demo_cv.jpg",
     )
 
-    print("Generated feature importance plots:")
-    print("  - plot_feature_importance_demo_single.jpg")
-    print("  - plot_feature_importance_demo_cv.jpg")
+    _console.info("Generated feature importance plots:")
+    _console.info("  - plot_feature_importance_demo_single.jpg")
+    _console.info("  - plot_feature_importance_demo_cv.jpg")
 
     return 0
 

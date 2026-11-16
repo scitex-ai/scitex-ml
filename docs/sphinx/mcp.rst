@@ -10,7 +10,7 @@ Installation
 
 .. code-block:: bash
 
-   pip install scitex-ml[mcp]
+   pip install "scitex-ml[all]"
 
 Starting the server
 -------------------

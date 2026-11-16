@@ -10,6 +10,8 @@ import pathlib
 import re
 
 import scitex_io
+
+from scitex_ml._optional import missing_optional_dependency
 from scitex_dev import try_import_optional
 
 # `figrecipe` is the underlying impl that the umbrella exposes as
@@ -89,8 +91,14 @@ def plot_optuna_study(lpath, value_str, sort=False):
 
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    import optuna
     import pandas as pd
+
+    try:
+        import optuna
+    except ImportError as exc:
+        raise missing_optional_dependency(
+            "scitex_ml.plt.plot_optuna_study", exc
+        ) from exc
 
     plt, CC = _umbrella_plt.configure_mpl(plt, fig_scale=3)
 
@@ -102,10 +110,10 @@ def plot_optuna_study(lpath, value_str, sort=False):
 
     # To get the best trial:
     best_trial = study.best_trial
-    print(f"Best trial number: {best_trial.number}")
-    print(f"Best trial value: {best_trial.value}")
-    print(f"Best trial parameters: {best_trial.params}")
-    print(f"Best trial user attributes: {best_trial.user_attrs}")
+    logger.info(f"Best trial number: {best_trial.number}")
+    logger.info(f"Best trial value: {best_trial.value}")
+    logger.info(f"Best trial parameters: {best_trial.params}")
+    logger.info(f"Best trial user attributes: {best_trial.user_attrs}")
 
     # Merge the user attributes into the study history DataFrame
     study_history = study.trials_dataframe().rename(columns={"value": value_str})
@@ -144,9 +152,9 @@ def plot_optuna_study(lpath, value_str, sort=False):
         target.parent.mkdir(parents=True, exist_ok=True)
         target.symlink_to(best_trial_dir)
     except Exception as e:
-        print(e)
+        logger.warning(e)
     scitex_io.save(study_history, sdir + "study_history.csv", use_caller_path=True)
-    print(study_history)
+    logger.info(study_history)
 
     # To visualize the optimization history:
     fig = optuna.visualization.plot_optimization_history(study, target_name=value_str)

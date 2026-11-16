@@ -13,6 +13,9 @@ import random as _random
 import sys as _sys
 
 import matplotlib.pyplot as _plt
+import scitex_logging as slogging
+
+_console = slogging.getConsole(__name__, level=slogging.INFO)
 
 
 
@@ -117,7 +120,7 @@ if __name__ == "__main__":
 
     # Parameters
     N = 15
-    print(pd.DataFrame(pd.Series({f"2^{ii}": 2**ii for ii in range(N)})))
+    _console.info(pd.DataFrame(pd.Series({f"2^{ii}": 2**ii for ii in range(N)})))
 
     params_grid = {
         "batch_size": [2**i for i in [3, 4, 5, 6]],
@@ -132,12 +135,12 @@ if __name__ == "__main__":
         "package": ["tensorpac", "_scitex"],
     }
 
-    print(params_grid)
-    print(f"{count_grids(params_grid):,}")
+    _console.info(params_grid)
+    _console.info(f"{count_grids(params_grid):,}")
 
     # Example of using the generator
     for param_dict in yield_grids(params_grid):
-        print(param_dict)
+        _console.info(param_dict)
 
     # Close
     _scitex.session.close(CONFIG, verbose=False, notify=False)
