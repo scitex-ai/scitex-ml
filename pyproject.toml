@@ -51,7 +51,14 @@ dependencies = [
     "tqdm",
     "click>=8.0",
     # ML libraries
-    "scikit-learn",
+    # <1.9: scikit-learn 1.9's Pipeline sets `_parent_callback_ctx` on each
+    # step and deletes it after fit, but an sktime step's fit() calls
+    # skbase reset(), which has already deleted it -> AttributeError. That
+    # breaks every sklearn Pipeline with an sktime step (scitex_ml.sk's
+    # rocket_pipeline / GB_pipeline). sktime 1.3.0 still declares
+    # scikit-learn<1.10, so the resolver cannot avoid it on its own.
+    # Lift this cap once an sktime release supports scikit-learn 1.9.
+    "scikit-learn<1.9",
     "imbalanced-learn",
     "umap-learn",
     "sktime>=0.21.0",

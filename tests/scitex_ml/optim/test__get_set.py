@@ -13,7 +13,6 @@ import torch.optim as optim
 
 from scitex_ml.optim import RANGER_AVAILABLE, get, set
 
-
 # ---------------------------------------------------------------------------
 # Module-level fixtures
 # ---------------------------------------------------------------------------
@@ -131,6 +130,7 @@ def test_set_sgd_on_model_list_returns_optimizer(model_list):
 
 def test_set_model_with_no_params_raises_value_error():
     """set() on a model with zero learnable parameters raises ValueError."""
+
     # Arrange
     class NoParamModel(nn.Module):
         def forward(self, x):
@@ -208,14 +208,22 @@ def test_set_adam_emits_deprecation_warning(simple_model):
 
 
 def test_set_adam_emits_exactly_one_warning(simple_model):
-    """set(model, 'adam', lr) emits exactly one warning."""
+    """set(model, 'adam', lr) emits exactly one warning of its own.
+
+    Only warnings attributed to this call site count (set() warns with
+    stacklevel=2). Constructing the first Adam in a process imports
+    torch._dynamo, which walks sys.modules via inspect and can trip
+    unrelated third-party deprecation shims (e.g. figrecipe's moved
+    modules) - those are attributed to inspect.py, not to set().
+    """
     # Arrange
     # Act
     with warnings.catch_warnings(record=True) as w:
         warnings.simplefilter("always")
         set(simple_model, "adam", 0.001)
     # Assert
-    assert len(w) == 1
+    own = [x for x in w if x.filename == __file__]
+    assert len(own) == 1
 
 
 def test_set_adam_warning_message_mentions_deprecation(simple_model):
@@ -315,6 +323,7 @@ def test_get_via_package_import_is_same_object():
     """get imported directly from optim is the same object as the public API."""
     # Arrange
     from scitex_ml.optim import get as get_direct
+
     # Act
     # Assert
     assert get_direct is get
@@ -324,6 +333,7 @@ def test_set_via_package_import_is_same_object():
     """set imported directly from optim is the same object as the public API."""
     # Arrange
     from scitex_ml.optim import set as set_direct
+
     # Act
     # Assert
     assert set_direct is set
