@@ -22,6 +22,9 @@ import numpy as np
 import pandas as pd
 
 from scitex_plt.colors import to_hex
+import scitex_logging as slogging
+
+logger = slogging.getLogger(__name__)
 
 
 def _prepare_metrics_df(metrics_df):
@@ -30,12 +33,12 @@ def _prepare_metrics_df(metrics_df):
         try:
             metrics_df = metrics_df.set_index("i_global")
         except KeyError:
-            print(
+            logger.error(
                 "Error: The DataFrame does not contain a column named 'i_global'. "
                 "Please check the column names."
             )
         except Exception as e:
-            print(f"An unexpected error occurred: {e}")
+            logger.error(f"An unexpected error occurred: {e}")
     metrics_df["i_global"] = metrics_df.index  # alias
     return metrics_df
 

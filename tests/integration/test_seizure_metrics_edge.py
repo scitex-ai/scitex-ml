@@ -11,7 +11,7 @@ The edge under test
 (``scitex_ml/metrics/seizure/__init__.py``). scitex-seizure-metrics is an
 OPTIONAL dependency of scitex-ml, declared behind the ``[seizure]`` extra:
 
-    pip install scitex-ml[seizure]
+    pip install "scitex-ml[all]"
 
 When the standalone is installed, the shim aliases the full evaluation surface
 (``detection``, ``forecasting``, ``AlarmPolicy``, ``MetricsReport``, ...) so
@@ -54,7 +54,7 @@ present:  ``scitex_ml.metrics.seizure`` exposes ``__version__`` and aliases
           ``sys.modules`` and is identical to ``scitex_seizure_metrics.detection``.
 absent:   ``import scitex_ml.metrics.seizure`` raises ``ImportError`` whose
           message contains "scitex-seizure-metrics" and "pip install
-          scitex-ml[seizure]"; ``scitex_ml.metrics.calc_bacc`` and the
+          scitex-ml[all]"; ``scitex_ml.metrics.calc_bacc`` and the
           pure-numpy ``calc_seizure_window_prediction_metrics`` still import
           and run.
 """
@@ -229,7 +229,7 @@ def test_seizure_shim_raises_importerror_when_absent(seizure_metrics_absent):
 
 
 def test_seizure_shim_importerror_names_the_extra(seizure_metrics_absent):
-    """The degraded ImportError points the user at the [seizure] install extra."""
+    """The degraded ImportError points the user at the [all] install extra."""
     # Arrange
     _ = seizure_metrics_absent
     # Act
@@ -239,7 +239,7 @@ def test_seizure_shim_importerror_names_the_extra(seizure_metrics_absent):
     except ImportError as e:
         message = str(e)
     # Assert
-    assert "scitex-ml[seizure]" in message
+    assert "scitex-ml[all]" in message
 
 
 def test_seizure_shim_importerror_names_the_standalone(seizure_metrics_absent):

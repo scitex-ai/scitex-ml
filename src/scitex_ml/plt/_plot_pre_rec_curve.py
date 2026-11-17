@@ -19,6 +19,9 @@ import numpy as np
 from sklearn.metrics import average_precision_score, precision_recall_curve
 
 from scitex_plt.colors import get_colors_from_cmap
+import scitex_logging as slogging
+
+logger = slogging.getLogger(__name__)
 
 
 def _solve_intersection(f1, a, b):
@@ -98,7 +101,7 @@ def plot_pre_rec_curve(true_class, pred_proba, labels, ax=None, spath=None):
             )
             pre_rec_auc[i] = average_precision_score(true_class_i_onehot, pred_proba_i)
         except Exception as e:
-            print(e)
+            logger.warning(e)
             precision[i], recall[i], threshold[i], pre_rec_auc[i] = (
                 np.nan,
                 np.nan,
@@ -126,7 +129,7 @@ def plot_pre_rec_curve(true_class, pred_proba, labels, ax=None, spath=None):
                 )
             )
         except Exception:
-            print(
+            logger.warning(
                 f'\nPRE-REC-AUC for "{labels[i]}" was not defined and NaN-filled '
                 "for a calculation purpose (for the macro avg.)\n"
             )

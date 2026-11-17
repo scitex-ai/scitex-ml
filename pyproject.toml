@@ -51,7 +51,14 @@ dependencies = [
     "tqdm",
     "click>=8.0",
     # ML libraries
-    "scikit-learn",
+    # <1.9: scikit-learn 1.9's Pipeline sets `_parent_callback_ctx` on each
+    # step and deletes it after fit, but an sktime step's fit() calls
+    # skbase reset(), which has already deleted it -> AttributeError. That
+    # breaks every sklearn Pipeline with an sktime step (scitex_ml.sk's
+    # rocket_pipeline / GB_pipeline). sktime 1.3.0 still declares
+    # scikit-learn<1.10, so the resolver cannot avoid it on its own.
+    # Lift this cap once an sktime release supports scikit-learn 1.9.
+    "scikit-learn<1.9",
     "imbalanced-learn",
     "umap-learn",
     "sktime>=0.21.0",
@@ -65,32 +72,31 @@ dependencies = [
     "scitex-types>=0.1.3",
     "scitex-str>=0.1.11",
     "scitex-context>=0.1.0",
-    # try_import_optional helper for gating the `[heavy]` torch / optuna /
-    # catboost extras at import time.
+    # try_import_optional helper for gating the optional `[all]` torch /
+    # optuna / catboost stack at import time.
     "scitex-dev>=0.11.7",
 ]
 
 [project.optional-dependencies]
-# Heavy / optional GPU and ML deps — gated behind _AVAILABLE flags in code.
-heavy = [
+# The ONE runtime extra (scitex-dev skill general/01_ecosystem/
+# 26_the-only-extra-is-all.md): `pip install "scitex-ml[all]"`. Every
+# module that needs one of these guards its import and raises an
+# ImportError naming that install line (scitex_ml._optional).
+all = [
+    # --- deep learning: torch-backed loss / optim / training / ViT ----
     "torch",
     "torchvision",
     "torchaudio",
     "torchsummary",
     "pytorch_pretrained_vit",
+    # --- hyper-parameter search and gradient boosting ----------------
     "optuna",
     "psutil",
     "catboost",
-]
-mcp = [
+    # --- MCP server (`scitex-ml mcp start`) ---------------------------
     "fastmcp>=2.0.0",
-]
-seizure = [
-    # Pulls in the standalone scitex-seizure-metrics library so that
-    # `from scitex_ml.metrics import seizure` works and resolves to the
-    # full evaluation surface (detection, forecasting, AlarmPolicy,
-    # bridge, calibration, surrogates, plots, papers).
-    "scitex-seizure-metrics>=0.1.0",
+    # --- seizure metrics (`scitex_ml.metrics.seizure`) ----------------
+    "scitex-seizure-metrics[all]>=0.1.0",
 ]
 dev = [
     "pytest>=7.0.0",
@@ -131,11 +137,6 @@ docs = [
     # CPython 3.11/3.12/3.13. Pin scipy<1.17 for docs builds until the
     # upstream regression clears.
     "scipy<1.17",
-]
-all = [
-    "scitex-ml[heavy]",
-    "scitex-ml[mcp]",
-    "scitex-ml[seizure]",
 ]
 
 [project.urls]

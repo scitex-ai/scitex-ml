@@ -4,10 +4,15 @@
 # File: ./scitex_repo/src/scitex/ai/loss/MultiTaskLoss.py
 
 import numpy as np
-import torch
-import torch.nn as nn
-
 from scitex_repro import fix_seeds
+
+from scitex_ml._optional import missing_optional_dependency
+
+try:
+    import torch
+    import torch.nn as nn
+except ImportError as _exc:
+    raise missing_optional_dependency("scitex_ml.loss", _exc) from _exc
 
 
 class MultiTaskLoss(nn.Module):

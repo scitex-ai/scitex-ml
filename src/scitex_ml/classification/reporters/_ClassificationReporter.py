@@ -29,6 +29,10 @@ import numpy as np
 from ._BaseClassificationReporter import BaseClassificationReporter, ReporterConfig
 from ._SingleClassificationReporter import SingleTaskClassificationReporter
 from .reporter_utils.storage import MetricStorage
+import scitex_logging as slogging
+
+logger = slogging.getLogger(__name__)
+_console = slogging.getConsole(__name__, level=slogging.INFO)
 
 
 class ClassificationReporter(BaseClassificationReporter):
@@ -162,12 +166,12 @@ class ClassificationReporter(BaseClassificationReporter):
 
         # Print initialization info if verbose
         if self.verbose and self.tasks:
-            print(f"\n{'=' * 70}")
-            print(f"Classification Reporter Initialized")
-            print(f"{'=' * 70}")
-            print(f"Output Directory: {self.output_dir.absolute()}")
-            print(f"Tasks: {self.tasks}")
-            print(f"{'=' * 70}\n")
+            logger.info(f"\n{'=' * 70}")
+            logger.info(f"Classification Reporter Initialized")
+            logger.info(f"{'=' * 70}")
+            logger.info(f"Output Directory: {self.output_dir.absolute()}")
+            logger.info(f"Tasks: {self.tasks}")
+            logger.info(f"{'=' * 70}\n")
 
     def _create_single_reporter(self, task: str) -> None:
         """Create a single task reporter."""
@@ -559,17 +563,16 @@ def main(args):
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    print("=" * 60)
-    print("ClassificationReporter Test")
-    print("=" * 60)
-    print(f"Task type: {args.task_type}")
-    print(f"Output dir: {output_dir}")
-    print(f"Samples: {args.n_samples}, Folds: {args.n_folds}")
-    print()
+    _console.info("=" * 60)
+    _console.info("ClassificationReporter Test")
+    _console.info("=" * 60)
+    _console.info(f"Task type: {args.task_type}")
+    _console.info(f"Output dir: {output_dir}")
+    _console.info(f"Samples: {args.n_samples}, Folds: {args.n_folds}")
 
     if args.task_type == "binary":
         # Binary classification
-        print("Testing Binary Classification...")
+        _console.info("Testing Binary Classification...")
         X, y = make_classification(
             n_samples=args.n_samples,
             n_features=20,
@@ -600,11 +603,11 @@ def main(args):
 
         # Generate reports
         reporter.save_summary()
-        print(f"✓ Binary classification results saved to: {output_dir / 'binary'}")
+        _console.info(f"✓ Binary classification results saved to: {output_dir / 'binary'}")
 
     elif args.task_type == "multiclass":
         # Multiclass classification
-        print("Testing Multiclass Classification...")
+        _console.info("Testing Multiclass Classification...")
         X, y = make_classification(
             n_samples=args.n_samples,
             n_features=20,
@@ -634,13 +637,13 @@ def main(args):
             )
 
         reporter.save_summary()
-        print(
+        _console.info(
             f"✓ Multiclass classification results saved to: {output_dir / 'multiclass'}"
         )
 
     elif args.task_type == "multitask":
         # Multi-task classification
-        print("Testing Multi-task Classification...")
+        _console.info("Testing Multi-task Classification...")
 
         # Task 1: Binary
         X1, y1 = make_classification(
@@ -699,15 +702,14 @@ def main(args):
             )
 
         reporter.save_summary()
-        print(
+        _console.info(
             f"✓ Multi-task classification results saved to: {output_dir / 'multitask'}"
         )
 
-    print()
-    print("=" * 60)
-    print("Test Complete!")
-    print("=" * 60)
-    print(f"\nCreated files in: {output_dir}")
+    _console.info("=" * 60)
+    _console.info("Test Complete!")
+    _console.info("=" * 60)
+    _console.info(f"\nCreated files in: {output_dir}")
 
     # List all created files
     import subprocess
@@ -717,8 +719,8 @@ def main(args):
     )
     if result.stdout:
         files = sorted(result.stdout.strip().split("\n"))
-        print(f"\nTotal files created: {len(files)}")
-        print("\nFile tree:")
+        _console.info(f"\nTotal files created: {len(files)}")
+        _console.info("\nFile tree:")
         subprocess.run(["tree", str(output_dir)])
 
     return 0

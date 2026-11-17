@@ -26,6 +26,9 @@ from joblib import delayed as _delayed
 from sklearn.metrics.pairwise import distance_metrics as _distance_metrics
 from sklearn.metrics.pairwise import pairwise_distances as _pairwise_distances
 from sklearn.utils import check_random_state as _check_random_state
+import scitex_logging as slogging
+
+_console = slogging.getConsole(__name__, level=slogging.INFO)
 
 
 def calc_silhouette_score_slow(
@@ -481,15 +484,15 @@ if __name__ == "__main__":
     t0 = time.time()
     s = silhouette_score(X, y)
     t = time.time() - t0
-    print("Scikit silhouette (%fs): %f" % (t, s))
+    _console.info("Scikit silhouette (%fs): %f" % (t, s))
     t0 = time.time()
     s = calc_silhouette_score_block(X, y)
     t = time.time() - t0
-    print("Block silhouette (%fs): %f" % (t, s))
+    _console.info("Block silhouette (%fs): %f" % (t, s))
     t0 = time.time()
     s = calc_silhouette_score_block(X, y, n_jobs=2)
     t = time.time() - t0
-    print("Block silhouette parallel (%fs): %f" % (t, s))
+    _console.info("Block silhouette parallel (%fs): %f" % (t, s))
 
 
 # Backward compatibility aliases (deprecated, will be removed in future)

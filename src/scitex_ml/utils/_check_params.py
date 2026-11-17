@@ -3,6 +3,9 @@
 
 from pprint import pprint as _pprint
 from time import sleep
+import scitex_logging as slogging
+
+_console = slogging.getConsole(__name__, level=slogging.INFO)
 
 # def get_params(model, tgt_name=None, sleep_sec=2, show=False):
 
@@ -44,6 +47,6 @@ def check_params(model, tgt_name=None, show=False):
 
     if show:
         for k, v in out_dict.items():
-            print(f"\n{k}\n{v}")
+            _console.info(f"\n{k}\n{v}")
 
     return out_dict

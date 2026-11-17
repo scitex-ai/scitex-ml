@@ -8,7 +8,6 @@ Metrics calculation mixin for classification reporter.
 """
 
 
-from pprint import pprint
 from typing import Any, Dict, List, Optional
 
 import numpy as np
@@ -17,6 +16,7 @@ import pandas as pd
 from scitex_logging import getLogger
 
 from ._constants import FILENAME_PATTERNS, FOLD_DIR_PREFIX_PATTERN
+from pprint import pformat
 
 logger = getLogger(__name__)
 
@@ -43,7 +43,6 @@ class MetricsMixin:
 
         if verbose:
             if fold:
-                print()
                 logger.info(f"Calculating metrics for fold #{fold:02d}...")
             else:
                 logger.info("Calculating metrics...")
@@ -89,7 +88,7 @@ class MetricsMixin:
 
         if verbose:
             logger.info("Metrics calculated:")
-            pprint(metrics)
+            logger.info(pformat(metrics))
 
         self.fold_metrics[fold] = metrics.copy()
 

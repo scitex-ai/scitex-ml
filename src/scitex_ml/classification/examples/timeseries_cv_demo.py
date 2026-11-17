@@ -20,6 +20,9 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import balanced_accuracy_score
+import scitex_logging as slogging
+
+_console = slogging.getConsole(__name__, level=slogging.INFO)
 
 
 def generate_synthetic_timeseries(
@@ -85,9 +88,9 @@ def generate_synthetic_timeseries(
 
 def demo_basic_splitters():
     """Demonstrate basic time series CV splitters."""
-    print("=" * 70)
-    print("DEMO: Basic Time Series CV Splitters")
-    print("=" * 70)
+    _console.info("=" * 70)
+    _console.info("DEMO: Basic Time Series CV Splitters")
+    _console.info("=" * 70)
 
     from scitex_ml.classification import (
         BlockingTimeSeriesSplit,
@@ -98,43 +101,43 @@ def demo_basic_splitters():
     # Generate data
     X, y, timestamps, _ = generate_synthetic_timeseries(n_samples=500)
 
-    print("\n1. StratifiedTimeSeriesSplit (maintains class balance)")
-    print("-" * 40)
+    _console.info("\n1. StratifiedTimeSeriesSplit (maintains class balance)")
+    _console.info("-" * 40)
     tscv = StratifiedTimeSeriesSplit(n_splits=3, test_ratio=0.2)
 
     for fold, (train_idx, test_idx) in enumerate(tscv.split(X, y, timestamps)):
         train_classes, train_counts = np.unique(y[train_idx], return_counts=True)
         test_classes, test_counts = np.unique(y[test_idx], return_counts=True)
 
-        print(f"Fold {fold}:")
-        print(
+        _console.info(f"Fold {fold}:")
+        _console.info(
             f"  Train: {len(train_idx)} samples - Class dist: {dict(zip(train_classes, train_counts))}"
         )
-        print(
+        _console.info(
             f"  Test:  {len(test_idx)} samples - Class dist: {dict(zip(test_classes, test_counts))}"
         )
-        print(
+        _console.info(
             f"  Time range - Train: [{timestamps[train_idx].min():.1f}, {timestamps[train_idx].max():.1f}]"
         )
-        print(
+        _console.info(
             f"  Time range - Test:  [{timestamps[test_idx].min():.1f}, {timestamps[test_idx].max():.1f}]"
         )
 
-    print("\n2. SlidingWindowSplit (fixed-size windows)")
-    print("-" * 40)
+    _console.info("\n2. SlidingWindowSplit (fixed-size windows)")
+    _console.info("-" * 40)
     swcv = SlidingWindowSplit(window_size=200, step_size=50, test_size=50)
 
     for fold, (train_idx, test_idx) in enumerate(swcv.split(X, y, timestamps)):
         if fold >= 3:  # Only show first 3 folds
-            print(f"... ({swcv.get_n_splits(X) - 3} more folds)")
+            _console.info(f"... ({swcv.get_n_splits(X) - 3} more folds)")
             break
-        print(f"Fold {fold}:")
-        print(f"  Train: {len(train_idx)} samples")
-        print(f"  Test:  {len(test_idx)} samples")
+        _console.info(f"Fold {fold}:")
+        _console.info(f"  Train: {len(train_idx)} samples")
+        _console.info(f"  Test:  {len(test_idx)} samples")
 
     # Generate data with groups
-    print("\n3. BlockingTimeSeriesSplit (for multiple time series)")
-    print("-" * 40)
+    _console.info("\n3. BlockingTimeSeriesSplit (for multiple time series)")
+    _console.info("-" * 40)
     X_grouped, y_grouped, timestamps_grouped, groups = generate_synthetic_timeseries(
         n_samples=500, n_groups=5
     )
@@ -147,16 +150,16 @@ def demo_basic_splitters():
         train_groups = np.unique(groups[train_idx])
         test_groups = np.unique(groups[test_idx])
 
-        print(f"Fold {fold}:")
-        print(f"  Train: {len(train_idx)} samples from groups {train_groups}")
-        print(f"  Test:  {len(test_idx)} samples from groups {test_groups}")
+        _console.info(f"Fold {fold}:")
+        _console.info(f"  Train: {len(train_idx)} samples from groups {train_groups}")
+        _console.info(f"  Test:  {len(test_idx)} samples from groups {test_groups}")
 
 
 def demo_coordinator():
     """Demonstrate the intelligent TimeSeriesCVCoordinator."""
-    print("\n" + "=" * 70)
-    print("DEMO: TimeSeriesCVCoordinator (Automatic Strategy Selection)")
-    print("=" * 70)
+    _console.info("\n" + "=" * 70)
+    _console.info("DEMO: TimeSeriesCVCoordinator (Automatic Strategy Selection)")
+    _console.info("=" * 70)
 
     from scitex_ml.classification import TimeSeriesCVCoordinator
 
@@ -168,8 +171,8 @@ def demo_coordinator():
     ]
 
     for scenario_name, n_samples, n_features, n_groups in scenarios:
-        print(f"\n{scenario_name}")
-        print("-" * 40)
+        _console.info(f"\n{scenario_name}")
+        _console.info("-" * 40)
 
         # Generate appropriate data
         if scenario_name == "Imbalanced classes":
@@ -187,31 +190,31 @@ def demo_coordinator():
         # Analyze data
         metadata = coordinator.analyze_data(X, y, timestamps, groups)
 
-        print(f"\nData characteristics:")
-        print(f"  Samples: {metadata.n_samples}")
-        print(f"  Features: {metadata.n_features}")
-        print(f"  Classes: {metadata.n_classes}")
-        print(f"  Has groups: {metadata.has_groups}")
-        print(f"  Is balanced: {metadata.is_balanced}")
+        _console.info(f"\nData characteristics:")
+        _console.info(f"  Samples: {metadata.n_samples}")
+        _console.info(f"  Features: {metadata.n_features}")
+        _console.info(f"  Classes: {metadata.n_classes}")
+        _console.info(f"  Has groups: {metadata.has_groups}")
+        _console.info(f"  Is balanced: {metadata.is_balanced}")
 
         # Generate splits
-        print(f"\nCV splits:")
+        _console.info(f"\nCV splits:")
         for fold, (train_idx, test_idx) in enumerate(
             coordinator.split(X, y, timestamps, groups)
         ):
-            print(f"  Fold {fold}: Train={len(train_idx)}, Test={len(test_idx)}")
+            _console.info(f"  Fold {fold}: Train={len(train_idx)}, Test={len(test_idx)}")
 
             # Only show first fold for large datasets
             if n_samples > 5000:
-                print("  (skipping remaining folds for large dataset)")
+                _console.info("  (skipping remaining folds for large dataset)")
                 break
 
 
 def demo_with_classifier():
     """Demonstrate integration with actual classification."""
-    print("\n" + "=" * 70)
-    print("DEMO: Integration with Classification")
-    print("=" * 70)
+    _console.info("\n" + "=" * 70)
+    _console.info("DEMO: Integration with Classification")
+    _console.info("=" * 70)
 
     from scitex_ml.classification import (
         SingleTaskClassificationReporter,
@@ -238,7 +241,7 @@ def demo_with_classifier():
     # Train and evaluate
     scores = []
 
-    print("\nRunning cross-validation with LogisticRegression...")
+    _console.info("\nRunning cross-validation with LogisticRegression...")
     for fold, (train_idx, test_idx) in enumerate(coordinator.split(X, y, timestamps)):
         # Train model
         model = LogisticRegression(random_state=42, max_iter=1000)
@@ -252,7 +255,7 @@ def demo_with_classifier():
         ba = balanced_accuracy_score(y[test_idx], y_pred)
         scores.append(ba)
 
-        print(f"  Fold {fold}: BA = {ba:.3f}")
+        _console.info(f"  Fold {fold}: BA = {ba:.3f}")
 
         # Save metrics (if reporter is available)
         try:
@@ -262,14 +265,14 @@ def demo_with_classifier():
         except Exception as e:
             pass  # Reporter may not be fully configured
 
-    print(f"\nOverall performance: {np.mean(scores):.3f} ± {np.std(scores):.3f}")
+    _console.info(f"\nOverall performance: {np.mean(scores):.3f} ± {np.std(scores):.3f}")
 
 
 def demo_train_val_test_split():
     """Demonstrate train/validation/test splitting."""
-    print("\n" + "=" * 70)
-    print("DEMO: Train/Validation/Test Splitting")
-    print("=" * 70)
+    _console.info("\n" + "=" * 70)
+    _console.info("DEMO: Train/Validation/Test Splitting")
+    _console.info("=" * 70)
 
     from scitex_ml.classification import TimeSeriesCVCoordinator
 
@@ -281,18 +284,18 @@ def demo_train_val_test_split():
         strategy="stratified", n_splits=3, test_ratio=0.2, val_ratio=0.1, verbose=False
     )
 
-    print("\nGenerating train/val/test splits...")
-    print("-" * 40)
+    _console.info("\nGenerating train/val/test splits...")
+    _console.info("-" * 40)
 
     for fold, (train_idx, val_idx, test_idx) in enumerate(
         coordinator.split_with_validation(X, y, timestamps)
     ):
-        print(f"Fold {fold}:")
-        print(
+        _console.info(f"Fold {fold}:")
+        _console.info(
             f"  Train: {len(train_idx)} samples ({len(train_idx) / len(X) * 100:.1f}%)"
         )
-        print(f"  Val:   {len(val_idx)} samples ({len(val_idx) / len(X) * 100:.1f}%)")
-        print(f"  Test:  {len(test_idx)} samples ({len(test_idx) / len(X) * 100:.1f}%)")
+        _console.info(f"  Val:   {len(val_idx)} samples ({len(val_idx) / len(X) * 100:.1f}%)")
+        _console.info(f"  Test:  {len(test_idx)} samples ({len(test_idx) / len(X) * 100:.1f}%)")
 
         # Check temporal ordering
         train_max_time = timestamps[train_idx].max()
@@ -302,7 +305,7 @@ def demo_train_val_test_split():
             timestamps[test_idx].min() if len(test_idx) > 0 else float("inf")
         )
 
-        print(
+        _console.info(
             f"  Temporal check: Train ends at {train_max_time:.1f}, "
             f"Val starts at {val_min_time:.1f}, Test starts at {test_min_time:.1f}"
         )
@@ -310,14 +313,14 @@ def demo_train_val_test_split():
         # Verify no overlap
         assert train_max_time <= val_min_time, "Train/Val overlap detected!"
         assert val_max_time <= test_min_time, "Val/Test overlap detected!"
-        print("  ✓ No temporal overlap detected")
+        _console.info("  ✓ No temporal overlap detected")
 
 
 def visualize_cv_splits():
     """Visualize the different CV strategies."""
-    print("\n" + "=" * 70)
-    print("VISUALIZATION: CV Split Strategies")
-    print("=" * 70)
+    _console.info("\n" + "=" * 70)
+    _console.info("VISUALIZATION: CV Split Strategies")
+    _console.info("=" * 70)
 
     from scitex_ml.classification import (
         SlidingWindowSplit,
@@ -389,7 +392,7 @@ def visualize_cv_splits():
     # Save figure
     output_path = "./ts_cv_splits_visualization.png"
     plt.savefig(output_path, dpi=100, bbox_inches="tight")
-    print(f"\nVisualization saved to: {output_path}")
+    _console.info(f"\nVisualization saved to: {output_path}")
     plt.close()
 
 
@@ -406,11 +409,11 @@ def main():
     try:
         visualize_cv_splits()
     except Exception as e:
-        print(f"\nVisualization skipped: {e}")
+        _console.info(f"\nVisualization skipped: {e}")
 
-    print("\n" + "=" * 70)
-    print("All demonstrations completed successfully!")
-    print("=" * 70)
+    _console.info("\n" + "=" * 70)
+    _console.info("All demonstrations completed successfully!")
+    _console.info("=" * 70)
 
 
 if __name__ == "__main__":

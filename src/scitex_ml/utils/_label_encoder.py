@@ -2,12 +2,22 @@
 # -*- coding: utf-8 -*-
 # Time-stamp: "2024-03-02 09:52:28 (ywatanabe)"
 
-from warnings import warn
+import sys
 
 import numpy as np
 import pandas as pd
-import torch
+import scitex_logging as slogging
 from sklearn.preprocessing import LabelEncoder as SklearnLabelEncoder
+
+
+def _is_torch_tensor(obj) -> bool:
+    """True when *obj* is a torch.Tensor.
+
+    torch is optional. A tensor can only exist once torch has been imported,
+    so consult the already-loaded module instead of importing it here.
+    """
+    torch = sys.modules.get("torch")
+    return torch is not None and isinstance(obj, torch.Tensor)
 
 
 class LabelEncoder(SklearnLabelEncoder):
@@ -49,9 +59,12 @@ class LabelEncoder(SklearnLabelEncoder):
         if isinstance(y, (list, tuple)):
             y = np.array(y)
         elif isinstance(y, pd.Series):
-            y = y.values
-        elif isinstance(y, torch.Tensor):
-            y = y.numpy()
+            # `.values` returns a pandas ExtensionArray (e.g. StringArray
+            # under pandas >= 3) for extension dtypes; `.to_numpy()` always
+            # returns a numpy ndarray, which is what this method promises.
+            y = y.to_numpy()
+        elif _is_torch_tensor(y):
+            y = y.detach().cpu().numpy()
         return y
 
     def fit(self, y):
@@ -119,16 +132,17 @@ class LabelEncoder(SklearnLabelEncoder):
 
 if __name__ == "__main__":
     # Example usage of IncrementalLabelEncoder
+    _console = slogging.getConsole(__name__)
     le = LabelEncoder()
     le.fit(["A", "B"])
-    print(le.classes_)
+    _console.info(f"classes: {le.classes_}")
 
     le.fit(["C"])
-    print(le.classes_)
+    _console.info(f"classes: {le.classes_}")
 
     le.inverse_transform([0, 1, 2])
 
     le.fit(["X"])
-    print(le.classes_)
+    _console.info(f"classes: {le.classes_}")
 
     le.inverse_transform([3])

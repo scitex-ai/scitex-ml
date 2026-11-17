@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 """Optimizer utilities using external packages."""
 
-import torch.optim as optim
-
 from scitex_dev import try_import_optional
+
+from scitex_ml._optional import missing_optional_dependency
+
+try:
+    import torch.optim as optim
+except ImportError as _exc:
+    raise missing_optional_dependency("scitex_ml.optim", _exc) from _exc
 
 # Use pytorch-optimizer package for Ranger when available; fall back
 # to the vendored Ranger_Deep_Learning_Optimizer copy if not installed.

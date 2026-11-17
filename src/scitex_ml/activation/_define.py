@@ -1,4 +1,9 @@
-import torch.nn as nn
+from scitex_ml._optional import missing_optional_dependency
+
+try:
+    import torch.nn as nn
+except ImportError as _exc:
+    raise missing_optional_dependency("scitex_ml.activation", _exc) from _exc
 
 
 def define(act_str):

@@ -2,9 +2,9 @@
 
 Implementation lives in the standalone ``scitex-seizure-metrics`` package
 (PyPI: ``scitex-seizure-metrics``, import: ``scitex_seizure_metrics``).
-Install via the ``[seizure]`` extra:
+Install it with the ``[all]`` extra:
 
-    pip install scitex-ml[seizure]
+    pip install "scitex-ml[all]"
 
 This shim makes ``scitex_ml.metrics.seizure.detection`` and friends
 resolve to the scitex_seizure_metrics submodules so users don't have
@@ -18,31 +18,32 @@ from __future__ import annotations
 
 import sys
 
+from scitex_ml._optional import missing_optional_dependency as _missing_optional
+
 try:
     import scitex_seizure_metrics as _impl
-except ImportError as e:
-    raise ImportError(
-        "scitex_ml.metrics.seizure requires the scitex-seizure-metrics "
-        "standalone package. Install with: pip install scitex-ml[seizure]"
-    ) from e
 
-# Mirror the public surface of scitex_seizure_metrics — submodules,
-# data classes, and the version string. Anything added there shows up
-# here automatically because we alias module objects via sys.modules.
-from scitex_seizure_metrics import (  # noqa: E402,F401
-    AlarmPolicy,
-    MetricsReport,
-    __version__,
-    adapters,
-    bridge,
-    calibration,
-    detection,
-    forecasting,
-    papers,
-    plots,
-    report,
-    surrogates,
-)
+    # Mirror the public surface of scitex_seizure_metrics — submodules,
+    # data classes, and the version string. Anything added there shows up
+    # here automatically because we alias module objects via sys.modules.
+    from scitex_seizure_metrics import (  # noqa: F401
+        AlarmPolicy,
+        MetricsReport,
+        __version__,
+        adapters,
+        bridge,
+        calibration,
+        detection,
+        forecasting,
+        papers,
+        plots,
+        report,
+        surrogates,
+    )
+except ImportError as _exc:
+    raise _missing_optional(
+        "scitex_ml.metrics.seizure", _exc, distribution="scitex-seizure-metrics"
+    ) from _exc
 
 # Make `scitex_ml.metrics.seizure.detection` resolve to the *same*
 # module object as `scitex_seizure_metrics.detection`. Same for the

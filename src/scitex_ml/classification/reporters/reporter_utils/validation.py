@@ -11,6 +11,9 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 import pandas as pd
+import scitex_logging as slogging
+
+_console = slogging.getConsole(__name__, level=slogging.INFO)
 
 
 class MetricValidator:
@@ -235,36 +238,36 @@ class MetricValidator:
         Print validation summary to console.
         """
         if not self.validation_results:
-            print("No validation results available. Run validate_all_folds first.")
+            _console.info("No validation results available. Run validate_all_folds first.")
             return
 
         report = self.validation_results
 
-        print("\n" + "=" * 60)
-        print("VALIDATION REPORT")
-        print("=" * 60)
+        _console.info("\n" + "=" * 60)
+        _console.info("VALIDATION REPORT")
+        _console.info("=" * 60)
 
         status = "✓ COMPLETE" if report["complete"] else "✗ INCOMPLETE"
-        print(f"Status: {status}")
-        print(f"Folds: {report['n_folds']}")
-        print(f"Required Metrics: {', '.join(report['required_metrics'])}")
+        _console.info(f"Status: {status}")
+        _console.info(f"Folds: {report['n_folds']}")
+        _console.info(f"Required Metrics: {', '.join(report['required_metrics'])}")
 
         if report["summary"]["missing_by_metric"]:
-            print("\nMissing Metrics:")
+            _console.info("\nMissing Metrics:")
             for metric, folds in report["summary"]["missing_by_metric"].items():
-                print(f"  - {metric}: missing in folds {folds}")
+                _console.info(f"  - {metric}: missing in folds {folds}")
 
         if report["summary"]["invalid_count"] > 0:
-            print(
+            _console.info(
                 f"\nInvalid Metrics: {report['summary']['invalid_count']} issues found"
             )
 
         if not report["summary"]["consistency"]["consistent"]:
-            print("\nConsistency Issues:")
+            _console.info("\nConsistency Issues:")
             for issue in report["summary"]["consistency"]["issues"]:
-                print(f"  - {issue}")
+                _console.info(f"  - {issue}")
 
-        print("=" * 60 + "\n")
+        _console.info("=" * 60 + "\n")
 
 
 # Standalone validation functions

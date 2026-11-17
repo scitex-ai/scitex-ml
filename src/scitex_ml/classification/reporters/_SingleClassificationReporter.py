@@ -24,7 +24,6 @@ The main class inherits from multiple mixins for modular functionality:
 
 
 from pathlib import Path
-from pprint import pprint
 from typing import Any, Dict, List, Optional, Union
 
 from scitex_logging import getLogger
@@ -40,6 +39,7 @@ from ._mixins import (
 )
 from .reporter_utils._Plotter import Plotter
 from .reporter_utils.storage import MetricStorage
+from pprint import pformat
 
 logger = getLogger(__name__)
 
@@ -202,9 +202,8 @@ class SingleTaskClassificationReporter(
         cv_summary_dir.mkdir(parents=True, exist_ok=True)
 
         if verbose:
-            print()
             logger.info("Summary:")
-            pprint(summary)
+            logger.info(pformat(summary))
 
         return self.storage.save(summary, "cv_summary/summary.json")
 

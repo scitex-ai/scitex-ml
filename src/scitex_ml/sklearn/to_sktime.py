@@ -4,9 +4,20 @@
 
 # import warnings
 
+import sys
+
 import numpy as np
 import pandas as pd
-import torch
+
+
+def _is_torch_tensor(obj) -> bool:
+    """True when *obj* is a torch.Tensor.
+
+    torch is optional. A tensor can only exist once torch has been imported,
+    so consult the already-loaded module instead of importing it here.
+    """
+    torch = sys.modules.get("torch")
+    return torch is not None and torch.is_tensor(obj)
 
 
 def to_sktime_df(X):
@@ -37,7 +48,7 @@ def to_sktime_df(X):
     """
     if isinstance(X, pd.DataFrame):
         return X
-    elif torch.is_tensor(X):
+    elif _is_torch_tensor(X):
         X = X.detach().numpy()
     elif not isinstance(X, np.ndarray):
         raise ValueError(

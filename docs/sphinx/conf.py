@@ -66,7 +66,7 @@ autodoc_default_options = {
     "exclude-members": "__weakref__",
 }
 
-# Heavy / optional deps live in [heavy] extra — mock them so RTD builds
+# Heavy / optional deps live in the [all] extra — mock them so RTD builds
 # without installing torch / catboost / optuna / pytorch_pretrained_vit.
 autodoc_mock_imports = [
     "torch",

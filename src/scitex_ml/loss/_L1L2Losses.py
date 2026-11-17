@@ -3,7 +3,12 @@
 # Time-stamp: "2024-11-07 18:53:03 (ywatanabe)"
 # File: ./scitex_repo/src/scitex/ai/loss/_L1L2Losses.py
 
-import torch
+from scitex_ml._optional import missing_optional_dependency
+
+try:
+    import torch
+except ImportError as _exc:
+    raise missing_optional_dependency("scitex_ml.loss", _exc) from _exc
 
 
 def l1(model, lambda_l1=0.01):
