@@ -100,7 +100,8 @@ all = [
 ]
 dev = [
     "pytest>=7.0.0",
-    "pytest-cov>=4.0.0",
+    "coverage[toml]>=7.13.0",
+    "pytest-cov>=7.0.0",
     "pytest-xdist>=3.0.0",
     "pytest-timeout",
     "ruff",
@@ -175,6 +176,7 @@ addopts = "-v --tb=short"
 # Without this, demo / nbconvert / subprocess.run child interpreters
 # silently drop coverage data.
 parallel = true
+patch = ["subprocess"]
 source = ["scitex_ml"]
 concurrency = ["multiprocessing", "thread"]
 
